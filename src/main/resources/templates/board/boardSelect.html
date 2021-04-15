@@ -26,6 +26,7 @@
             margin-top: 5px;
         }
     </style>
+
 </head>
 <div layout:fragment="content" class="content">
 
@@ -102,6 +103,22 @@
         <a th:href="@{/board/trainerBoard/save(member_id = ${session.loginUser})}" th:if="${session.loginUser != null}" class="custom_btn">글쓰기</a>
     </div>
 
+
+    <script th:inline="javascript">
+
+        var searchForm = $('#searchForm');
+
+        function search() {
+            searchForm.submit();
+        }
+
+        function Sclear() {
+            searchForm.empty().submit();
+
+        }
+
+
+    </script>
 </div>
 
 

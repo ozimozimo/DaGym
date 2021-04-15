@@ -20,4 +20,5 @@ public interface BoardRepository extends JpaRepository<Board, Long>,
     int updateView(Long hb_num);
 
 
+
 }

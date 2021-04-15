@@ -60,6 +60,10 @@ public interface CommentsRepository extends JpaRepository<Comment, Long> , Query
     @Query("select c from Comment c where c.parentNum=:id order by c.regDate asc")
     List<Comment> findPastAll(Long id);
 
+    @Modifying
+    @Query("delete from Comment c where c.parentNum=:id")
+    void deleteByCmId(Long id);
+
 
 //    @Modifying
 //    @Query("update Comment c set c.like_check = c.like_check-1 where c.id=:comId")

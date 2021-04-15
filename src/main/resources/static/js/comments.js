@@ -62,12 +62,14 @@ function CDelete() {
 function ReCommentSave() {
     let form = $(this).parent();
 
+    let re_parentNum = $("#re_parentNum").val();
     let re_user_id = form.children("#re_user_id").val();
     let re_parentCoNum = form.children("#re_parentCoNum").val();
     let re_comments = form.children(".comment_write_area").children().val();
 
     // $('re_comments').click(function () {
     //     if ($('#re_user_id') == null) {
+
     //         alert("로그인을 해주세요");
     //         location.href = "/member/login";
     //     }
@@ -83,6 +85,7 @@ function ReCommentSave() {
         },
         save: function () {
             var data = {
+                re_parentNum : re_parentNum,
                 re_user_id: re_user_id,
                 re_parentCoNum: re_parentCoNum,
                 re_comments: re_comments,
