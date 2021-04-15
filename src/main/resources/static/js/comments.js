@@ -1,4 +1,8 @@
 function CommentSave() {
+    if($('#comments').val().length==0){
+        alert('댓글을 입력하세요');
+        return false;
+    }
     var CommentSave = {
         init: function () {
             var _this = this;
@@ -34,6 +38,9 @@ function CommentSave() {
 }
 
 function CDelete() {
+    if(!confirm('댓글을 삭제 하시겠습니까?')){
+        return false;
+    }
     var main3 = {
         init: function () {
             var _this = this;
@@ -66,7 +73,10 @@ function ReCommentSave() {
     let re_user_id = form.children("#re_user_id").val();
     let re_parentCoNum = form.children("#re_parentCoNum").val();
     let re_comments = form.children(".comment_write_area").children().val();
-
+    if(re_comments.length==0){
+        alert('답글을 입력하세요');
+        return false;
+    }
     // $('re_comments').click(function () {
     //     if ($('#re_user_id') == null) {
 
@@ -115,7 +125,7 @@ function ReCommentSave() {
     };
     main.init();
 }
-
+// 추천
 function recommend() {
 
     var id = $('#recommendId').val().length;
@@ -151,7 +161,11 @@ function recommend() {
     }
 }
 
+//
 function RCDelete() {
+    if(!confirm('답글을 삭제하시겠습니까?')){
+        return false;
+    }
     var Rcdel = {
         init: function () {
             var _this = this;
@@ -166,7 +180,7 @@ function RCDelete() {
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8'
             }).done(function () {
-                alert('댓글이 삭제되었습니다.')
+                alert('답글이 삭제되었습니다.')
                 location.reload();
                 // window.location.href = "/";
             }).fail(function (error) {

@@ -35,31 +35,11 @@
                 </div>
             </form>
             <button type="button" class="btn btn-dark listBtn">이전</button>
-            <button type="button" class="btn btn-primary" id="btn-update" onclick="update()">수정 완료</button>
-            <button type="button" class="btn btn-danger" id="btn-delete" onclick="Bdelete()">글삭제</button>
+            <button type="button" class="btn btn-primary" id="btn-update">수정</button>
+            <button type="button" class="btn btn-danger" id="btn-delete">삭제</button>
 
         </div>
     </div>
-    <script th:inline="javascript">
-        $(".listBtn").click(function () {
-
-            var actionForm = $('#actionForm');
-
-            var page = $('#page');
-            var type = $('#type');
-            var keyword = $('#keyword');
-
-            actionForm.empty();
-
-            actionForm.append(page);
-            actionForm.append(type);
-            actionForm.append(keyword);
-            actionForm
-                    .attr("action", "/board")
-                    .attr("method", "get")
-            actionForm.submit();
-        });
-    </script>
 </div>
 
 

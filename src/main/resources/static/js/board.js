@@ -1,4 +1,11 @@
 function save() {
+    if($('#title').val().length==0){
+        alert('제목을 입력하세요');
+        return false;
+    } else if($('#content').val().length==0){
+        alert('내용을 입력하세요');
+        return false;
+    }
     var main = {
         init: function () {
             var _this = this;
@@ -31,6 +38,16 @@ function save() {
 }
 
 function update() {
+    if($('#title').val().length==0){
+        alert('제목을 입력하세요');
+        return false;
+    } else if($('#content').val().length==0){
+        alert('내용을 입력하세요');
+        return false;
+    }
+    if(!confirm('수정하시겠습니까?')){
+        return false;
+    }
     var main2 = {
         init: function () {
             var _this = this;
@@ -62,6 +79,9 @@ function update() {
 
 
 function Bdelete() {
+    if(!confirm('삭제하시겠습니까?')){
+        return false;
+    }
     var main3 = {
         init: function () {
             var _this = this;
@@ -86,3 +106,29 @@ function Bdelete() {
     }
     main3.init();
 }
+
+function isData(){
+    var actionForm = $('#actionForm');
+
+    var page = $('#page');
+    var type = $('#type');
+    var keyword = $('#keyword');
+
+    actionForm.empty();
+
+    actionForm.append(page);
+    actionForm.append(type);
+    actionForm.append(keyword);
+    actionForm
+        .attr("action", "/board")
+        .attr("method", "get")
+    actionForm.submit();
+}
+
+$(function (){
+    $('#btn-update').on('click',update);
+    $('#btn-delete').on('click',Bdelete);
+    $(".listBtn").on('click',isData);
+    $("#btn-save").on('click',save);
+})
+
