@@ -6,37 +6,48 @@
 <head>
     <title>inbodyResult</title>
     <script th:src="@{/js/inBody.js}"></script>
+    <!--    차트 관련-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <!--    날짜 데이터 포맷 관련 -->
+    <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
+    ></script>
+    <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/ko.js"
+    ></script>
+    <!--    -->
     <script th:src="@{/js/chart.js}"></script>
     <link rel="stylesheet" th:href="@{/js/chart.js}">
 </head>
 <div layout:fragment="content">
     <div>
-        <table border="1">
-        <tr>
-            <th>인바디번호</th>
-            <th>인바디아이디</th>
-            <th>체중</th>
-            <th>기초대사량</th>
-            <th>체지방률</th>
-            <th>골격근량</th>
-            <th>등록날짜</th>
-        </tr>
-        <tr th:each="inbody : ${inBody}">
-            <td th:text="${inbody.id}"></td>
-            <td th:text="${inbody.inBody_user_id}"></td>
-            <td th:text="${inbody.inBody_weight}"></td>
-            <td th:text="${inbody.inBody_rmr}"></td>
-            <td th:text="${inbody.inBody_bfp}"></td>
-            <td th:text="${inbody.inBody_smm}"></td>
-            <td th:text="${inbody.inBody_date}"></td>
-        </tr>
+        <table border="1" style="display: none">
+            <tr>
+                <th>인바디번호</th>
+                <th>인바디아이디</th>
+                <th>체중</th>
+                <th>기초대사량</th>
+                <th>체지방률</th>
+                <th>골격근량</th>
+                <th>등록날짜</th>
+            </tr>
+            <tr th:each="inbody : ${inBody}">
+                <td th:text="${inbody.id}"></td>
+                <td th:text="${inbody.inBody_user_id}"></td>
+                <td th:text="${inbody.inBody_weight}" class="inBody_weight"></td>
+                <td th:text="${inbody.inBody_rmr}" class="inBody_rmr"></td>
+                <td th:text="${inbody.inBody_bfp}" class="inBody_bfp"></td>
+                <td th:text="${inbody.inBody_smm}" class="inBody_smm"></td>
+                <td th:text="${inbody.inBody_date}" class="inBody_date"></td>
+            </tr>
         </table>
     </div>
-    <canvas id="weight" width="300px" height="200px"></canvas>
-    <canvas id="rmr" width="300px" height="200px"></canvas>
-    <canvas id="bfp" width="300px" height="200px"></canvas>
-    <canvas id="smm" width="300px" height="200px"></canvas>
+    <canvas id="weight" width="500px" height="300px"></canvas>
+    <canvas id="rmr" width="500px" height="300px"></canvas>
+    <canvas id="bfp" width="500px" height="300px"></canvas>
+    <canvas id="smm" width="500px" height="300px"></canvas>
 
     <script th:src="@{/js/inBodyResult.js}"></script>
 </div>
