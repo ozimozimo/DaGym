@@ -3,17 +3,44 @@ let rmr = document.getElementById("rmr").getContext("2d");
 let bfp = document.getElementById("bfp").getContext("2d");
 let smm = document.getElementById("smm").getContext("2d");
 
-//라벨 값들
-let label = ["", "월", "화", "수", "목", "금", "토", "일", ""];
+// 랜덤 값
+var randomScalingFactor = function () {
+    return ("#" + Math.round(Math.random() * 0xffffff).toString(16));
+}
 
 // 체중
-let weightData = [""];
+let weightData = [];
 // 기초 대사량(Resting Metabolic Rate)
-let rmrData = [""];
+let rmrData = [];
 // 체지방률(Body fat percentage)
-let bfpData = [""];
+let bfpData = [];
 // 골격근량(Skeletal muscle mass)
-let smmData = [""];
+let smmData = [];
+
+let lenth;
+let label = [];
+$(".inBody_weight").each(function () {
+    let text = $(this).text();
+    lenth = weightData.push(text);
+});
+$(".inBody_rmr").each(function () {
+    let text = $(this).text();
+    rmrData.push(text);
+});
+$(".inBody_bfp").each(function () {
+    let text = $(this).text();
+    bfpData.push(text);
+});
+$(".inBody_smm").each(function () {
+    let text = $(this).text();
+    smmData.push(text);
+});
+$(".inBody_date").each(function () {
+    let text = $(this).text();
+    text = moment(text).format("YYYY년 M월 D일-HH:mm");
+    text = text.split("-");
+    label.push(text);
+});
 
 createChart(weight, weightData);
 createChart(rmr, rmrData);
@@ -55,14 +82,7 @@ function createChart(name, data) {
                     backgroundColor: ["rgba(0, 0, 0, 0)"],
                     // 선 색깔
                     borderColor: [
-                        "rgb(246,0,0)",
-                        "rgba(246, 0, 0, 1)",
-                        "rgba(246, 0, 0, 1)",
-                        "rgba(246, 0, 0, 1)",
-                        "rgba(246, 0, 0, 1)",
-                        "rgba(246, 0, 0, 1)",
-                        "rgba(246, 0, 0, 1)",
-                        "rgba(246, 0, 0, 1)",
+                        randomScalingFactor(),
                     ],
                     // 선 굵기
                     borderWidth: 3,
@@ -73,6 +93,7 @@ function createChart(name, data) {
         },
 
         options: {
+
             // 레이아웃
             //   layout: {
             //     padding: {
@@ -87,7 +108,7 @@ function createChart(name, data) {
             title: {
                 display: true,
                 text: chartName(name),
-                fontSize: 20,
+                fontSize: 13,
                 // fontFamily: "",
                 // fontColor: "red",
             },
@@ -120,7 +141,7 @@ function createChart(name, data) {
                         },
                         ticks: {
                             //   beginAtZero: true,
-                            fontSize: 20,
+                            fontSize: 9,
                         },
                     },
                 ],
@@ -162,20 +183,3 @@ function createChart(name, data) {
     });
 }
 
-// function importData() {
-//
-//     $.ajax({
-//         url: '/inBody/register/' + id,
-//         type: 'POST',
-//         data: data,
-//         dataType: "json",
-//         contentType: 'application/json; charset=utf-8',
-//         success: function (data) {
-//
-//             },
-//         error: function () {
-//             alert("인바디 등록에 실패하셨습니다");
-//             JSON.stringify(data)
-//         }
-//     })
-// }

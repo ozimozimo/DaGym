@@ -30,6 +30,7 @@ function inBody() {
             console.log("골격근량=" + data.inBody_smm);
             console.log("날짜는=" + data.inBody_date);
             location.href = "/inBody/inBodyResult?inBodyId="+data.inBody_user_id;
+
         },
         error: function () {
             alert("인바디 등록에 실패하셨씁니다");

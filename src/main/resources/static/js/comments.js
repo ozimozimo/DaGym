@@ -174,6 +174,7 @@ function RCDelete() {
     Rcdel.init();
 }
 
+// 댓글 좋아요 싫어요
 function likeUnlike() {
     var like_button = $(this).parent().parent();
     var boardLike = like_button.children(".boardLike").val();
@@ -233,138 +234,75 @@ function likeUnlike() {
     })
 }
 
+// 답글 토글
 function buttonToggle() {
     $(this).parent().parent().children('#reCmt').toggleClass("on off");
 }
 
-function findLikeAll() {
+// 답글 더보기
+function viewMore() {
+    $('.load').click(function (e) {
+        let comment = $(this).siblings();
+        // console.log(comment);
+        preventNumber+= start;
+        console.log("찍힌다");
+        console.log(comment.length - start);
+        e.preventDefault();
+        comment.slice(preventNumber,(preventNumber + 10)).show();
+        console.log(comment.length - preventNumber);
+        if (comment.length - preventNumber < 1) {
+            alert("모든 댓글을 보셨습니다");
+        }
+    });
+    // 숨긴 댓글 10개선택하여 표시
+}
+
+function showComment(str){
+    // console.log($(`#${str}`).children().slice(0,start));
+    $(`#${str}`).show();
+    $(`#${str}`).children().slice(start).hide();
+    $(`#${str}`).children('.load').show();
+}
+
+function sortComment() {
     var id = $("#boards_id").val();
-    let form = $(this).parent();
+    var buttonId = $(this).attr('id');
+    var buttonClass = $(this).attr('class');
+    var url = "/comments/" + buttonId + "/" + id;
+    // 좋아요 순 findLikeAll
+    // 싫어요 순 findDisLikeAll
+    // 최신순 findLatestAll
+    // 과거순 findPastAll
 
-    let comment = form.children(".comment").val();
-
+    hideComment();
+    showComment(buttonClass);
     $.ajax({
-        url: "/comments/findLikeAll/" + id,
+        url: url,
         method: "post",
         success: function (data) {
-            alert("성공하였습니다");
-            // $('.comment').attr("class", "LikeAllClass");
-            // $('.LikeAllClass').attr("th:each", "comment : ${commentLikeAll}");
-
-            $('.comment').hide();
-            $('.commentLike').show();
-
-
-            // $('#load').attr("id", "AllLoad");
-            // let start = 10;
-            // $('.LikeAllClass').slice(0, start).show(); // 최초 10개 선택
-            // $('#AllLoad').click(function (e) {
-            //     console.log("찍힌다");
-            //     console.log($('.LikeAllClass').length - start);
-            //     e.preventDefault();
-            //     $('.LikeAllClass').slice(0, start += 10).show();
-            //     if ($('.LikeAllClass').length - start < -10) {
-            //         alert("모든 댓글을 보셨습니다");
-            //     }
-            //
-            // });
+            console.log('성공했습니다.');
         },
         error: function () {
             alert("에러입니다")
         }
     })
+    preventNumber = 0;
 }
 
-function findDisLikeAll() {
-    var id = $("#boards_id").val();
-    $.ajax({
-        url: "/comments/findDisLikeAll/" + id,
-        method: "post",
-        success: function (data) {
-            alert("성공하였습니다");
-            console.log(data)
-
-            $('.comment').attr("class", "DisLikeAllClass");
-            $('.comment').attr("th:each", "comment : ${commentDisLikeAll}");
-            $('#load').attr("id", "DisAllLoad");
-            // let start = 10;
-            // $('.LikeAllClass').slice(0, start).show(); // 최초 10개 선택
-            // $('#DisAllLoad').click(function (e) {
-            //     console.log($('.DisLikeAllClass').length - start);
-            //     e.preventDefault();
-            //     $('.DisLikeAllClass').slice(0, start += 10).show();
-            //     if ($('.DisLikeAllClass').length - start < -10) {
-            //         alert("모든 댓글을 보셨습니다");
-            //     }
-            // });
-        },
-        error: function () {
-            alert("에러입니다")
-        }
-    })
+function hideComment() {
+    $('#commentLike').hide();
+    $('#commentDisLikeAll').hide();
+    $('#commentLikeLatestAll').hide();
+    $('#commentLikePastAll').hide();
 }
 
-function findLatestAll() {
-    var id = $("#boards_id").val();
-    $.ajax({
-        url: "/comments/findLatestAll/" + id,
-        method: "post",
-        success: function (data) {
-            alert("성공하였습니다");
-            console.log(data)
-            $('.comment').attr("class", "LikeLatestAllClass");
-            $('.comment').attr("th:each", "comment : ${findLatestAll}");
-            $('#load').attr("id", "LatestLoad");
-            // let start = 10;
-            //
-            // $('.LikeLatestAllClass').slice(0, start).show(); // 최초 10개 선택
-            // $('#LatestLoad').click(function (e) {
-            //     console.log("찍힌다");
-            //     console.log($('.LikeLatestAllClass').length - start);
-            //     e.preventDefault();
-            //     $('.LikeLatestAllClass').slice(0, start += 10).show();
-            //     if ($('.LikeLatestAllClass').length - start < -10) {
-            //         alert("모든 댓글을 보셨습니다");
-            //     }
-            // });
-        },
-        error: function () {
-            alert("에러입니다")
-        }
-    })
-}
-
-function findPastAll() {
-    var id = $("#boards_id").val();
-    $.ajax({
-        url: "/comments/findPastAll/" + id,
-        method: "post",
-        success: function (data) {
-            alert("성공하였습니다");
-            console.log(data)
-            $('.comment').attr("class", "LikePastAllClass");
-            $('.comment').attr("th:each", "comment : ${commentLikePastAll}");
-            // $('#load').attr("id", "PastLoad");
-            // let start = 10;
-            // ('.LikePastAllClass').slice(0, start).show(); // 최초 10개 선택
-            // $('#PastLoad').click(function (e) {
-            //     console.log("찍힌다");
-            //     console.log($('.LikePastAllClass').length - start);
-            //     e.preventDefault();
-            //     $('.LikePastAllClass').slice(0, start += 10).show();
-            //     if ($('.LikePastAllClass').length - start < -10) {
-            //         alert("모든 댓글을 보셨습니다");
-            //     }
-            // });
-
-        },
-        error: function () {
-            alert("에러입니다")
-        }
-    })
-}
-
+const start = 10;
+let preventNumber = 0;
 $(function () {
+    viewMore();
+    hideComment();
+    showComment('commentLikeLatestAll');
+    // 버튼 클릭 이벤트 등록
     $('#comment_save').on("click", CommentSave);
     $('#delete').on("click", CDelete);
     $('#RCDelete').on("click", RCDelete);
@@ -372,14 +310,23 @@ $(function () {
     $('.recmt_button').on("click", buttonToggle);
     $('.like_button').on("click", likeUnlike);
     $('.unlike_button').on("click", likeUnlike);
-
+    $('.recommendButton').on("click", recommend);
+    // 정렬
     // like 순 조회
-    $('#findLikeAll').on("click", findLikeAll);
+    $('#findLikeAll').on("click", sortComment);
     // dislike 순 조회
-    $('#findDisLikeAll').on("click", findDisLikeAll);
+    $('#findDisLikeAll').on("click", sortComment);
     // 최신순
-    $('#findLatestAll').on("click", findLatestAll);
+    $('#findLatestAll').on("click", sortComment);
     // 과거순
-    $('#findPastAll').on("click", findPastAll);
-
+    $('#findPastAll').on("click", sortComment);
+    $('#comments').on("submit",isSession);
+    $('.comment_write_area').on("click",isSession);
 });
+
+function isSession(){
+    if($('#recommendId').val() == false){
+        alert('로그인 후 이용 가능합니다');
+        location.href = '/member/login';
+    }
+}
