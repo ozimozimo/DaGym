@@ -152,7 +152,7 @@ public class UploadController {
             System.out.println("result =" + result);
             System.out.println("thumbnail =" + thumbnail);
 
-            String data = thumbnail.toString();`
+            String data = thumbnail.toString();
 
 //            boardImageRepository.deleteByUuid(data);
 
