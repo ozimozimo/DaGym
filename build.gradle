@@ -58,6 +58,9 @@ dependencies {
     // Multipart File Up&Download
     compile 'org.apache.commons:commons-lang3:3.0'
     compile 'commons-io:commons-io:2.5'
+
+    // 이미지 업로드 / 사이즈 변화
+    compile group: 'net.coobird' , name: 'thumbnailator', version: '0.4.12'
 }
 
 test {

@@ -24,8 +24,9 @@ public class Recommend {
     @Column(name = "recommend_id")
     private Long id;
 
+
     // 아이디당 1번만 추천이 가능함
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 

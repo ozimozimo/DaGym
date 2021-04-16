@@ -193,6 +193,7 @@ function RCDelete() {
 
 // 댓글 좋아요 싫어요
 function likeUnlike() {
+
     var like_button = $(this).parent().parent();
     var boardLike = like_button.children(".boardLike").val();
     var com = like_button.children(".comId").val();

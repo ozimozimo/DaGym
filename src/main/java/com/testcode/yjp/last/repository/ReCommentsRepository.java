@@ -22,7 +22,6 @@ public interface ReCommentsRepository extends JpaRepository<ReComment, Long> {
     List<ReComment> findAllCount(List<Comment> id);
 
 
-
     @Modifying
     @Query("delete from ReComment r where r.re_parentNum=:id")
     void deleteByreId(Long id);

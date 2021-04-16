@@ -76,8 +76,9 @@ public class BoardService {
     @Transactional
     public void delete(Long id) {
 
-        reCommentsRepository.deleteByreId(id);
-        commentsRepository.deleteByCmId(id);
+
+//        reCommentsRepository.deleteByreId(id);
+//        commentsRepository.deleteByCmId(id);
         boardRepository.deleteById(id);
     }
 
