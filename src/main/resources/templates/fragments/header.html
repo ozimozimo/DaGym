@@ -2,82 +2,88 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <header class="main-header" th:fragment="headerFragment">
-  <!--    헤더 영역, 원하는 것을 넣으면 된다-->
-  <!-- 왼쪽 네비게이션 시작-->
-  <!-- 클래스에 active시 클릭 효과 -->
-  <nav id="sidebar" class="sidebar">
-    <div class="sidebar-content js-simplebar">
-      <a class="sidebar-brand" href="/">
-        <span class="align-middle" style="font-size: 30px;">DAGYM</span>
-      </a>
+    <!--    헤더 영역, 원하는 것을 넣으면 된다-->
+    <!-- 왼쪽 네비게이션 시작-->
+    <!-- 클래스에 active시 클릭 효과 -->
+    <nav id="sidebar" class="sidebar">
+        <div class="sidebar-content js-simplebar">
+            <a class="sidebar-brand" href="/">
+                <span class="align-middle" style="font-size: 30px;">DAGYM</span>
+            </a>
 
-      <ul class="sidebar-nav">
-<!--        <li class="sidebar-header">PT 회원</li>-->
+            <ul class="sidebar-nav">
+                <!--        <li class="sidebar-header">PT 회원</li>-->
 
-        <li class="sidebar-item">
-          <a class="sidebar-link" th:href="@{/member/mypage/mypageSelect}">
-            <i class="align-middle" data-feather="list"></i>
-            <span class="align-middle">회원 목록</span>
-          </a>
-        </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" th:href="@{/member/mypage/mypageSelect}">
+                        <i class="align-middle" data-feather="list"></i>
+                        <span class="align-middle">회원 목록</span>
+                    </a>
+                </li>
 
-        <li class="sidebar-item">
-          <a class="sidebar-link" href="userMangement.html">
-            <i class="align-middle" data-feather="check-square"></i>
-            <span class="align-middle">회원 관리</span>
-          </a>
-        </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="userMangement.html">
+                        <i class="align-middle" data-feather="check-square"></i>
+                        <span class="align-middle">회원 관리</span>
+                    </a>
+                </li>
 
-        <li class="sidebar-item">
-          <a
-                  data-target="#ui"
-                  data-toggle="collapse"
-                  class="sidebar-link collapsed"
-          >
-            <i class="align-middle" data-feather="users"></i>
-            <span class="align-middle">회원</span>
-          </a>
-          <ul
-                  id="ui"
-                  class="sidebar-dropdown list-unstyled collapse"
-                  data-parent="#sidebar"
-          >
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="userInfo.html">김수현</a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="userInfo.html">전지현</a>
-            </li>
-          </ul>
-        </li>
-        <li class="sidebar-item">
-          <a class="sidebar-link" href="calendar.html">
-            <i class="align-middle" data-feather="calendar"></i>
-            <span class="align-middle">일정</span>
-          </a>
-        </li>
-        <li class="sidebar-item">
-          <a class="sidebar-link" href="chat.html">
-            <i class="align-middle" data-feather="message-square"></i>
-            <span class="align-middle">채팅</span>
-          </a>
-        </li>
-        <li class="sidebar-item">
-          <a class="sidebar-link" th:href="@{/board}">
-            <i class="align-middle" data-feather="box"></i>
-            <span class="align-middle">트레이너 게시판</span>
-          </a>
-        </li>
-        <li class="sidebar-item">
-          <a class="sidebar-link" th:href="@{/ptUser/view}">
-            <i class="align-middle" data-feather="user-plus"></i>
-            <span class="align-middle">PT신청</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-  <!-- 왼쪽 네비게이션 끝-->
+                <li class="sidebar-item">
+                    <a
+                            data-target="#ui"
+                            data-toggle="collapse"
+                            class="sidebar-link collapsed"
+                    >
+                        <i class="align-middle" data-feather="users"></i>
+                        <span class="align-middle">회원</span>
+                    </a>
+                    <ul
+                            id="ui"
+                            class="sidebar-dropdown list-unstyled collapse"
+                            data-parent="#sidebar"
+                    >
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="userInfo.html">김수현</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="userInfo.html">전지현</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="calendar.html">
+                        <i class="align-middle" data-feather="calendar"></i>
+                        <span class="align-middle">일정</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="chat.html">
+                        <i class="align-middle" data-feather="message-square"></i>
+                        <span class="align-middle">채팅</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" th:href="@{/board}">
+                        <i class="align-middle" data-feather="box"></i>
+                        <span class="align-middle">트레이너 게시판</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" th:href="@{/ptUser/view}">
+                        <i class="align-middle" data-feather="user-plus"></i>
+                        <span class="align-middle">PT신청</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" th:href="@{/diet/list(id= ${session.loginId})}">
+                        <i class="align-middle" data-feather="user-plus"></i>
+                        <span class="align-middle">식단</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- 왼쪽 네비게이션 끝-->
 </header>
 
 </html>

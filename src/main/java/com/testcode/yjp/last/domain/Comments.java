@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Setter
 public class Comments extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "com_id")
     private Long id;
 
