@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layout/default}">
+<head>
+    <title>dietResult</title>
+    <script th:src="@{/js/diet.js}"></script>
+</head>
+<div layout:fragment="content">
+    <table border="1">
+        <input th:value="${session.loginUser}" id="member_id" name="member_id">
+        <input th:value="${session.loginId}" id="diet_member_id" name="diet_member_id">
+        <thead>
+        <tr>
+            <th>식단번호</th>
+            <th>회원아이디</th>
+            <th>음식이름</th>
+            <th>칼로리</th>
+            <th>탄수화물</th>
+            <th>단백질</th>
+            <th>지방</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="dietList : ${list}">
+            <td th:text="${dietList.diet_id}" class="diet_id"></td>
+            <td th:text="${dietList.diet_member_id}"></td>
+            <td th:text="${dietList.diet_name}"></td>
+            <td th:text="${dietList.diet_kcal}"></td>
+            <td th:text="${dietList.diet_carbo}"></td>
+            <td th:text="${dietList.diet_protein}"></td>
+            <td th:text="${dietList.diet_fat}"></td>
+            <td th:if="${session.loginId == dietList.diet_member_id}">
+                <button type="button" class="dietDelete">삭제</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</html>
