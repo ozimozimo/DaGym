@@ -5,6 +5,8 @@
       data-layout-decorate="~{layout/default}">
 <head>
     <title>inbodyResult</title>
+    <!--    css -->
+    <link rel="stylesheet" th:href="@{/css/inBodyResult.css}">
     <script th:src="@{/js/inBody.js}"></script>
     <!--    차트 관련-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
@@ -23,6 +25,7 @@
 </head>
 <div layout:fragment="content">
     <div>
+        <h1>인바디 결과</h1>
         <table border="1" style="display: none">
             <tr>
                 <th>인바디번호</th>
@@ -44,10 +47,18 @@
             </tr>
         </table>
     </div>
-    <canvas id="weight" width="500px" height="300px"></canvas>
-    <canvas id="rmr" width="500px" height="300px"></canvas>
-    <canvas id="bfp" width="500px" height="300px"></canvas>
-    <canvas id="smm" width="500px" height="300px"></canvas>
+    <div class="chart">
+        <canvas width="500px" height="300px" id="weight"></canvas>
+    </div>
+    <div class="chart">
+        <canvas width="500px" height="300px" id="rmr"></canvas>
+    </div>
+    <div class="chart">
+        <canvas width="500px" height="300px" id="bfp"></canvas>
+    </div>
+    <div class="chart">
+        <canvas width="500px" height="300px" id="smm"></canvas>
+    </div>
 
     <script th:src="@{/js/inBodyResult.js}"></script>
 </div>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        data-layout-decorate="~{layout/default}"
+>
+<head>
+    <title>calendar</title>
+    <!--   캘린더 CDN  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/locales/ko.js"></script>
+    <!-- js, css -->
+    <script th:src="@{/js/calendar.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/calendar.css}" />
+
+</head>
+<div layout:fragment="content">
+    <div id="calendar" style="min-width: 300px"></div>
+</div>
+</html>

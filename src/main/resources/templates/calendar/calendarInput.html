@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        data-layout-decorate="~{layout/default}"
+>
+<head>
+    <title>calendarInput</title>
+    <script th:src="@{/js/calendar.js}"></script>
+</head>
+<div layout:fragment="content">
+    <div class="content">
+        <form action="#" method="POST" name="time_memo_Form">
+            시간<input type="time" name="time"/> <br/>
+            메모<input type="text" name="memo"/>
+            <input type="hidden" id="date" name="date"/>
+            <button type="submit">전송</button>
+        </form>
+    </div>
+</div>
+</html>

@@ -2,12 +2,6 @@ let weight = document.getElementById("weight").getContext("2d");
 let rmr = document.getElementById("rmr").getContext("2d");
 let bfp = document.getElementById("bfp").getContext("2d");
 let smm = document.getElementById("smm").getContext("2d");
-
-// 랜덤 값
-var randomScalingFactor = function () {
-    return ("#" + Math.round(Math.random() * 0xffffff).toString(16));
-}
-
 // 체중
 let weightData = [];
 // 기초 대사량(Resting Metabolic Rate)
@@ -19,6 +13,12 @@ let smmData = [];
 
 let lenth;
 let label = [];
+
+// 랜덤 값
+var randomScalingFactor = function () {
+    return ("#" + Math.round(Math.random() * 0xffffff).toString(16));
+}
+
 $(".inBody_weight").each(function () {
     let text = $(this).text();
     lenth = weightData.push(text);
@@ -42,12 +42,6 @@ $(".inBody_date").each(function () {
     label.push(text);
 });
 
-createChart(weight, weightData);
-createChart(rmr, rmrData);
-createChart(bfp, bfpData);
-createChart(smm, smmData);
-
-
 //   데이터 값 넣기
 //   rmr.data.datasets[0].data = [1, 2, 3, 4, 5, 6, 7];
 // 라벨 변경
@@ -70,6 +64,14 @@ function chartName(name) {
     }
 }
 
+function randomColor(str){
+    let arr = [];
+    for(let i = 0; i < lenth; i++) {
+        arr.push(str || randomScalingFactor());
+    }
+    return arr;
+}
+
 function createChart(name, data) {
     let myChart = new Chart(name, {
         type: "line",
@@ -78,16 +80,19 @@ function createChart(name, data) {
             datasets: [
                 {
                     data: data,
+                    fill:false,
                     // 뒷배경 색깔
-                    backgroundColor: ["rgba(0, 0, 0, 0)"],
+                    backgroundColor:
+                        "rgb(240,0,0,1)",
                     // 선 색깔
-                    borderColor: [
-                        randomScalingFactor(),
-                    ],
+                    borderColor: 'rgb(240, 0, 0)'
+
+                    ,
                     // 선 굵기
                     borderWidth: 3,
                     // 선 곡선률
                     lineTension: [0],
+
                 },
             ],
         },
@@ -108,7 +113,7 @@ function createChart(name, data) {
             title: {
                 display: true,
                 text: chartName(name),
-                fontSize: 13,
+                fontSize: 15,
                 // fontFamily: "",
                 // fontColor: "red",
             },
@@ -137,11 +142,11 @@ function createChart(name, data) {
                 xAxes: [
                     {
                         gridLines: {
-                            display: true,
+                            display: false,
                         },
                         ticks: {
                             //   beginAtZero: true,
-                            fontSize: 9,
+                            fontSize: 10,
                         },
                     },
                 ],
@@ -153,6 +158,8 @@ function createChart(name, data) {
             hover: {
                 animationDuration: 0,
             },
+            // 상위 <div>에 구속
+            // maintainAspectRatio: false,
             animation: {
                 duration: 1,
                 onComplete: function () {
@@ -182,4 +189,10 @@ function createChart(name, data) {
         },
     });
 }
+
+createChart(weight, weightData);
+createChart(rmr, rmrData);
+createChart(bfp, bfpData);
+createChart(smm, smmData);
+
 
