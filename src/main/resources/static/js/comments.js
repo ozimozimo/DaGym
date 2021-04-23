@@ -1,5 +1,5 @@
 function CommentSave() {
-    if($('#comments').val().length==0){
+    if ($('#comments').val().length == 0) {
         alert('댓글을 입력하세요');
         return false;
     }
@@ -38,7 +38,7 @@ function CommentSave() {
 }
 
 function CDelete() {
-    if(!confirm('댓글을 삭제 하시겠습니까?')){
+    if (!confirm('댓글을 삭제 하시겠습니까?')) {
         return false;
     }
     var main3 = {
@@ -73,7 +73,7 @@ function ReCommentSave() {
     let re_user_id = form.children("#re_user_id").val();
     let re_parentCoNum = form.children("#re_parentCoNum").val();
     let re_comments = form.children(".comment_write_area").children().val();
-    if(re_comments.length==0){
+    if (re_comments.length == 0) {
         alert('답글을 입력하세요');
         return false;
     }
@@ -95,7 +95,7 @@ function ReCommentSave() {
         },
         save: function () {
             var data = {
-                re_parentNum : re_parentNum,
+                re_parentNum: re_parentNum,
                 re_user_id: re_user_id,
                 re_parentCoNum: re_parentCoNum,
                 re_comments: re_comments,
@@ -124,7 +124,10 @@ function ReCommentSave() {
         }
     };
     main.init();
+    $(this).parent('#reCmt').attr('class', 'reCmt on reply');
+
 }
+
 // 추천
 function recommend() {
 
@@ -163,7 +166,7 @@ function recommend() {
 
 //
 function RCDelete() {
-    if(!confirm('답글을 삭제하시겠습니까?')){
+    if (!confirm('답글을 삭제하시겠습니까?')) {
         return false;
     }
     var Rcdel = {
@@ -252,21 +255,16 @@ function likeUnlike() {
     })
 }
 
-// 답글 토글
-function buttonToggle() {
-    $(this).parent().parent().children('#reCmt').toggleClass("on off");
-}
-
 // 답글 더보기
 function viewMore() {
     $('.load').click(function (e) {
         let comment = $(this).siblings();
         // console.log(comment);
-        preventNumber+= start;
+        preventNumber += start;
         console.log("찍힌다");
         console.log(comment.length - start);
         e.preventDefault();
-        comment.slice(preventNumber,(preventNumber + 10)).show();
+        comment.slice(preventNumber, (preventNumber + 10)).show();
         console.log(comment.length - preventNumber);
         if (comment.length - preventNumber < 1) {
             alert("모든 댓글을 보셨습니다");
@@ -275,7 +273,32 @@ function viewMore() {
     // 숨긴 댓글 10개선택하여 표시
 }
 
-function showComment(str){
+// 답글 토글
+function buttonToggle() {
+
+    let reCmt = $(this).parent().parent().siblings('#reCmt');
+    // $('.reCmt').removeClass("on");
+    if($(reCmt).hasClass('on')) {
+        $('.on').attr('class', 'reCmt off reply');
+    }else {
+        $('.on').attr('class', 'reCmt off reply');
+        reCmt.removeClass('off');
+        reCmt.addClass("on");
+    }
+}
+
+// function buttonToggle() {
+//     $('.reply').removeClass("on");
+//     $(".comment").each(function (i, el) {
+//         el = $(el);
+//         el.find(".recmt_button").on("click", function () {
+//             el.find(".reply").toggleClass("on off");
+//
+//         });
+//     });
+// }
+
+function showComment(str) {
     // console.log($(`#${str}`).children().slice(0,start));
     $(`#${str}`).show();
     $(`#${str}`).children().slice(start).hide();
@@ -283,17 +306,23 @@ function showComment(str){
 }
 
 function sortComment() {
+    $('.reCmt').attr('class', 'reCmt off reply');
     var id = $("#boards_id").val();
     var buttonId = $(this).attr('id');
-    var buttonClass = $(this).attr('class');
+    var buttonClass = $(this).attr('class').split(' ');
     var url = "/comments/" + buttonId + "/" + id;
     // 좋아요 순 findLikeAll
     // 싫어요 순 findDisLikeAll
     // 최신순 findLatestAll
     // 과거순 findPastAll
 
+    $(".buttons").removeClass("active"); // (active) 클래스를 삭제 한다.
+    $(this).addClass("active"); // 클릭한 클래스에 (active)클래스를 넣는다.
+
+
     hideComment();
-    showComment(buttonClass);
+    showComment(buttonClass[0]);
+    console.log(buttonClass[0]);
     $.ajax({
         url: url,
         method: "post",
@@ -320,6 +349,7 @@ $(function () {
     viewMore();
     hideComment();
     showComment('commentLikeLatestAll');
+
     // 버튼 클릭 이벤트 등록
     $('#comment_save').on("click", CommentSave);
     $('#delete').on("click", CDelete);
@@ -338,12 +368,12 @@ $(function () {
     $('#findLatestAll').on("click", sortComment);
     // 과거순
     $('#findPastAll').on("click", sortComment);
-    $('#comments').on("submit",isSession);
-    $('.comment_write_area').on("click",isSession);
+    $('#comments').on("submit", isSession);
+    $('.comment_write_area').on("click", isSession);
 });
 
-function isSession(){
-    if($('#recommendId').val() == false){
+function isSession() {
+    if ($('#recommendId').val() == false) {
         alert('로그인 후 이용 가능합니다');
         location.href = '/member/login';
     }

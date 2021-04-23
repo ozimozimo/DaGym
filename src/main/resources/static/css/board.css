@@ -1,14 +1,33 @@
-@font-face {
-    font-family: "RIDIBatang";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff")
-    format("woff");
-    font-weight: normal;
-    font-style: normal;
-}
+/*@font-face {*/
+/*    font-family: "RIDIBatang";*/
+/*    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff")*/
+/*    format("woff");*/
+/*    font-weight: normal;*/
+/*    font-style: normal;*/
+/*}*/
 
 body {
     background-color: #fff;
     font-family: "RIDIBatang";
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    border: 0;
+    float: left;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 5px;
 }
 
 .content {
@@ -52,6 +71,11 @@ body {
     border: 1px solid #ddd;
     background-color: #fff;
     cursor: pointer;
+}
+
+.recommenId {
+    border: 1px solid #ddd;
+    background-color: #0d6efd;
 }
 
 .content .board {
@@ -127,12 +151,14 @@ a.custom_btn {
     display: flex;
 }
 
-.post_info .right .updated_at  {
+.post_info .right .updated_at {
     margin-right: 15px;
 }
-.hits{
+
+.hits {
     margin-right: 5px;
 }
+
 .post_content {
     margin-top: 20px;
     padding-top: 30px;
@@ -163,13 +189,14 @@ a.custom_btn {
 }
 
 .comments_area {
-    margin-top: 20px;
-    border-top: 2px solid #ddd;
+    margin-top: 35px;
+    /* border-top: 2px solid #ddd; */
 }
 
 .comments .comment {
     padding-top: 20px;
     border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
 }
 
 .comments .comment .comment_info {
@@ -245,6 +272,7 @@ a.custom_btn {
 #hb_num {
     display: none;
 }
+
 .comments_count {
     border-bottom: 2px solid #ddd;
 }
@@ -266,16 +294,21 @@ a.custom_btn {
 
 .icon_area i {
     margin: 0 5px;
-    font-size:17px;
+    font-size: 17px;
 }
-i.far.fa-thumbs-up{
+
+i.far.fa-thumbs-up {
     color: #4cacfb;
 }
-i.far.fa-thumbs-down{
+
+i.far.fa-thumbs-down {
     color: #ff5252;
 }
+
 .reply {
     padding: 20px;
+    padding-top: 0;
+    border-top: 2px solid #ddd;
     background-color: #FBFCFD;
 }
 
@@ -290,7 +323,32 @@ i.far.fa-thumbs-down{
 .on {
     display: block;
 }
-.off{
+
+.off {
     display: none;
 }
 
+.reply .recomment {
+    padding: 20px 0px;
+    border-bottom: 1px solid #ddd;
+}
+
+.reply .recomment:last-child {
+    border-bottom: initial;
+}
+
+#likeButtons button {
+    border: none;
+    background-color: #fff;
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+#likeButtons button.active {
+    color: #4458c8;
+    font-weight: bold;
+}
+
+.load.custom_btn {
+    width: 100%;
+}

@@ -3,30 +3,52 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       data-layout-decorate="~{layout/default}">
+
 <head>
     <title>board</title>
     <link rel="stylesheet" th:href="@{/css/board.css}" />
+    <link rel="stylesheet" href="/css/boardControl.css">
     <script th:src="@{/js/board.js}" ></script>
+    <style>
+        p{
+            /*color: #f55959;*/
+            font-size: 18px;
+        }
+        form-control{
+            width:100%;
+            margin:5px 0;
+            padding:3px;
+
+        }
+        /*.custom_btn{*/
+        /*    padding: 8px 8px;*/
+        /*}*/
+        /*.custom_btn success{*/
+        /*    padding: 8px 8px;*/
+        /*}*/
+    </style>
 
 </head>
 <div layout:fragment="content">
+    <h3>글 작성</h3>
+    <p class="post_warning">※ 광고홍보성 게시물 및 타트레이너 비방게시물은 삭제될 수 있으며, 게시글 작성이 차단될 수 있습니다.</p>
     <form>
         <input type="hidden" th:value="${session.loginUser}" id="member_id" name="member_id">
-        <div class="form-group">
+        <div class="custom_form_control">
             <label for="title">제목</label>
             <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요">
         </div>
-        <div class="form-group">
+        <div class="custom_form_control">
             <label for="user_id">작성자</label>
             <input class="form-control" id="user_id" th:value="${session.loginId}" readonly>
         </div>
-        <div class="form-group">
+        <div class="custom_form_control">
             <label for="content">내용</label>
-            <textarea class="form-control" id="content" placeholder="내용을 입력하세요"></textarea>
+            <textarea  class="form-control" id="content"  placeholder="내용을 입력하세요" style="resize: none" cols="50" rows="50"></textarea>
         </div>
     </form>
-    <a th:href="@{/board}" role="button" class="btn btn-secondary">이전</a>
-    <button type="button" class="btn btn-primary" id="btn-save">등록</button>
+    <a th:href="@{/board}" role="button" class="custom_btn">이전</a>
+    <button type="button" class="custom_btn success" id="btn-save">등록</button>
 
 
 </div>
