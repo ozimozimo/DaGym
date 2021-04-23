@@ -2,21 +2,29 @@
 <html
         lang="ko"
         xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        data-layout-decorate="~{layout/default}"
 >
 <head>
     <title>calendarInput</title>
-    <script th:src="@{/js/calendar.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script th:src="@{/js/calendarResult.js}"></script>
 </head>
-<div layout:fragment="content">
     <div class="content">
         <form action="#" method="POST" name="time_memo_Form">
-            시간<input type="time" name="time"/> <br/>
-            메모<input type="text" name="memo"/>
+            <input type="hidden" th:value="${session.loginUser}" id="calendar_user" name="calendar_user">
+            시간<input type="time" name="calendar_time" id="calendar_time"/> <br/>
+            메모<input type="text" name="calendar_memo" id="calendar_memo"/>
+            <input type="hidden" id="calendar_date" value="2021-04-21 14:22"  name="calendar_date"/>
+
             <input type="hidden" id="date" name="date"/>
-            <button type="submit">전송</button>
+
+            <button type="button" onclick="calendar()">전송</button>
         </form>
     </div>
-</div>
+<script>
+    // 캘린더 Input JS
+    var link = document.location.href.split("=");
+    let date = link[1];
+    $("#date").val(date);
+</script>
+
 </html>

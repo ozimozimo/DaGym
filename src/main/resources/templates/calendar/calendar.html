@@ -18,5 +18,27 @@
 </head>
 <div layout:fragment="content">
     <div id="calendar" style="min-width: 300px"></div>
+
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>날짜</th>
+                <th>메모</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="calendar : ${result}">
+                <td><span th:text="${calendar.id}"></span></td>
+                <td><span th:text="${calendar.calendar_date}"></span></td>
+                <td><span th:text="${calendar.calendar_memo}"></span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+
+
 </html>

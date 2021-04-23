@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     calendar.on("dateClick", function (info) {
         let date = info.dateStr;
         window.open(
-            `a.html?date=${date}`,
+            `/calendar/memoPop?date=${date}`,
             "등록창",
             "width=400, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes"
         );
@@ -62,7 +62,4 @@ document.addEventListener("DOMContentLoaded", function () {
     // console.log(calendar.getOption("locale"));
 });
 
-// 캘린더 Input JS
-    var link = document.location.href.split("=");
-    let date = link[1];
-    $("#date").val(date);
+

@@ -158,6 +158,7 @@ public class UploadController {
 
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (UnsupportedEncodingException e) {
+
             e.printStackTrace();
             return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
         }

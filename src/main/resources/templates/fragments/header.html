@@ -51,7 +51,7 @@
           </ul>
         </li>
         <li class="sidebar-item">
-          <a class="sidebar-link" href="calendar.html">
+          <a class="sidebar-link" th:href="@{/calendar/memo(id=${session.loginUser})}">
             <i class="align-middle" data-feather="calendar"></i>
             <span class="align-middle">일정</span>
           </a>
@@ -81,7 +81,7 @@
               </a>
           </li>
           <li class="sidebar-item">
-              <a class="sidebar-link" th:href="@{/board}">
+              <a class="sidebar-link" th:href="@{/ExRecord/ExRecordSelect}">
                   <i class="align-middle" data-feather="box"></i>
                   <span class="align-middle">운동기록</span>
               </a>
