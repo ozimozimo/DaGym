@@ -1,16 +1,23 @@
 package com.testcode.yjp.last.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Setter
-@EqualsAndHashCode(callSuper = false, exclude = {"recommends"})
+@EqualsAndHashCode(callSuper = false, exclude = {"recommends","comments"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 @Table(name = "health_board")
 public class Board extends BaseEntity{
     @Id
@@ -31,10 +38,16 @@ public class Board extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+//
+//    @OneToMany(mappedBy = "board",orphanRemoval = true)
+//    private Set<Comment> comments = new HashSet<>();
 
-    @OneToMany(mappedBy = "board")
-    private Set<Recommend> recommends = new HashSet<>();
 
+    @OneToMany(mappedBy = "board",orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "board",orphanRemoval = true)
+    private List<Recommend> recommends = new ArrayList<>();
 
     // 연관관계 메소드 다대일
 //    public void addMember(Member member) {

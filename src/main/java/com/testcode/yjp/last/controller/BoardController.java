@@ -36,7 +36,7 @@ public class BoardController {
         model.addAttribute("boards", boardService.findAllDesc());
         model.addAttribute("result", boardService.getList(pageRequestDto));
         model.addAttribute("PageRequestDto", pageRequestDto);
-        return "/board/boardSelect";
+        return "board/boardSelect";
     }
 
     // 저장페이지
@@ -68,6 +68,8 @@ public class BoardController {
 
         model.addAttribute("boards", boardService.findById(hb_num));
         model.addAttribute("re_comments", reCommentsService.findAllDesc());
+//        model.addAttribute("re_count", reCommentsService.findCount(hb_num).size());
+
         model.addAttribute("comments", commentsService.findAllDesc());
 //        model.addAttribute("result", boardService.getList(pageRequestDto));
 //        model.addAttribute("CoResult", commentsService.getList(pageCommentRequestDto));
@@ -86,6 +88,8 @@ public class BoardController {
         // board_id  값
         Optional<Board> result = boardRepository.findById(hb_num);
         commentsRepository.findByparentNum(result.get().getId());
+
+        System.out.println("commentId==="+commentsRepository.findByparentNum(result.get().getId()));
 
 
         return "board/boardDetail";

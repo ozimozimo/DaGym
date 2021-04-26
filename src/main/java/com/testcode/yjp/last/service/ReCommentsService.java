@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +35,13 @@ public class ReCommentsService {
     public void delete(Long id) {
         reCommentsRepository.deleteById(id);
     }
+
+//    @Transactional(readOnly = true)
+//    public List<ReCommentsListResponseDto> findCount(Long hb_num) {
+//        return reCommentsRepository.findAllCount(hb_num).stream()
+//                .map(ReCommentsListResponseDto::new)
+//                .collect(Collectors.toList());
+//    }
 
 //    @Transactional(readOnly = true)
 //    public List<ReCommentsListResponseDto> findAllCount(Long id) {
