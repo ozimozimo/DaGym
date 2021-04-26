@@ -6,25 +6,30 @@ $(function () {
     $('.dietClose').on('click', dietClose);
     $('.trainerCommentAdd').on('click', trainerCommentAdd);
     // 미친게지.. 그래도 되긴 되네.. 차라리 안전한게 낫지 시발
-    sumNutr('.diet', '.am', '.diet_kcal', '.am_kcal');
-    sumNutr('.diet', '.am', '.diet_carbo', '.am_carbo');
-    sumNutr('.diet', '.am', '.diet_protein', '.am_protein');
-    sumNutr('.diet', '.am', '.diet_fat', '.am_fat');
+    sumNutr('.diet', '.breakfast', '.diet_kcal', '.breakfast_kcal');
+    sumNutr('.diet', '.breakfast', '.diet_carbo', '.breakfast_carbo');
+    sumNutr('.diet', '.breakfast', '.diet_protein', '.breakfast_protein');
+    sumNutr('.diet', '.breakfast', '.diet_fat', '.breakfast_fat');
 
-    sumNutr('.diet', '.pm', '.diet_kcal', '.pm_kcal');
-    sumNutr('.diet', '.pm', '.diet_carbo', '.pm_carbo');
-    sumNutr('.diet', '.pm', '.diet_protein', '.pm_protein');
-    sumNutr('.diet', '.pm', '.diet_fat', '.pm_fat');
+    sumNutr('.diet', '.lunch', '.diet_kcal', '.lunch_kcal');
+    sumNutr('.diet', '.lunch', '.diet_carbo', '.lunch_carbo');
+    sumNutr('.diet', '.lunch', '.diet_protein', '.lunch_protein');
+    sumNutr('.diet', '.lunch', '.diet_fat', '.lunch_fat');
+
+    sumNutr('.diet', '.dinner', '.diet_kcal', '.dinner_kcal');
+    sumNutr('.diet', '.dinner', '.diet_carbo', '.dinner_carbo');
+    sumNutr('.diet', '.dinner', '.diet_protein', '.dinner_protein');
+    sumNutr('.diet', '.dinner', '.diet_fat', '.dinner_fat');
 
     sumNutr('.diet', '.extra', '.diet_kcal', '.extra_kcal');
     sumNutr('.diet', '.extra', '.diet_carbo', '.extra_carbo');
     sumNutr('.diet', '.extra', '.diet_protein', '.extra_protein');
     sumNutr('.diet', '.extra', '.diet_fat', '.extra_fat');
 
-    var k = [".am_kcal", ".pm_kcal", ".extra_kcal"];
-    var c = [".am_carbo", ".pm_carbo", ".extra_carbo"];
-    var p = [".am_protein", ".pm_protein", ".extra_protein"];
-    var f = [".am_fat", ".pm_fat", ".extra_fat"];
+    var k = [".breakfast_kcal", ".lunch_kcal", ".dinner_kcal", ".extra_kcal"];
+    var c = [".breakfast_carbo", ".lunch_carbo", ".dinner_carbo", ".extra_carbo"];
+    var p = [".breakfast_protein", ".lunch_protein", ".dinner_protein", ".extra_protein"];
+    var f = [".breakfast_fat", ".lunch_fat", ".dinner_fat", ".extra_fat"];
 
     nutr(k, '.dailyKcal');
     nutr(c, '.dailyCarbo');
@@ -80,9 +85,10 @@ function dietResult(result) {
         // 시간
         content += "<td>" +
             "<select name='diet_time'>" +
-            "<option value='오전'>오전 </option>" +
-            "<option value='오후'>오후</option>" +
-            "<option value='그외'>그외</option>" +
+            "<option value='아침'>아침 </option>" +
+            "<option value='점심'>점심</option>" +
+            "<option value='저녁'>저녁 </option>" +
+            "<option value='간식'>간식</option>" +
             "</select>" +
             "</td>"
         // 추가버튼
