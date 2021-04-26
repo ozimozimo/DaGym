@@ -22,6 +22,8 @@ public class calendar {
 
     private String calendar_memo;
 
+    private String color;
+
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;

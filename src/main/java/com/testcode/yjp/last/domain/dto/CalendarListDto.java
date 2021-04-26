@@ -12,10 +12,12 @@ public class CalendarListDto {
     private Long id;
     private String calendar_date;
     private String calendar_memo;
+    private String color;
 
     public CalendarListDto(calendar entity) {
         this.id = entity.getId();
         this.calendar_date = entity.getCalendar_date();
         this.calendar_memo = entity.getCalendar_memo();
+        this.color = entity.getColor();
     }
 }

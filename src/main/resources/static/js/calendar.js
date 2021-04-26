@@ -52,8 +52,11 @@ document.addEventListener("DOMContentLoaded", function () {
     //     // console.log(info["el"]);
     // });
 
-    // calendar.addEvent({ title: "evt4", start: "2021-04-15T12:30:00" });
-    // calendar.addEvent({ title: "evt2", start: "2021-04-11T12:30:00" });
+    let arr = x();
+    arr.forEach((item) => {
+        calendar.addEvent({color : item[3], title: item[2], start: item[1]});
+        console.log(item[1], item[2], item[3]);
+    });
 
     // 캘린더 이벤트 배열타입으로 다 가져옴
     // var arrCal = calendar.getEvents();
@@ -62,4 +65,17 @@ document.addEventListener("DOMContentLoaded", function () {
     // console.log(calendar.getOption("locale"));
 });
 
+function x() {
+    let arr = [];
+    $(".data").each(function (i, el) {
+        el = $(el);
 
+        let x = [];
+        el.find("span").each(function (j, ele) {
+            ele = $(ele);
+            x.push(ele.text());
+        });
+        arr.push(x);
+    });
+    return arr;
+}

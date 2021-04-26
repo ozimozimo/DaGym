@@ -10,21 +10,17 @@
 </head>
     <div class="content">
         <form action="#" method="POST" name="time_memo_Form">
+
             <input type="hidden" th:value="${session.loginUser}" id="calendar_user" name="calendar_user">
+            색깔 선택<input type='color' name='color' id="color"/><br/>
             시간<input type="time" name="calendar_time" id="calendar_time"/> <br/>
             메모<input type="text" name="calendar_memo" id="calendar_memo"/>
             <input type="hidden" id="calendar_date" value="2021-04-21 14:22"  name="calendar_date"/>
 
             <input type="hidden" id="date" name="date"/>
 
-            <button type="button" onclick="calendar()">전송</button>
+            <button type="button" id="submitBtn">전송</button>
         </form>
     </div>
-<script>
-    // 캘린더 Input JS
-    var link = document.location.href.split("=");
-    let date = link[1];
-    $("#date").val(date);
-</script>
 
 </html>
