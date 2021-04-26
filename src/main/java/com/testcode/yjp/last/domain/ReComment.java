@@ -1,19 +1,22 @@
 package com.testcode.yjp.last.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReComment extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "reCm_id")
     private Long id;
 
@@ -28,5 +31,7 @@ public class ReComment extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "cm_id")
     private Comment comment;
+
+
 
 }

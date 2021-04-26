@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        data-layout-decorate="~{layout/default}"
+>
+<head>
+    <title>dietSelect</title>
+    <script th:src="@{/js/diet.js}"></script>
+</head>
+<div layout:fragment="content">
+    <div class="container-fluid p-0">
+        <h1 class="h3 mb-3">식단검색</h1>
+        <!--        현재 로그인한 회원의 member_id-->
+        <input type="hidden" th:value="${session.loginUser}" class="member_id" name="member_id">
+        <input type="hidden" th:value="${session.loginId}" class="diet_member_id" name="diet_member_id">
+        <div>
+            <input type="text" id="diet" placeholder="음식을 입력하세요">
+            <button type="button" class="dietSearch">음식찾기</button>
+            <button type="button" class="dietClose">선택완료</button>
+            <a th:href="@{/diet/list(id= ${session.loginId})}">결과</a>
+            <br>
+        </div>
+
+        <!--음식 데이터 조회-->
+        <div class="row">
+            <div class="col-10 col-xl-10">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">식단</h5>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>음식이름</th>
+                            <th>칼로리</th>
+                            <th>탄수화물</th>
+                            <th>단백질</th>
+                            <th>지방</th>
+                        </tr>
+                        </thead>
+                        <tbody class="dietList"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

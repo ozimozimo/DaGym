@@ -1,23 +1,25 @@
 package com.testcode.yjp.last.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = false, exclude = {"boards"})
 public class Member extends BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "member_id")
     private Long id;
     private String user_id;
@@ -35,8 +37,15 @@ public class Member extends BaseEntity{
 //    private List<Board> boards = new ArrayList<>();
 
     private String user_role;
-
-
+//
+//    @OneToMany(mappedBy = "member", orphanRemoval = true)
+//    private Set<Likes> likes = new HashSet<>();
+//
+//    @OneToMany(mappedBy = "member", orphanRemoval = true)
+//    private Set<Recommend> recommends = new HashSet<>();
+//
+    @OneToMany(mappedBy = "member", orphanRemoval = true)
+    private List<Board> boards = new ArrayList<>();
 
     @Builder
     public Member(Long id, String user_id, String user_pw, String user_name, String user_pn, String user_email,  String address_normal, String address_detail,String user_rrn,String user_gender,String user_role) {

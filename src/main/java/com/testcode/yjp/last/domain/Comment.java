@@ -1,19 +1,24 @@
 package com.testcode.yjp.last.domain;
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Setter
+@EqualsAndHashCode(callSuper = false, exclude = {"likes","reComments"})
 @Table(name = "Reply")
 public class Comment extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "cm_id")
     private Long id;
 
@@ -36,6 +41,11 @@ public class Comment extends BaseEntity{
     @JoinColumn(name = "hb_num")
     private Board board;
 
+    @OneToMany(mappedBy = "comment", orphanRemoval = true)
+    private List<Likes> likes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "comment",orphanRemoval = true)
+    private List<ReComment> reComments = new ArrayList<>();
 
     @Builder
     public Comment(String user_id, String comments, Long parentNum) {

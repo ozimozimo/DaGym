@@ -37,7 +37,7 @@ public class ExceptionHandlingController implements ErrorController {
 //        } else{
 //            return "/error/500";
 //        }
-        return "/error/errorPage";
+        return "error/errorPage";
     }
 
     @Override
