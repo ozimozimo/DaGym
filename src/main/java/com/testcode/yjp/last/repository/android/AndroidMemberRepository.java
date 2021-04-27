@@ -16,4 +16,7 @@ public interface AndroidMemberRepository extends JpaRepository<Member, Long> {
     //    안드로이드 폰 중복확인
     @Query("select m from Member m where user_pn = :user_pn")
     Member findPn(String user_pn);
+
+    @Query("select m from Member m where user_id = :user_id")
+    Member findByUser_id(String user_id);
 }

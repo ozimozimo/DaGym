@@ -21,9 +21,7 @@ import java.util.List;
 @RequestMapping("/android")
 public class AndroidMemberController {
 
-//    private final MemberRepository memberRepository;
     private final AndroidMemberRepository androidMemberRepository;
-//    private final MemberService memberService;
     private final AndMemberService andMemberService;
 
     // 조회
@@ -38,7 +36,14 @@ public class AndroidMemberController {
     @PostMapping("/insert")
     public Member save(@RequestBody MemberJoinDto memberJoinDto) {
         log.info("AndroidController save 1st Line");
-        Member save = androidMemberRepository.save(memberJoinDto.toEntity());
+        String user_id = memberJoinDto.getUser_id();
+        Member save = new Member();
+        Member byUser_id = androidMemberRepository.findByUser_id(user_id);
+        if (byUser_id == null) {
+            save = androidMemberRepository.save(memberJoinDto.toEntity());
+        } else {
+            save = byUser_id;
+        }
         return save;
     }
 

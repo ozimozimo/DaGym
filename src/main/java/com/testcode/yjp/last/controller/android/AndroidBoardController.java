@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -33,7 +32,6 @@ public class AndroidBoardController {
 
         ArrayList<BoardListResponseDto> allDesc = (ArrayList<BoardListResponseDto>) andBoardService.findAllDesc();
 
-        log.info("어우 렉걸려"+allDesc.toString());
         return allDesc;
     }
 
@@ -107,18 +105,24 @@ public class AndroidBoardController {
 
     // 게시판 검색
     @PostMapping("/search")
-    public List<BoardListResponseDto> search(@RequestBody AndBoardSearchDto andBoardSearchDto) {
+    public ArrayList<BoardListResponseDto> search(@RequestBody AndBoardSearchDto andBoardSearchDto) {
         log.info("BoardController search 1st Line");
-
-        String head = andBoardSearchDto.getHead();
         String search = andBoardSearchDto.getSearch();
-        if (head.equals("t")) {
-            return androidBoardRepository.titleSearch(search);
-        } else if (head.equals("c")) {
-            return androidBoardRepository.contentSearch(search);
-        } else if (head.equals("u")) {
-            return androidBoardRepository.userSearch(search);
+
+        ArrayList<Board> boards = androidBoardRepository.titleSearch(search);
+        log.info("boards = " + boards);
+        ArrayList<BoardListResponseDto> boardListResponseDtos = new ArrayList<>();
+        for (Board board : boards) {
+            BoardListResponseDto boardListResponseDto = new BoardListResponseDto(
+                    board.getId(),
+                    board.getTitle(),
+                    board.getContent(),
+                    board.getUser_id(),
+                    board.getModDate()
+            );
+            log.info(board.getId()+"");
+            boardListResponseDtos.add(boardListResponseDto);
         }
-        return andBoardService.findAllDesc();
+        return boardListResponseDtos;
     }
 }
