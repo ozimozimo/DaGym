@@ -21,7 +21,7 @@ import java.util.Set;
 @Table(name = "health_board")
 public class Board extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hb_num")
     private Long id;
     @Column(name = "hb_title")

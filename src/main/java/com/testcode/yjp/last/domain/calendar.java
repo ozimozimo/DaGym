@@ -13,16 +13,18 @@ import javax.persistence.*;
 public class calendar {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "calendar_id")
     private Long id;
 
-    // 보내는 날짜
-    private String calendar_date;
-
-    private String calendar_memo;
-
-    private String color;
+    private String title;
+    private String startDate;
+    private String endDate;
+    private String description;
+    private String type;
+    private String backgroundColor;
+    private String textColor;
+    private boolean allDay;
 
     @ManyToOne
     @JoinColumn(name = "member_id")

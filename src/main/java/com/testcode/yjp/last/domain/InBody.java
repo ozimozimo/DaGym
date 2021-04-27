@@ -13,7 +13,7 @@ import java.math.BigInteger;
 public class InBody extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "inBody_id")
     private Long id;
 

@@ -17,7 +17,7 @@ public class Recommend {
 
     // 중복 추천 체크
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "recommend_id")
     private Long id;
 

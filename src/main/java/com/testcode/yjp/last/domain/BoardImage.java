@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class BoardImage {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long inum;
 
     private String uuid;

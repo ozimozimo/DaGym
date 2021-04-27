@@ -18,7 +18,7 @@ import java.util.Set;
 @Table(name = "Reply")
 public class Comment extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cm_id")
     private Long id;
 

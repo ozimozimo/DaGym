@@ -10,14 +10,25 @@ import lombok.NoArgsConstructor;
 public class CalendarListDto {
 
     private Long id;
-    private String calendar_date;
-    private String calendar_memo;
-    private String color;
+    private String title;
+    private String startDate;
+    private String endDate;
+    private String description;
+    private String type;
+    private String backgroundColor;
+    private String textColor;
+    private boolean allDay;
 
     public CalendarListDto(calendar entity) {
         this.id = entity.getId();
-        this.calendar_date = entity.getCalendar_date();
-        this.calendar_memo = entity.getCalendar_memo();
-        this.color = entity.getColor();
+        this.title = entity.getTitle();
+        this.startDate = entity.getStartDate();
+        this.endDate = entity.getEndDate();
+        this.description = entity.getDescription();
+        this.type = entity.getType();
+        this.backgroundColor = entity.getBackgroundColor();
+        this.textColor = entity.getTextColor();
+        this.allDay = entity.isAllDay();
+
     }
 }
