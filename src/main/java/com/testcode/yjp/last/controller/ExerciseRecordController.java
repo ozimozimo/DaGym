@@ -15,7 +15,7 @@ public class ExerciseRecordController {
     @GetMapping("/ExRecordSelect")
     public String ExRecord() {
 
-        return "/ExRecord/ExRecordSelect";
+        return "ExRecord/ExRecordSelect";
     }
 
 

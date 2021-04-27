@@ -20,13 +20,13 @@ public class CalendarController {
     public String memo(Long id, Model model) {
         log.info("id =" + id);
         model.addAttribute("result", calendarService.findAll(id));
-        return "/calendar/calendar";
+        return "calendar/calendar";
     }
 
     @GetMapping("/memoPop")
     public String memoPop() {
 
-        return "/calendar/calendarInput";
+        return "calendar/calendarInput";
     }
 
 }

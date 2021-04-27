@@ -1,5 +1,7 @@
 package com.testcode.yjp.last.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -16,7 +18,7 @@ import java.time.LocalDateTime;
 @Getter
 @MappedSuperclass
 @EntityListeners(value = {AuditingEntityListener.class})
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 abstract public class BaseEntity {
     @CreationTimestamp
     @Column(name = "regdate",updatable = false)

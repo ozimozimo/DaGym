@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class calendar {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "calendar_id")
     private Long id;
 

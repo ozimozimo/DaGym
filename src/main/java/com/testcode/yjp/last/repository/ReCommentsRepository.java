@@ -18,8 +18,8 @@ public interface ReCommentsRepository extends JpaRepository<ReComment, Long> {
     @Query("select r from ReComment r order by r.id DESC ")
     List<ReComment> findAllDesc();
 
-    @Query("select r from Recommend r where r.id = :id")
-    List<ReComment> findAllCount(List<Comment> id);
+//    @Query("select r from ReComment r where r.modDate = :id")
+//    List<ReComment> findAllCount(Long hb_num);
 
 
     @Modifying
