@@ -9,9 +9,13 @@ import java.util.List;
 
 public interface DietRepository extends JpaRepository<Diet,Long> {
 
-    @Query("select d from Diet d where d.diet_member_id = :id and d.modDate = :modDate")
-    List<Diet> findModDate(String id, String modDate);
-
     @Query("select d from Diet d where d.diet_member_id = :id")
     List<Diet> findAllDesc(String id);
+
+    @Query(value = "select * from Diet d where d.diet_member_id = :id and to_char(d.modDate, 'yyyy-mm-dd') = :modDate", nativeQuery = true)
+    List<Diet> findByIdWithModDate(String id, String modDate);
+
+//    @Query("select d from Diet d where d.diet_member_id = :id and d.modDate = :modDate")
+//    List<Diet> findByIdWithModDate(String id, LocalDateTime modDate);
+
 }

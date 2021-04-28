@@ -23,9 +23,28 @@ document.addEventListener("DOMContentLoaded", function () {
             // },
         ],
         // 날짜 클릭했을 때
-        // dateClick: function () {
-        //   alert("날짜 클릭");
-        // },
+        dateClick: function (info) {
+            var id = $('.loginId').text();
+            var date = info.dateStr;
+            console.log(typeof(date));
+            console.log(typeof(id));
+            var data = {
+                id: id,
+                modDate: date
+            }
+            $.ajax({
+                type: 'get',
+                url: '/diet/listAll',
+                data: data,
+                contentType: 'application/json; charset=utf-8',
+            }).done(function () {
+                alert('hello')
+                console.log(data);
+            }).fail(function (error) {
+                alert("fail");
+                console.log(JSON.stringify(error));
+            })
+        },
         // // 이벤트를 클릭했을 때
         eventClick: function (info) {
             alert(info.event.title);
@@ -40,14 +59,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     calendar.render();
 
-    calendar.on("dateClick", function (info) {
-        let date = info.dateStr;
-        window.open(
-            `/calendar/memoPop?date=${date}`,
-            "등록창",
-            "width=400, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes"
-        );
-    });
+    // calendar.on("dateClick", function (info) {
+    //     let date = info.dateStr;
+    //     window.open(
+    //         `/calendar/memoPop?date=${date}`,
+    //         "등록창",
+    //         "width=400, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes"
+    //     );
+    // });
     // calendar.on("eventClick", function (info) {
     //     // console.log(info["el"]);
     // });

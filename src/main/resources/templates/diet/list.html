@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/locales/ko.js"></script>
     <script th:src="@{/js/diet.js}"></script>
     <script th:src="@{/js/calendar.js}"></script>
+    <script th:src="@{/js/advice.js}"></script>
     <link rel="stylesheet" th:href="@{/css/diet.css}"/>
     <link rel="stylesheet" th:href="@{/css/calendar.css}"/>
 </head>
@@ -96,7 +97,7 @@
                 </tr>
                 </tbody>
                 <tr>
-                    <td>오후 섭취량</td>
+                    <td>점심 섭취량</td>
                     <td class="lunch_kcal"></td>
                     <td class="lunch_carbo"></td>
                     <td class="lunch_protein"></td>
@@ -132,7 +133,7 @@
                 </tr>
                 </tbody>
                 <tr>
-                    <td>그외 섭취량</td>
+                    <td>저녁 섭취량</td>
                     <td class="dinner_kcal"></td>
                     <td class="dinner_carbo"></td>
                     <td class="dinner_protein"></td>
@@ -168,7 +169,7 @@
                 </tr>
                 </tbody>
                 <tr>
-                    <td>그외 섭취량</td>
+                    <td>간식 섭취량</td>
                     <td class="extra_kcal"></td>
                     <td class="extra_carbo"></td>
                     <td class="extra_protein"></td>
@@ -194,15 +195,18 @@
             </tr>
         </table>
     </div>
-    <div class="trainerComment">
+    <div class="trainerAdvice">
         <h1>트레이너 코멘트</h1>
         <form action="#" type="post">
-            <textarea class="trainerCommentWrite" cols="50" rows="5" style="resize: none" placeholder="피드백할 내용을 입력하세요"></textarea>
+            <textarea class="adviceWrite" cols="50" rows="5" style="resize: none" placeholder="피드백할 내용을 입력하세요"></textarea>
             <div>
-                <button type="button" class="trainerCommentAdd">피드백</button>
+                <button type="button" class="adviceAdd">피드백</button>
                 <input type="reset">
             </div>
-            <div class="trainerCommentList"></div>
+            <div class="adviceList"></div>
+            <div>
+                <button type="button" class="adviceUpdate">수정하기</button>
+            </div>
         </form>
     </div>
 </div>

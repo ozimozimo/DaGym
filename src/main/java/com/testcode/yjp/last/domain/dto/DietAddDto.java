@@ -2,6 +2,9 @@ package com.testcode.yjp.last.domain.dto;
 
 import com.testcode.yjp.last.domain.Diet;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,6 +19,7 @@ public class DietAddDto {
     private String diet_protein;
     private String diet_fat;
     private String diet_time;
+    private LocalDateTime modDate;
 
     public DietAddDto(Diet diet) {
         this.diet_id = diet.getDiet_id();
@@ -26,9 +30,8 @@ public class DietAddDto {
         this.diet_protein = diet.getDiet_protein();
         this.diet_fat = diet.getDiet_fat();
         this.diet_time = diet.getDiet_time();
+        this.modDate = diet.getModDate();
     }
-
-//    private String diet_time;
 
     public Diet toEntity() {
         return Diet.builder()

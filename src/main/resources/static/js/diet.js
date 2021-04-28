@@ -181,6 +181,7 @@ function nutr(str, where) {
     $(where).html(sum.toFixed(1));
 }
 
+// 얘는 왜 여기 있는가
 function trainerCommentAdd() {
     $('.trainerCommentAdd').click(function () {
         let content = $('.trainerCommentWrite').val();
