@@ -42,8 +42,8 @@ var newEvent = function (start, end, eventType) {
         var eventData = {
             // _id: eventId,
             title: editTitle.val(),
-            startDate: editStart.val(),
-            endDate: editEnd.val(),
+            start: editStart.val(),
+            end: editEnd.val(),
             description: editDesc.val(),
             type: editType.val(),
             // username: '사나',

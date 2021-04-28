@@ -11,8 +11,8 @@ public class CalendarListDto {
 
     private Long id;
     private String title;
-    private String startDate;
-    private String endDate;
+    private String start;
+    private String end;
     private String description;
     private String type;
     private String backgroundColor;
@@ -22,8 +22,8 @@ public class CalendarListDto {
     public CalendarListDto(calendar entity) {
         this.id = entity.getId();
         this.title = entity.getTitle();
-        this.startDate = entity.getStartDate();
-        this.endDate = entity.getEndDate();
+        this.start = entity.getStart();
+        this.end = entity.getEnd();
         this.description = entity.getDescription();
         this.type = entity.getType();
         this.backgroundColor = entity.getBackgroundColor();

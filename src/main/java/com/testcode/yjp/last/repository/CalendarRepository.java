@@ -13,8 +13,9 @@ public interface CalendarRepository extends JpaRepository<calendar, Long> {
 
     @Query("select c from calendar c where c.member.id=:id")
     List<calendar> findAll(Long id);
-
-
+//
+//    @Query("select c from calendar c where c.member.id=:id ")
+//    List<calendar> findAllData(Long id, String startDate, String endDate);
 
 
 }

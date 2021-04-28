@@ -18,8 +18,8 @@ public class calendar {
     private Long id;
 
     private String title;
-    private String startDate;
-    private String endDate;
+    private String start;
+    private String end;
     private String description;
     private String type;
     private String backgroundColor;
