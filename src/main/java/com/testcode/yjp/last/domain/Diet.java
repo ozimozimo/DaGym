@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Diet extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "diet_id")
     private Long diet_id;
     private String diet_member_id;

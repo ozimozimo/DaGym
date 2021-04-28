@@ -43,7 +43,7 @@ public class KakaoController {
         ckUserId = memberRepository.findByUser_id(user_id);
 
         HttpSession session = (HttpSession) request.getSession();
-        session.setAttribute("loginUser", ckUserId.getId());
+        session.setAttribute("loginId", ckUserId.getId());
         session.setAttribute("loginName", user_name);
         session.setAttribute("loginRole", ckUserId.getUser_role());
 

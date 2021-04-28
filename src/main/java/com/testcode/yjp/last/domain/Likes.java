@@ -14,7 +14,7 @@ public class Likes {
 
     // 중복 추천 체크
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "like_id")
     private Long id;
 

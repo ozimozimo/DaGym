@@ -8,6 +8,7 @@ var editEnd = $('#edit-end');
 var editType = $('#edit-type');
 var editColor = $('#edit-color');
 var editDesc = $('#edit-desc');
+var editId = $('#id');
 
 var addBtnContainer = $('.modalBtnContainer-addEvent');
 var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
@@ -26,7 +27,8 @@ var newEvent = function (start, end, eventType) {
     editStart.val(start);
     editEnd.val(end);
     editDesc.val('');
-    
+
+
     addBtnContainer.show();
     modifyBtnContainer.hide();
     eventModal.modal('show');
@@ -49,7 +51,7 @@ var newEvent = function (start, end, eventType) {
             // username: '사나',
             backgroundColor: editColor.val(),
             textColor: '#ffffff',
-            allDay: false
+            allDay: editAllDay.is(":checked")
         };
         console.log("id 는 =" + calendar_user);
 

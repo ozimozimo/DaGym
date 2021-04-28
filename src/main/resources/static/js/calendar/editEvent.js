@@ -30,6 +30,7 @@ var editEvent = function (event, element, view) {
     editType.val(event.type);
     editDesc.val(event.description);
     editColor.val(event.backgroundColor).css('color', event.backgroundColor);
+    editId.val(event.id);
 
     addBtnContainer.hide();
     modifyBtnContainer.show();
@@ -75,18 +76,33 @@ var editEvent = function (event, element, view) {
         event.type = editType.val();
         event.backgroundColor = editColor.val();
         event.description = editDesc.val();
+        event.id = editId.val();
+
 
         $("#calendar").fullCalendar('updateEvent', event);
 
+        var data = {
+            id : event.id,
+            title: event.title,
+            start: event.start,
+            end: event.end,
+            type: event.type,
+            backgroundColor : event.backgroundColor,
+            description : event.description,
+            textColor : '#ffffff'
+        };
+
+        console.log(event);
         //일정 업데이트
         $.ajax({
-            type: "get",
-            url: "",
-            data: {
-                //...
-            },
+            type: "post",
+            url: "/calendar/update",
+            data : data,
             success: function (response) {
-                alert('수정되었습니다.')
+                alert('수정되었습니다.');
+            },
+            error : function () {
+                alert("에러입니다");
             }
         });
 
@@ -100,16 +116,28 @@ $('#deleteEvent').on('click', function () {
     $("#calendar").fullCalendar('removeEvents', $(this).data('id'));
     eventModal.modal('hide');
 
+    var start = $("#edit-start").val();
+    var end = $("#edit-end").val();
+
+    console.log(start);
+    console.log(end);
+
     //삭제시
     $.ajax({
-        type: "get",
-        url: "",
-        data: {
-            //...
+        type: "post",
+        url: "/calendar/delete",
+        data : {
+            calendar_start : start,
+            calendar_end : end
         },
-        success: function (response) {
+        success: function (data) {
+            console.log(data);
             alert('삭제되었습니다.');
+        },
+        error:function () {
+            alert("에러입니다");
         }
+
     });
 
 });

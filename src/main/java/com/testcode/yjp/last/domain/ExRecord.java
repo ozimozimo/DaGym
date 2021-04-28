@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class ExRecord extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ex_record_id")
     private Long id;
 

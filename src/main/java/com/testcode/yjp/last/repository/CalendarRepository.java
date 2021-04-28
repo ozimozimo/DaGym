@@ -1,19 +1,23 @@
 package com.testcode.yjp.last.repository;
 
-import com.testcode.yjp.last.domain.Comment;
-import com.testcode.yjp.last.domain.calendar;
+import com.testcode.yjp.last.domain.Calendar;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.Collection;
 import java.util.List;
 
-public interface CalendarRepository extends JpaRepository<calendar, Long> {
+public interface CalendarRepository extends JpaRepository<Calendar, Long> {
 
 
-    @Query("select c from calendar c where c.member.id=:id")
-    List<calendar> findAll(Long id);
-//
+    @Query("select c from Calendar c where c.member.id=:id")
+    List<Calendar> findAll(Long id);
+
+    @Modifying
+    @Query("delete from Calendar c where c.start=:calendar_start and c.end=:calendar_end")
+    void deleteCalendar(String calendar_start, String calendar_end);
+
+
 //    @Query("select c from calendar c where c.member.id=:id ")
 //    List<calendar> findAllData(Long id, String startDate, String endDate);
 

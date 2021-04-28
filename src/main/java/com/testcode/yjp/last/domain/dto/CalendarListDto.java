@@ -1,12 +1,13 @@
 package com.testcode.yjp.last.domain.dto;
 
-import com.testcode.yjp.last.domain.Qcalendar;
-import com.testcode.yjp.last.domain.calendar;
+import com.testcode.yjp.last.domain.Calendar;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @Getter
+@Setter
 public class CalendarListDto {
 
     private Long id;
@@ -19,7 +20,7 @@ public class CalendarListDto {
     private String textColor;
     private boolean allDay;
 
-    public CalendarListDto(calendar entity) {
+    public CalendarListDto(Calendar entity) {
         this.id = entity.getId();
         this.title = entity.getTitle();
         this.start = entity.getStart();
