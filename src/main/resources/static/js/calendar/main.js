@@ -133,28 +133,35 @@ var calendar = $('#calendar').fullCalendar({
         if (view.name == "month") $(".fc-content").css('height', 'auto');
     },
 
-    //일정 리사이즈
-    // eventResize: function (event, delta, revertFunc, jsEvent, ui, view) {
-    //     $('.popover.fade.top').remove();
-    //
-    //     /** 리사이즈시 수정된 날짜반영
-    //      * 하루를 빼야 정상적으로 반영됨. */
-    //     var newDates = calDateWhenResize(event);
-    //
-    //     //리사이즈한 일정 업데이트
-    //     $.ajax({
-    //         type: "get",
-    //         url: "",
-    //         data: {
-    //             //id: event._id
-    //             //....
-    //         },
-    //         success: function (response) {
-    //             alert('수정: ' + newDates.start + ' ~ ' + newDates.end);
-    //         }
-    //     });
-    //
-    // },
+    // 일정 리사이즈
+    eventResize: function (event, delta, revertFunc, jsEvent, ui, view) {
+        $('.popover.fade.top').remove();
+
+        /** 리사이즈시 수정된 날짜반영
+         * 하루를 빼야 정상적으로 반영됨. */
+        var newDates = calDateWhenResize(event);
+
+        var start = newDates.start;
+        var end  = newDates.end;
+        var id = event.id;
+        //리사이즈한 일정 업데이트
+        $.ajax({
+            type: "post",
+            url: "/calendar/reSizeUpdate",
+            data: {
+                id: id,
+                start: start,
+                end: end
+            },
+            success: function (response) {
+                alert('수정: ' + newDates.start + ' ~ ' + newDates.end);
+            },
+            error:function (jqXHR) {
+                alert("에러")
+            }
+        });
+
+    },
 
     eventDragStart: function (event, jsEvent, ui, view) {
         draggedEventIsAllDay = event.allDay;

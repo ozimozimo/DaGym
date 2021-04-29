@@ -44,6 +44,11 @@ public class Calendar {
         this.end = end;
     }
 
+    public void ResizeTime(String start, String end) {
+        this.start =start;
+        this.end = end;
+    }
+
     public void update(String title, String start, String end,
                        String description, String type, String backgroundColor,
                        String textColor,boolean allDay) {

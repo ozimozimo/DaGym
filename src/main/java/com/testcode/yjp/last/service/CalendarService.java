@@ -47,4 +47,10 @@ public class CalendarService {
         calendar.ChangeTime(calendarListDto.getStart(), calendarListDto.getEnd());
         calendarRepository.save(calendar);
     }
+
+    public void reSizeUpdate(CalendarListDto calendarListDto) {
+        Calendar calendar = calendarRepository.findById(calendarListDto.getId()).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다다. id=" + calendarListDto.getId()));
+        calendar.ResizeTime(calendarListDto.getStart(), calendarListDto.getEnd());
+        calendarRepository.save(calendar);
+    }
 }
