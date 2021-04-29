@@ -323,7 +323,7 @@ function calDateWhenDragnDrop(event) {
     // 드랍시 수정된 날짜반영
     var newDates = {
         start: '',
-        end: ''
+        end: '',
     }
 
     // 날짜 & 시간이 모두 같은 경우

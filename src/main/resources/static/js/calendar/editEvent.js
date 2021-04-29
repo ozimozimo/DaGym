@@ -120,6 +120,8 @@ $('#deleteEvent').on('click', function () {
     
     $('#deleteEvent').unbind();
     $("#calendar").fullCalendar('removeEvents', $(this).data('id'));
+
+
     eventModal.modal('hide');
 
     var start = $("#edit-start").val();

@@ -98,10 +98,10 @@
 
                 <tbody>
                 <tr class="data" th:each="calendar : ${result}">
-                    <td><span th:value="${calendar.id}" id="calendar_id"></span></td>
+                    <td><span th:text="${calendar.id}"></span></td>
                     <td><span th:text="${calendar.title}"></span></td>
-                    <td><span th:text="${calendar.start}"></span></td>
-                    <td><span th:text="${calendar.end}"></span></td>
+                    <td><span th:text="${calendar.startDate}"></span></td>
+                    <td><span th:text="${calendar.endDate}"></span></td>
                     <td><span th:text="${calendar.type}"></span></td>
                     <td><span th:text="${calendar.backgroundColor}"></span></td>
                     <td><span th:text="${calendar.textColor}"></span></td>
@@ -189,7 +189,6 @@
                         </div>
                     </div>
                 </div>
-                <input class="inputModal" type="text" name="id" id="id" style="display: none"/>
                 <div class="modal-footer modalBtnContainer-addEvent">
                     <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
                     <button type="button" class="btn btn-primary" id="save-event">저장</button>
