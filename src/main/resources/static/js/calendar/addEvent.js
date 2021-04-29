@@ -53,7 +53,7 @@ var newEvent = function (start, end, eventType) {
             textColor: '#ffffff',
             allDay: editAllDay.is(":checked")
         };
-        console.log("id 는 =" + calendar_user);
+        console.log("check여부 는 =" + eventData.allDay);
 
         if (eventData.start > eventData.end) {
             alert('끝나는 날짜가 앞설 수 없습니다.');
@@ -90,8 +90,8 @@ var newEvent = function (start, end, eventType) {
             dataType: "json",
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
+                console.log(data.allDay);
                 alert("등록에 성공하셨습니다");
-                console.log(data);
                 location.reload();
                 // WinClose();
             },

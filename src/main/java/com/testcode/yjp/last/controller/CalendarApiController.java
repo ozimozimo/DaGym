@@ -29,6 +29,7 @@ public class CalendarApiController {
         log.info("Calendar controller Post");
         Optional<Member> result = memberRepository.findById(id);
 
+        System.out.println(calendar.isAllDay());
         calendar.setMember(result.get());
         calendarRepository.save(calendar);
         return calendar;
@@ -55,6 +56,14 @@ public class CalendarApiController {
         log.info("calendarListDtoId" + calendarListDto.getId());
         calendarService.update(calendarListDto.getId(), calendarListDto);
 
+    }
+
+    @PostMapping("/timeUpdate")
+    public void timeUpdate(CalendarListDto calendarListDto) {
+        System.out.println(calendarListDto.getStart());
+        System.out.println(calendarListDto.getEnd());
+        System.out.println(calendarListDto.getId());
+        calendarService.timeUpdate(calendarListDto);
     }
 
 //    public String memo(Long id, Model model) {

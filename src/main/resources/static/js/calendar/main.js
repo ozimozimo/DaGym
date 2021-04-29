@@ -176,12 +176,22 @@ var calendar = $('#calendar').fullCalendar({
         // 드랍시 수정된 날짜반영
         var newDates = calDateWhenDragnDrop(event);
 
+        var start = newDates.start;
+        var end = newDates.end;
+        var id = event.id;
+        console.log(start);
+        console.log(event.id);
+        console.log(end);
+        var id
+
         //드롭한 일정 업데이트
         $.ajax({
-            type: "get",
-            url: "",
+            type: "post",
+            url: "/calendar/timeUpdate",
             data: {
-                //...
+                start : start,
+                end : end,
+                id: id
             },
             success: function (response) {
                 alert('수정: ' + newDates.start + ' ~ ' + newDates.end);

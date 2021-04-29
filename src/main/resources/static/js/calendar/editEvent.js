@@ -70,6 +70,12 @@ var editEvent = function (event, element, view) {
         eventModal.modal('hide');
 
         event.allDay = statusAllDay;
+        // if (event.allDay == true) {
+        //     event.allDay.is(":checked")
+        // }else{
+        //     event.allDay.is(":checked")
+        // }
+        // console.log(event.allDay);
         event.title = editTitle.val();
         event.start = startDate;
         event.end = displayDate;
@@ -89,9 +95,9 @@ var editEvent = function (event, element, view) {
             type: event.type,
             backgroundColor : event.backgroundColor,
             description : event.description,
-            textColor : '#ffffff'
+            textColor : '#ffffff',
+            allDay : event.allDay
         };
-
         console.log(event);
         //일정 업데이트
         $.ajax({
