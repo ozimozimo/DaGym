@@ -66,6 +66,14 @@ public class CalendarApiController {
         calendarService.timeUpdate(calendarListDto);
     }
 
+    @PostMapping("/reSizeUpdate")
+    public void reSizeUpdate(CalendarListDto calendarListDto) {
+        System.out.println(calendarListDto.getStart());
+        System.out.println(calendarListDto.getEnd());
+        System.out.println(calendarListDto.getId());
+        calendarService.reSizeUpdate(calendarListDto);
+    }
+
 //    public String memo(Long id, Model model) {
 //        log.info("id =" + id);
 //        model.addAttribute("result", calendarService.findAll(id));
