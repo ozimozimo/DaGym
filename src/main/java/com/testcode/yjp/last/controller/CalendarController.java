@@ -17,9 +17,9 @@ public class CalendarController {
     private final CalendarService calendarService;
 
     @GetMapping("/memo")
-    public String memo(Long id, Model model) {
-        log.info("id =" + id);
-        model.addAttribute("result", calendarService.findAll(id));
+    public String memo(Long calendar_user, Model model) {
+        log.info("id =" + calendar_user);
+        model.addAttribute("result", calendarService.findAll(calendar_user));
         return "calendar/calendar";
     }
 

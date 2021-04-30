@@ -28,4 +28,12 @@ public class BoardListResponseDto {
         this.recommends = entity.getRecommends().size();
         this.hit = entity.getHit();
     }
+
+    public BoardListResponseDto(Long id, String title, String user_id, String content, LocalDateTime modifiedDate) {
+        this.id = id;
+        this.title = title;
+        this.user_id = user_id;
+        this.content = content;
+        this.modifiedDate = modifiedDate;
+    }
 }
