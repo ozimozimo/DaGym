@@ -115,14 +115,14 @@ function dietDelete() {
 
 // 검색창
 function dietWindow() {
-    var url = "http://localhost:8090/diet/search";
     var popupX = (window.screen.width / 2) - (800 / 2);
     var popupY = (window.screen.height / 2) - (700 / 2);
     var option = 'status=no, height=700, width=800, left=' + popupX + ', top=' + popupY + ', screenX=' + popupX + ', screenY= ' + popupY;
-    window.open(url, 'dietWindow', option);
-
-    // var url = "http://140.238.25.78:8090/diet/search";
+    // var url = "http://localhost:8090/diet/search";
     // window.open(url, 'dietWindow', option);
+
+    var url = "http://140.238.25.78:8090/diet/search";
+    window.open(url, 'dietWindow', option);
 }
 
 // 선택완료
