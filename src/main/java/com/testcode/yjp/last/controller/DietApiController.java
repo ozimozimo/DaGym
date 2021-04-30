@@ -8,12 +8,8 @@ import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.service.DietService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +23,7 @@ public class DietApiController {
     private final DietRepository dietRepository;
     private final MemberRepository memberRepository;
 
-    // 오늘 데이터 조회
+    // 오늘 데이터 보여주기
     @GetMapping("/listToday")
     public List<DietDto> listToday(String id, String regDate) {
         log.info("Today Data");
@@ -35,23 +31,21 @@ public class DietApiController {
         System.out.println("regDate = " + regDate);
         List<DietDto> byIdWithRegDate = dietService.findByIdWithRegDate(id, regDate);
         System.out.println("byIdWithRegDate = " + byIdWithRegDate);
-        log.info("Today Data holy moly");
+        log.info("Today Data HOLY MOLY");
         return byIdWithRegDate;
     }
-
-    // 날짜별 데이터 조회
+    // 클릭한 날짜 데이터 보여주기
     @GetMapping("/listDate")
     public List<DietDto> listDate(String id, String modDate) {
-        log.info("ID and ModDate");
+        log.info("Clicked Date Data");
         System.out.println("id = " + id);
         System.out.println("modDate = " + modDate);
         List<DietDto> byIdWithModDate = dietService.findByIdWithModDate(id, modDate);
         System.out.println("dietService.findByIdWithModDate(id, modDate) = " + byIdWithModDate);
-        log.info("holy moly");
+        log.info("Clicked Date Data HOLY MOLY");
         return byIdWithModDate;
     }
-
-    // 등록
+    // 데이터 추가
     @PostMapping("/save/{id}")
     public Diet save(@PathVariable Long id, @RequestBody Diet diet) {
         log.info("dietcontroller api post");
@@ -60,8 +54,7 @@ public class DietApiController {
         dietRepository.save(diet);
         return diet;
     }
-
-    // 삭제
+    // 데이터 삭제
     @PostMapping("/delete/{id}")
     public Long delete(@PathVariable Long id){
         dietService.delete(id);

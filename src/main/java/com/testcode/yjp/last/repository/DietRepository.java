@@ -13,9 +13,11 @@ public interface DietRepository extends JpaRepository<Diet,Long> {
     @Query("select d from Diet d where d.diet_member_id = :id")
     List<Diet> findAllDesc(String id);
 
+    // 오늘 데이터 가져오기
     @Query(value = "select * from Diet d where d.diet_member_id = :id and to_char(d.regDate, 'yyyy-mm-dd') = :regDate", nativeQuery = true)
     List<Diet> findByIdWithRegDate(String id, String regDate);
 
+    // 클릭한 날짜 데이터 가져오기
     @Query(value = "select * from Diet d where d.diet_member_id = :id and to_char(d.modDate, 'yyyy-mm-dd') = :modDate", nativeQuery = true)
     List<Diet> findByIdWithModDate(String id, String modDate);
 }
