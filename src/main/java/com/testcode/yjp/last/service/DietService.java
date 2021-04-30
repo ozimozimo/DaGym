@@ -29,7 +29,6 @@ public class DietService {
         return dietRepository.save(dietAddDto.toEntity()).getDiet_id();
     }
 
-    // 식단 내용 보여주기
     @Transactional(readOnly = true)
     public List<DietAddDto> findAll(String id) {
         System.out.println("service id=" + id);
@@ -38,6 +37,7 @@ public class DietService {
                 .map(DietAddDto::new)
                 .collect(Collectors.toList());
     }
+    // 식단 내용 보여주기
 
 //    @Transactional(readOnly = true)
 //    public List<DietAddDto> findByIdWithModDate(String id, LocalDateTime modDate) {
@@ -59,26 +59,15 @@ public class DietService {
                 .collect(Collectors.toList());
     }
 
-//    public List<DietDto> getDietListByModDate_Id(String id) {
-//
-//        // 시간값 디비에 들어가있는 형식에 맞게
-//        // id, modDate - String modDate
-//        List<Diet> allDesc = dietRepository.findAllDesc(id);
-//        List<DietDto> dietDtoList = new ArrayList<>();
-//        allDesc.forEach(i -> {
-//            DietDto dietDto = new DietDto(
-//                    i.getDiet_id(),
-//                    i.getDiet_name(),
-//                    i.getDiet_kcal(),
-//                    i.getDiet_carbo(),
-//                    i.getDiet_protein(),
-//                    i.getDiet_fat(),
-//                    i.getDiet_time()
-//            );
-//            dietDtoList.add(dietDto);
-//        });
-//        return dietDtoList;
-//    }
+    @Transactional
+    public List<DietDto> findByIdWithRegDate(String id, String regDate) {
+        log.info("service id, regDate get");
+        System.out.println("id = " + id);
+        System.out.println("regDate = " + regDate);
+        return dietRepository.findByIdWithRegDate(id, regDate).stream()
+                .map(DietDto::new)
+                .collect(Collectors.toList());
+    }
 
     @Transactional
     public void delete(Long id) {

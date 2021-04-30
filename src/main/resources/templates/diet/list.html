@@ -28,12 +28,11 @@
             합계 부분은 글자 좀 두껍게
         </p>
     </div>
-    <div id="calendar" style="min-width: 300px"></div>
+    <div id="calendar" style="width: 500px"></div>
     <button type="button" class="dietWindow">추가하기</button>
 
-<!--        오전 식사 부분-->
+    <!--        오전 식사 부분-->
     <div>
-        <div class="modDate">클릭한 날짜 나오는 부분</div>
         <div class="diet" style="border: purple solid 1px; margin: 5px 0px; height: 35%; width:40%;">아침 식사
             <table class="breakfast">
                 <thead>
@@ -45,27 +44,8 @@
                 <th>단백질</th>
                 <th>지방</th>
                 </thead>
-                <tbody th:each="dietList : ${list}">
-                <tr th:if="${dietList.diet_time == '아침'}">
-                    <td th:text="${dietList.diet_id}" class="diet_id" style="display: none"></td>
-                    <td th:text="${dietList.diet_member_id}" style="display: none"></td>
-                    <td th:text="${dietList.diet_name}" class="diet_name"></td>
-                    <td th:text="${dietList.diet_kcal}" class="diet_kcal"></td>
-                    <td th:text="${dietList.diet_carbo}" class="diet_carbo"></td>
-                    <td th:text="${dietList.diet_protein}" class="diet_protein"></td>
-                    <td th:text="${dietList.diet_fat}" class="diet_fat"></td>
-                    <td th:if="${session.loginId == dietList.diet_member_id}">
-                        <button type="button" class="dietDelete">삭제</button>
-                    </td>
-                </tr>
+                <tbody class="dietList">
                 </tbody>
-                <tr>
-                    <td>아침 섭취량</td>
-                    <td class="breakfast_kcal"></td>
-                    <td class="breakfast_carbo"></td>
-                    <td class="breakfast_protein"></td>
-                    <td class="breakfast_fat"></td>
-                </tr>
             </table>
         </div>
         <div>
@@ -82,31 +62,14 @@
                 <th>단백질</th>
                 <th>지방</th>
                 </thead>
-                <tbody th:each="dietList : ${list}">
-                <tr th:if="${dietList.diet_time == '점심'}">
-                    <td th:text="${dietList.diet_id}" class="diet_id" style="display: none"></td>
-                    <td th:text="${dietList.diet_member_id}" style="display: none"></td>
-                    <td th:text="${dietList.diet_name}"></td>
-                    <td th:text="${dietList.diet_kcal}" class="diet_kcal"></td>
-                    <td th:text="${dietList.diet_carbo}" class="diet_carbo"></td>
-                    <td th:text="${dietList.diet_protein}" class="diet_protein"></td>
-                    <td th:text="${dietList.diet_fat}" class="diet_fat"></td>
-                    <td th:if="${session.loginId == dietList.diet_member_id}">
-                        <button type="button" class="dietDelete">삭제</button>
-                    </td>
-                </tr>
+                <tbody class="dietList">
+                <tr class="lunchList"></tr>
+                <tr class="lunchNutr"></tr>
                 </tbody>
-                <tr>
-                    <td>점심 섭취량</td>
-                    <td class="lunch_kcal"></td>
-                    <td class="lunch_carbo"></td>
-                    <td class="lunch_protein"></td>
-                    <td class="lunch_fat"></td>
-                </tr>
             </table>
         </div>
 
-<!--        저녁 식사-->
+        <!--        저녁 식사-->
         <div class="diet" style="border: purple solid 1px; margin: 5px 0px; height: 35%; width:40%;">저녁 식사
             <table class="dinner">
                 <thead>
@@ -118,31 +81,14 @@
                 <th>단백질</th>
                 <th>지방</th>
                 </thead>
-                <tbody th:each="dietList : ${list}">
-                <tr th:if="${dietList.diet_time == '저녁'}">
-                    <td th:text="${dietList.diet_id}" class="diet_id" style="display: none"></td>
-                    <td th:text="${dietList.diet_member_id}" style="display: none"></td>
-                    <td th:text="${dietList.diet_name}"></td>
-                    <td th:text="${dietList.diet_kcal}" class="diet_kcal"></td>
-                    <td th:text="${dietList.diet_carbo}" class="diet_carbo"></td>
-                    <td th:text="${dietList.diet_protein}" class="diet_protein"></td>
-                    <td th:text="${dietList.diet_fat}" class="diet_fat"></td>
-                    <td th:if="${session.loginId == dietList.diet_member_id}">
-                        <button type="button" class="dietDelete">삭제</button>
-                    </td>
-                </tr>
+                <tbody class="dietList">
+                <tr class="dinnerList"></tr>
+                <tr class="dinnerNutr"></tr>
                 </tbody>
-                <tr>
-                    <td>저녁 섭취량</td>
-                    <td class="dinner_kcal"></td>
-                    <td class="dinner_carbo"></td>
-                    <td class="dinner_protein"></td>
-                    <td class="dinner_fat"></td>
-                </tr>
             </table>
         </div>
 
-<!--        간식-->
+        <!--        간식-->
         <div class="diet" style="border: purple solid 1px; margin: 5px 0px; height: 35%; width:40%;">간식
             <table class="extra">
                 <thead>
@@ -154,27 +100,10 @@
                 <th>단백질</th>
                 <th>지방</th>
                 </thead>
-                <tbody th:each="dietList : ${list}">
-                <tr th:if="${dietList.diet_time == '간식'}">
-                    <td th:text="${dietList.diet_id}" class="diet_id" style="display: none"></td>
-                    <td th:text="${dietList.diet_member_id}" style="display: none"></td>
-                    <td th:text="${dietList.diet_name}"></td>
-                    <td th:text="${dietList.diet_kcal}" class="diet_kcal"></td>
-                    <td th:text="${dietList.diet_carbo}" class="diet_carbo"></td>
-                    <td th:text="${dietList.diet_protein}" class="diet_protein"></td>
-                    <td th:text="${dietList.diet_fat}" class="diet_fat"></td>
-                    <td th:if="${session.loginId == dietList.diet_member_id}">
-                        <button type="button" class="dietDelete">삭제</button>
-                    </td>
-                </tr>
+                <tbody class="dietList">
+                <tr class="extraList"></tr>
+                <tr class="extraNutr"></tr>
                 </tbody>
-                <tr>
-                    <td>간식 섭취량</td>
-                    <td class="extra_kcal"></td>
-                    <td class="extra_carbo"></td>
-                    <td class="extra_protein"></td>
-                    <td class="extra_fat"></td>
-                </tr>
             </table>
         </div>
     </div>
@@ -198,7 +127,8 @@
     <div class="trainerAdvice">
         <h1>트레이너 코멘트</h1>
         <form action="#" type="post">
-            <textarea class="adviceWrite" cols="50" rows="5" style="resize: none" placeholder="피드백할 내용을 입력하세요"></textarea>
+            <textarea class="adviceWrite" cols="50" rows="5" style="resize: none"
+                      placeholder="피드백할 내용을 입력하세요"></textarea>
             <div>
                 <button type="button" class="adviceAdd">피드백</button>
                 <input type="reset">

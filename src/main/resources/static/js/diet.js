@@ -5,37 +5,6 @@ $(function () {
     $('.dietWindow').on('click', dietWindow);
     $('.dietClose').on('click', dietClose);
     $('.trainerCommentAdd').on('click', trainerCommentAdd);
-    // 미친게지.. 그래도 되긴 되네.. 차라리 안전한게 낫지 시발
-    sumNutr('.diet', '.breakfast', '.diet_kcal', '.breakfast_kcal');
-    sumNutr('.diet', '.breakfast', '.diet_carbo', '.breakfast_carbo');
-    sumNutr('.diet', '.breakfast', '.diet_protein', '.breakfast_protein');
-    sumNutr('.diet', '.breakfast', '.diet_fat', '.breakfast_fat');
-
-    sumNutr('.diet', '.lunch', '.diet_kcal', '.lunch_kcal');
-    sumNutr('.diet', '.lunch', '.diet_carbo', '.lunch_carbo');
-    sumNutr('.diet', '.lunch', '.diet_protein', '.lunch_protein');
-    sumNutr('.diet', '.lunch', '.diet_fat', '.lunch_fat');
-
-    sumNutr('.diet', '.dinner', '.diet_kcal', '.dinner_kcal');
-    sumNutr('.diet', '.dinner', '.diet_carbo', '.dinner_carbo');
-    sumNutr('.diet', '.dinner', '.diet_protein', '.dinner_protein');
-    sumNutr('.diet', '.dinner', '.diet_fat', '.dinner_fat');
-
-    sumNutr('.diet', '.extra', '.diet_kcal', '.extra_kcal');
-    sumNutr('.diet', '.extra', '.diet_carbo', '.extra_carbo');
-    sumNutr('.diet', '.extra', '.diet_protein', '.extra_protein');
-    sumNutr('.diet', '.extra', '.diet_fat', '.extra_fat');
-
-    var k = [".breakfast_kcal", ".lunch_kcal", ".dinner_kcal", ".extra_kcal"];
-    var c = [".breakfast_carbo", ".lunch_carbo", ".dinner_carbo", ".extra_carbo"];
-    var p = [".breakfast_protein", ".lunch_protein", ".dinner_protein", ".extra_protein"];
-    var f = [".breakfast_fat", ".lunch_fat", ".dinner_fat", ".extra_fat"];
-
-    nutr(k, '.dailyKcal');
-    nutr(c, '.dailyCarbo');
-    nutr(p, '.dailyProtein');
-    nutr(f, '.dailyFat');
-
 })
 
 // 식단 검색
@@ -85,9 +54,9 @@ function dietResult(result) {
         // 시간
         content += "<td>" +
             "<select name='diet_time'>" +
-            "<option value='아침'>아침 </option>" +
+            "<option value='아침'>아침</option>" +
             "<option value='점심'>점심</option>" +
-            "<option value='저녁'>저녁 </option>" +
+            "<option value='저녁'>저녁</option>" +
             "<option value='간식'>간식</option>" +
             "</select>" +
             "</td>"
@@ -152,33 +121,14 @@ function dietWindow() {
     var option = 'status=no, height=700, width=800, left=' + popupX + ', top=' + popupY + ', screenX=' + popupX + ', screenY= ' + popupY;
     window.open(url, 'dietWindow', option);
 
-    // var url = "http://140.238.25.78:8090/diet/list";
-    // window.open("http://140.238.25.78:8090/diet/list", 'dietWindow', option);
+    // var url = "http://140.238.25.78:8090/diet/search";
+    // window.open(url, 'dietWindow', option);
 }
 
 // 선택완료
 function dietClose() {
     window.close();
     opener.document.location.reload();
-}
-
-// 영양소별 섭취량
-function sumNutr(str, time, data, result) {
-    let sum = 0;
-    for (let i = 0; i < $(str).find(time).find(data).length; i++) {
-        sum += parseFloat($(str).find(time).find(data).eq(`${i}`).text());
-    }
-    $(result).html(sum.toFixed(1));
-    console.log()
-}
-
-// 일일 섭취량
-function nutr(str, where) {
-    let sum = 0;
-    str.forEach(function (n) {
-        sum += parseFloat($('.diet').find(n).text());
-    })
-    $(where).html(sum.toFixed(1));
 }
 
 // 얘는 왜 여기 있는가

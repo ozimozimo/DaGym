@@ -27,6 +27,30 @@ public class DietApiController {
     private final DietRepository dietRepository;
     private final MemberRepository memberRepository;
 
+    // 오늘 데이터 조회
+    @GetMapping("/listToday")
+    public List<DietDto> listToday(String id, String regDate) {
+        log.info("Today Data");
+        System.out.println("id = " + id);
+        System.out.println("regDate = " + regDate);
+        List<DietDto> byIdWithRegDate = dietService.findByIdWithRegDate(id, regDate);
+        System.out.println("byIdWithRegDate = " + byIdWithRegDate);
+        log.info("Today Data holy moly");
+        return byIdWithRegDate;
+    }
+
+    // 날짜별 데이터 조회
+    @GetMapping("/listDate")
+    public List<DietDto> listDate(String id, String modDate) {
+        log.info("ID and ModDate");
+        System.out.println("id = " + id);
+        System.out.println("modDate = " + modDate);
+        List<DietDto> byIdWithModDate = dietService.findByIdWithModDate(id, modDate);
+        System.out.println("dietService.findByIdWithModDate(id, modDate) = " + byIdWithModDate);
+        log.info("holy moly");
+        return byIdWithModDate;
+    }
+
     // 등록
     @PostMapping("/save/{id}")
     public Diet save(@PathVariable Long id, @RequestBody Diet diet) {
@@ -43,15 +67,4 @@ public class DietApiController {
         dietService.delete(id);
         return id;
     }
-
-//    @GetMapping("/list/{id}/{modDate}")
-//    public String list(String id, LocalDateTime modDate, Model model) {
-//        log.info("RestController ID and ModDate");
-//        System.out.println("id = " + id);
-//        System.out.println("modDate = " + modDate);
-//        model.addAttribute("list", dietService.findByIdWithModDate(id, modDate));
-//        System.out.println("dietService.findByIdWithModDate(id, modDate) = " + dietService.findByIdWithModDate(id, modDate));
-//        log.info("holy moly");
-//        return "diet/list";
-//    }
 }
