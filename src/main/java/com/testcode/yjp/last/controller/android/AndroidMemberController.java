@@ -77,10 +77,12 @@ public class AndroidMemberController {
 
     //아이디 찾기
     @PostMapping("/findId")
-    public Member findId(@RequestBody AndMemberFindIdDto andMemberFindIdDto) {
+    public AndMemberLoginDto findId(@RequestBody AndMemberFindIdDto andMemberFindIdDto) {
         log.info("AndroidController findId 1st Line");
-
-        return andMemberService.findId(andMemberFindIdDto);
+        Member id = andMemberService.findId(andMemberFindIdDto);
+        AndMemberLoginDto andMemberLoginDto = new AndMemberLoginDto();
+        andMemberLoginDto.setUser_id(id.getUser_id());
+        return andMemberLoginDto;
     }
 
     //비밀번호 찾기
@@ -88,9 +90,11 @@ public class AndroidMemberController {
     public Member findPw(@RequestBody AndMemberFindPwDto andMemberFindPwDto) {
         log.info("AndroidController findPw 1st Line");
 
+
         return andMemberService.findPw(andMemberFindPwDto);
     }
 
+    //비밀번호 변경
     @PostMapping("/update/{id}")
     public Member updatePw(@PathVariable("id") Long id, @RequestBody String user_pw) {
         log.info("AndroidController updatePw 1st Line");
@@ -98,6 +102,7 @@ public class AndroidMemberController {
         return andMemberService.updatePw(id, user_pw);
     }
 
+    // 소셜 로그인
     @PostMapping("/socialInsert")
     public Member socialInsert(@RequestBody MemberSoDto memberSoDto) {
         log.info("AndroidController socialInsert 1st Line");
