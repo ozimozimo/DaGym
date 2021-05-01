@@ -1,8 +1,10 @@
 package com.testcode.yjp.last.controller;
 
 import com.testcode.yjp.last.domain.BoardImage;
+import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.dto.UploadResultDto;
 import com.testcode.yjp.last.repository.BoardImageRepository;
+import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.service.BoardImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +32,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -41,9 +45,10 @@ public class UploadController {
 
     private final BoardImageService boardImageService;
     private final BoardImageRepository boardImageRepository;
+    private final MemberRepository memberRepository;
     
-    @PostMapping("/uploadFile")
-    public ResponseEntity<List<UploadResultDto>> uploadFile(MultipartFile[] uploadFiles) {
+    @PostMapping("/uploadFile/{id}")
+    public ResponseEntity<List<UploadResultDto>> uploadFile(@PathVariable Long id, MultipartFile[] uploadFiles) {
 
         System.out.println(uploadFiles);
 
@@ -87,13 +92,15 @@ public class UploadController {
                 File thumbnailFile = new File(thumbnailSaveName);
 
                 // 섬네일 생성
-                Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile,100,100);
+                Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile,640,427);
 
                 resultDtoList.add(new UploadResultDto(fileName, uuid, folderPath));
 
+                Optional<Member> byId = memberRepository.findById(id);
                 BoardImage boardImage = BoardImage.builder()
                         .uuid(uuid)
                         .imgName(thumbnailSaveName)
+                        .member(byId.get())
                         .build();
                 boardImageRepository.save(boardImage);
 

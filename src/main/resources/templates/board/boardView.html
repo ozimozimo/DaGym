@@ -6,19 +6,24 @@
 
 <head>
     <title>board</title>
-    <link rel="stylesheet" th:href="@{/css/board.css}" />
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
     <link rel="stylesheet" href="/css/boardControl.css">
-    <script th:src="@{/js/board.js}" ></script>
+    <script th:src="@{/js/board.js}"></script>
     <style>
-        p{
+        p {
             /*color: #f55959;*/
             font-size: 18px;
         }
-        form-control{
-            width:100%;
-            margin:5px 0;
-            padding:3px;
 
+        form-control {
+            width: 100%;
+            margin: 5px 0;
+            padding: 3px;
+
+        }
+
+        .files{
+            margin-left: 5px;
         }
         /*.custom_btn{*/
         /*    padding: 8px 8px;*/
@@ -42,17 +47,87 @@
             <label for="user_id">작성자</label>
             <input class="form-control" id="user_id" th:value="${session.loginId}" readonly>
         </div>
+<!--        <div class="files">-->
+<!--            <input name="uploadFiles" type="file" multiple>-->
+<!--            <button type="button" class="uploadBtn">업로드</button>-->
+<!--            <div class="uploadResult" id="uploadResult">-->
+
+<!--            </div>-->
+<!--        </div>-->
         <div class="custom_form_control">
             <label for="content">내용</label>
-            <textarea  class="form-control" id="content"  placeholder="내용을 입력하세요" style="resize: none" cols="50" rows="50"></textarea>
+            <textarea class="form-control" id="content" placeholder="내용을 입력하세요" style="resize: none" cols="50"
+                      rows="50"></textarea>
         </div>
     </form>
     <a th:href="@{/board}" role="button" class="custom_btn">이전</a>
     <button type="button" class="custom_btn success" id="btn-save">등록</button>
 
 
-</div>
+<!--    파일업로드-->
+<!--    <script>-->
+<!--        // 사진 삭제-->
+<!--        $('.uploadResult').on("click", ".removeBtn", function (e) {-->
+<!--            var target = $(this);-->
+<!--            var fileName = target.data("name");-->
+<!--            var targetDiv = $(this).closest("div");-->
+<!--            console.log(fileName);-->
+<!--            $.post('/removeFile', {fileName: fileName}, function (result) {-->
+<!--                console.log(result);-->
+<!--                if (result === true) {-->
+<!--                    targetDiv.remove();-->
+<!--                }-->
+<!--            })-->
+<!--        })-->
+<!--        // 사진 받아오기-->
+<!--        $('.uploadBtn').click(function () {-->
+<!--            var formData = new FormData();-->
+<!--            var inputFile = $("input[type='file']");-->
+<!--            var files = inputFile[0].files;-->
 
+<!--            console.log(inputFile);-->
+<!--            console.log(files);-->
+
+<!--            for (var i = 0; i < files.length; i++) {-->
+<!--                console.log(files[i]);-->
+<!--                formData.append("uploadFiles", files[i]);-->
+<!--            }-->
+
+<!--            var id = $("#member_id").val();-->
+
+<!--            // 실제 업로드 부분-->
+<!--            $.ajax({-->
+<!--                url: '/uploadFile/'+id,-->
+<!--                processData: false,-->
+<!--                contentType: false,-->
+<!--                data: formData,-->
+<!--                type: "POST",-->
+<!--                dataType: "json",-->
+<!--                success: function (result) {-->
+<!--                    console.log(result);-->
+<!--                    showUploadedImages(result);-->
+<!--                },-->
+<!--                error: function (jqXHR, textStatus, errorThrown) {-->
+<!--                    console.log(textStatus);-->
+<!--                }-->
+<!--            }) // ajax end-->
+<!--        });-->
+
+<!--        function showUploadedImages(arr) {-->
+<!--            console.log(arr);-->
+<!--            var divArea = $(".uploadResult");-->
+
+<!--            var str = "";-->
+<!--            for (var i = 0; i < arr.length; i++) {-->
+<!--                str += "<div>";-->
+<!--                str += "<img src='/display?fileName=" + arr[i].thumbnailURL + "'>";-->
+<!--                str += "<button class='removeBtn' data-name='" + arr[i].imageURL + "'>삭제</button>";-->
+<!--                str += "</div>"-->
+<!--            }-->
+<!--            divArea.append(str);-->
+<!--        }-->
+<!--    </script>-->
+</div>
 
 
 </html>

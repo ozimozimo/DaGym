@@ -1,4 +1,4 @@
-// 함수 선언 부분
+o// 함수 선언 부분
 $(function () {
     $('.dietDelete').on('click', dietDelete);
     $('.dietSearch').on('click', dietSearch);

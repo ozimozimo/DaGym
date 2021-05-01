@@ -34,6 +34,9 @@ public class ReCommentsApiController {
         Optional<Comment> result = commentsRepository.findById(re_parentCoNum);
         reComment.setComment(result.get());
         reCommentsRepository.save(reComment);
+
+        commentsRepository.update(re_parentCoNum);
+
         model.addAttribute("reComment", commentsRepository.findById(re_parentCoNum));
 
         return reComment;

@@ -29,7 +29,6 @@ public class BoardController {
     private final BoardRepository boardRepository;
 
 
-
     // 전체조회
     @GetMapping("")
     public String BoardView(PageRequestDto pageRequestDto, Model model) {
@@ -90,6 +89,9 @@ public class BoardController {
         commentsRepository.findByparentNum(result.get().getId());
 
         System.out.println("commentId==="+commentsRepository.findByparentNum(result.get().getId()));
+
+
+        // img 보내기
 
 
         return "board/boardDetail";

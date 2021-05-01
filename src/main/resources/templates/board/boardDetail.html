@@ -36,6 +36,14 @@
         </div>
     </div>
 
+    <div class="uploadResult">
+        <ul>
+            <li>
+
+            </li>
+        </ul>
+    </div>
+
     <div class="post_content" th:text="${boards.content}"></div>
     <!--    // 추천 기능-->
     <div style="text-align: center">
@@ -114,7 +122,7 @@
                     <div class="like_area">
                         <div>
                             <!--                  답글 누르면 스타트지점-->
-                            <button type="button" class="recmt_button custom_btn">답글</button>
+                            <button type="button" class="recmt_button custom_btn">답글 [[${comment.reComments_count}]]</button>
                             <!--  삭제 -->
                             <div class="comment_control_btn_area" th:if="${session.loginId == comment.user_id}">
                                 <button type="button" id="delete">삭제</button>

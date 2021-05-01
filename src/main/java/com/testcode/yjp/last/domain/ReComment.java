@@ -25,6 +25,7 @@ public class ReComment extends BaseEntity {
     private Long re_parentCoNum; // 상위 댓글
 
     private Long re_parentNum; // 상위 게시글
+    
 
     private String re_comments; //  댓글
 

@@ -16,6 +16,7 @@ public class CommentsListResponseDto {
     private String comments;
     private int dislike;
     private int likes;
+    private int reComments_count;
     private LocalDateTime modifiedDate;
 
     public CommentsListResponseDto(Comment entity){
@@ -25,6 +26,7 @@ public class CommentsListResponseDto {
         this.comments = entity.getComments();
         this.likes = entity.getLike_check();
         this.dislike = entity.getDislike_check();
+        this.reComments_count = entity.getReComments_count();
         this.modifiedDate = entity.getModDate();
     }
 }
