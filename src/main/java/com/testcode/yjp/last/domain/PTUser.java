@@ -30,12 +30,12 @@ public class PTUser {
     private String user_name;
     private String user_pn;
     private String user_email;
-    private LocalDateTime start_date;
-    private LocalDateTime end_date;
+    private String start_date;
+    private String end_date;
     private String accept_condition; // {0 신청(보류), 1 신청(수락), 2 신청(거절)}로 생각
 
     @Builder
-    public PTUser(Long id, Member member_id, Member trainer_id, String user_id, String user_name, String user_pn, String user_email, LocalDateTime start_date, LocalDateTime end_date, String accept_condition) {
+    public PTUser(Long id, Member member_id, Member trainer_id, String user_id, String user_name, String user_pn, String user_email, String start_date, String end_date, String accept_condition) {
         this.id = id;
         this.user_id = user_id;
         this.member_id = member_id;
