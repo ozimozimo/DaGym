@@ -81,10 +81,11 @@ public class MemberApiController {
     // Email과 name의 일치여부를 check하는 컨트롤러
     @GetMapping("/findPw")
     public @ResponseBody
-    Map<String, Boolean> pw_find(String user_name, String user_email){
+    Map<String, Boolean> pw_find(String user_name, String user_email,String user_id){
         Map<String,Boolean> json = new HashMap<>();
-        boolean pwFindCheck = memberService.userEmailCheck(user_name,user_email);
-        log.info("get userEmailCheck Service");
+        System.out.println(user_id);
+        boolean pwFindCheck = memberService.userEmailCheck(user_name,user_email,user_id);
+        log.info("get userEmailCheck Controller");
         System.out.println(pwFindCheck);
         json.put("check", pwFindCheck);
         return json;
