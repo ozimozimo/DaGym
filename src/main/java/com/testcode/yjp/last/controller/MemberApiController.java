@@ -104,12 +104,13 @@ public class MemberApiController {
     //회원탈퇴
     @PostMapping("/memberOut")
     @ResponseBody
-    public String memberOut(Long id, String user_pw, HttpSession session) throws Exception {
+    public String memberOut(Long id, String user_pw,String out_comments, HttpSession session) throws Exception {
         log.info("memberout Post Controller");
         System.out.println(id);
         System.out.println(user_pw);
+        System.out.println(out_comments);
 
-        String ace = memberService.delete(id,user_pw);
+        String ace = memberService.delete(id,user_pw,out_comments);
 
         session.removeAttribute("loginUser");
         session.invalidate();

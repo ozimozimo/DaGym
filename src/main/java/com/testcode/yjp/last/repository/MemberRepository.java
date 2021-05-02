@@ -31,7 +31,7 @@ public interface MemberRepository  extends JpaRepository<Member,Long> {
     Member findByUser_pw(String user_pw);
 
     @Query("select m from Member m where id = :id and user_pw = :user_pw")
-    List<Member> findByMemberOut(Long id, String user_pw);
+    Member findByMemberOut(Long id, String user_pw);
 
     @Transactional
     @Modifying

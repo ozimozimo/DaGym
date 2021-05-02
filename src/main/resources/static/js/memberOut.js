@@ -1,10 +1,10 @@
 function memberOut() {
     var frm = document.frm;
     console.log(frm.user_pw.value);
-    console.log(frm.info.value)
-    if (frm.info.value.length == 0) {
+    console.log(frm.out_comments.value)
+    if (frm.out_comments.value.length == 0) {
         alert("탈퇴사유를 입력하세요");
-        frm.info.focus();
+        frm.out_comments.focus();
         return false;
     }
     $.ajax({
@@ -12,7 +12,8 @@ function memberOut() {
         type: "POST",
         data: {
             user_pw: $("#user_pw").val(),
-            id: $("#id").val()
+            id: $("#id").val(),
+            out_comments : $("#out_comments").val()
         },
         dataType: "json",
         error: function () {
