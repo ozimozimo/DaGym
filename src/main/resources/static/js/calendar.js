@@ -1,5 +1,7 @@
 function mkHtml(result) {
     // 결과 출력
+    let id = $('.loginId').text();
+    console.log(id);
     for (let i = 0; i < result.length; i++) {
         var a = result[i].diet_name;
         var b = result[i].diet_kcal;
@@ -7,15 +9,19 @@ function mkHtml(result) {
         var d = result[i].diet_protein;
         var e = result[i].diet_fat;
         var f = result[i].diet_time;
-
+        var g = result[i].diet_id;
+        var h = result[i].diet_member_id;
         function input(time, list, value) {
             if (f == time) {
                 let content = "<tr class=" + list + ">"
+                content += "<td class='diet_id' style='display: none'>" + g + "</td>"
                 content += "<td class='diet_name'>" + a + "</td>"
                 content += "<td class='diet_kcal'>" + b + "</td>"
                 content += "<td class='diet_carbo'>" + c + "</td>"
                 content += "<td class='diet_protein'>" + d + "</td>"
                 content += "<td class='diet_fat'>" + e + "</td>"
+                if(h == id)
+                    content += "<td><button type='button' class='dietDelete'>삭제</button>" + "</td>"
                 content += "</tr>"
                 $('.diet').children(value).children('.dietList').append(content);
             }
@@ -157,12 +163,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 data: data,
                 contentType: 'application/json; charset=utf-8',
             }).done(function (result) {
-                if (result.length == 0) {
+                if (result.length == 0)
                     alert('기록된 데이터가 없습니다');
-                } else {
+
                     $('.dietList').empty();
                     mkHtml(result);
-                }
+
             }).fail(function (error) {
                 alert("fail");
                 console.log(JSON.stringify(error));
