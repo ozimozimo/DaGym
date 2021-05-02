@@ -299,7 +299,7 @@ function buttonToggle() {
 // }
 
 function showComment(str) {
-    // console.log($(`#${str}`).children().slice(0,start));
+    console.log($(`#${str}`).children().slice(0,start));
     $(`#${str}`).show();
     $(`#${str}`).children().slice(start).hide();
     $(`#${str}`).children('.load').show();
@@ -311,6 +311,9 @@ function sortComment() {
     var buttonId = $(this).attr('id');
     var buttonClass = $(this).attr('class').split(' ');
     var url = "/comments/" + buttonId + "/" + id;
+    console.log("buttonId는="+buttonId);
+    console.log("buttonClass는"+buttonClass);
+    // 답글 순 findCountAll
     // 좋아요 순 findLikeAll
     // 싫어요 순 findDisLikeAll
     // 최신순 findLatestAll
@@ -337,6 +340,7 @@ function sortComment() {
 }
 
 function hideComment() {
+    $('#commentCountAll').hide();
     $('#commentLike').hide();
     $('#commentDisLikeAll').hide();
     $('#commentLikeLatestAll').hide();
@@ -360,6 +364,8 @@ $(function () {
     $('.unlike_button').on("click", likeUnlike);
     $('.recommendButton').on("click", recommend);
     // 정렬
+    // 답글순
+    $('#findCountAll').on("click", sortComment);
     // like 순 조회
     $('#findLikeAll').on("click", sortComment);
     // dislike 순 조회

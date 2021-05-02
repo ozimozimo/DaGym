@@ -77,6 +77,7 @@ public class BoardController {
         model.addAttribute("commentDisLikeAll",commentsService.findDisLikeAll(hb_num));
         model.addAttribute("commentLikeLatestAll",commentsService.findLatestAllClass(hb_num));
         model.addAttribute("commentLikePastAll",commentsService.findPastAllClass(hb_num));
+        model.addAttribute("commentCountAll", commentsService.findCountAllClass(hb_num));
 
         boardService.updateView(hb_num);
 
