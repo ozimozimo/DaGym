@@ -62,6 +62,9 @@ public interface CommentsRepository extends JpaRepository<Comment, Long> , Query
     @Query("select c from Comment c where c.parentNum=:id order by c.regDate asc")
     List<Comment> findPastAll(Long id);
 
+    @Query("select c from Comment c where c.parentNum=:id order by c.reComments_count desc")
+    List<Comment> findCountAll(Long id);
+
     @Modifying
     @Query("delete from Comment c where c.parentNum=:id")
     void deleteByCmId(Long id);
@@ -70,6 +73,7 @@ public interface CommentsRepository extends JpaRepository<Comment, Long> , Query
     @Modifying
     @Query("update Comment c set c.reComments_count = c.reComments_count + 1 where c.id = :re_parentCoNum")
     void update(Long re_parentCoNum);
+
 
 
 //    @Modifying

@@ -81,10 +81,11 @@ public class MemberApiController {
     // Email과 name의 일치여부를 check하는 컨트롤러
     @GetMapping("/findPw")
     public @ResponseBody
-    Map<String, Boolean> pw_find(String user_name, String user_email){
+    Map<String, Boolean> pw_find(String user_name, String user_email,String user_id){
         Map<String,Boolean> json = new HashMap<>();
-        boolean pwFindCheck = memberService.userEmailCheck(user_name,user_email);
-        log.info("get userEmailCheck Service");
+        System.out.println(user_id);
+        boolean pwFindCheck = memberService.userEmailCheck(user_name,user_email,user_id);
+        log.info("get userEmailCheck Controller");
         System.out.println(pwFindCheck);
         json.put("check", pwFindCheck);
         return json;
@@ -103,12 +104,13 @@ public class MemberApiController {
     //회원탈퇴
     @PostMapping("/memberOut")
     @ResponseBody
-    public String memberOut(Long id, String user_pw, HttpSession session) throws Exception {
+    public String memberOut(Long id, String user_pw,String out_comments, HttpSession session) throws Exception {
         log.info("memberout Post Controller");
         System.out.println(id);
         System.out.println(user_pw);
+        System.out.println(out_comments);
 
-        String ace = memberService.delete(id,user_pw);
+        String ace = memberService.delete(id,user_pw,out_comments);
 
         session.removeAttribute("loginUser");
         session.invalidate();

@@ -95,5 +95,11 @@ public class CommentsService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<CommentsListResponseDto> findCountAllClass(Long id) {
+        return commentsRepository.findCountAll(id).stream()
+                .map(CommentsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
 }
 

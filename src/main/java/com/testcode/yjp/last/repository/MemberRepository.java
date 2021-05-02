@@ -31,7 +31,7 @@ public interface MemberRepository  extends JpaRepository<Member,Long> {
     Member findByUser_pw(String user_pw);
 
     @Query("select m from Member m where id = :id and user_pw = :user_pw")
-    List<Member> findByMemberOut(Long id, String user_pw);
+    Member findByMemberOut(Long id, String user_pw);
 
     @Transactional
     @Modifying
@@ -43,4 +43,8 @@ public interface MemberRepository  extends JpaRepository<Member,Long> {
 
     @Query("select m from Member m where user_id = :user_id and user_pw = :user_pw")
     List<Member> findByMemberIn(String user_id, String user_pw);
+
+    // 비밀번호 찾기
+    @Query("select m from Member m where m.user_name= :user_name and m.user_email = :user_email and m.user_id = :user_id")
+    Member findCheckPw(String user_name, String user_email, String user_id);
 }

@@ -2,10 +2,12 @@ package com.testcode.yjp.last.service;
 
 
 import com.testcode.yjp.last.domain.Member;
+import com.testcode.yjp.last.domain.MemberOut;
 import com.testcode.yjp.last.domain.dto.MemberFindIdDto;
 import com.testcode.yjp.last.domain.dto.MemberJoinDto;
 import com.testcode.yjp.last.domain.dto.MemberList;
 import com.testcode.yjp.last.domain.dto.MemberSoDto;
+import com.testcode.yjp.last.repository.MemberOutRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -25,6 +28,7 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final MemberOutRepository memberOutRepository;
 
     // 회원가입
     @Transactional
@@ -108,12 +112,17 @@ public class MemberService {
     }
 
     // 회원 삭제
-    public String delete(Long id, String user_pw) {
+    public String delete(Long id, String user_pw,String out_comments) {
         log.info("service post delete");
-        List<Member> delete = memberRepository.findByMemberOut(id, user_pw);
-        if (delete.isEmpty()) {
+        Member delete = memberRepository.findByMemberOut(id, user_pw);
+        if (delete == null) {
             return "1";
         } else {
+            MemberOut memberOut = MemberOut.builder()
+                    .out_comments(out_comments)
+                    .out_id(id)
+                    .build();
+            memberOutRepository.save(memberOut);
             memberRepository.deleteById(id);
             return "2";
         }
@@ -124,9 +133,11 @@ public class MemberService {
      * 가입된 정보가 있다면 입력받은 name과 등록된 name이 일치한지 여부를 리턴하는 메소드
      * */
     @Transactional
-    public boolean userEmailCheck(String user_name, String user_email) {
-        Member member = memberRepository.findCheckId(user_name, user_email);
+    public boolean userEmailCheck(String user_name, String user_email,String user_id) {
+        Member member = memberRepository.findCheckPw(user_name, user_email ,user_id);
         log.info("get userEmailCheck Service");
+        System.out.println(member);
+        System.out.println(member.getUser_email().equals(user_email));
         if (member != null && member.getUser_email().equals(user_email)) {
             return true;
         } else {
