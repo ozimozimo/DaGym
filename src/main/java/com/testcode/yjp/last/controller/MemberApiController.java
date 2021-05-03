@@ -79,21 +79,22 @@ public class MemberApiController {
 
     // 비밀번호 찾기
     // Email과 name의 일치여부를 check하는 컨트롤러
-    @GetMapping("/findPw")
-    public @ResponseBody
-    Map<String, Boolean> pw_find(String user_name, String user_email,String user_id){
-        Map<String,Boolean> json = new HashMap<>();
-        System.out.println(user_id);
-        boolean pwFindCheck = memberService.userEmailCheck(user_name,user_email,user_id);
+    @PostMapping("/findPw")
+    public Member pw_find(String user_name, String user_email,String user_id){
         log.info("get userEmailCheck Controller");
+        System.out.println(user_id);
+        System.out.println(user_email);
+        System.out.println(user_name);
+        Member pwFindCheck = memberRepository.findCheckPw(user_name,user_email,user_id);
+
         System.out.println(pwFindCheck);
-        json.put("check", pwFindCheck);
-        return json;
+
+        return pwFindCheck;
     }
     
     //등록된 이메일로 임시비밀번호를 발송하고 발송된 임시비밀번호로 사용자의 pw를 변경하는 컨트롤러
     @PostMapping("/findPw/sendEmail")
-    public @ResponseBody void sendEmail(String user_email, String user_name){
+    public void sendEmail(String user_email, String user_name){
         System.out.println(user_email);
         System.out.println(user_name);
         log.info("post sendEmail controller");

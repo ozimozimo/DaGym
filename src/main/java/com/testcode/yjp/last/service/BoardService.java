@@ -37,12 +37,10 @@ public class BoardService {
 
     // Board save 연관관계 매핑 처리부분
     public Long save(Long member_id,BoardSaveRequestDto boardSaveRequestDto){
-
         Optional<Member> memberId = memberRepository.findById(member_id);
         log.info("save post service");
         System.out.println(member_id);
         System.out.println(memberId);
-
         return boardRepository.save(boardSaveRequestDto.toEntity()).getId();
     }
 

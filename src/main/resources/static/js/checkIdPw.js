@@ -43,16 +43,23 @@ function PwCheck() {
     console.log(user_name);
     console.log(user_email);
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: "/member/findPw",
         data: {
             "user_name": user_name,
             "user_email": user_email,
             "user_id" : user_id
         },
-        success: function (res) {
-            console.log(res)
-            if (res['check'] === true) {
+        dataType: "json",
+        error: function () {
+        alert("일치 하는 정보가 없습니다");
+        },
+        success: function (data) {
+            console.log(data)
+            if ($.trim(data) == "YES") {
+                alert("일치하는 정보가 없습니다");
+            }
+            else{
                 $.ajax({
                     type: "POST",
                     url: "/member/findPw/sendEmail",
@@ -64,7 +71,6 @@ function PwCheck() {
                 alert("본인의 이메일로 임시 비밀번호를 전송하였습니다.");
                 window.location = "/member/login";
             }
-            else alert("일치하는 정보가 없습니다");
         }
     })
 }

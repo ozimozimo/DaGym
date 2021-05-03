@@ -132,19 +132,18 @@ public class MemberService {
      * -Email을 통해 해당 email로 가입된 정보가 있는지 확인하고,
      * 가입된 정보가 있다면 입력받은 name과 등록된 name이 일치한지 여부를 리턴하는 메소드
      * */
-    @Transactional
-    public boolean userEmailCheck(String user_name, String user_email,String user_id) {
-        Member member = memberRepository.findCheckPw(user_name, user_email ,user_id);
-        log.info("get userEmailCheck Service");
-        System.out.println(member);
-        System.out.println(member.getUser_email().equals(user_email));
-        if (member != null && member.getUser_email().equals(user_email)) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
+//    @Transactional
+//    public boolean userEmailCheck(String user_name, String user_email,String user_id) {
+//        List<Member> member = memberRepository.findCheckPw(user_name, user_email ,user_id);
+//        log.info("get userEmailCheck Service");
+//        System.out.println(member);
+//        if (member.isEmpty()) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//
+//    }
 
     // 소셜 구글 저장
     public String googleSave(MemberSoDto memberSoDto) {
