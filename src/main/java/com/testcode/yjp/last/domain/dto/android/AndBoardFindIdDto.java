@@ -21,12 +21,11 @@ public class AndBoardFindIdDto {
     private String bool;
     private int recommend_cnt = 0;
 
-    public AndBoardFindIdDto(Long id, String title, String user_id, String content, Member member, String regDate, String modDate) {
+    public AndBoardFindIdDto(Long id, String title, String user_id, String content, String regDate, String modDate) {
         this.id = id;
         this.title = title;
         this.user_id = user_id;
         this.content = content;
-        this.member = member;
         this.regDate = regDate;
         this.modDate = modDate;
     }

@@ -31,6 +31,7 @@ public class AndMemberService {
     public Member findId(AndMemberFindIdDto andMemberFindIdDto) {
         String user_name = andMemberFindIdDto.getUser_name();
         String user_pn = andMemberFindIdDto.getUser_pn();
+        log.info("findId service = " + user_name + user_pn);
         Member member = androidMemberRepository.findId(user_name, user_pn);
 
         return member;
@@ -40,7 +41,7 @@ public class AndMemberService {
         String user_name = andMemberFindPwDto.getUser_name();
         String user_pn = andMemberFindPwDto.getUser_pn();
         String user_id = andMemberFindPwDto.getUser_id();
-
+        log.info(user_name + " , " + user_id + " , " + user_pn);
         Member member = androidMemberRepository.findPw(user_name, user_pn, user_id);
 
         return member;
@@ -68,7 +69,7 @@ public class AndMemberService {
 
     public Member mypageUpdate(Long id, AndMemberMypageDto andMemberMypageDto) {
         Member byId = memberRepository.findById(id).orElse(null);
-        byId.update(andMemberMypageDto.getUser_pw(), andMemberMypageDto.getUser_name(), andMemberMypageDto.getUser_email(), andMemberMypageDto.getAddress_normal(), andMemberMypageDto.getAddress_detail(), andMemberMypageDto.getUser_role());
+        byId.update(andMemberMypageDto.getUser_pw(), andMemberMypageDto.getUser_name(), andMemberMypageDto.getUser_email(), andMemberMypageDto.getAddress_normal(), andMemberMypageDto.getAddress_detail(), andMemberMypageDto.getUser_role(), andMemberMypageDto.getUser_rrn());
         Member save = memberRepository.save(byId);
 
         return save;

@@ -67,7 +67,6 @@ public class AndroidRecommendController {
                     board.getTitle(),
                     board.getUser_id(),
                     board.getContent(),
-                    board.getMember(),
                     board.getRegDate().toString(),
                     board.getModDate().toString()
             );

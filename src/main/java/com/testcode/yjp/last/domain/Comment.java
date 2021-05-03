@@ -34,6 +34,8 @@ public class Comment extends BaseEntity{
     // board id
     private Long parentNum;
 
+    private int reComments_count=0;
+
     @Column(name = "cm_comments", length = 2000)
     private String comments;
 

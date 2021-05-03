@@ -36,7 +36,7 @@ public class CommentsApiController {
 
     //삭제기능
     @PostMapping("/delete/{id}")
-    public Long delete(@PathVariable("id") Long id){
+    public Long delete(@PathVariable("id") Long id) {
         log.info("delete controller 들어옴");
         commentsService.delete(id);
         return id;
@@ -65,4 +65,12 @@ public class CommentsApiController {
         log.info("Post findLikeLatestAll Controller");
         model.addAttribute("commentLikePastAll", commentsService.findPastAllClass(id));
     }
+
+
+    @PostMapping("/findCountAll/{id}")
+    public void findCountAll(@PathVariable Long id, Model model) {
+        log.info("Post findCountAll Controller");
+        model.addAttribute("commentCountAll", commentsService.findCountAllClass(id));
+    }
+
 }

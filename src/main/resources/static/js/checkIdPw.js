@@ -37,6 +37,9 @@ function PwCheck() {
     let frm = document.checkPwForm;
     let user_name = frm.user_name.value;
     let user_email = frm.user_email.value;
+    let user_id = frm.user_id.value;
+
+    console.log(user_id);
     console.log(user_name);
     console.log(user_email);
     $.ajax({
@@ -44,7 +47,8 @@ function PwCheck() {
         url: "/member/findPw",
         data: {
             "user_name": user_name,
-            "user_email": user_email
+            "user_email": user_email,
+            "user_id" : user_id
         },
         success: function (res) {
             console.log(res)

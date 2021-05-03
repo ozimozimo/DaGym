@@ -29,7 +29,6 @@ public class BoardController {
     private final BoardRepository boardRepository;
 
 
-
     // 전체조회
     @GetMapping("")
     public String BoardView(PageRequestDto pageRequestDto, Model model) {
@@ -78,6 +77,7 @@ public class BoardController {
         model.addAttribute("commentDisLikeAll",commentsService.findDisLikeAll(hb_num));
         model.addAttribute("commentLikeLatestAll",commentsService.findLatestAllClass(hb_num));
         model.addAttribute("commentLikePastAll",commentsService.findPastAllClass(hb_num));
+        model.addAttribute("commentCountAll", commentsService.findCountAllClass(hb_num));
 
         boardService.updateView(hb_num);
 
@@ -90,6 +90,9 @@ public class BoardController {
         commentsRepository.findByparentNum(result.get().getId());
 
         System.out.println("commentId==="+commentsRepository.findByparentNum(result.get().getId()));
+
+
+        // img 보내기
 
 
         return "board/boardDetail";

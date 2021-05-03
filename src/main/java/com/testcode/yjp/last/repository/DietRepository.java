@@ -1,6 +1,7 @@
 package com.testcode.yjp.last.repository;
 
 import com.testcode.yjp.last.domain.Diet;
+import com.testcode.yjp.last.domain.dto.DietDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -9,9 +10,14 @@ import java.util.List;
 
 public interface DietRepository extends JpaRepository<Diet,Long> {
 
-    @Query("select d from Diet d where d.diet_member_id = :id and d.modDate = :modDate")
-    List<Diet> findModDate(String id, String modDate);
-
     @Query("select d from Diet d where d.diet_member_id = :id")
     List<Diet> findAllDesc(String id);
+
+    // 오늘 데이터 가져오기
+    @Query(value = "select * from Diet d where d.diet_member_id = :id and to_char(d.regDate, 'yyyy-mm-dd') = :regDate", nativeQuery = true)
+    List<Diet> findByIdWithRegDate(String id, String regDate);
+
+    // 클릭한 날짜 데이터 가져오기
+    @Query(value = "select * from Diet d where d.diet_member_id = :id and to_char(d.modDate, 'yyyy-mm-dd') = :modDate", nativeQuery = true)
+    List<Diet> findByIdWithModDate(String id, String modDate);
 }

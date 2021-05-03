@@ -11,9 +11,11 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
+
 
 @Repository
 public interface CommentsRepository extends JpaRepository<Comment, Long> , QuerydslPredicateExecutor<Comment>{
@@ -60,9 +62,18 @@ public interface CommentsRepository extends JpaRepository<Comment, Long> , Query
     @Query("select c from Comment c where c.parentNum=:id order by c.regDate asc")
     List<Comment> findPastAll(Long id);
 
+    @Query("select c from Comment c where c.parentNum=:id order by c.reComments_count desc")
+    List<Comment> findCountAll(Long id);
+
     @Modifying
     @Query("delete from Comment c where c.parentNum=:id")
     void deleteByCmId(Long id);
+
+    @Transactional
+    @Modifying
+    @Query("update Comment c set c.reComments_count = c.reComments_count + 1 where c.id = :re_parentCoNum")
+    void update(Long re_parentCoNum);
+
 
 
 //    @Modifying
