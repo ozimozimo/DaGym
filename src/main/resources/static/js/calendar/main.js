@@ -160,7 +160,6 @@ var calendar = $('#calendar').fullCalendar({
                 alert("에러")
             }
         });
-
     },
 
     eventDragStart: function (event, jsEvent, ui, view) {
