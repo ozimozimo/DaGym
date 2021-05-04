@@ -1,4 +1,4 @@
-// 새로 수정완료
+// 왜 안 올라가냐고
 // 함수 선언 부분
 $(function () {
     $('.dietSearch').on('click', dietSearch);
