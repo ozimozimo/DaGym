@@ -41,9 +41,15 @@ public class AndroidPTUserController {
     }
 
     // 신청
-    @PostMapping("/apply/{member_id}/{trainer_id}")
-    public void applyTo(@PathVariable("member_id") Long member_id, @PathVariable("trainer_id") Long trainer_id, @RequestBody AndPTUserSaveDto andPTUserSaveDto) {
+    @PostMapping("/apply")
+    public void applyTo(@RequestBody AndPTUserSaveDto andPTUserSaveDto) {
+        String start_date = andPTUserSaveDto.getStart_date();
+        String end_date = andPTUserSaveDto.getEnd_date();
+        Long member_id = andPTUserSaveDto.getMember_id();
+        Long trainer_id = andPTUserSaveDto.getTrainer_id();
+        log.info("member_id = " + member_id + ", trainer_id = " + trainer_id + ", start_date = " + start_date + ", end_date = " + end_date);
         andPTUserService.extracted(member_id, trainer_id, andPTUserSaveDto);
+//        return "success";
     }
 
     // 일반회원 -> 자기 트레이너 조회
