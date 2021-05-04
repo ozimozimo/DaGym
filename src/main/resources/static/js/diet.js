@@ -1,6 +1,6 @@
-o// 함수 선언 부분
+// 새로 수정완료
+// 함수 선언 부분
 $(function () {
-    $('.dietDelete').on('click', dietDelete);
     $('.dietSearch').on('click', dietSearch);
     $('.dietWindow').on('click', dietWindow);
     $('.dietClose').on('click', dietClose);
@@ -9,7 +9,7 @@ $(function () {
 
 // 식단 검색
 function dietSearch() {
-    $('.dietSearch').click(function () {
+    $('.dietSearch').on('click',function () {
         var diet = $('#diet').val();
         console.log(diet);
         if (diet.length == 0) {
@@ -67,6 +67,7 @@ function dietResult(result) {
         $('.dietList').append(content);
     }
 }
+
 // 식단 추가
 function dietAdd() {
     $('.dietAdd').on("click", function (e) {
@@ -87,8 +88,8 @@ function dietAdd() {
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function (data) {
-            console.log(data)
             alert('식단이 추가되었습니다');
+            console.log(data)
         }).fail(function (error) {
             alert(error);
             console.log(JSON.stringify(error));
@@ -96,33 +97,16 @@ function dietAdd() {
     });
 }
 
-// 식단 삭제
-function dietDelete() {
-    // td 안에 버튼 들어가있어서 parent()씀
-    var id = $(this).parent().siblings('.diet_id').text();
-    $.ajax({
-        type: 'post',
-        url: '/diet/delete/' + id,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8'
-    }).done(function () {
-        alert('식단이 삭제되었습니다');
-        location.reload();
-    }).fail(function (error) {
-        alert(JSON.stringify(error));
-    })
-}
-
 // 검색창
 function dietWindow() {
     var popupX = (window.screen.width / 2) - (800 / 2);
     var popupY = (window.screen.height / 2) - (700 / 2);
     var option = 'status=no, height=700, width=800, left=' + popupX + ', top=' + popupY + ', screenX=' + popupX + ', screenY= ' + popupY;
-    // var url = "http://localhost:8090/diet/search";
-    // window.open(url, 'dietWindow', option);
-
-    var url = "http://140.238.25.78:8090/diet/search";
+    var url = "http://localhost:8090/diet/search";
     window.open(url, 'dietWindow', option);
+
+    // var url = "http://140.238.25.78:8090/diet/search";
+    // window.open(url, 'dietWindow', option);
 }
 
 // 선택완료
