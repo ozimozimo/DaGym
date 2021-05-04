@@ -21,7 +21,7 @@ public class BoardRepositoryTest {
 
     @Test
     public void Dummies() {
-        IntStream.rangeClosed(1,300).forEach(i -> {
+        IntStream.rangeClosed(1,100).forEach(i -> {
 
             Board board = Board.builder()
                     .title("제목"+i)
@@ -31,5 +31,4 @@ public class BoardRepositoryTest {
             System.out.println(boardRepository.save(board));
         });
     }
-
 }
