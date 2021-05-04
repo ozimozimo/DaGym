@@ -1,3 +1,4 @@
+// 새로 수정완료
 // 함수 선언 부분
 $(function () {
     $('.dietSearch').on('click', dietSearch);
