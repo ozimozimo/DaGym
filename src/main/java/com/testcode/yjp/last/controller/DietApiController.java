@@ -48,7 +48,7 @@ public class DietApiController {
     // 데이터 추가
     @PostMapping("/save/{id}")
     public Diet save(@PathVariable Long id, @RequestBody Diet diet) {
-        log.info("dietcontroller api post");
+        log.info("DietController Save Api Post");
         Optional<Member> result = memberRepository.findById(id);
         diet.setMember(result.get());
         dietRepository.save(diet);
@@ -57,6 +57,7 @@ public class DietApiController {
     // 데이터 삭제
     @PostMapping("/delete/{id}")
     public Long delete(@PathVariable Long id){
+        log.info("DietController Delete Api Post");
         dietService.delete(id);
         return id;
     }

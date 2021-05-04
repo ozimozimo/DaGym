@@ -1,5 +1,27 @@
+$(function () {
+    todayData();
+
+});
+
+function dietDelete(a) {
+    let id = a.parentNode.parentNode.firstChild.innerText;
+    console.log(id);
+    $.ajax({
+        type: 'post',
+        url: '/diet/delete/'+id,
+        contentType: 'application/json; charset=utf-8',
+    }).done(function () {
+        alert('식단이 삭제되었습니다');
+        location.reload();
+    }).fail(function (error) {
+        alert(error);
+        console.log(JSON.stringify(error));
+    })
+}
+
 function mkHtml(result) {
     // 결과 출력
+    let id = $('.loginId').text();
     for (let i = 0; i < result.length; i++) {
         var a = result[i].diet_name;
         var b = result[i].diet_kcal;
@@ -7,19 +29,30 @@ function mkHtml(result) {
         var d = result[i].diet_protein;
         var e = result[i].diet_fat;
         var f = result[i].diet_time;
+        var g = result[i].diet_id;
+        var h = result[i].diet_member_id;
 
         function input(time, list, value) {
             if (f == time) {
                 let content = "<tr class=" + list + ">"
+                content += "<td class='diet_id' style='display: none'>" + g + "</td>"
+                content += "<td class='diet_member_id' style='display: none'>" + h + "</td>"
                 content += "<td class='diet_name'>" + a + "</td>"
                 content += "<td class='diet_kcal'>" + b + "</td>"
                 content += "<td class='diet_carbo'>" + c + "</td>"
                 content += "<td class='diet_protein'>" + d + "</td>"
                 content += "<td class='diet_fat'>" + e + "</td>"
+                if (h == id)
+                    content += "<td><button type='button' class='diet_Delete' onclick='dietDelete(this)'>삭제</button>" + "</td>"
                 content += "</tr>"
+
+
                 $('.diet').children(value).children('.dietList').append(content);
             }
+
+
         }
+
         input('아침', 'breakfastList', '.breakfast');
         input('점심', 'lunchList', '.lunch');
         input('저녁', 'dinnerList', '.dinner');
@@ -37,6 +70,7 @@ function mkHtml(result) {
         content += "</tr>"
         $(time).children('.dietList').append(content);
     }
+
     mkEat('.breakfast', 'breakfastEat', 'breakfast_kcal', 'breakfast_carbo', 'breakfast_protein', 'breakfast_fat');
     mkEat('.lunch', 'lunchEat', 'lunch_kcal', 'lunch_carbo', 'lunch_protein', 'lunch_fat');
     mkEat('.dinner', 'dinnerEat', 'dinner_kcal', 'dinner_carbo', 'dinner_protein', 'dinner_fat');
@@ -50,6 +84,7 @@ function mkHtml(result) {
         }
         $(time).children('.dietList').children(timeEat).children(timeNutr).append(sum.toFixed(1))
     }
+
     sumNutr('.breakfast', '.breakfastList', '.diet_kcal', '.breakfastEat', '.breakfast_kcal')
     sumNutr('.breakfast', '.breakfastList', '.diet_carbo', '.breakfastEat', '.breakfast_carbo')
     sumNutr('.breakfast', '.breakfastList', '.diet_protein', '.breakfastEat', '.breakfast_protein')
@@ -93,13 +128,14 @@ function mkHtml(result) {
 // 오늘 날짜 가져오기 (2021-04-30 형태)
 var date = new Date();
 date = getFormatDate(date);
-function getFormatDate(date){
+
+function getFormatDate(date) {
     var year = date.getFullYear();
     var month = (1 + date.getMonth());
     month = month >= 10 ? month : '0' + month;
     var day = date.getDate();
     day = day >= 10 ? day : '0' + day;
-    return  year + '-' + month + '-' + day;
+    return year + '-' + month + '-' + day;
 }
 
 // 오늘 날짜 데이터
@@ -122,10 +158,6 @@ function todayData() {
     })
 }
 
-$(function () {
-    todayData();
-});
-
 // 달력 관련
 document.addEventListener("DOMContentLoaded", function () {
     var calendarEl = document.getElementById("calendar");
@@ -141,8 +173,7 @@ document.addEventListener("DOMContentLoaded", function () {
             end: "",
         },
         contentHeight: 400,
-        events: [
-        ],
+        events: [],
         // 날짜 클릭했을 때
         dateClick: function (info) {
             var id = $('.loginId').text();
@@ -157,12 +188,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 data: data,
                 contentType: 'application/json; charset=utf-8',
             }).done(function (result) {
-                if (result.length == 0) {
+                if (result.length == 0)
                     alert('기록된 데이터가 없습니다');
-                } else {
-                    $('.dietList').empty();
-                    mkHtml(result);
-                }
+
+                $('.dietList').empty();
+                mkHtml(result);
+
             }).fail(function (error) {
                 alert("fail");
                 console.log(JSON.stringify(error));
