@@ -9,7 +9,6 @@ $(function () {
 
 // 식단 검색
 function dietSearch() {
-    $('.dietSearch').on('click',function () {
         var diet = $('#diet').val();
         console.log(diet);
         if (diet.length == 0) {
@@ -30,7 +29,6 @@ function dietSearch() {
                 console.log(JSON.stringify(error));
             }
         });
-    });
 }
 
 // 식단 검색 결과
@@ -70,7 +68,7 @@ function dietResult(result) {
 
 // 식단 추가
 function dietAdd() {
-    $('.dietAdd').on("click", function (e) {
+    $('.dietAdd').on('click', function(e) {
         var id = $('.member_id').val();
         var data = {
             diet_member_id: $('.diet_member_id').val(),
@@ -94,7 +92,7 @@ function dietAdd() {
             alert(error);
             console.log(JSON.stringify(error));
         })
-    });
+    })
 }
 
 // 검색창
