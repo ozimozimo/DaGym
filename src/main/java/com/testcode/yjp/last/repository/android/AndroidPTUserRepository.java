@@ -23,7 +23,13 @@ public interface AndroidPTUserRepository extends JpaRepository<PTUser, Long> {
     @Query("select m.trainer_id from PTUser m where m.member_id = :member order by m.user_name")
     Member selectTrainer(Member member);
 
-    @Query("select m from PTUser m where m.trainer_id = :member order by m.user_name")
+    @Query("select m from PTUser m where m.trainer_id = :member and m.accept_condition = '1' order by m.user_name")
     ArrayList<PTUser> selectMember(Member member);
+
+    @Query("select m from PTUser m where m.trainer_id = :member and m.accept_condition = '0'")
+    ArrayList<PTUser> requestList(Member member);
+
+    @Query("select m from PTUser m where m.trainer_id = :trainer and m.user_id = :user")
+    PTUser findPTUserBy(String user, Member trainer);
 
 }

@@ -54,6 +54,23 @@ public class AndPTUserService {
         androidPTUserRepository.save(ptUser);
     }
 
+    public ArrayList<AndPTUserSearchDto> getAndPTUserSearchDtos(Long member_id) {
+        Member member = androidMemberRepository.findById(member_id).get();
+        ArrayList<PTUser> ptUsers = androidPTUserRepository.requestList(member);
+        ArrayList<AndPTUserSearchDto> andPTUserSearchDtos = new ArrayList<>();
+        for (PTUser ptUser : ptUsers) {
+            AndPTUserSearchDto andPTUserSearchDto = new AndPTUserSearchDto(
+                    ptUser.getId(),
+                    ptUser.getUser_name(),
+                    ptUser.getUser_id(),
+                    ptUser.getUser_email(),
+                    ptUser.getUser_pn()
+            );
+            andPTUserSearchDtos.add(andPTUserSearchDto);
+        }
+        return andPTUserSearchDtos;
+    }
+
     public AndMemberMypageDto getTrainers(Long member_id) {
         log.info("service getTrainers in");
         Member member = androidMemberRepository.findById(member_id).get();
