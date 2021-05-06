@@ -1,4 +1,4 @@
-// 수정완료
+// 왜 안 올라가냐고
 $(function () {
     todayData();
 
