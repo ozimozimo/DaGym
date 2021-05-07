@@ -8,10 +8,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>default</title>
-    <meta
-            content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-            name="viewport"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!--    만약 css 부트 템플릿 끌어오면 작성법-->
     <!--<link rel="stylesheet" th:href="@{/css/amdin.css}">-->
     <!--     스크립트 양식 ex)-->
@@ -22,35 +19,47 @@
     <!-- Bootstrap 3.3.7 -->
     <!--    <script th:src="@{/resources/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>-->
 
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <!--    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>-->
     <!-- 아이콘-->
     <link rel="shortcut icon" href="/main"/>
-    <!-- 부트 스트랩 css-->
     <link rel="stylesheet" th:href="@{/css/calendar/fullcalendar.min.css}"/>
-
-<!--      <link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}" />-->
-
     <!-- 메인 css -->
-    <link rel="stylesheet" th:href="@{~/css/app.css}"/>
+    <link th:href="@{~/css/main/all.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{~/css/main/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{~/css/main/ruang-admin.min.css}" rel="stylesheet">
+
+
+    <script th:src="@{~/js/main/jquery.min.js}"></script>
+    <script th:src="@{~/js/main/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
 
 </head>
-<body>
-<div class="wrapper">
+<body id="page-top">
+<div id="wrapper">
     <!-- body 태그 내부의 header 를 담당하는 부분이다. -->
-    <header th:replace="fragments/header :: headerFragment"></header>
-
-    <div class="main">
-        <nav th:replace="fragments/topnav :: topnavFragment"></nav>
-        <!-- 아래 div가 컨트롤러에 의해 교체되는 content 영역이다. -->
-        <main layout:fragment="content" class="content">
-            <!--
-               <a href="/join">회원가입</a>
-            <a href="/login">로그인</a>-->
-        </main>
+    <ul th:replace="fragments/header :: headerFragment"></ul>
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <nav th:replace="fragments/topnav :: topnavFragment"></nav>
+            <!-- 아래 div가 컨트롤러에 의해 교체되는 content 영역이다. -->
+            <!--            컨텐츠-->
+            <div layout:fragment="content" class="container-fluid" id="container-wrapper"></div>
+            <!--            컨텐츠 끝 -->
+        </div>
         <!-- body 태그 내부의 footer 를 담당하는 부분이다. -->
         <footer th:replace="fragments/footer :: footerFragment"></footer>
     </div>
 </div>
-<script th:src="@{~/js/app.js}"></script>
+
+<!-- Scroll to top -->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+
+<script th:src="@{~/js/main/ruang-admin.min.js}"></script>
+<!--<script src="vendor/chart.js/Chart.min.js"></script>-->
+<!--<script src="js/demo/chart-area-demo.js"></script>-->
+
 </body>
 </html>
