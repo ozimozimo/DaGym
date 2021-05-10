@@ -20,6 +20,7 @@ public class AndroidCalenderController {
     private final AndroidCalendarRepository androidCalendarRepository;
     private final AndroidMemberRepository androidMemberRepository;
 
+    // 일정 조회
     @PostMapping("select/{member_id}")
     public ArrayList<Calendar> selectCal(@PathVariable("member_id") Long member_id) {
         Member member = androidMemberRepository.findById(member_id).get();
@@ -28,6 +29,7 @@ public class AndroidCalenderController {
         return calendarByMember;
     }
 
+    // 일정 추가
     @PostMapping("insert/{member_id}")
     public void insertCal(@RequestBody AndInsertCalDto andInsertCalDto, @PathVariable("member_id") Long member_id) {
         Member member = androidMemberRepository.findById(member_id).get();
@@ -42,5 +44,25 @@ public class AndroidCalenderController {
         calendar.setMember(member);
 
         androidCalendarRepository.save(calendar);
+    }
+
+    @PutMapping("update")
+    public void updateCal(@RequestBody AndInsertCalDto andInsertCalDto){
+        Calendar calendar = androidCalendarRepository.findById(andInsertCalDto.getId()).get();
+        calendar.setAllDay(andInsertCalDto.isAllDay());
+        calendar.setDescription(andInsertCalDto.getDescription());
+        calendar.setEnd(andInsertCalDto.getEnd());
+        calendar.setStart(andInsertCalDto.getStart());
+        calendar.setTitle(andInsertCalDto.getTitle());
+        calendar.setType(andInsertCalDto.getType());
+
+        androidCalendarRepository.save(calendar);
+    }
+
+    @DeleteMapping("delete/{calender_id}")
+    public void deleteCal(@PathVariable("calender_id") Long calender_id) {
+        Calendar calendar = androidCalendarRepository.findById(calender_id).get();
+
+        androidCalendarRepository.delete(calendar);
     }
 }
