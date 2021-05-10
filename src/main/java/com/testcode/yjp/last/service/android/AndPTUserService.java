@@ -3,6 +3,7 @@ package com.testcode.yjp.last.service.android;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.PTUser;
 import com.testcode.yjp.last.domain.dto.android.AndMemberMypageDto;
+import com.testcode.yjp.last.domain.dto.android.AndPTUserApplyMemberDto;
 import com.testcode.yjp.last.domain.dto.android.AndPTUserSaveDto;
 import com.testcode.yjp.last.domain.dto.android.AndPTUserSearchDto;
 import com.testcode.yjp.last.repository.android.AndroidMemberRepository;
@@ -35,40 +36,67 @@ public class AndPTUserService {
     public void extracted(Long member_id, Long trainer_id, AndPTUserSaveDto andPTUserSaveDto) {
         Member member = androidMemberRepository.findById(member_id).get();
         Member trainer = androidMemberRepository.findById(trainer_id).get();
-
         String start_date = andPTUserSaveDto.getStart_date();
         String end_date = andPTUserSaveDto.getEnd_date();
 
-        PTUser ptUser = new PTUser();
-        ptUser.setMember_id(member);
-        ptUser.setTrainer_id(trainer);
+        /////
+        // 0 , 1 , 2 확인해야됨.
+        /////
+        PTUser ptUserBy = androidPTUserRepository.findPTUserBy(member.getUser_id(), trainer);
 
-        ptUser.setStart_date(start_date);
-        ptUser.setEnd_date(end_date);
-        ptUser.setUser_id(member.getUser_id());
-        ptUser.setUser_name(member.getUser_name());
-        ptUser.setUser_pn(member.getUser_pn());
-        ptUser.setUser_email(member.getUser_email());
-        ptUser.setAccept_condition("0"); // 신청옴. (보류)
+        try {
+            if (ptUserBy.getAccept_condition().equals("0")
+                    || ptUserBy.getAccept_condition().equals("2")) {
+                ptUserBy.setMember_id(member);
+                ptUserBy.setTrainer_id(trainer);
 
-        androidPTUserRepository.save(ptUser);
+                ptUserBy.setStart_date(start_date);
+                ptUserBy.setEnd_date(end_date);
+                ptUserBy.setUser_id(member.getUser_id());
+                ptUserBy.setUser_name(member.getUser_name());
+                ptUserBy.setUser_pn(member.getUser_pn());
+                ptUserBy.setUser_email(member.getUser_email());
+                ptUserBy.setAccept_condition("0"); // 신청옴. (보류)
+
+                androidPTUserRepository.save(ptUserBy);
+            } else if (ptUserBy.getAccept_condition().equals("1")) {
+            }
+        } catch (Exception e) {
+
+            PTUser ptUser = new PTUser();
+            ptUser.setMember_id(member);
+            ptUser.setTrainer_id(trainer);
+
+            ptUser.setStart_date(start_date);
+            ptUser.setEnd_date(end_date);
+            ptUser.setUser_id(member.getUser_id());
+            ptUser.setUser_name(member.getUser_name());
+            ptUser.setUser_pn(member.getUser_pn());
+            ptUser.setUser_email(member.getUser_email());
+            ptUser.setAccept_condition("0"); // 신청옴. (보류)
+
+            androidPTUserRepository.save(ptUser);
+
+        }
+
+
     }
 
-    public ArrayList<AndPTUserSearchDto> getAndPTUserSearchDtos(Long member_id) {
+    public ArrayList<AndPTUserApplyMemberDto> getAndPTUserSearchDtos(Long member_id) {
         Member member = androidMemberRepository.findById(member_id).get();
         ArrayList<PTUser> ptUsers = androidPTUserRepository.requestList(member);
-        ArrayList<AndPTUserSearchDto> andPTUserSearchDtos = new ArrayList<>();
+        ArrayList<AndPTUserApplyMemberDto> andPTUserApplyMemberDtos = new ArrayList<>();
         for (PTUser ptUser : ptUsers) {
-            AndPTUserSearchDto andPTUserSearchDto = new AndPTUserSearchDto(
+            AndPTUserApplyMemberDto andPTUserApplyMemberDto = new AndPTUserApplyMemberDto(
                     ptUser.getId(),
                     ptUser.getUser_name(),
                     ptUser.getUser_id(),
-                    ptUser.getUser_email(),
-                    ptUser.getUser_pn()
+                    ptUser.getStart_date(),
+                    ptUser.getEnd_date()
             );
-            andPTUserSearchDtos.add(andPTUserSearchDto);
+            andPTUserApplyMemberDtos.add(andPTUserApplyMemberDto);
         }
-        return andPTUserSearchDtos;
+        return andPTUserApplyMemberDtos;
     }
 
     public AndMemberMypageDto getTrainers(Long member_id) {
@@ -77,19 +105,27 @@ public class AndPTUserService {
         log.info("member name = " + member.getUser_name());
 
         Member trainer = androidPTUserRepository.selectTrainer(member);
-        AndMemberMypageDto andMemberMypageDto = new AndMemberMypageDto(
-                trainer.getId(),
-                trainer.getUser_id(),
-                trainer.getUser_pw(),
-                trainer.getUser_name(),
-                trainer.getUser_pn(),
-                trainer.getUser_email(),
-                trainer.getAddress_normal(),
-                trainer.getAddress_detail(),
-                trainer.getUser_rrn(),
-                trainer.getUser_pn(),
-                trainer.getUser_role()
-        );
+
+        AndMemberMypageDto andMemberMypageDto = null;
+        try {
+            andMemberMypageDto = new AndMemberMypageDto(
+                    trainer.getId(),
+                    trainer.getUser_id(),
+                    trainer.getUser_pw(),
+                    trainer.getUser_name(),
+                    trainer.getUser_pn(),
+                    trainer.getUser_email(),
+                    trainer.getAddress_normal(),
+                    trainer.getAddress_detail(),
+                    trainer.getUser_rrn(),
+                    trainer.getUser_pn(),
+                    trainer.getUser_role()
+            );
+        } catch (Exception e) {
+            andMemberMypageDto = new AndMemberMypageDto(
+                    null, null, null, null, null
+            );
+        }
         return andMemberMypageDto;
     }
 

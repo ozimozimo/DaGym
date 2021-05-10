@@ -73,10 +73,10 @@ public class AndroidPTUserController {
 
     //신청온 회원 확인
     @PostMapping("/apply/findMember")
-    public ArrayList<AndPTUserSearchDto> applyMember(@RequestBody Long member_id) {
-        ArrayList<AndPTUserSearchDto> andPTUserSearchDtos = andPTUserService.getAndPTUserSearchDtos(member_id);
+    public ArrayList<AndPTUserApplyMemberDto> applyMember(@RequestBody Long member_id) {
+        ArrayList<AndPTUserApplyMemberDto> andPTUserApplyMemberDtos = andPTUserService.getAndPTUserSearchDtos(member_id);
 
-        return andPTUserSearchDtos;
+        return andPTUserApplyMemberDtos;
     }
 
     @PutMapping("/apply/if")

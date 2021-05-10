@@ -20,7 +20,7 @@ public interface AndroidPTUserRepository extends JpaRepository<PTUser, Long> {
     @Query("select m from Member m where m.user_role like 'trainer' and (m.user_id like %:search% or m.user_name like %:search%) order by m.user_name")
     ArrayList<Member> findTrainer(String search);
 
-    @Query("select m.trainer_id from PTUser m where m.member_id = :member order by m.user_name")
+    @Query("select m.trainer_id from PTUser m where m.member_id = :member and m.accept_condition = '1' order by m.user_name")
     Member selectTrainer(Member member);
 
     @Query("select m from PTUser m where m.trainer_id = :member and m.accept_condition = '1' order by m.user_name")

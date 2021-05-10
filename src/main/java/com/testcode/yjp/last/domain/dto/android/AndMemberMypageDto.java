@@ -39,6 +39,14 @@ public class AndMemberMypageDto {
         this.user_role = user_role;
     }
 
+    public AndMemberMypageDto(Long id, String user_id, String user_name, String user_pn, String user_email) {
+        this.id = id;
+        this.user_id = user_id;
+        this.user_name = user_name;
+        this.user_pn = user_pn;
+        this.user_email = user_email;
+    }
+
     public Member toEntity(){
         return Member.builder()
                 .user_id(user_id)
