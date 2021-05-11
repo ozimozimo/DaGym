@@ -37,35 +37,6 @@ function CommentSave() {
     CommentSave.init();
 }
 
-function CDelete() {
-    if (!confirm('댓글을 삭제 하시겠습니까?')) {
-        return false;
-    }
-    var main3 = {
-        init: function () {
-            var _this = this;
-            _this.delete();
-        },
-        delete: function () {
-            var id = $('#commentId').val();
-            console.log("id=" + id);
-            $.ajax({
-                type: 'post',
-                url: '/comments/delete/' + id,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8'
-            }).done(function () {
-                alert('댓글이 삭제되었습니다.')
-                location.reload();
-                // window.location.href = "/";
-            }).fail(function (error) {
-                alert(JSON.stringify(error));
-            });
-        }
-    }
-    main3.init();
-}
-
 function ReCommentSave() {
     let form = $(this).parent();
 
@@ -163,9 +134,39 @@ function recommend() {
         })
     }
 }
+function CDelete() {
+    console.log("c 댓글 클릭");
 
+    if (!confirm('댓글을 삭제 하시겠습니까?')) {
+        return false;
+    }
+    var main3 = {
+        init: function () {
+            var _this = this;
+            _this.delete();
+        },
+        delete: function () {
+            var id = $('#commentId').val();
+            console.log("id=" + id);
+            $.ajax({
+                type: 'post',
+                url: '/comments/delete/' + id,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8'
+            }).done(function () {
+                alert('댓글이 삭제되었습니다.')
+                location.reload();
+                // window.location.href = "/";
+            }).fail(function (error) {
+                alert(JSON.stringify(error));
+            });
+        }
+    }
+    main3.init();
+}
 //
 function RCDelete() {
+    console.log("rc 클릭");
     if (!confirm('답글을 삭제하시겠습니까?')) {
         return false;
     }
@@ -356,8 +357,8 @@ $(function () {
 
     // 버튼 클릭 이벤트 등록
     $('#comment_save').on("click", CommentSave);
-    $('#delete').on("click", CDelete);
-    $('#RCDelete').on("click", RCDelete);
+    $('#delete').on("click" ,CDelete);
+    $('#RCDelete').on("click" ,RCDelete);
     $('.recomment_save_btn').on("click", ReCommentSave);
     $('.recmt_button').on("click", buttonToggle);
     $('.like_button').on("click", likeUnlike);

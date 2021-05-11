@@ -128,7 +128,7 @@
                             <button type="button" class="recmt_button custom_btn">답글 [[${comment.reComments_count}]]</button>
                             <!--  삭제 -->
                             <div class="comment_control_btn_area" th:if="${session.loginId == comment.user_id}">
-                                <button type="button" id="delete">삭제</button>
+                                <button type="button" id="delete" onclick="CDelete()">삭제</button>
                             </div>
                         </div>
                         <input type="hidden" th:value="${session.loginUser}" id="likeId" class="likeId">
@@ -167,7 +167,7 @@
                                 <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
                                 <div class="comment_control_btn_area"
                                      th:if="${session.loginId == recomment.re_user_id}">
-                                    <button type="button" id="RCDelete">삭제</button>
+                                    <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
                                 </div>
                             </div>
                         </div>
@@ -212,7 +212,7 @@
                             <button type="button" class="recmt_button custom_btn">답글 [[${comment.reComments_count}]]</button>
                             <!--  삭제 -->
                             <div class="comment_control_btn_area" th:if="${session.loginId == comment.user_id}">
-                                <button type="button" id="delete">삭제</button>
+                                <button type="button" id="delete" onclick="CDelete()">삭제</button>
                             </div>
                         </div>
                         <input type="hidden" th:value="${session.loginUser}" id="likeId" class="likeId">
@@ -251,7 +251,7 @@
                                 <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
                                 <div class="comment_control_btn_area"
                                      th:if="${session.loginId == recomment.re_user_id}">
-                                    <button type="button" id="RCDelete">삭제</button>
+                                    <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
                                 </div>
                             </div>
                         </div>
@@ -297,7 +297,7 @@
                             <button type="button" class="recmt_button custom_btn">답글 [[${comment.reComments_count}]]</button>
                             <!--  삭제 -->
                             <div class="comment_control_btn_area" th:if="${session.loginId == comment.user_id}">
-                                <button type="button" id="delete">삭제</button>
+                                <button type="button" id="delete" onclick="CDelete()">삭제</button>
                             </div>
                         </div>
                         <input type="hidden" th:value="${session.loginUser}" id="likeId" class="likeId">
@@ -337,7 +337,7 @@
                                 <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
                                 <div class="comment_control_btn_area"
                                      th:if="${session.loginId == recomment.re_user_id}">
-                                    <button type="button" id="RCDelete">삭제</button>
+                                    <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
                                 </div>
                             </div>
                         </div>
@@ -385,7 +385,7 @@
                             <button type="button" class="recmt_button custom_btn">답글 [[${comment.reComments_count}]]</button>
                             <!--  삭제 -->
                             <div class="comment_control_btn_area" th:if="${session.loginId == comment.user_id}">
-                                <button type="button" id="delete">삭제</button>
+                                <button type="button" id="delete" onclick="CDelete()">삭제</button>
                             </div>
                         </div>
                         <input type="hidden" th:value="${session.loginUser}" id="likeId" class="likeId">
@@ -424,7 +424,7 @@
                                 <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
                                 <div class="comment_control_btn_area"
                                      th:if="${session.loginId == recomment.re_user_id}">
-                                    <button type="button" id="RCDelete">삭제</button>
+                                    <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
                                 </div>
                             </div>
                         </div>
@@ -469,7 +469,7 @@
                             <button type="button" class="recmt_button custom_btn">답글 [[${comment.reComments_count}]]</button>
                             <!--  삭제 -->
                             <div class="comment_control_btn_area" th:if="${session.loginId == comment.user_id}">
-                                <button type="button" id="delete">삭제</button>
+                                <button type="button" id="delete" onclick="CDelete()">삭제</button>
                             </div>
                         </div>
                         <input type="hidden" th:value="${session.loginUser}" id="likeId" class="likeId">
@@ -508,7 +508,7 @@
                                 <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
                                 <div class="comment_control_btn_area"
                                      th:if="${session.loginId == recomment.re_user_id}">
-                                    <button type="button" id="RCDelete">삭제</button>
+                                    <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
                                 </div>
                             </div>
                         </div>
@@ -535,6 +535,12 @@
         </div>
 
     </div>
+    <script>
+
+
+
+
+    </script>
 
 </div>
 </html>

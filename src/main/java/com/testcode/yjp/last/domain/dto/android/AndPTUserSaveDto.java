@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class AndPTUserSaveDto {
+    private Long member_id;
+    private Long trainer_id;
     private String start_date;
     private String end_date;
 }

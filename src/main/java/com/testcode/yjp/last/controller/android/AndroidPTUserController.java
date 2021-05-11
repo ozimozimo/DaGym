@@ -1,10 +1,8 @@
 package com.testcode.yjp.last.controller.android;
 
 import com.testcode.yjp.last.domain.Member;
-import com.testcode.yjp.last.domain.dto.android.AndMemberMypageDto;
-import com.testcode.yjp.last.domain.dto.android.AndPTUserSaveDto;
-import com.testcode.yjp.last.domain.dto.android.AndPTUserSearchDto;
-import com.testcode.yjp.last.domain.dto.android.AndTrainerSearchDto;
+import com.testcode.yjp.last.domain.PTUser;
+import com.testcode.yjp.last.domain.dto.android.*;
 import com.testcode.yjp.last.repository.android.AndroidMemberRepository;
 import com.testcode.yjp.last.repository.android.AndroidPTUserRepository;
 import com.testcode.yjp.last.service.android.AndPTUserService;
@@ -41,9 +39,15 @@ public class AndroidPTUserController {
     }
 
     // 신청
-    @PostMapping("/apply/{member_id}/{trainer_id}")
-    public void applyTo(@PathVariable("member_id") Long member_id, @PathVariable("trainer_id") Long trainer_id, @RequestBody AndPTUserSaveDto andPTUserSaveDto) {
+    @PostMapping("/apply")
+    public void applyTo(@RequestBody AndPTUserSaveDto andPTUserSaveDto) {
+        String start_date = andPTUserSaveDto.getStart_date();
+        String end_date = andPTUserSaveDto.getEnd_date();
+        Long member_id = andPTUserSaveDto.getMember_id();
+        Long trainer_id = andPTUserSaveDto.getTrainer_id();
+        log.info("member_id = " + member_id + ", trainer_id = " + trainer_id + ", start_date = " + start_date + ", end_date = " + end_date);
         andPTUserService.extracted(member_id, trainer_id, andPTUserSaveDto);
+//        return "success";
     }
 
     // 일반회원 -> 자기 트레이너 조회
@@ -57,5 +61,39 @@ public class AndroidPTUserController {
     @GetMapping("/find/member/{trainer_id}")
     public ArrayList<AndPTUserSearchDto> selectMembers(@PathVariable("trainer_id") Long trainer_id) {
         return andPTUserService.getMembers(trainer_id);
+    }
+
+    //신청 갯수
+    @PostMapping("/apply/request")
+    public int requestList(@RequestBody Long member_id) {
+        Member member = androidMemberRepository.findById(member_id).get();
+        ArrayList<PTUser> ptUsers = androidPTUserRepository.requestList(member);
+        return ptUsers.size();
+    }
+
+    //신청온 회원 확인
+    @PostMapping("/apply/findMember")
+    public ArrayList<AndPTUserApplyMemberDto> applyMember(@RequestBody Long member_id) {
+        ArrayList<AndPTUserApplyMemberDto> andPTUserApplyMemberDtos = andPTUserService.getAndPTUserSearchDtos(member_id);
+
+        return andPTUserApplyMemberDtos;
+    }
+
+    @PutMapping("/apply/if")
+    public void applyIf(@RequestBody AndPTUserApply andPTUserApply) {
+        String user_id = andPTUserApply.getUser_id();
+        Long trainer_id = andPTUserApply.getTrainer_id();
+        String apply_if = andPTUserApply.getApply_if();
+        log.info("member_id = " + user_id + "trainer_id = " + trainer_id);
+        Member trainer = androidMemberRepository.findById(trainer_id).get();
+
+        PTUser ptUserBy = androidPTUserRepository.findPTUserBy(user_id, trainer);
+        if (apply_if.equals("수락")) {
+            ptUserBy.setAccept_condition("1");
+        } else if (apply_if.equals("거절")) {
+            ptUserBy.setAccept_condition("2");
+        }
+
+        androidPTUserRepository.save(ptUserBy);
     }
 }
