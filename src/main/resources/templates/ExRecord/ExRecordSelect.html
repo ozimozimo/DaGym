@@ -5,6 +5,10 @@
       data-layout-decorate="~{layout/default}">
 
 <div layout:fragment="content">
-        운동기록 페이지
+    운동기록 페이지
+    <div th:if="${session.loginId != null}">
+        <h1 th:text="${session.loginId}" class="loginId"></h1>
+        님의 운동 기록
+    </div>
 </div>
 </html>

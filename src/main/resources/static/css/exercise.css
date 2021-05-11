@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.calendar_area {
+    margin: 0 auto;
+    width: 400px;
+
+}
+
+.add_area {
+    margin: 0 auto;
+    width: 1100px;
+}
+
+.record_area {
+    margin: 0 auto;
+    width: 1100px;
+}
+
+.feedback_area {
+    text-align: center;
+}
+
+/*  캘린더 관련 설정 */
+.fc-toolbar-chunk {
+    /* 일렬로 나란히 */
+    display: flex;
+    /* 수직 가운데 정렬 */
+    align-items: center;
+}
+
+.fc-next-button,
+.fc-prev-button {
+    width: 30px;
+}
+
+.fc-icon-chevron-right,
+.fc-icon-chevron-left {
+    margin-left: -5px;
+}
+
+/* 캘린더 끝 */
+
+.ex_name,
+.ex_set,
+.ex_count,
+.ex_weight,
+.buttons {
+    text-align: center;
+}
+
+.feedback_area .feedbackForm {
+    display: flex;
+    justify-content: center;
+}
+
+.feedback_area input {
+    width: 1000px;
+    height: 50px;
+}
