@@ -19,7 +19,7 @@ public class DietAddDto {
     private String diet_protein;
     private String diet_fat;
     private String diet_time;
-    private LocalDateTime modDate;
+    private String diet_date;
 
     public DietAddDto(Diet diet) {
         this.diet_id = diet.getDiet_id();
@@ -30,7 +30,7 @@ public class DietAddDto {
         this.diet_protein = diet.getDiet_protein();
         this.diet_fat = diet.getDiet_fat();
         this.diet_time = diet.getDiet_time();
-        this.modDate = diet.getModDate();
+        this.diet_date = diet.getDiet_date();
     }
 
     public Diet toEntity() {
@@ -42,11 +42,12 @@ public class DietAddDto {
                 .diet_protein(diet_protein)
                 .diet_fat(diet_fat)
                 .diet_time(diet_time)
+                .diet_date(diet_date)
                 .build();
     }
 
     @Builder
-    public DietAddDto(Long diet_id, String diet_name, String diet_kcal, String diet_carbo, String diet_protein, String diet_fat, String diet_time) {
+    public DietAddDto(Long diet_id, String diet_name, String diet_kcal, String diet_carbo, String diet_protein, String diet_fat, String diet_time, String diet_date) {
         this.diet_id = diet_id;
         this.diet_name = diet_name;
         this.diet_kcal = diet_kcal;
@@ -54,6 +55,7 @@ public class DietAddDto {
         this.diet_protein = diet_protein;
         this.diet_fat = diet_fat;
         this.diet_time = diet_time;
+        this.diet_date = diet_date;
     }
 }
 

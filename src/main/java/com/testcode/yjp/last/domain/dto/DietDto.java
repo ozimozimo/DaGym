@@ -21,7 +21,7 @@ public class DietDto {
     private String diet_protein;
     private String diet_fat;
     private String diet_time;
-    private LocalDateTime modDate;
+    private String diet_date;
 
     public DietDto(Diet diet) {
         this.diet_id = diet.getDiet_id();
@@ -32,6 +32,6 @@ public class DietDto {
         this.diet_protein = diet.getDiet_protein();
         this.diet_fat = diet.getDiet_fat();
         this.diet_time = diet.getDiet_time();
-        this.modDate = diet.getModDate();
+        this.diet_date = diet.getDiet_date();
     }
 }

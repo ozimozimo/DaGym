@@ -28,26 +28,18 @@ public class DietService {
                 .map(DietAddDto::new)
                 .collect(Collectors.toList());
     }
-    // 오늘자 데이터 보여주기
-    @Transactional
-    public List<DietDto> findByIdWithModDate(String id, String modDate) {
-        log.info("service id, modDate get");
-        System.out.println("id = " + id);
-        System.out.println("modDate = " + modDate);
-        return dietRepository.findByIdWithModDate(id, modDate).stream()
-                .map(DietDto::new)
-                .collect(Collectors.toList());
-    }
+
     // 클릭한 날짜 데이터 보여주기
     @Transactional
-    public List<DietDto> findByIdWithRegDate(String id, String regDate) {
-        log.info("service id, regDate get");
+    public List<DietDto> findByIdWithDietDate(String id, String diet_date) {
+        log.info("service id, diet_date get");
         System.out.println("id = " + id);
-        System.out.println("regDate = " + regDate);
-        return dietRepository.findByIdWithRegDate(id, regDate).stream()
+        System.out.println("diet_date = " + diet_date);
+        return dietRepository.findByIdWithDietDate(id, diet_date).stream()
                 .map(DietDto::new)
                 .collect(Collectors.toList());
     }
+
     // 데이터 추가
     @Transactional
     public Long save(DietAddDto dietAddDto) {

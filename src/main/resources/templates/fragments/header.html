@@ -81,7 +81,7 @@
               </a>
           </li>
           <li class="sidebar-item">
-              <a class="sidebar-link" th:href="@{/ExRecord/ExRecordSelect}">
+              <a class="sidebar-link" th:href="@{/ExRecord/exercise(id=${session.loginId})}">
                   <i class="align-middle" data-feather="box"></i>
                   <span class="align-middle">운동기록</span>
               </a>

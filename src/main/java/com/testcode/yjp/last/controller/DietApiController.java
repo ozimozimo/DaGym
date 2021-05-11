@@ -24,27 +24,29 @@ public class DietApiController {
     private final MemberRepository memberRepository;
 
     // 오늘 데이터 보여주기
-    @GetMapping("/listToday")
-    public List<DietDto> listToday(String id, String regDate) {
-        log.info("Today Data");
+    @GetMapping("/dietToday")
+    public List<DietDto> dietToday(String id, String diet_date) {
+        log.info("Today Diet Data");
         System.out.println("id = " + id);
-        System.out.println("regDate = " + regDate);
-        List<DietDto> byIdWithRegDate = dietService.findByIdWithRegDate(id, regDate);
-        System.out.println("byIdWithRegDate = " + byIdWithRegDate);
+        System.out.println("diet_date = " + diet_date);
+        List<DietDto> byIdWithDietDate = dietService.findByIdWithDietDate(id, diet_date);
+        System.out.println("byIdWithDietDate = " + byIdWithDietDate);
         log.info("Today Data HOLY MOLY");
-        return byIdWithRegDate;
+        return byIdWithDietDate;
     }
+
     // 클릭한 날짜 데이터 보여주기
-    @GetMapping("/listDate")
-    public List<DietDto> listDate(String id, String modDate) {
-        log.info("Clicked Date Data");
+    @GetMapping("/clickDate")
+    public List<DietDto> clickDate(String id, String diet_date) {
+        log.info("Clicked Diet Date Data");
         System.out.println("id = " + id);
-        System.out.println("modDate = " + modDate);
-        List<DietDto> byIdWithModDate = dietService.findByIdWithModDate(id, modDate);
-        System.out.println("dietService.findByIdWithModDate(id, modDate) = " + byIdWithModDate);
-        log.info("Clicked Date Data HOLY MOLY");
-        return byIdWithModDate;
+        System.out.println("diet_date = " + diet_date);
+        List<DietDto> byIdWithDietDate = dietService.findByIdWithDietDate(id, diet_date);
+        System.out.println("dietService.findByIdWithDietDate(id, diet_date) = " + byIdWithDietDate);
+        log.info("Clicked Diet Date Data HOLY MOLY");
+        return byIdWithDietDate;
     }
+
     // 데이터 추가
     @PostMapping("/save/{id}")
     public Diet save(@PathVariable Long id, @RequestBody Diet diet) {
@@ -54,6 +56,7 @@ public class DietApiController {
         dietRepository.save(diet);
         return diet;
     }
+
     // 데이터 삭제
     @PostMapping("/delete/{id}")
     public Long delete(@PathVariable Long id){
