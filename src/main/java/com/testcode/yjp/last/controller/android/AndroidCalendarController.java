@@ -15,8 +15,8 @@ import java.util.ArrayList;
 @RequiredArgsConstructor
 @RestController
 @Slf4j
-@RequestMapping("/android/calender")
-public class AndroidCalenderController {
+@RequestMapping("/android/calendar")
+public class AndroidCalendarController {
     private final AndroidCalendarRepository androidCalendarRepository;
     private final AndroidMemberRepository androidMemberRepository;
 
@@ -71,9 +71,9 @@ public class AndroidCalenderController {
         androidCalendarRepository.save(calendar);
     }
 
-    @DeleteMapping("delete/{calender_id}")
-    public void deleteCal(@PathVariable("calender_id") Long calender_id) {
-        Calendar calendar = androidCalendarRepository.findById(calender_id).get();
+    @DeleteMapping("delete/{calendar_id}")
+    public void deleteCal(@PathVariable("calendar_id") Long calendar_id) {
+        Calendar calendar = androidCalendarRepository.findById(calendar_id).get();
 
         androidCalendarRepository.delete(calendar);
     }
