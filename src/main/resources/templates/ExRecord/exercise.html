@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layout/default}">
+<head>
+    <title>운동 기록</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/locales/ko.js"></script>
+    <link rel="stylesheet" th:href="@{/css/exercise.css}"/>
+    <link rel="stylesheet" th:href="@{/css/calendar/calendar.css}"/>
+    <script th:src="@{/js/exercise.js?ver=1.0}"></script>
+    <script th:src="@{/js/calendar.js?ver=1.0}"></script>
+
+</head>
+
+<body>
+<div layout:fragment="content">
+    <!--        현재 로그인한 회원의 member_id-->
+    <input type="hidden" th:value="${session.loginUser}" class="member_id">
+    <input type="hidden" th:value="${session.loginId}" class="ex_record_member_id">
+    <input type="hidden" class="date" value="">
+    <div th:if="${session.loginId != null}">
+        <p>
+        <h1 th:text="${session.loginId}" class="loginId"></h1></p>
+    </div>
+    <!-- 캘린더 -->
+    <div class="calendar_area">
+        <div id="calendar" style="min-width: 300px"></div>
+    </div>
+    <!-- 운동 추가 영역 -->
+    <div class="add_area">
+        <h3>운동 추가</h3>
+        <div class="ex_add_area">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th width="20%" class="ex_name">운동 명</th>
+                    <th width="5%" class="ex_set">세트</th>
+                    <th width="5%" class="ex_count">횟수</th>
+                    <th width="5%" class="ex_weight">무게</th>
+                    <th width="20%" class="buttons"></th>
+                </tr>
+                </thead>
+                <tbody class="addEx">
+                <tr class="addInput">
+                    <td class="ex_name">
+                        <input type="text" id="ex_name" name="ex_name"/>
+                    </td>
+                    <td class="ex_set">
+                        <input type="text" id="ex_set" name="ex_set"/>
+                    </td>
+                    <td class="ex_count">
+                        <input type="text" id="ex_count" name="ex_count"/>
+                    </td>
+                    <td class="ex_weight">
+                        <input type="text" id="ex_weight" name="ex_weight"/>
+                    </td>
+                    <td class="buttons">
+                        <button type="button" class="addEx_btn">운동 추가</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- 운동 기록 영역 -->
+    <div class="record_area">
+        <h3>운동 기록</h3>
+        <input type="hidden" class="date" value="">
+        <div id="record_table">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="ex_name">운동 명</th>
+                    <th class="ex_count">세트</th>
+                    <th class="ex_set">횟수</th>
+                    <th class="ex_weight">무게</th>
+                    <th class="ex_delete"></th>
+                </tr>
+                </thead>
+                <tbody class="resultEx">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- 피드백 영역 -->
+<!--    <div class="feedback_area">-->
+<!--        <h3>피드백</h3>-->
+
+<!--        <form name="feedbackForm" class="feedbackForm">-->
+<!--            <input name="ex_feedback"/>-->
+<!--            <button type="submit">전송</button>-->
+<!--        </form>-->
+<!--    </div>-->
+</div>
+</body>
+</html>
