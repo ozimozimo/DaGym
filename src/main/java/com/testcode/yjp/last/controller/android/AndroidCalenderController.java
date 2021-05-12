@@ -22,11 +22,23 @@ public class AndroidCalenderController {
 
     // 일정 조회
     @PostMapping("select/{member_id}")
-    public ArrayList<Calendar> selectCal(@PathVariable("member_id") Long member_id) {
+    public ArrayList<AndInsertCalDto> selectCal(@PathVariable("member_id") Long member_id) {
         Member member = androidMemberRepository.findById(member_id).get();
         ArrayList<Calendar> calendarByMember = androidCalendarRepository.findCalendarByMember(member);
+        ArrayList<AndInsertCalDto> andInsertCalDtos = new ArrayList<>();
+        for (Calendar calendar : calendarByMember) {
+            AndInsertCalDto andInsertCalDto = new AndInsertCalDto();
+            andInsertCalDto.setId(calendar.getId());
+            andInsertCalDto.setAllDay(calendar.isAllDay());
+            andInsertCalDto.setDescription(calendar.getDescription());
+            andInsertCalDto.setEnd(calendar.getEnd());
+            andInsertCalDto.setStart(calendar.getStart());
+            andInsertCalDto.setTitle(calendar.getTitle());
 
-        return calendarByMember;
+            andInsertCalDtos.add(andInsertCalDto);
+        }
+
+        return andInsertCalDtos;
     }
 
     // 일정 추가
