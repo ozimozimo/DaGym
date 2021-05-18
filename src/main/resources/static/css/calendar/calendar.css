@@ -1,6 +1,7 @@
 .container {
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;
     padding: 30px;
+    z-index: -9999;
 }
 
 .dropNewEvent {

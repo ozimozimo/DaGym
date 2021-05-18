@@ -3,14 +3,14 @@
         lang="ko"
         xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        data-layout-decorate="~{layout/default}"
+        data-layout-decorate="~{layout/newPage}"
 >
 <head>
     <title>dietSelect</title>
     <script th:src="@{/js/diet.js}"></script>
 </head>
 <div layout:fragment="content">
-    <div class="container-fluid p-0">
+    <div>
         <h1 class="h3 mb-3">식단검색</h1>
         <!--        현재 로그인한 회원의 member_id-->
         <input type="hidden" th:value="${session.loginUser}" class="member_id">

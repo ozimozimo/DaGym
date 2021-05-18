@@ -22,7 +22,7 @@
 <div layout:fragment="content">
     <input type="hidden" th:value="${session.loginUser}" class="member_id">
     <input type="hidden" th:value="${session.loginId}" class="ex_record_member_id">
-    <input type="hidden" class="date" value="">
+    <input type="text" class="date" value="">
     <div th:if="${session.loginId != null}">
         <p>
         <h1 th:text="${session.loginId}" class="loginId"></h1></p>
@@ -30,99 +30,146 @@
     <div id="calendar" style="width: 600px;"></div>
     <button type="button" class="dietWindow addBtn">추가하기</button>
 
-    <div class="container-fluid">
-        <div class="row">
-            <!--        아침 식사 부분-->
-            <div class="diet col-md-6">
-                <div><h1>아침 식사</h1></div>
-                <table class="listTable breakfast">
-                    <thead class="dayResult">
-                    <tr>
-                        <td>음식이름</td>
-                        <td>칼로리</td>
-                        <td>탄수화물</td>
-                        <td>단백질</td>
-                        <td>지방</td>
-                        <td></td>
-                    </tr>
-                    </thead>
-                    <tbody class="dietList">
-<!--                    <tr>-->
-<!--                        <td>-->
-<!--                            <button class="deleteBtn">-->
-<!--                                <span>삭제(바꿔야됨)</span>-->
-<!--                                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash"-->
-<!--                                     class="svg-inline&#45;&#45;fa fa-trash fa-w-14" role="img"-->
-<!--                                     xmlns="http://www.w3.org/2000/svg"-->
-<!--                                     viewBox="0 0 448 512">-->
-<!--                                    <path fill="currentColor"-->
-<!--                                          d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"></path>-->
-<!--                                </svg>-->
-<!--                            </button>-->
-<!--                        </td>-->
-<!--                    </tr>-->
-                    </tbody>
-                </table>
-            </div>
-            <!--        점심 식사 부분-->
-            <div class="diet col-md-6">
-                <div><h1>점심 식사</h1></div>
-                <table class="listTable lunch">
-                    <thead class="dayResult">
-                    <tr>
-                        <td>음식이름</td>
-                        <td>칼로리</td>
-                        <td>탄수화물</td>
-                        <td>단백질</td>
-                        <td>지방</td>
-                        <td></td>
-                    </tr>
-                    </thead>
-                    <tbody class="dietList">
-                    </tbody>
-                </table>
-            </div>
-        </div>
 
-        <div class="row">
-            <!--        저녁 식사 부분-->
-            <div class="diet col-md-6">
-                <div><h1>저녁 식사</h1></div>
-                <table class="listTable dinner">
-                    <thead class="dayResult">
-                    <tr>
-                        <td>음식이름</td>
-                        <td>칼로리</td>
-                        <td>탄수화물</td>
-                        <td>단백질</td>
-                        <td>지방</td>
-                        <td></td>
-                    </tr>
-                    </thead>
-                    <tbody class="dietList">
-                    </tbody>
-                </table>
-            </div>
-            <!--        간식-->
-            <div class="diet col-md-6">
-                <div><h1>간식</h1></div>
-                <table class="listTable extra">
-                    <thead class="dayResult">
-                    <tr>
-                        <td>음식이름</td>
-                        <td>칼로리</td>
-                        <td>탄수화물</td>
-                        <td>단백질</td>
-                        <td>지방</td>
-                        <td></td>
-                    </tr>
-                    </thead>
-                    <tbody class="dietList">
-                    </tbody>
-                </table>
-            </div>
+    <div class="row">
+        <!--        아침 식사 부분-->
+        <div class="diet col-md-6">
+            <div><h1>아침 식사</h1></div>
+            <table class="listTable breakfast">
+                <thead class="dayResult">
+                <tr>
+                    <td>음식이름</td>
+                    <td>칼로리</td>
+                    <td>탄수화물</td>
+                    <td>단백질</td>
+                    <td>지방</td>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody class="dietList">
+
+                <tr class="breakfastEat">
+                    <td>영양소 합계</td>
+                    <td class="breakfast_kcal"></td>
+                    <td class="breakfast_carbo"></td>
+                    <td class="breakfast_protein"></td>
+                    <td class="breakfast_fat"></td>
+                </tr>
+                <tr class='noData' style="display:none;">
+                    <td colspan=6>데이터가 없습니다</td>
+                </tr>
+
+
+                <!--                    <tr>-->
+                <!--                        <td>-->
+                <!--                            <button class="deleteBtn">-->
+                <!--                                <span>삭제(바꿔야됨)</span>-->
+                <!--                                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash"-->
+                <!--                                     class="svg-inline&#45;&#45;fa fa-trash fa-w-14" role="img"-->
+                <!--                                     xmlns="http://www.w3.org/2000/svg"-->
+                <!--                                     viewBox="0 0 448 512">-->
+                <!--                                    <path fill="currentColor"-->
+                <!--                                          d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"></path>-->
+                <!--                                </svg>-->
+                <!--                            </button>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+                </tbody>
+            </table>
+        </div>
+        <!--        점심 식사 부분-->
+        <div class="diet col-md-6">
+            <div><h1>점심 식사</h1></div>
+            <table class="listTable lunch">
+                <thead class="dayResult">
+                <tr>
+                    <td>음식이름</td>
+                    <td>칼로리</td>
+                    <td>탄수화물</td>
+                    <td>단백질</td>
+                    <td>지방</td>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody class="dietList">
+
+                <tr class="lunchEat">
+                    <td>영양소 합계</td>
+                    <td class="lunch_kcal"></td>
+                    <td class="lunch_carbo"></td>
+                    <td class="lunch_protein"></td>
+                    <td class="lunch_fat"></td>
+                </tr>
+
+                <tr class='noData' style="display:none;">
+                    <td colspan=6>데이터가 없습니다</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+
+    <div class="row">
+        <!--        저녁 식사 부분-->
+        <div class="diet col-md-6">
+            <div><h1>저녁 식사</h1></div>
+            <table class="listTable dinner">
+                <thead class="dayResult">
+                <tr>
+                    <td>음식이름</td>
+                    <td>칼로리</td>
+                    <td>탄수화물</td>
+                    <td>단백질</td>
+                    <td>지방</td>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody class="dietList">
+                <tr class="dinnerEat">
+                    <td>영양소 합계</td>
+                    <td class="dinner_kcal"></td>
+                    <td class="dinner_carbo"></td>
+                    <td class="dinner_protein"></td>
+                    <td class="dinner_fat"></td>
+                </tr>
+
+                <tr class='noData' style="display:none;">
+                    <td colspan=6>데이터가 없습니다</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--        간식-->
+        <div class="diet col-md-6">
+            <div><h1>간식</h1></div>
+            <table class="listTable extra">
+                <thead class="dayResult">
+                <tr>
+                    <td>음식이름</td>
+                    <td>칼로리</td>
+                    <td>탄수화물</td>
+                    <td>단백질</td>
+                    <td>지방</td>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody class="dietList">
+                <tr class="extraEat">
+                    <td>영양소 합계</td>
+                    <td class="extra_kcal"></td>
+                    <td class="extra_carbo"></td>
+                    <td class="extra_protein"></td>
+                    <td class="extra_fat"></td>
+                </tr>
+
+                <tr class='noData' style="display:none;">
+                    <td colspan=6>데이터가 없습니다</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <div class="dailyNutr">
         <div><h1>하루 섭취량</h1></div>
         <table class="listTable dailyResult">
@@ -135,30 +182,34 @@
             </tr>
             </thead>
             <tbody class="dietList">
-                <tr>
-                    <td class="dailyKcal"></td>
-                    <td class="dailyCarbo"></td>
-                    <td class="dailyProtein"></td>
-                    <td class="dailyFat"></td>
-                </tr>
+            <tr class="dailyEat">
+                <td class="dailyKcal"></td>
+                <td class="dailyCarbo"></td>
+                <td class="dailyProtein"></td>
+                <td class="dailyFat"></td>
+            </tr>
+
+            <tr class='noData' style="display:none;">
+                <td colspan=6>데이터가 없습니다</td>
+            </tr>
             </tbody>
         </table>
     </div>
-<!--    <div class="trainerAdvice">-->
-<!--        <h1>트레이너 코멘트</h1>-->
-<!--        <form action="#" type="post">-->
-<!--            <textarea class="adviceWrite" cols="50" rows="5" style="resize: none"-->
-<!--                      placeholder="피드백할 내용을 입력하세요"></textarea>-->
-<!--            <div>-->
-<!--                <button type="button" class="adviceAdd">피드백</button>-->
-<!--                <input type="reset">-->
-<!--            </div>-->
-<!--            <div class="adviceList"></div>-->
-<!--            <div>-->
-<!--                <button type="button" class="adviceUpdate">수정하기</button>-->
-<!--            </div>-->
-<!--        </form>-->
-<!--    </div>-->
+    <!--    <div class="trainerAdvice">-->
+    <!--        <h1>트레이너 코멘트</h1>-->
+    <!--        <form action="#" type="post">-->
+    <!--            <textarea class="adviceWrite" cols="50" rows="5" style="resize: none"-->
+    <!--                      placeholder="피드백할 내용을 입력하세요"></textarea>-->
+    <!--            <div>-->
+    <!--                <button type="button" class="adviceAdd">피드백</button>-->
+    <!--                <input type="reset">-->
+    <!--            </div>-->
+    <!--            <div class="adviceList"></div>-->
+    <!--            <div>-->
+    <!--                <button type="button" class="adviceUpdate">수정하기</button>-->
+    <!--            </div>-->
+    <!--        </form>-->
+    <!--    </div>-->
 </div>
 </body>
 </html>

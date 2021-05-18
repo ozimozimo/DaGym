@@ -2,7 +2,7 @@ function save() {
     if($('#title').val().length==0){
         alert('제목을 입력하세요');
         return false;
-    } else if($('#content').val().length==0){
+    } else if($('#board_content').val().length==0){
         alert('내용을 입력하세요');
         return false;
     }
@@ -15,7 +15,7 @@ function save() {
             var data = {
                 title: $('#title').val(),
                 user_id: $('#user_id').val(),
-                content: $('#content').val()
+                content: $('#board_content').val()
             };
             console.log("session login id="+data.id)
             var id = $('#member_id').val();
@@ -41,7 +41,7 @@ function update() {
     if($('#title').val().length==0){
         alert('제목을 입력하세요');
         return false;
-    } else if($('#content').val().length==0){
+    } else if($('#board_content').val().length==0){
         alert('내용을 입력하세요');
         return false;
     }
@@ -56,7 +56,7 @@ function update() {
         update: function () {
             var data = {
                 title: $('#title').val(),
-                content: $('#content').val()
+                content: $('#board_content').val()
             };
             var id = $('#hb_num').val();
             var page = $('#page').val();

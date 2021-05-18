@@ -42,11 +42,11 @@ textarea{
     font-size: 14px;
 }
 a.custom_btn{
-    padding:8.9px 8px;
+    padding: 9px 8px;
 
 }
 
-.custom_btn.error {
+.custom_btn.delete_btn {
     color: white;
     background-color: #d32f2f;
 }
@@ -56,7 +56,7 @@ a.custom_btn{
     background-color: #f9a825;
 }
 
-.custom_btn.success {
+.custom_btn.success_btn {
     color: white;
     background-color: #4458c8;
 }
