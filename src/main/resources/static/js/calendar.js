@@ -17,10 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
         // 날짜 클릭했을 때
         dateClick: function (info) {
             var url = window.location.pathname;
-            console.log(url);
+
             var id = $('.loginId').text();
             var click = info.dateStr;
-            var click_date = $('.date').val(click);
+            $('.date').val(click);
             var ex_data = {
                 id: id,
                 ex_date: click
@@ -40,10 +40,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 }).done(function (result) {
                     if (result.length == 0) {
                         alert('기록된 데이터가 없습니다');
-                        $('.dietList').empty();
-                        noData();
+                        hideEat();
                     } else if (diet_data.diet_date == click) {
-                        $('.dietList').empty();
+                        console.log(result);
+                        removeNutr();
+                        showEat();
                         mkDiet(result);
                     }
 
@@ -51,8 +52,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     alert("fail");
                     console.log(JSON.stringify(error));
                 })
-                // 운동 기록 부분
-            } else if (url.includes("ExRecord")) {
+            }
+            // 운동 기록 부분
+            else if (url.includes("ExRecord")) {
                 url = "/ExRecord/clickDate";
                 $.ajax({
                     type: 'get',
@@ -67,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         $('.resultEx').empty()
                         mkExr(result);
                     }
-                    console.log(result);
+
                 }).fail(function (error) {
                     alert("fail");
                     console.log(JSON.stringify(error));

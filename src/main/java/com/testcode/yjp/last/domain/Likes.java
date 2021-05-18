@@ -26,6 +26,7 @@ public class Likes {
 
     // 게시판글에 대해서 1번만 추천이 가능함
     @ManyToOne
+
     @JoinColumn(name = "hb_num")
     private Board board;
 

@@ -1,16 +1,23 @@
-// 함수 선언 부분
 $(function () {
     $('.dietSearch').on('click', dietSearch);
     $('.dietWindow').on('click', dietWindow);
-    $('.dietClose').on('click', dietClose);
-    todayData();
-    showDayAllResult();
+    $('.dietClose').on('click', function () {
+        window.close();
+        opener.document.location.reload();
+    });
+
+    // 오늘 날짜랑 선택한 날짜가 같다면
+    if ($('.date').val() == date) {
+        console.log('오늘');
+        todayData();
+    }
 })
 
 // 오늘 날짜 가져오기 (2021-04-30 형태)
 var date = new Date();
 date = getFormatDate(date);
 
+// 날짜 포맷 변경
 function getFormatDate(date) {
     var year = date.getFullYear();
     var month = (1 + date.getMonth());
@@ -116,19 +123,15 @@ function dietWindow() {
     var popupY = (window.screen.height / 2) - (700 / 2);
     var date = $('.date').val();
     var option = 'status=no, height=700, width=800, left=' + popupX + ', top=' + popupY + ', screenX=' + popupX + ', screenY= ' + popupY;
-    var url = "http://localhost:8090/diet/search" + "?" + date;
+    var url = "http://localhost:8090"
+    url += "/diet/search" + "?" + date;
     window.open(url, 'dietWindow', option);
     console.log($('.date').val());
     // var url = "http://140.238.25.78:8090/diet/search";
     // window.open(url, 'dietWindow', option);
 }
 
-// 선택완료
-function dietClose() {
-    window.close();
-    opener.document.location.reload();
-}
-
+// 식단 삭제
 function dietDelete(a) {
     let id = a.parentNode.parentNode.firstChild.innerText;
     console.log(id);
@@ -147,87 +150,101 @@ function dietDelete(a) {
 
 function mkDiet(result) {
     // 결과 출력
-    let id = $('.loginId').text();
     for (let i = 0; i < result.length; i++) {
-        var a = result[i].diet_name;
-        var b = result[i].diet_kcal;
-        var c = result[i].diet_carbo;
-        var d = result[i].diet_protein;
-        var e = result[i].diet_fat;
-        var f = result[i].diet_time;
-        var g = result[i].diet_id;
-        var h = result[i].diet_member_id;
-        var j = result[i].diet_date;
-
-        function input(time, list, value) {
-            if (f == time) {
-                let content = "<tr class=" + list + ">"
-                content += "<td class='diet_id' style='display: none'>" + g + "</td>"
-                content += "<td class='diet_member_id' style='display: none'>" + h + "</td>"
-                content += "<td class='diet_name'>" + a + "</td>"
-                content += "<td class='diet_kcal'>" + b + "</td>"
-                content += "<td class='diet_carbo'>" + c + "</td>"
-                content += "<td class='diet_protein'>" + d + "</td>"
-                content += "<td class='diet_fat'>" + e + "</td>"
-                content += "<td class='diet_date' style='display: none'>" + j + "</td>"
-                if (h == id)
-                    content += "<td><button type='button' class='diet_Delete' onclick='dietDelete(this)'>삭제</button>" + "</td>"
-                content += "</tr>"
-                $('.diet').children(value).children('.dietList').append(content);
-            }
+        let obj = {
+            'a': result[i].diet_name,
+            'b': result[i].diet_kcal,
+            'c': result[i].diet_carbo,
+            'd': result[i].diet_protein,
+            'e': result[i].diet_fat,
+            'f': result[i].diet_time,
+            'g': result[i].diet_id,
+            'h': result[i].diet_member_id,
+            'j': result[i].diet_date,
         }
+        input(obj);
+    }
+    showSumNutr();
+}
 
-        input('아침', 'breakfastList', '.breakfast');
-        input('점심', 'lunchList', '.lunch');
-        input('저녁', 'dinnerList', '.dinner');
-        input('간식', 'extraList', '.extra');
+function showSumNutr(){
+    sumNutr('.breakfastList', '.diet_kcal', '.breakfast_kcal');
+    sumNutr('.breakfastList', '.diet_carbo', '.breakfast_carbo');
+    sumNutr('.breakfastList', '.diet_protein', '.breakfast_protein');
+    sumNutr('.breakfastList', '.diet_fat', '.breakfast_fat');
+
+    sumNutr('.lunchList', '.diet_kcal', '.lunch_kcal');
+    sumNutr('.lunchList', '.diet_carbo', '.lunch_carbo');
+    sumNutr('.lunchList', '.diet_protein', '.lunch_protein');
+    sumNutr('.lunchList', '.diet_fat', '.lunch_fat');
+
+    sumNutr('.dinnerList', '.diet_kcal', '.dinner_kcal');
+    sumNutr('.dinnerList', '.diet_carbo', '.dinner_carbo');
+    sumNutr('.dinnerList', '.diet_protein', '.dinner_protein');
+    sumNutr('.dinnerList', '.diet_fat', '.dinner_fat');
+
+    sumNutr('.extraList', '.diet_kcal', '.extra_kcal');
+    sumNutr('.extraList', '.diet_carbo', '.extra_carbo');
+    sumNutr('.extraList', '.diet_protein', '.extra_protein');
+    sumNutr('.extraList', '.diet_fat', '.extra_fat');
+}
+// 영양소별 합계
+function sumNutr(timeList, nutr, timeNutr) {
+    let sum = 0;
+    for (let i = 0; i < $(timeList).find(nutr).length; i++) {
+        let value = parseInt($(timeList).children(nutr).eq(`${i}`).text());
+        sum += value;
+    }
+    $(timeNutr).text(sum);
+
+    showDayAllResult();
+}
+
+// 값 넣기
+function input(obj) {
+
+    function eatTime(time, list, value, eat) {
+        this.time = time;
+        this.list = list;
+        this.value = value;
+        this.eat = eat;
     }
 
-    // 시간별 합계
-    function mkEat(time, classEat, classKcal, classCarbo, classProtein, classFat) {
-        let content = "<tr class=" + classEat + ">"
-        content += "<td>영양소 합계</td>"
-        content += "<td class=" + classKcal + "></td>"
-        content += "<td class=" + classCarbo + "></td>"
-        content += "<td class=" + classProtein + "></td>"
-        content += "<td class=" + classFat + "></td>"
-        content += "</tr>"
-        $(time).children('.dietList').append(content);
+    let breakfast = new eatTime('아침', 'breakfastList', '.breakfast', '.breakfastEat');
+    let lunch = new eatTime('점심', 'lunchList', '.lunch', '.lunchEat');
+    let dinnerList = new eatTime('저녁', 'dinnerList', '.dinner', '.dinnerEat');
+    let extra = new eatTime('간식', 'extraList', '.extra', '.extraEat');
+    let timeObj;
+    let id = $('.loginId').text();
+
+    switch (obj.f) {
+        case "아침" :
+            timeObj = breakfast;
+            break;
+        case "점심" :
+            timeObj = lunch;
+            break;
+        case "저녁" :
+            timeObj = dinnerList;
+            break;
+        case "간식" :
+            timeObj = extra;
+            break;
     }
 
-    mkEat('.breakfast', 'breakfastEat', 'breakfast_kcal', 'breakfast_carbo', 'breakfast_protein', 'breakfast_fat');
-    mkEat('.lunch', 'lunchEat', 'lunch_kcal', 'lunch_carbo', 'lunch_protein', 'lunch_fat');
-    mkEat('.dinner', 'dinnerEat', 'dinner_kcal', 'dinner_carbo', 'dinner_protein', 'dinner_fat');
-    mkEat('.extra', 'extraEat', 'extra_kcal', 'extra_carbo', 'extra_protein', 'extra_fat');
-
-    // 영양소별 합계
-    function sumNutr(time, timeList, nutr, timeEat, timeNutr) {
-        let sum = 0;
-        for (let i = 0; i < $(time).children('.dietList').children(timeList).find(nutr).length; i++) {
-            sum += parseFloat($(time).children('.dietList').children(timeList).children(nutr).eq(`${i}`).text());
-        }
-        $(time).children('.dietList').children(timeEat).children(timeNutr).append(sum.toFixed(1))
-    }
-
-    sumNutr('.breakfast', '.breakfastList', '.diet_kcal', '.breakfastEat', '.breakfast_kcal')
-    sumNutr('.breakfast', '.breakfastList', '.diet_carbo', '.breakfastEat', '.breakfast_carbo')
-    sumNutr('.breakfast', '.breakfastList', '.diet_protein', '.breakfastEat', '.breakfast_protein')
-    sumNutr('.breakfast', '.breakfastList', '.diet_fat', '.breakfastEat', '.breakfast_fat')
-
-    sumNutr('.lunch', '.lunchList', '.diet_kcal', '.lunchEat', '.lunch_kcal')
-    sumNutr('.lunch', '.lunchList', '.diet_carbo', '.lunchEat', '.lunch_carbo')
-    sumNutr('.lunch', '.lunchList', '.diet_protein', '.lunchEat', '.lunch_protein')
-    sumNutr('.lunch', '.lunchList', '.diet_fat', '.lunchEat', '.lunch_fat')
-
-    sumNutr('.dinner', '.dinnerList', '.diet_kcal', '.dinnerEat', '.dinner_kcal')
-    sumNutr('.dinner', '.dinnerList', '.diet_carbo', '.dinnerEat', '.dinner_carbo')
-    sumNutr('.dinner', '.dinnerList', '.diet_protein', '.dinnerEat', '.dinner_protein')
-    sumNutr('.dinner', '.dinnerList', '.diet_fat', '.dinnerEat', '.dinner_fat')
-
-    sumNutr('.extra', '.extraList', '.diet_kcal', '.extraEat', '.extra_kcal')
-    sumNutr('.extra', '.extraList', '.diet_carbo', '.extraEat', '.extra_carbo')
-    sumNutr('.extra', '.extraList', '.diet_protein', '.extraEat', '.extra_protein')
-    sumNutr('.extra', '.extraList', '.diet_fat', '.extraEat', '.extra_fat')
+    let content = "<tr class=" + timeObj.list + ">"
+    content += "<td class='diet_id' style='display: none'>" + obj.g + "</td>"
+    content += "<td class='diet_member_id' style='display: none'>" + obj.h + "</td>"
+    content += "<td class='diet_name'>" + obj.a + "</td>"
+    content += "<td class='diet_kcal'>" + obj.b + "</td>"
+    content += "<td class='diet_carbo'>" + obj.c + "</td>"
+    content += "<td class='diet_protein'>" + obj.d + "</td>"
+    content += "<td class='diet_fat'>" + obj.e + "</td>"
+    content += "<td class='diet_date' style='display: none'>" + obj.j + "</td>"
+    if (obj.h == id)
+        content += "<td><button type='button' class='diet_Delete' onclick='dietDelete(this)'>삭제</button>" + "</td>"
+    content += "</tr>"
+    $(timeObj.eat).before(content);
 }
 
 // 오늘 날짜 데이터
@@ -250,13 +267,6 @@ function todayData() {
     })
 }
 
-function noData() {
-    let content = "<tr>"
-    content += "<td colspan = 6>"
-    content += "데이터가 없습니다"
-    content += "</td></tr>"
-    $('.dietList').append(content);
-}
 
 function splitDate() {
     // 캘린더 Input JS
@@ -265,7 +275,7 @@ function splitDate() {
     $(".date").val(date);
 }
 
-function showDayAllResult(){
+function showDayAllResult() {
     var k = [".breakfast_kcal", ".lunch_kcal", ".dinner_kcal", ".extra_kcal"];
     var c = [".breakfast_carbo", ".lunch_carbo", ".dinner_carbo", ".extra_carbo"];
     var p = [".breakfast_protein", ".lunch_protein", ".dinner_protein", ".extra_protein"];
@@ -276,22 +286,44 @@ function showDayAllResult(){
     nutr(p, '.dailyProtein');
     nutr(f, '.dailyFat');
 
-    console.log($('.dailyKcal').text())
-    console.log($('.breakfast_kcal').text())
-    console.log($('.lunch_kcal').text())
-    console.log($('.dinner_kcal').text())
-    console.log($('.extra_kcal').text())
 }
 
 // 일일 합계
 function nutr(arr, where) {
     let sum = 0;
-    arr.forEach(function (n) {
-        console.log($('.dietList').find(".breakfast_kcal").text());
-        let value = parseFloat($('.dietList').find(n).text());
-    console.log('밸류 : ', value);
+    arr.forEach(function (el, index) {
+        let value = parseInt($(el).text());
         sum += value;
+
     })
-    console.log('합 : ', sum);
-    $(where).append(sum.toFixed(1));
+    $(where).text(sum);
+}
+
+// 식단 리스트 삭제
+function removeNutr() {
+    $('.breakfastList').remove();
+    $('.lunchList').remove();
+    $('.dinnerList').remove();
+    $('.extraList').remove();
+}
+
+function hideEat(){
+    $('.breakfastEat').hide();
+    $('.lunchEat').hide();
+    $('.dinnerEat').hide();
+    $('.extraEat').hide();
+    $('.dailyEat').hide();
+    $('.breakfastList').remove();
+    $('.lunchList').remove();
+    $('.dinnerList').remove();
+    $('.extraList').remove();
+    $('.noData').show();
+}
+function showEat(){
+    $('.breakfastEat').show();
+    $('.lunchEat').show();
+    $('.dinnerEat').show();
+    $('.extraEat').show();
+    $('.dailyEat').show();
+    $('.noData').hide();
 }

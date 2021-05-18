@@ -2,24 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 
-<footer class="main-footer" th:fragment="footerFragment">
-<!--    footer 영역, 원하는 것을 넣으면 된다-->
-    <!-- footer 시작 -->
-    <footer class="footer">
-        <div class="container-fluid">
-          <div class="row text-muted">
-            <div class="text-right">
-              <p class="mb-0">
-                &copy;
-                <a href="index.html" class="text-muted"
-                  ><strong>DAGYM</strong></a
-                >
-              </p>
-            </div>
-          </div>
+<footer class="sticky-footer bg-white" th:fragment="footerFragment">
+    <!--    footer 영역, 원하는 것을 넣으면 된다-->
+
+    <!--    <footer class="sticky-footer bg-white">-->
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>copyright &copy; <script> document.write(new Date().getFullYear()); </script> - developed by
+              <b><a href="https://indrijunanda.gitlab.io/" target="_blank">DAGYM</a></b>
+            </span>
         </div>
-      </footer>
-    <!-- footer 끝 -->
+    </div>
+    <!--    </footer>-->
 </footer>
 </html>
 

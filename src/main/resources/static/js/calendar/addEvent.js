@@ -27,8 +27,7 @@ var newEvent = function (start, end, eventType) {
     editStart.val(start);
     editEnd.val(end);
     editDesc.val('');
-
-
+    
     addBtnContainer.show();
     modifyBtnContainer.hide();
     eventModal.modal('show');
@@ -51,9 +50,9 @@ var newEvent = function (start, end, eventType) {
             // username: '사나',
             backgroundColor: editColor.val(),
             textColor: '#ffffff',
-            allDay: editAllDay.is(":checked")
+            allDay: false
         };
-        console.log("check여부 는 =" + eventData.allDay);
+        console.log("id 는 =" + calendar_user);
 
         if (eventData.start > eventData.end) {
             alert('끝나는 날짜가 앞설 수 없습니다.');
@@ -90,8 +89,8 @@ var newEvent = function (start, end, eventType) {
             dataType: "json",
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                console.log(data.allDay);
                 alert("등록에 성공하셨습니다");
+                console.log(data);
                 location.reload();
                 // WinClose();
             },
