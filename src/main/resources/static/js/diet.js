@@ -61,6 +61,8 @@ function dietResult(result) {
         content += "<td class='diet_id 'style='display: none'>" + str + "</td>"
         // 음식이름
         content += "<td class='diet_name' id='diet_name'>" + str['DESC_KOR'] + "</td>"
+        // 1회 제공량
+        content += "<td class='diet_serve' id='diet_serve'>" + str['SERVING_SIZE'] + "</td>"
         // 칼로리
         content += "<td class='diet_kcal' id='diet_kcal'>" + str['NUTR_CONT1'] + "</td>"
         // 탄수화물
@@ -69,6 +71,8 @@ function dietResult(result) {
         content += "<td class='diet_protein' id='diet_protein'>" + str['NUTR_CONT3'] + "</td>"
         // 지방
         content += "<td class='diet_fat' id='diet_fat'>" + str['NUTR_CONT4'] + "</td>"
+        // 내가 먹은 양 입력하기
+        content += "<td>" + "<input type='text' class='eat_rate'>" + "</td>"
         // 시간
         content += "<td>" +
             "<select name='diet_time'>" +
@@ -86,19 +90,31 @@ function dietResult(result) {
     }
 }
 
+
+
 // 식단 추가
 function dietAdd() {
     $('.dietAdd').on('click', function (e) {
         splitDate();
         console.log($('.date').val());
         var id = $('.member_id').val();
+        // 내가 먹은 양
+        var eat_rate = $(this).parent().siblings().children('.eat_rate').val();
+        // 기존 제공량
+        var default_eat_rate = $(this).parent().siblings('.diet_serve').text();
+        var divide_eat_rate = default_eat_rate / eat_rate;
+        var eat_kcal = $(this).parent().siblings("td.diet_kcal").text()/divide_eat_rate;
+        var eat_carbo = $(this).parent().siblings("td.diet_carbo").text()/divide_eat_rate;
+        var eat_protein = $(this).parent().siblings("td.diet_protein").text()/divide_eat_rate;
+        var eat_fat = $(this).parent().siblings("td.diet_fat").text()/divide_eat_rate;
         var data = {
             diet_member_id: $('.diet_member_id').val(),
             diet_name: $(this).parent().siblings("td.diet_name").text(),
-            diet_kcal: $(this).parent().siblings("td.diet_kcal").text() || 0,
-            diet_carbo: $(this).parent().siblings("td.diet_carbo").text() || 0,
-            diet_protein: $(this).parent().siblings("td.diet_protein").text() || 0,
-            diet_fat: $(this).parent().siblings("td.diet_fat").text() || 0,
+            eat_rate: eat_rate || default_eat_rate,
+            diet_kcal: eat_kcal || $(this).parent().siblings("td.diet_kcal").text() || 0,
+            diet_carbo: eat_carbo || $(this).parent().siblings("td.diet_carbo").text() || 0,
+            diet_protein: eat_protein || $(this).parent().siblings("td.diet_protein").text() || 0,
+            diet_fat: eat_fat || $(this).parent().siblings("td.diet_fat").text() || 0,
             diet_time: $(this).parent().siblings().children("select[name=diet_time]").val(),
             diet_date: $('.date').val(),
         }
@@ -127,7 +143,7 @@ function dietWindow() {
     url += "/diet/search" + "?" + date;
     window.open(url, 'dietWindow', option);
     console.log($('.date').val());
-    // var url = "http://140.238.25.78:8090/diet/search";
+    // var url = "http://140.238.25.78:8090";
     // window.open(url, 'dietWindow', option);
 }
 
@@ -161,6 +177,7 @@ function mkDiet(result) {
             'g': result[i].diet_id,
             'h': result[i].diet_member_id,
             'j': result[i].diet_date,
+            'k': result[i].eat_rate
         }
         input(obj);
     }
@@ -168,21 +185,25 @@ function mkDiet(result) {
 }
 
 function showSumNutr(){
+    sumNutr('.breakfastList', '.eat_rate', '.breakfast_eat_rate');
     sumNutr('.breakfastList', '.diet_kcal', '.breakfast_kcal');
     sumNutr('.breakfastList', '.diet_carbo', '.breakfast_carbo');
     sumNutr('.breakfastList', '.diet_protein', '.breakfast_protein');
     sumNutr('.breakfastList', '.diet_fat', '.breakfast_fat');
 
+    sumNutr('.lunchList', '.eat_rate', '.lunch_eat_rate');
     sumNutr('.lunchList', '.diet_kcal', '.lunch_kcal');
     sumNutr('.lunchList', '.diet_carbo', '.lunch_carbo');
     sumNutr('.lunchList', '.diet_protein', '.lunch_protein');
     sumNutr('.lunchList', '.diet_fat', '.lunch_fat');
 
+    sumNutr('.dinnerList', '.eat_rate', '.dinner_eat_rate');
     sumNutr('.dinnerList', '.diet_kcal', '.dinner_kcal');
     sumNutr('.dinnerList', '.diet_carbo', '.dinner_carbo');
     sumNutr('.dinnerList', '.diet_protein', '.dinner_protein');
     sumNutr('.dinnerList', '.diet_fat', '.dinner_fat');
 
+    sumNutr('.extraList', '.eat_rate', '.extra_eat_rate');
     sumNutr('.extraList', '.diet_kcal', '.extra_kcal');
     sumNutr('.extraList', '.diet_carbo', '.extra_carbo');
     sumNutr('.extraList', '.diet_protein', '.extra_protein');
@@ -236,6 +257,7 @@ function input(obj) {
     content += "<td class='diet_id' style='display: none'>" + obj.g + "</td>"
     content += "<td class='diet_member_id' style='display: none'>" + obj.h + "</td>"
     content += "<td class='diet_name'>" + obj.a + "</td>"
+    content += "<td class='eat_rate'>" + obj.k + "</td>"
     content += "<td class='diet_kcal'>" + obj.b + "</td>"
     content += "<td class='diet_carbo'>" + obj.c + "</td>"
     content += "<td class='diet_protein'>" + obj.d + "</td>"
@@ -276,11 +298,13 @@ function splitDate() {
 }
 
 function showDayAllResult() {
+    var e = [".breakfast_eat_rate", ".lunch_eat_rate", ".dinner_eat_rate", ".extra_eat_rate"];
     var k = [".breakfast_kcal", ".lunch_kcal", ".dinner_kcal", ".extra_kcal"];
     var c = [".breakfast_carbo", ".lunch_carbo", ".dinner_carbo", ".extra_carbo"];
     var p = [".breakfast_protein", ".lunch_protein", ".dinner_protein", ".extra_protein"];
     var f = [".breakfast_fat", ".lunch_fat", ".dinner_fat", ".extra_fat"];
 
+    nutr(e, '.dailyEatRate');
     nutr(k, '.dailyKcal');
     nutr(c, '.dailyCarbo');
     nutr(p, '.dailyProtein');

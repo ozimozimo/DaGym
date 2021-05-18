@@ -28,7 +28,4 @@ abstract public class BaseEntity {
     @UpdateTimestamp
     @Column(name = "moddate")
     private LocalDateTime modDate;
-
-
-
 }
