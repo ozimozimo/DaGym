@@ -36,19 +36,19 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 //    oracle
-//    runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
-//    implementation 'com.oracle.ojdbc:ucp:19.3.0.0'
-//    implementation 'com.oracle.ojdbc:ons:19.3.0.0'
-//    implementation 'com.oracle.ojdbc:oraclepki:19.3.0.0'
-//    implementation 'com.oracle.ojdbc:osdt_cert:19.3.0.0'
-//    implementation 'com.oracle.ojdbc:osdt_core:19.3.0.0'
+    runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
+    implementation 'com.oracle.ojdbc:ucp:19.3.0.0'
+    implementation 'com.oracle.ojdbc:ons:19.3.0.0'
+    implementation 'com.oracle.ojdbc:oraclepki:19.3.0.0'
+    implementation 'com.oracle.ojdbc:osdt_cert:19.3.0.0'
+    implementation 'com.oracle.ojdbc:osdt_core:19.3.0.0'
 //    tool
     annotationProcessor 'org.projectlombok:lombok'
 //        runtimeOnly 'mysql:mysql-connector-java:'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
 
-    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+//    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 //    SpringSecurity
 //    implementation 'org.springframework.boot:spring-boot-starter-security'
 

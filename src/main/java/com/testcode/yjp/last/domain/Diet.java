@@ -16,6 +16,7 @@ public class Diet {
     private Long diet_id;
     private String diet_member_id;
     private String diet_name;
+    private String eat_rate;
     private String diet_kcal;
     private String diet_carbo;
     private String diet_protein;
@@ -28,7 +29,7 @@ public class Diet {
     private Member member;
 
     @Builder
-    public Diet(Long diet_id, String diet_name, String diet_kcal, String diet_carbo, String diet_protein, String diet_fat, String diet_time, String diet_date) {
+    public Diet(Long diet_id, String diet_name, String diet_kcal, String diet_carbo, String diet_protein, String diet_fat, String diet_time, String diet_date, String eat_rate) {
         this.diet_id = diet_id;
         this.diet_name = diet_name;
         this.diet_kcal = diet_kcal;
@@ -37,5 +38,6 @@ public class Diet {
         this.diet_fat = diet_fat;
         this.diet_time = diet_time;
         this.diet_date = diet_date;
+        this.eat_rate = eat_rate;
     }
 }

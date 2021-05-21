@@ -17,4 +17,6 @@ public class AndInsertCalDto {
     private String description;
     private String type = "카테고리1";
     private boolean allDay;
+
+
 }
