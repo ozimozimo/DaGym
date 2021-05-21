@@ -16,6 +16,7 @@
     <script th:src="@{/js/calendar.js?ver=1.0}"></script>
     <script th:src="@{/js/diet.js?ver=1.0}"></script>
     <script th:src="@{/js/advice.js?ver=1.0}"></script>
+
 </head>
 <body>
 <!-- 달력, 식단검색-->
@@ -28,10 +29,14 @@
         <h1 th:text="${session.loginId}" class="loginId"></h1></p>
     </div>
     <div id="calendar" style="width: 600px;"></div>
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+
     <button type="button" class="dietWindow addBtn">추가하기</button>
 
 
-    <div class="row">
+    <div class="row">.
         <!--        아침 식사 부분-->
         <div class="diet col-md-6">
             <div><h1>아침 식사</h1></div>
@@ -220,6 +225,8 @@
     <!--            </div>-->
     <!--        </form>-->
     <!--    </div>-->
+    <script th:src="@{/js/dietChart.js}"></script>
 </div>
+
 </body>
 </html>

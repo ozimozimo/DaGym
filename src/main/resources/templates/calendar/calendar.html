@@ -8,10 +8,10 @@
 <head>
     <title>calendar</title>
 
-    <link rel="stylesheet" th:href="@{~/css/calendar/fullcalendar.min.css}"/>
+<!--    <link rel="stylesheet" th:href="@{~/css/calendar/fullcalendar.min.css}"/>-->
 
     <link rel="stylesheet" th:href="@{~/css/calendar/select2.min.css}"/>
-    <link rel="stylesheet" th:href="@{~/css/calendar/bootstrap-datetimepicker.min.css}"/>
+
 
     <link rel="stylesheet" th:href="@{~/css/calendar/calendar.css}"/>
 <!--    <link rel="stylesheet" th:href="@{/css/calendar/bootstrap.min.css}"/>-->
@@ -140,13 +140,12 @@
         <div class="panel panel-default">
 
             <div class="panel-heading">
-                <h3 class="panel-title">필터</h3>
+                <h4 class="panel-title">필터</h4>
             </div>
 
             <div class="panel-body">
 
                 <div class="col-lg-6">
-                    <label for="calendar_view">구분별</label>
                     <div class="input-group">
                         <select class="filter" id="type_filter" multiple="multiple">
                             <option value="PT일정">PT일정</option>
