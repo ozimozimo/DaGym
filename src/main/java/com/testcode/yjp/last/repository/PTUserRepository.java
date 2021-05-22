@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -24,5 +25,8 @@ public interface PTUserRepository extends JpaRepository<PTUser, Long> {
 
     //id로 select
     @Query("select m from Member m where member_id like %:member_id% ")
-    List<Member> findMemberId(Long member_id);
+    List<Member> findMemberId(Long member_id);;
+
+    @Query(value = "select p.* from PT_User p where p.TRAINER_ID = :trainer", nativeQuery = true)
+    ArrayList<PTUser> requsetList(Member trainer);
 }

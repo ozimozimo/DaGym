@@ -2,8 +2,6 @@ package com.testcode.yjp.last.controller;
 
 import com.testcode.yjp.last.domain.dto.MemberList;
 import com.testcode.yjp.last.domain.dto.TrainerSearchDto;
-import com.testcode.yjp.last.repository.MemberRepository;
-import com.testcode.yjp.last.repository.PTUserRepository;
 import com.testcode.yjp.last.service.PTUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -81,6 +78,5 @@ public class PTController {
     * 그리고 현재 중복해서 신청하면 그대로 값 들어가는데 멤버id, 트레이너id 같으며
     * accept_condition이 0인 값 있으면 더 신청 못하게 막아야 할듯함.
     * */
-
 
 }

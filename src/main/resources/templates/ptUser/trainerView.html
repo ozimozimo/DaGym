@@ -5,12 +5,15 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         data-layout-decorate="~{layout/default}"
 >
-<script>
-
-</script>
+<head>
+    <script th:src="@{/js/trainer.js?ver=1.0}"></script>
+</head>
+<body>
 <div layout:fragment="content">
     <div class="container-fluid p-0">
+        <input type="text" th:value="${session.loginUser}" class="member_id">
         <h1 class="h3 mb-3">트레이너 조회</h1>
+        <h1 th:text="${session.loginId}" class="loginId"></h1>
         <!--트레이너 검색-->
         <form th:action="@{~/ptUser/search}" method="get">
             <div>
@@ -22,6 +25,7 @@
                 <input name="search" type="text" placeholder="이름 검색">
                 <button>검색하기</button>
             </div>
+            <button type="button" onclick="showList()">qwer</button>
         </form>
 
         <!--트레이너 조회-->
@@ -48,14 +52,30 @@
                             <td><span th:text="${member.user_id}"></span></td>
                             <td><span th:text="${member.user_pn}"></span></td>
                             <td><span th:text="${member.address_detail}+'('+${member.address_normal}+')'"></span></td>
-                            <td><button th:text="위치정보"></button></td>
-                            <td><a th:href="@{~/ptUser/apply(member_id = ${session.loginUser} , trainer_id = ${member.id})}" th:if="${session.loginRole == 'user'}" th:text="신청"></a></td>
+                            <td>
+                                <button th:text="위치정보"></button>
+                            </td>
+                            <td>
+                                <a th:href="@{~/ptUser/apply(member_id = ${session.loginUser} , trainer_id = ${member.id})}"
+                                   th:if="${session.loginRole == 'user'}" th:text="신청"></a></td>
                         </tr>
                         </tbody>
+                    </table>
+                    <h1>신청한 내용</h1>
+                    <table class="applyList">
+                        <thead>
+                        <th>회원아이디</th>
+                        <th>회원이름</th>
+                        <th>시작날짜</th>
+                        <th>종료날짜</th>
+                        <th>트레이너번호</th>
+                        </thead>
+                        <tbody class="applyListDetail"></tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</body>
 </html>

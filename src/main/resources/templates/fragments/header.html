@@ -2,142 +2,142 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <ul id="accordionSidebar" class="navbar-nav sidebar sidebar-light accordion" th:fragment="headerFragment">
-        <a
-                class="sidebar-brand d-flex align-items-center justify-content-center"
-                href="/"
-        >
-            <div class="sidebar-brand-icon">
-                <!-- 로고 이미지                -->
-                <!--                <img src="img/logo/logo2.png">-->
-            </div>
-            <div class="sidebar-brand-text mx-3">DAGYM</div>
+    <a
+            class="sidebar-brand d-flex align-items-center justify-content-center"
+            href="/"
+    >
+        <div class="sidebar-brand-icon">
+            <!-- 로고 이미지                -->
+            <!--                <img src="img/logo/logo2.png">-->
+        </div>
+        <div class="sidebar-brand-text mx-3">DAGYM</div>
+    </a>
+    <hr class="sidebar-divider my-0"/>
+    <!--    <li class="nav-item active">-->
+    <!--        <a class="nav-link" href="/">-->
+    <!--            <i class="fas fa-fw fa-tachometer-alt"></i>-->
+    <!--            <span>Dashboard</span></a>-->
+    <!--    </li>-->
+    <!--    <hr class="sidebar-divider">-->
+    <!-- <div class="sidebar-heading">Features</div> -->
+    <!-- <li class="nav-item">
+      <a
+        class="nav-link collapsed"
+        href="#"
+        data-toggle="collapse"
+        data-target="#collapseBootstrap"
+        aria-expanded="true"
+        aria-controls="collapseBootstrap"
+      >
+        <i class="far fa-fw fa-window-maximize"></i>
+        <span>Bootstrap UI</span>
+      </a>
+      <div
+        id="collapseBootstrap"
+        class="collapse"
+        aria-labelledby="headingBootstrap"
+        data-parent="#accordionSidebar"
+      >
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Bootstrap UI</h6>
+          <a class="collapse-item" href="alerts.html">Alerts</a>
+          <a class="collapse-item" href="buttons.html">Buttons</a>
+          <a class="collapse-item" href="dropdowns.html">Dropdowns</a>
+          <a class="collapse-item" href="modals.html">Modals</a>
+          <a class="collapse-item" href="popovers.html">Popovers</a>
+          <a class="collapse-item" href="progress-bar.html"
+            >Progress Bars</a
+          >
+        </div>
+      </div>
+    </li> -->
+    <!-- <hr class="sidebar-divider" />
+    <div class="sidebar-heading">회원관리</div> -->
+
+    <li class="nav-item">
+        <a class="nav-link" th:href="@{/member/mypage/mypageSelect}">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>회원 목록</span>
         </a>
-        <hr class="sidebar-divider my-0"/>
-        <!--    <li class="nav-item active">-->
-        <!--        <a class="nav-link" href="/">-->
-        <!--            <i class="fas fa-fw fa-tachometer-alt"></i>-->
-        <!--            <span>Dashboard</span></a>-->
-        <!--    </li>-->
-        <!--    <hr class="sidebar-divider">-->
-        <!-- <div class="sidebar-heading">Features</div> -->
-        <!-- <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            href="#"
-            data-toggle="collapse"
-            data-target="#collapseBootstrap"
-            aria-expanded="true"
-            aria-controls="collapseBootstrap"
-          >
-            <i class="far fa-fw fa-window-maximize"></i>
-            <span>Bootstrap UI</span>
-          </a>
-          <div
-            id="collapseBootstrap"
-            class="collapse"
-            aria-labelledby="headingBootstrap"
-            data-parent="#accordionSidebar"
-          >
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="userMangement.html">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>회원 관리</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a
+                class="nav-link collapsed"
+                href="#"
+                data-toggle="collapse"
+                data-target="#collapseTable"
+                aria-expanded="true"
+                aria-controls="collapseTable"
+        >
+            <i class="fas fa-fw fa-table"></i>
+            <span>회원</span>
+        </a>
+        <div
+                id="collapseTable"
+                class="collapse"
+                aria-labelledby="headingTable"
+                data-parent="#accordionSidebar"
+        >
             <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header">Bootstrap UI</h6>
-              <a class="collapse-item" href="alerts.html">Alerts</a>
-              <a class="collapse-item" href="buttons.html">Buttons</a>
-              <a class="collapse-item" href="dropdowns.html">Dropdowns</a>
-              <a class="collapse-item" href="modals.html">Modals</a>
-              <a class="collapse-item" href="popovers.html">Popovers</a>
-              <a class="collapse-item" href="progress-bar.html"
-                >Progress Bars</a
-              >
+                <!-- <h6 class="collapse-header">회원</h6> -->
+                <a class="collapse-item" href="/">회원1</a>
+                <a class="collapse-item" href="/">회원2</a>
             </div>
-          </div>
-        </li> -->
-        <!-- <hr class="sidebar-divider" />
-        <div class="sidebar-heading">회원관리</div> -->
+        </div>
+    </li>
+    <li class="nav-item">
+        <a
+                class="nav-link"
+                th:href="@{/calendar/memo(id=${session.loginUser})}"
+        >
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>일정</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="chat.html">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>채팅</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" th:href="@{/board}">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>트레이너 게시판</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" th:href="@{/ptUser/view}">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>PT 신청</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" th:href="@{/inBody/register}">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>인바디</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" th:href="@{/ExRecord/exercise(id=${session.loginId})}">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>운동기록</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" th:href="@{/diet/list(id=${session.loginId})}">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>식단</span>
+        </a>
+    </li>
 
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/member/mypage/mypageSelect}">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>회원 목록</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="userMangement.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>회원 관리</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a
-                    class="nav-link collapsed"
-                    href="#"
-                    data-toggle="collapse"
-                    data-target="#collapseTable"
-                    aria-expanded="true"
-                    aria-controls="collapseTable"
-            >
-                <i class="fas fa-fw fa-table"></i>
-                <span>회원</span>
-            </a>
-            <div
-                    id="collapseTable"
-                    class="collapse"
-                    aria-labelledby="headingTable"
-                    data-parent="#accordionSidebar"
-            >
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <!-- <h6 class="collapse-header">회원</h6> -->
-                    <a class="collapse-item" href="/">회원1</a>
-                    <a class="collapse-item" href="/">회원2</a>
-                </div>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a
-                    class="nav-link"
-                    th:href="@{/calendar/memo(id=${session.loginUser})}"
-            >
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>일정</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="chat.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>채팅</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/board}">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>트레이너 게시판</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/ptUser/view}">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>PT 신청</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/inBody/register}">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>인바디</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/ExRecord/exercise(id=${session.loginId})}">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>운동기록</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/diet/list(id=${session.loginId})}">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>식단</span>
-            </a>
-        </li>
-
-        <hr class="sidebar-divider"/>
+    <hr class="sidebar-divider"/>
 
 </ul>
 
