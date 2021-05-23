@@ -10,12 +10,16 @@
           integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/locales/ko.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
     <link rel="stylesheet" th:href="@{/css/list.css}">
     <link rel="stylesheet" th:href="@{/css/diet.css}"/>
     <link rel="stylesheet" th:href="@{/css/calendar/calendar.css}"/>
     <script th:src="@{/js/calendar.js?ver=1.0}"></script>
     <script th:src="@{/js/diet.js?ver=1.0}"></script>
     <script th:src="@{/js/advice.js?ver=1.0}"></script>
+    <script th:src="@{/js/dietChart.js?ver=1.0}"></script>
 
 </head>
 <body>
@@ -29,9 +33,6 @@
         <h1 th:text="${session.loginId}" class="loginId"></h1></p>
     </div>
     <div id="calendar" style="width: 600px;"></div>
-    <div>
-        <canvas id="myChart"></canvas>
-    </div>
 
     <button type="button" class="dietWindow addBtn">추가하기</button>
 
@@ -199,9 +200,9 @@
             <tr class="dailyEat">
                 <td class="dailyEatRate"></td>
                 <td class="dailyKcal"></td>
-                <td class="dailyCarbo"></td>
-                <td class="dailyProtein"></td>
-                <td class="dailyFat"></td>
+                <td id="dailyCarbo" class="dailyCarbo"></td>
+                <td id="dailyProtein" class="dailyProtein"></td>
+                <td id="dailyFat" class="dailyFat"></td>
             </tr>
 
             <tr class='noData' style="display:none;">
@@ -209,6 +210,10 @@
             </tr>
             </tbody>
         </table>
+    </div>
+
+    <div>
+        <canvas id="myChart"></canvas>
     </div>
     <!--    <div class="trainerAdvice">-->
     <!--        <h1>트레이너 코멘트</h1>-->
@@ -225,7 +230,6 @@
     <!--            </div>-->
     <!--        </form>-->
     <!--    </div>-->
-    <script th:src="@{/js/dietChart.js}"></script>
 </div>
 
 </body>
