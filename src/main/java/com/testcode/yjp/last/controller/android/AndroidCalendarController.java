@@ -3,14 +3,16 @@ package com.testcode.yjp.last.controller.android;
 import com.testcode.yjp.last.domain.Calendar;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.dto.android.AndInsertCalDto;
-import com.testcode.yjp.last.repository.android.AndroidBoardRepository;
 import com.testcode.yjp.last.repository.android.AndroidCalendarRepository;
 import com.testcode.yjp.last.repository.android.AndroidMemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 @RequiredArgsConstructor
 @RestController
@@ -75,5 +77,34 @@ public class AndroidCalendarController {
         Calendar calendar = androidCalendarRepository.findById(calendar_id).get();
 
         androidCalendarRepository.delete(calendar);
+    }
+
+    @GetMapping("select/date/{member_id}")
+    public ArrayList<AndInsertCalDto> selectDate(@PathVariable("member_id") Long member_id, @RequestBody AndInsertCalDto andInsertCalDto) {
+        String start = andInsertCalDto.getStart();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String format = "";
+        try {
+            Date parse = simpleDateFormat.parse(start);
+            format = simpleDateFormat.format(parse);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Member member = androidMemberRepository.findById(member_id).get();
+        ArrayList<Calendar> calendarByDate = androidCalendarRepository.findCalendarByDate(member, format);
+        ArrayList<AndInsertCalDto> andInsertCalDtos = new ArrayList<>();
+
+        for (Calendar calendar : calendarByDate) {
+            AndInsertCalDto dto = new AndInsertCalDto();
+            dto.setId(calendar.getId());
+            dto.setAllDay(calendar.isAllDay());
+            dto.setDescription(calendar.getDescription());
+            dto.setEnd(calendar.getEnd());
+            dto.setStart(calendar.getStart());
+            dto.setTitle(calendar.getTitle());
+
+            andInsertCalDtos.add(dto);
+        }
+        return andInsertCalDtos;
     }
 }
