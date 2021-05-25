@@ -6,9 +6,9 @@
 
 <head>
     <title>board</title>
-    <link rel="stylesheet" th:href="@{/css/board.css}"/>
-    <link rel="stylesheet" href="/css/boardControl.css">
-    <script th:src="@{/js/board.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/board/board.css}"/>
+    <link rel="stylesheet" th:href="@{/css/board/boardControl.css}">
+    <script th:src="@{/js/board/board.js}"></script>
     <style>
         p {
             /*color: #f55959;*/
@@ -34,7 +34,7 @@
     </style>
 
 </head>
-<div layout:fragment="content">
+<div layout:fragment="content" class="content">
     <h3>글 작성</h3>
     <p class="post_warning">※ 광고홍보성 게시물 및 타트레이너 비방게시물은 삭제될 수 있으며, 게시글 작성이 차단될 수 있습니다.</p>
     <form>
@@ -55,8 +55,8 @@
 <!--            </div>-->
 <!--        </div>-->
         <div class="custom_form_control">
-            <label for="content">내용</label>
-            <textarea class="form-control" id="content" placeholder="내용을 입력하세요" style="resize: none" cols="50"
+            <label for="board_content">내용</label>
+            <textarea class="form-control" id="board_content" placeholder="내용을 입력하세요" style="resize: none" cols="50"
                       rows="50"></textarea>
         </div>
     </form>

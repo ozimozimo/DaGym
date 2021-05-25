@@ -5,11 +5,11 @@
       data-layout-decorate="~{layout/default}">
 <head>
     <title>boardUpdate</title>
-    <link rel="stylesheet" href="/css/boardControl.css">
-    <script th:src="@{/js/board.js}"></script>
+    <link rel="stylesheet" th:href="@{~/css/board/boardControl.css}">
+    <script th:src="@{~/js/board/board.js}"></script>
 
 </head>
-<div layout:fragment="content">
+<div layout:fragment="content" class="content">
     <div class="col-md-12">
         <h3>글 수정</h3>
         <p class="post_warning">※ 광고홍보성 게시물 및 타트레이너 비방게시물은 삭제될 수 있으며, 게시글 작성이 차단될 수 있습니다.</p> </br>
@@ -33,13 +33,13 @@
                 <input type="text" class="form-control" id="user_id" th:value="${boards.user_id}" readonly>
             </div>
             <div class="custom_form_control2">
-                <label for="content">내용</label>
-                <textarea style="resize: none" cols="25" rows="15"  class="form-control2" id="content" th:text="${boards.content}"></textarea>
+                <label for="board_content">내용</label>
+                <textarea style="resize: none" cols="25" rows="15"  class="form-control2" id="board_content" th:text="${boards.content}"></textarea>
             </div>
         </form>
         <button type="button" class="custom_btn listBtn">이전</button>
-        <button type="button" class="custom_btn success" id="btn-update">수정</button>
-        <button type="button" class="custom_btn error" id="btn-delete">삭제</button>
+        <button type="button" class="custom_btn success_btn" id="btn-update">수정</button>
+        <button type="button" class="custom_btn delete_btn" id="btn-delete">삭제</button>
 
     </div>
 </div>

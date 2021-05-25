@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+.post_warning {
+    color: #f55959;
+    font-size: 18px;
+}
+.custom_form_control {
+    margin-bottom: 15px;
+    padding: 5px 5px;
+}
+.custom_form_control1{
+    display: none;
+}
+
+.custom_form_control label {
+    display: block;
+    margin-bottom: 10px;
+}
+textarea{
+    width:100%;
+    margin:5px 0;
+    padding:3px;
+}
+.custom_form_control input {
+    width: 100%;
+    padding-left: 5px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 14px;
+    color: #333;
+    border: 1px #ccc solid;
+    border-radius: 2px;
+}
+
+.custom_btn {
+    padding: 8px ;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+    font-size: 14px;
+}
+a.custom_btn{
+    padding: 9px 8px;
+
+}
+
+.custom_btn.delete_btn {
+    color: white;
+    background-color: #d32f2f;
+}
+
+.custom_btn.warning {
+    color: white;
+    background-color: #f9a825;
+}
+
+.custom_btn.success_btn {
+    color: white;
+    background-color: #4458c8;
+}
+
+textarea.form-control {
+    height: 300px;
+}

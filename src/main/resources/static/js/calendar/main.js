@@ -160,7 +160,6 @@ var calendar = $('#calendar').fullCalendar({
                 alert("에러")
             }
         });
-
     },
 
     eventDragStart: function (event, jsEvent, ui, view) {
@@ -330,7 +329,7 @@ function calDateWhenDragnDrop(event) {
     // 드랍시 수정된 날짜반영
     var newDates = {
         start: '',
-        end: ''
+        end: '',
     }
 
     // 날짜 & 시간이 모두 같은 경우

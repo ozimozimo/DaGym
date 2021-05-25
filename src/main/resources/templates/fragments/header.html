@@ -1,101 +1,144 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<header class="main-header" th:fragment="headerFragment">
-  <!--    헤더 영역, 원하는 것을 넣으면 된다-->
-  <!-- 왼쪽 네비게이션 시작-->
-  <!-- 클래스에 active시 클릭 효과 -->
-  <nav id="sidebar" class="sidebar">
-    <div class="sidebar-content js-simplebar">
-      <a class="sidebar-brand" href="/">
-        <span class="align-middle" style="font-size: 30px;">DAGYM</span>
-      </a>
-
-      <ul class="sidebar-nav">
-<!--        <li class="sidebar-header">PT 회원</li>-->
-
-        <li class="sidebar-item">
-          <a class="sidebar-link" th:href="@{/member/mypage/mypageSelect}">
-            <i class="align-middle" data-feather="list"></i>
-            <span class="align-middle">회원 목록</span>
-          </a>
-        </li>
-
-        <li class="sidebar-item">
-          <a class="sidebar-link" href="userMangement.html">
-            <i class="align-middle" data-feather="check-square"></i>
-            <span class="align-middle">회원 관리</span>
-          </a>
-        </li>
-
-        <li class="sidebar-item">
+<ul id="accordionSidebar" class="navbar-nav sidebar sidebar-light accordion" th:fragment="headerFragment">
+        <a
+                class="sidebar-brand d-flex align-items-center justify-content-center"
+                href="/"
+        >
+            <div class="sidebar-brand-icon">
+                <!-- 로고 이미지                -->
+                <!--                <img src="img/logo/logo2.png">-->
+            </div>
+            <div class="sidebar-brand-text mx-3">DAGYM</div>
+        </a>
+        <hr class="sidebar-divider my-0"/>
+        <!--    <li class="nav-item active">-->
+        <!--        <a class="nav-link" href="/">-->
+        <!--            <i class="fas fa-fw fa-tachometer-alt"></i>-->
+        <!--            <span>Dashboard</span></a>-->
+        <!--    </li>-->
+        <!--    <hr class="sidebar-divider">-->
+        <!-- <div class="sidebar-heading">Features</div> -->
+        <!-- <li class="nav-item">
           <a
-                  data-target="#ui"
-                  data-toggle="collapse"
-                  class="sidebar-link collapsed"
+            class="nav-link collapsed"
+            href="#"
+            data-toggle="collapse"
+            data-target="#collapseBootstrap"
+            aria-expanded="true"
+            aria-controls="collapseBootstrap"
           >
-            <i class="align-middle" data-feather="users"></i>
-            <span class="align-middle">회원</span>
+            <i class="far fa-fw fa-window-maximize"></i>
+            <span>Bootstrap UI</span>
           </a>
-          <ul
-                  id="ui"
-                  class="sidebar-dropdown list-unstyled collapse"
-                  data-parent="#sidebar"
+          <div
+            id="collapseBootstrap"
+            class="collapse"
+            aria-labelledby="headingBootstrap"
+            data-parent="#accordionSidebar"
           >
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="userInfo.html">김수현</a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="userInfo.html">전지현</a>
-            </li>
-          </ul>
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Bootstrap UI</h6>
+              <a class="collapse-item" href="alerts.html">Alerts</a>
+              <a class="collapse-item" href="buttons.html">Buttons</a>
+              <a class="collapse-item" href="dropdowns.html">Dropdowns</a>
+              <a class="collapse-item" href="modals.html">Modals</a>
+              <a class="collapse-item" href="popovers.html">Popovers</a>
+              <a class="collapse-item" href="progress-bar.html"
+                >Progress Bars</a
+              >
+            </div>
+          </div>
+        </li> -->
+        <!-- <hr class="sidebar-divider" />
+        <div class="sidebar-heading">회원관리</div> -->
+
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/member/mypage/mypageSelect}">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>회원 목록</span>
+            </a>
         </li>
-        <li class="sidebar-item">
-          <a class="sidebar-link" th:href="@{/calendar/memo(id=${session.loginUser})}">
-            <i class="align-middle" data-feather="calendar"></i>
-            <span class="align-middle">일정</span>
-          </a>
+        <li class="nav-item">
+            <a class="nav-link" href="userMangement.html">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>회원 관리</span>
+            </a>
         </li>
-        <li class="sidebar-item">
-          <a class="sidebar-link" href="chat.html">
-            <i class="align-middle" data-feather="message-square"></i>
-            <span class="align-middle">채팅</span>
-          </a>
+        <li class="nav-item">
+            <a
+                    class="nav-link collapsed"
+                    href="#"
+                    data-toggle="collapse"
+                    data-target="#collapseTable"
+                    aria-expanded="true"
+                    aria-controls="collapseTable"
+            >
+                <i class="fas fa-fw fa-table"></i>
+                <span>회원</span>
+            </a>
+            <div
+                    id="collapseTable"
+                    class="collapse"
+                    aria-labelledby="headingTable"
+                    data-parent="#accordionSidebar"
+            >
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <!-- <h6 class="collapse-header">회원</h6> -->
+                    <a class="collapse-item" href="/">회원1</a>
+                    <a class="collapse-item" href="/">회원2</a>
+                </div>
+            </div>
         </li>
-        <li class="sidebar-item">
-          <a class="sidebar-link" th:href="@{/board}">
-            <i class="align-middle" data-feather="box"></i>
-            <span class="align-middle">트레이너 게시판</span>
-          </a>
+        <li class="nav-item">
+            <a
+                    class="nav-link"
+                    th:href="@{/calendar/memo(id=${session.loginUser})}"
+            >
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>일정</span>
+            </a>
         </li>
-        <li class="sidebar-item">
-          <a class="sidebar-link" th:href="@{/ptUser/view}">
-            <i class="align-middle" data-feather="user-plus"></i>
-            <span class="align-middle">PT신청</span>
-          </a>
+        <li class="nav-item">
+            <a class="nav-link" href="chat.html">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>채팅</span>
+            </a>
         </li>
-          <li class="sidebar-item">
-              <a class="sidebar-link" th:href="@{/inBody/register}">
-                  <i class="align-middle" data-feather="box"></i>
-                  <span class="align-middle">인바디</span>
-              </a>
-          </li>
-          <li class="sidebar-item">
-              <a class="sidebar-link" th:href="@{/ExRecord/exercise(id=${session.loginId})}">
-                  <i class="align-middle" data-feather="box"></i>
-                  <span class="align-middle">운동기록</span>
-              </a>
-          </li>
-          <li class="sidebar-item">
-              <a class="sidebar-link" th:href="@{/diet/list(id=${session.loginId})}">
-                  <i class="align-middle" data-feather="box"></i>
-                  <span class="align-middle">식단</span>
-              </a>
-          </li>
-      </ul>
-    </div>
-  </nav>
-  <!-- 왼쪽 네비게이션 끝-->
-</header>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/board}">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>트레이너 게시판</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/ptUser/view}">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>PT 신청</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/inBody/register}">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>인바디</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/ExRecord/exercise(id=${session.loginId})}">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>운동기록</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/diet/list(id=${session.loginId})}">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>식단</span>
+            </a>
+        </li>
+
+        <hr class="sidebar-divider"/>
+
+</ul>
 
 </html>

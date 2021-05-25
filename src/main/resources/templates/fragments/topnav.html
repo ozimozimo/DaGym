@@ -1,111 +1,280 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<div class="main-nav" th:fragment="topnavFragment">
-  <!-- 상단 nav 시작 -->
-  <nav class="navbar navbar-expand navbar-light navbar-bg">
-    <!-- 상단 왼쪽 활성화하고 숨길수 있는 거-->
-    <a class="sidebar-toggle d-flex">
-      <i class="hamburger align-self-center"></i>
-    </a>
-
-    <div class="navbar-collapse collapse">
-      <ul class="navbar-nav navbar-align">
-        <!-- 로그인 -->
-        <li class="nav-item">
-          <a th:if="${session.loginUser == null}" href="/member/login">
-              <span class="text-dark" style="padding-right: 10px"
-              >로그인</span
+<nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top" th:fragment="topnavFragment">
+    <!-- 상단 nav 시작 -->
+        <!-- 왼쪽 헤더 메뉴 토글 버튼 -->
+        <button
+                id="sidebarToggleTop"
+                class="btn btn-link rounded-circle mr-3"
+        >
+            <i class="fa fa-bars"></i>
+        </button>
+        <ul class="navbar-nav ml-auto">
+            <!-- 검색창 -->
+            <!-- <li class="nav-item dropdown no-arrow">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="searchDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
               >
-          </a>
-        </li>
-
-        <!-- 회원가입 -->
-        <li class="nav-item">
-          <a th:if="${session.loginUser == null}" href="/member/join">
-            <span class="text-dark" style="padding-right: 30px;">회원가입</span>
-          </a>
-        </li>
-
-        <!-- 사진 및 마이페이지 로그아웃 시작 -->
-        <li class="nav-item dropdown" th:if="${session.loginUser != null}">
-          <a
-                  class="nav-icon dropdown-toggle d-inline-block d-sm-none"
-                  data-toggle="dropdown"
-          >
-            <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="feather feather-settings align-middle"
-            >
-              <circle cx="12" cy="12" r="3"></circle>
-              <path
-                      d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
-              ></path>
-            </svg>
-          </a>
-
-          <a  class="nav-link dropdown-toggle d-none d-sm-inline-block" data-toggle="dropdown">
-            <!-- 사용자 이름 -->
-            <span><strong th:text="${session.loginName }"></strong>님</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" >
-            <!-- 마이페이지 -->
-            <a class="dropdown-item" th:href="@{/member/mypage(member_id = ${session.loginUser})}" th:if="${session.loginUser != null}">
-              <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="feather feather-user align-middle mr-1"
+                <i class="fas fa-search fa-fw"></i>
+              </a>
+              <div
+                class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                aria-labelledby="searchDropdown"
               >
-                <path
-                        d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
-                ></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-              마이페이지</a
-            >
+                <form class="navbar-search">
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      class="form-control bg-light border-1 small"
+                      placeholder="What do you want to look for?"
+                      aria-label="Search"
+                      aria-describedby="basic-addon2"
+                      style="border-color: #3f51b5"
+                    />
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </li> -->
 
-            <!--  로그아웃 -->
-            <a class="dropdown-item" th:if="${session.loginUser != null}" th:href="@{/member/logout}">
-              <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="feather feather-log-out align-middle mr-1"
-              >
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                <polyline points="16 17 21 12 16 7"></polyline>
-                <line x1="21" y1="12" x2="9" y2="12"></line>
-              </svg>
-              로그아웃</a
-            >
-          </div>
-        </li>
+            <!-- 로그인 -->
+            <li class="nav-item">
+                <a th:if="${session.loginUser == null}" href="/member/login">
+                    <span class="text-dark">로그인</span>
+                </a>
+            </li>
 
-      </ul>
-    </div>
-  </nav>
-  <!-- 상단 nav 끝 -->
-</div>
+            <!-- 회원가입 -->
+            <li class="nav-item no-arrow">
+                <a th:if="${session.loginUser == null}" href="/member/join">
+                    <span class="text-dark">회원가입</span>
+                </a>
+            </li>
+
+            <!-- 알림창 -->
+            <li
+                    class="nav-item dropdown no-arrow mx-1"
+                    th:if="${session.loginUser != null}"
+            >
+                <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        id="alertsDropdown"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                >
+                    <i class="fas fa-bell fa-fw"></i>
+                    <span class="badge badge-danger badge-counter">3+</span>
+                </a>
+                <div
+                        class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="alertsDropdown"
+                >
+                    <h6 class="dropdown-header">Alerts Center</h6>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                        <div class="mr-3">
+                            <div class="icon-circle bg-primary">
+                                <i class="fas fa-file-alt text-white"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="small text-gray-500">December 12, 2019</div>
+                            <span class="font-weight-bold"
+                            >A new monthly report is ready to download!</span
+                            >
+                        </div>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                        <div class="mr-3">
+                            <div class="icon-circle bg-success">
+                                <i class="fas fa-donate text-white"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="small text-gray-500">December 7, 2019</div>
+                            $290.29 has been deposited into your account!
+                        </div>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                        <div class="mr-3">
+                            <div class="icon-circle bg-warning">
+                                <i class="fas fa-exclamation-triangle text-white"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="small text-gray-500">December 2, 2019</div>
+                            Spending Alert: We've noticed unusually high spending for
+                            your account.
+                        </div>
+                    </a>
+                    <a
+                            class="dropdown-item text-center small text-gray-500"
+                            href="#"
+                    >Show All Alerts</a
+                    >
+                </div>
+            </li>
+
+            <!-- 일정창 -->
+            <li
+                    class="nav-item dropdown no-arrow mx-1"
+                    th:if="${session.loginUser != null}"
+            >
+                <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        id="messagesDropdown"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                >
+                    <i class="fas fa-tasks fa-fw"></i>
+                    <span class="badge badge-success badge-counter">3</span>
+                </a>
+                <div
+                        class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="messagesDropdown"
+                >
+                    <h6 class="dropdown-header">Task</h6>
+                    <a class="dropdown-item align-items-center" href="#">
+                        <div class="mb-3">
+                            <div class="small text-gray-500">
+                                Design Button
+                                <div class="small float-right"><b>50%</b></div>
+                            </div>
+                            <div class="progress" style="height: 12px">
+                                <div
+                                        class="progress-bar bg-success"
+                                        role="progressbar"
+                                        style="width: 50%"
+                                        aria-valuenow="50"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                ></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="dropdown-item align-items-center" href="#">
+                        <div class="mb-3">
+                            <div class="small text-gray-500">
+                                Make Beautiful Transitions
+                                <div class="small float-right"><b>30%</b></div>
+                            </div>
+                            <div class="progress" style="height: 12px">
+                                <div
+                                        class="progress-bar bg-warning"
+                                        role="progressbar"
+                                        style="width: 30%"
+                                        aria-valuenow="30"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                ></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="dropdown-item align-items-center" href="#">
+                        <div class="mb-3">
+                            <div class="small text-gray-500">
+                                Create Pie Chart
+                                <div class="small float-right"><b>75%</b></div>
+                            </div>
+                            <div class="progress" style="height: 12px">
+                                <div
+                                        class="progress-bar bg-danger"
+                                        role="progressbar"
+                                        style="width: 75%"
+                                        aria-valuenow="75"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                ></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a
+                            class="dropdown-item text-center small text-gray-500"
+                            href="#"
+                    >View All Taks</a
+                    >
+                </div>
+            </li>
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- 사용자 이름 및 토글 -->
+            <li
+                    class="nav-item dropdown no-arrow"
+                    th:if="${session.loginUser != null}"
+            >
+                <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        id="userDropdown"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                >
+                  <span
+                  ><strong th:text="${session.loginName}"></strong>님</span
+                  >
+                    <!-- <img
+                      class="img-profile rounded-circle"
+                      src="img/boy.png"
+                      style="max-width: 60px"
+                    /> -->
+                    <span class="ml-2 d-none d-lg-inline text-white small"
+                    ></span
+                    >
+                </a>
+
+                <!-- 마이페이지 로그아웃 -->
+                <div
+                        class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="userDropdown"
+                >
+                    <a
+                            class="dropdown-item"
+                            th:href="@{/member/mypage(member_id = ${session.loginUser})}"
+                            th:if="${session.loginUser != null}"
+                    >
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                        마이페이지
+                    </a>
+                    <!-- <a class="dropdown-item" href="#">
+                      <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                      세팅
+                    </a> -->
+
+                    <div class="dropdown-divider"></div>
+                    <a
+                            class="dropdown-item"
+                            data-toggle="modal"
+                            data-target="#logoutModal"
+                            th:if="${session.loginUser != null}"
+                            th:href="@{/member/logout}"
+                    >
+                        <i
+                                class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
+                        ></i>
+                        로그아웃
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </nav>
 
 </html>
