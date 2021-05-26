@@ -107,4 +107,19 @@ public class AndroidCalendarController {
         }
         return andInsertCalDtos;
     }
+
+    @GetMapping("select/detail/{id}")
+    public AndInsertCalDto detailCal(@PathVariable("id") Long id) {
+        Calendar calendar = androidCalendarRepository.findById(id).get();
+        AndInsertCalDto andInsertCalDto = new AndInsertCalDto();
+        andInsertCalDto.setId(calendar.getId());
+        andInsertCalDto.setDescription(calendar.getDescription());
+        andInsertCalDto.setAllDay(calendar.isAllDay());
+        andInsertCalDto.setStart(calendar.getStart());
+        andInsertCalDto.setEnd(calendar.getEnd());
+        andInsertCalDto.setTitle(calendar.getTitle());
+        andInsertCalDto.setType(calendar.getType());
+
+        return andInsertCalDto;
+    }
 }
