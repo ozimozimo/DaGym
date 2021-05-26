@@ -31,5 +31,4 @@ public interface AndroidPTUserRepository extends JpaRepository<PTUser, Long> {
 
     @Query("select m from PTUser m where m.trainer_id = :trainer and m.user_id = :user")
     PTUser findPTUserBy(String user, Member trainer);
-
 }

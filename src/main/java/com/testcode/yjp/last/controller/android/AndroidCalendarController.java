@@ -79,7 +79,7 @@ public class AndroidCalendarController {
         androidCalendarRepository.delete(calendar);
     }
 
-    @GetMapping("select/date/{member_id}")
+    @PostMapping("select/date/{member_id}")
     public ArrayList<AndInsertCalDto> selectDate(@PathVariable("member_id") Long member_id, @RequestBody AndInsertCalDto andInsertCalDto) {
         String start = andInsertCalDto.getStart();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -91,7 +91,7 @@ public class AndroidCalendarController {
             e.printStackTrace();
         }
         Member member = androidMemberRepository.findById(member_id).get();
-        ArrayList<Calendar> calendarByDate = androidCalendarRepository.findCalendarByDate(member, format);
+        ArrayList<Calendar> calendarByDate = androidCalendarRepository.findCalendarByDate(member, format+" 24:00", format + " 00:00");
         ArrayList<AndInsertCalDto> andInsertCalDtos = new ArrayList<>();
 
         for (Calendar calendar : calendarByDate) {
