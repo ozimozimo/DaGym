@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         events: [],
         // 날짜 클릭했을 때
         dateClick: function (info) {
+            console.log(info);
             var url = window.location.pathname;
 
             var id = $('.loginId').text();
@@ -40,12 +41,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 }).done(function (result) {
                     if (result.length == 0) {
                         alert('기록된 데이터가 없습니다');
+                        zeroData();
                         hideEat();
+                        chartCreate();
                     } else if (diet_data.diet_date == click) {
                         console.log(result);
                         removeNutr();
                         showEat();
                         mkDiet(result);
+
                     }
 
                 }).fail(function (error) {
@@ -78,17 +82,21 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         // // 이벤트를 클릭했을 때
         eventClick: function (info) {
+
+
             alert(info.event.title);
         },
         dayMaxEventRows: true, // for all non-TimeGrid views
         views:
             {
+
                 timeGrid: {
                     dayMaxEventRows: 6, // adjust to 6 only for timeGridWeek/timeGridDay
                 },
             },
     });
     calendar.render();
+
 });
 
 $(function (){

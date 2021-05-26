@@ -250,10 +250,7 @@
                             class="dropdown-item"
                             th:href="@{/member/mypage(member_id = ${session.loginUser})}"
                             th:if="${session.loginUser != null}"
-                    >
-                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                        마이페이지
-                    </a>
+                    ><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>마이페이지</a>
                     <!-- <a class="dropdown-item" href="#">
                       <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                       세팅
@@ -262,16 +259,10 @@
                     <div class="dropdown-divider"></div>
                     <a
                             class="dropdown-item"
-                            data-toggle="modal"
-                            data-target="#logoutModal"
-                            th:if="${session.loginUser != null}"
                             th:href="@{/member/logout}"
-                    >
-                        <i
-                                class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
-                        ></i>
-                        로그아웃
-                    </a>
+                            th:if="${session.loginUser != null}"
+
+                    ><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>로그아웃</a>
                 </div>
             </li>
         </ul>
