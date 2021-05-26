@@ -24,7 +24,6 @@ public class AndroidBoardController {
     private final AndBoardService andBoardService;
     private final AndroidMemberRepository androidMemberRepository;
     private final AndroidRecommendRepository androidRecommendRepository;
-
     // 게시판 조회
     @PostMapping("/select")
     public ArrayList<BoardListResponseDto> select() {

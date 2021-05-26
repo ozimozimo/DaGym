@@ -7,6 +7,7 @@ import com.testcode.yjp.last.repository.android.AndroidInBodyRepository;
 import com.testcode.yjp.last.repository.android.AndroidMemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 @RequiredArgsConstructor
 @RestController
 @Slf4j
+@Transactional
 @RequestMapping("/android/inbody")
 public class AndroidInBodyController {
     private final AndroidInBodyRepository androidInBodyRepository;
