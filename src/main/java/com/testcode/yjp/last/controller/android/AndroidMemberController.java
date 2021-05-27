@@ -61,6 +61,7 @@ public class AndroidMemberController {
     @PostMapping("/signIn")
     public Member signIn(@RequestBody AndMemberLoginDto andMemberLoginDto) {
         log.info("AndroidController signIn 1st Line");
+        log.info(andMemberLoginDto.getUser_id() + andMemberLoginDto.getUser_pw());
 
         return andMemberService.signIn(andMemberLoginDto);
     }

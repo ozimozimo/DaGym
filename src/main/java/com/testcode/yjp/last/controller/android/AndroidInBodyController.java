@@ -50,7 +50,7 @@ public class AndroidInBodyController {
         SimpleDateFormat test = new SimpleDateFormat("yyyy-MM-dd");
         String format = "";
         try {
-            log.info("inbody_date"+inBody_date);
+            log.info("inbody_date" + inBody_date);
             Date parse = test.parse(inBody_date);
             log.info("parse" + parse.toString());
             format = test.format(parse) + "T00:00";
@@ -71,5 +71,12 @@ public class AndroidInBodyController {
             inBody.setInBody_user_id(member.getUser_id());
             androidInBodyRepository.save(inBody);
         }
+    }
+
+    @DeleteMapping("delete/{inbody_id}")
+    public void deleteInbody(@PathVariable("inbody_id") Long inbody_id) {
+        InBody inBody = androidInBodyRepository.findById(inbody_id).get();
+        androidInBodyRepository.delete(inBody);
+
     }
 }

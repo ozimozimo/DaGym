@@ -79,7 +79,7 @@ public class AndroidCalendarController {
         androidCalendarRepository.delete(calendar);
     }
 
-    @GetMapping("select/date/{member_id}")
+    @PostMapping("select/date/{member_id}")
     public ArrayList<AndInsertCalDto> selectDate(@PathVariable("member_id") Long member_id, @RequestBody AndInsertCalDto andInsertCalDto) {
         String start = andInsertCalDto.getStart();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -91,7 +91,7 @@ public class AndroidCalendarController {
             e.printStackTrace();
         }
         Member member = androidMemberRepository.findById(member_id).get();
-        ArrayList<Calendar> calendarByDate = androidCalendarRepository.findCalendarByDate(member, format);
+        ArrayList<Calendar> calendarByDate = androidCalendarRepository.findCalendarByDate(member, format+" 24:00", format + " 00:00");
         ArrayList<AndInsertCalDto> andInsertCalDtos = new ArrayList<>();
 
         for (Calendar calendar : calendarByDate) {
@@ -106,5 +106,20 @@ public class AndroidCalendarController {
             andInsertCalDtos.add(dto);
         }
         return andInsertCalDtos;
+    }
+
+    @GetMapping("select/detail/{id}")
+    public AndInsertCalDto detailCal(@PathVariable("id") Long id) {
+        Calendar calendar = androidCalendarRepository.findById(id).get();
+        AndInsertCalDto andInsertCalDto = new AndInsertCalDto();
+        andInsertCalDto.setId(calendar.getId());
+        andInsertCalDto.setDescription(calendar.getDescription());
+        andInsertCalDto.setAllDay(calendar.isAllDay());
+        andInsertCalDto.setStart(calendar.getStart());
+        andInsertCalDto.setEnd(calendar.getEnd());
+        andInsertCalDto.setTitle(calendar.getTitle());
+        andInsertCalDto.setType(calendar.getType());
+
+        return andInsertCalDto;
     }
 }
