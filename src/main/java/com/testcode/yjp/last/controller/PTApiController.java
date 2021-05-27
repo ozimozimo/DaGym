@@ -2,16 +2,17 @@ package com.testcode.yjp.last.controller;
 
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.PTUser;
-import com.testcode.yjp.last.domain.dto.PTUserApply;
+import com.testcode.yjp.last.domain.dto.PTUserApplyConDto;
+import com.testcode.yjp.last.domain.dto.PTUserApplyMemberDto;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.PTUserRepository;
 import com.testcode.yjp.last.service.PTUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -40,20 +41,25 @@ public class PTApiController {
         return ptUser;
     }
 
-//    @GetMapping("/ptList")
-//    public List<PTUser> ptlist(Member trainer_id) {
-//        log.info("PTList Get Api Controller");
-//        List<PTUser> byFindAll = ptUserService.findAll(trainer_id);
-//        log.info("byFindAll Value");
-//        System.out.println("byFindAll = " + byFindAll);
-//        return byFindAll;
-//    }
-
+    // 신청 내역 확인
     @GetMapping("/apply/findMember")
-    public ArrayList<PTUserApply> applyMember(@RequestParam Long trainer_id) {
-        log.info("ptuser findMember controller");
-        ArrayList<PTUserApply> ptUserApplies = ptUserService.getPTUserApply(trainer_id);
-        log.info("applyMember value");
+    public ArrayList<PTUserApplyMemberDto> findMember(@RequestParam Long trainer_id) {
+        log.info("ptUser findMember Get Controller");
+        System.out.println("trainer_id = " + trainer_id);
+        // 신청받은 트레이너 ID && accept_condition = 1인거 가져오기
+        ArrayList<PTUserApplyMemberDto> ptUserApplies = ptUserService.getPTUserApply(trainer_id);
+        log.info("applyMember value = " + ptUserApplies);
         return ptUserApplies;
+    }
+
+    // 수락, 거절 결정
+    @PostMapping("/apply/update/{id}")
+    public Long update(@PathVariable Long id, @RequestBody PTUserApplyConDto ptUserApplyConDto) {
+        log.info("ptlist update post controller");
+        System.out.println("id = " + id);
+        System.out.println("ptUserApply.getId() = " + ptUserApplyConDto.getId());
+        System.out.println("ptUserApply.getApply_if() = " + ptUserApplyConDto.getApply_if());
+        log.info("나와라요오오오");
+        return ptUserService.update(id, ptUserApplyConDto);
     }
 }

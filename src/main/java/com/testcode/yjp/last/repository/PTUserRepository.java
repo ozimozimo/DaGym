@@ -2,6 +2,7 @@ package com.testcode.yjp.last.repository;
 
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.PTUser;
+import com.testcode.yjp.last.domain.dto.PTUserApplyMemberDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -27,6 +28,10 @@ public interface PTUserRepository extends JpaRepository<PTUser, Long> {
     @Query("select m from Member m where member_id like %:member_id% ")
     List<Member> findMemberId(Long member_id);;
 
-    @Query(value = "select p.* from PT_User p where p.TRAINER_ID = :trainer", nativeQuery = true)
-    ArrayList<PTUser> requsetList(Member trainer);
+    @Query(value = "select * from PT_User where TRAINER_ID = :trainer and accept_condition = 0", nativeQuery = true)
+    ArrayList<PTUser> findApply(Member trainer);
+
+    @Query(value = "select * from PT_User where trainer_id = :trainer and accept_condition = 1", nativeQuery = true)
+    ArrayList<PTUser> findAccept(Member trainer);
+
 }

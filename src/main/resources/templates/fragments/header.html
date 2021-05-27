@@ -60,36 +60,11 @@
             <span>회원 목록</span>
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="userMangement.html">
+    <li th:if="${session.loginRole == 'trainer'}" class="nav-item">
+        <a class="nav-link" th:href="@{/ptUser/manage(id=${session.loginUser})}">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>회원 관리</span>
         </a>
-    </li>
-    <li class="nav-item">
-        <a
-                class="nav-link collapsed"
-                href="#"
-                data-toggle="collapse"
-                data-target="#collapseTable"
-                aria-expanded="true"
-                aria-controls="collapseTable"
-        >
-            <i class="fas fa-fw fa-table"></i>
-            <span>회원</span>
-        </a>
-        <div
-                id="collapseTable"
-                class="collapse"
-                aria-labelledby="headingTable"
-                data-parent="#accordionSidebar"
-        >
-            <div class="bg-white py-2 collapse-inner rounded">
-                <!-- <h6 class="collapse-header">회원</h6> -->
-                <a class="collapse-item" href="/">회원1</a>
-                <a class="collapse-item" href="/">회원2</a>
-            </div>
-        </div>
     </li>
     <li class="nav-item">
         <a
@@ -130,6 +105,7 @@
             <span>운동기록</span>
         </a>
     </li>
+<!--    트레이너가 식단 볼 때-->
     <li class="nav-item">
         <a class="nav-link" th:href="@{/diet/list(id=${session.loginId})}">
             <i class="fas fa-fw fa-chart-area"></i>

@@ -1,4 +1,5 @@
 $(function () {
+    changeId();
     $('.dietSearch').on('click', dietSearch);
     $('.dietWindow').on('click', dietWindow);
     $('.dietClose').on('click', function () {
@@ -12,6 +13,13 @@ $(function () {
         todayData();
     }
 })
+function changeId(){
+    let location = window.location.href;
+    let arr = location.split("=");
+    $('.member_id').val(arr[1]);
+    console.log('arr : ' + arr[1]);
+}
+
 
 // 오늘 날짜 가져오기 (2021-04-30 형태)
 var date = new Date();
@@ -137,13 +145,12 @@ function dietWindow() {
     var popupX = (window.screen.width / 2) - (800 / 2);
     var popupY = (window.screen.height / 2) - (700 / 2);
     var date = $('.date').val();
-    var option = 'status=no, height=700, width=800, left=' + popupX + ', top=' + popupY + ', screenX=' + popupX + ', screenY= ' + popupY;
+    var option = 'status=no, height=700, width=1560, left=' + popupX + ', top=' + popupY + ', screenX=' + popupX + ', screenY= ' + popupY;
     var url = "http://localhost:8090"
+    // var url = "http://140.238.25.78:8090";
     url += "/diet/search" + "?" + date;
     window.open(url, 'dietWindow', option);
     console.log($('.date').val());
-    // var url = "http://140.238.25.78:8090";
-    // window.open(url, 'dietWindow', option);
 }
 
 // 식단 삭제

@@ -1,3 +1,8 @@
+$(function () {
+    acceptList();
+    showList();
+})
+
 function apply() {
     var main = {
         init: function () {
@@ -34,6 +39,24 @@ function apply() {
     main.init();
 }
 
+// 수락한거 조회하기
+function acceptList() {
+    var id = $('.member_id').val();
+    var data = {
+        trainer_id: id
+    }
+    $.ajax({
+        type: 'get',
+        url: '/ptUser/manage',
+        data: data,
+        contentType: 'application/json; charset=utf-8'
+    }).done(function (data) {
+        console.log(data);
+    }).fail(function (error) {
+        console.log(error);
+    })
+}
+
 // 신청온거 확인하기
 function showList() {
     var id = $('.member_id').val();
@@ -46,58 +69,70 @@ function showList() {
         data: data,
         contentType: 'application/json; charset=utf-8',
     }).done(function (data) {
+        mkApply(data);
         console.log(data);
-        mkHtml(data);
     }).fail(function (error) {
         console.log(error);
     })
 }
 
-function mkHtml(data) {
-    for(let i = 0; i < data.length; i++) {
-        var a = data[i].member_id;
+// 신청내용 확인하는 곳
+function mkApply(data) {
+    $('.applyListDetail').empty();
+    for (let i = 0; i < data.length; i++) {
+        var a = data[i].user_id;
         var b = data[i].user_name;
         var c = data[i].start_date;
         var d = data[i].end_date;
-        var e = data[i].trainer_id;
-        var f = data[i].id;
-        var g = data[i].accept_condition;
+        var e = data[i].id;
+        var f = data[i].user_pn;
 
         let content = "<tr>"
-        content += "<td class=ptId style='display: none'>" + f + "</td>"
+        content += "<td class= 'ptId' style='display: none'>" + e + "</td>"
         content += "<td class='ptUserId'>" + a + "</td>"
         content += "<td class='ptUserName'>" + b + "</td>"
         content += "<td class='ptStartDate'>" + c + "</td>"
         content += "<td class='ptEndDate'>" + d + "</td>"
-        content += "<td class='ptTrainerId'>" + e + "</td>"
-        content += "<td class='ptAccept'>" + g + "</td>"
-        content += "<td><button type='button' class='ptAccept' onclick='updateAcceptCondition()'>수락</button></td>"
-        content += "<td><button type='button' class='ptDecline'>거절</button></td>"
+        content += "<td class='ptPhone'>" + f + "</td>"
+        content += "<td><button type='button' class='btn-primary Accept' onclick='updateAccept(this)'>수락</button></td>"
+        content += "<td><button type='button' class='btn-primary Deny' onclick='updateAccept(this)'>거절</button></td>"
         $('.applyListDetail').append(content);
     }
-    console.log(f);
 }
 
 // 수락, 거절 눌러서 accept_condition 바꾸기
-// set_conditioin update 하면 될듯??
-function updateAcceptCondition() {
-    var id = $('.ptId').text();
-    var ptAccept = $('.ptAccept').text();
-    var data = {
+function updateAccept(a) {
+    // PTUserApplyConDto에 넘겨줄 apply_if값
+    let apply_if = 0;
+    // 내가 누른 버튼의 id값
+    let id = a.parentNode.parentNode.firstChild.innerText;
+    // 내가 누른 버튼의 텍스트값
+    let con = a.innerText;
+    // 수락이면 apply_if에 1 저장하고 아니면 2 저장
+    if(con == "수락") {
+        apply_if = 1;
+    } else {
+        apply_if = 2;
+    }
+    let data = {
+        // PTUserApplyConDto에 넘겨줄 id랑 apply_if값
         id: id,
-        accept_condition: ptAccept
+        apply_if: apply_if
     }
     $.ajax({
         type: 'post',
-        url: '/ptUser/ptList/update/'+id,
-        data: data,
+        url: '/ptUser/apply/update/'+id,
+        data: JSON.stringify(data),
         contentType: 'application/json; charset=utf-8',
-    }).done(function (result) {
-        alert('hello');
-        console.log(result);
+    }).done(function (data) {
+        console.log(data);
+        if(con == "수락") {
+            alert("PT신청이 수락되었습니다");
+        } else if(con == "거절") {
+            alert("PT신청이 거절되었습니다");
+        }
+        location.reload();
     }).fail(function (error) {
         console.log(error);
-    });
+    })
 }
-
-// 알림받기,, 이거 좀 오래걸릴듯??
