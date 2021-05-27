@@ -47,7 +47,7 @@ public class AndExRecordService {
     public Long save(Long id, AndExerciseRecordDto exerciseRecordDto) {
         Member member = androidMemberRepository.findById(id).get();
         ExRecord exRecord = new ExRecord();
-        exRecord.setEx_record_member_id(exerciseRecordDto.getEx_record_member_id());
+        exRecord.setEx_record_member_id(member.getUser_id());
         exRecord.setEx_name(exerciseRecordDto.getEx_name());
         exRecord.setEx_set(exerciseRecordDto.getEx_set());
         exRecord.setEx_weight(exerciseRecordDto.getEx_weight());
@@ -61,6 +61,7 @@ public class AndExRecordService {
     // 운동기록 업데이트
     public Long update(Long id, AndExerciseRecordDto exerciseRecordDto) {
         ExRecord result = excerciseRecordRepository.findById(id).get();
+
         result.ExRecordUpdate(exerciseRecordDto);
         excerciseRecordRepository.save(result);
         return id;
