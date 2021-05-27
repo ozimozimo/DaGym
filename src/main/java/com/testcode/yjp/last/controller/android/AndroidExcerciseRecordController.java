@@ -11,18 +11,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/android/ExRecord")
+@RequestMapping("/android/exRecord")
 @Slf4j
 public class AndroidExcerciseRecordController {
 
     private final AndroidExcerciseRecordRepository excerciseRecordRepository;
     private final AndroidMemberRepository memberRepository;
     private final AndExRecordService andExRecordService;
-
 
     // 운동기록 저장
     @PostMapping("/saveExRecord/{id}")
@@ -36,16 +36,23 @@ public class AndroidExcerciseRecordController {
         return andExRecordService.select(exerciseRecordDto);
     }
 
+    // 운동기록 하나만 뽑기
+    @PostMapping("/detailExRecord/{id}")
+    public ExRecord detailALong(@PathVariable Long id) {
+        ExRecord detail = excerciseRecordRepository.findById(id).get();
+        System.out.println(detail+"===================================");
+        return detail;
+    }
 
     // 운동기록 수정
-    @PostMapping("/update/{id}")
-    public Long update(@PathVariable Long id, AndExerciseRecordDto exerciseRecordDto) {
+    @PostMapping("/updateExRecord/{id}")
+    public Long update(@PathVariable Long id,@RequestBody AndExerciseRecordDto exerciseRecordDto) {
         return andExRecordService.update(id, exerciseRecordDto);
     }
 
 
     // 운동기록 삭제
-    @PostMapping("/delete/{id}")
+    @PostMapping("/deleteExRecord/{id}")
     public Long delete(@PathVariable Long id) {
         log.info("ExRecord Controller Delete Api Post");
         return andExRecordService.delete(id);
