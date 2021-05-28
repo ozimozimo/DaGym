@@ -5,20 +5,22 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         data-layout-decorate="~{layout/default}"
 >
+
 <head>
   <title>login</title>
   <script th:src="@{/js/login.js}"></script>
   <link rel="stylesheet" th:href="@{/css/login.css}" />
   <meta name="google-signin-client_id"
         content="831600705653-q3poakj6j0ehm7ihhe09l4k77n1tnbme.apps.googleusercontent.com">
+
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 </head>
 <div layout:fragment="content">
   <div class="container">
     <div class="login_form">
-      <h2 class="title">LOGIN</h2>
+      <h2 class="title">로그인</h2>
 
       <form action="/member/signIn" method="post" name="loginForm">
         <div class="resp_member_login">
@@ -45,8 +47,9 @@
             </div>
           </div>
 
-          <button type="submit" id="loginBtn" class="login_size btn" onclick="login()">로그인</button>
         </div>
+        <button type="submit" id="loginBtn" class="login_size btn" onclick="login()">로그인</button>
+
 
         <div class="form-group save_id">
           <label for="save_id">

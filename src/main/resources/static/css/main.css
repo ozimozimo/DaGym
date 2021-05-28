@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+.carousel-background {
+  position: relative;
+}
+
+.carousel-text {
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.carousel-btn {
+  background-color: #222e3c;
+  color: #fff;
+  border-radius: 3px;
+  padding: 8px 30px;
+  border: none;
+  cursor: pointer;
+  margin-top: 200px;
+}
+
+.slide .carousel-img img {
+  height: 600px;
+}
+
+.download-area .carousel-img img {
+  height: 450px;
+}
+
+.info-text {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.google-link img {
+  margin-top: 150px;
+}
