@@ -28,10 +28,20 @@ public interface PTUserRepository extends JpaRepository<PTUser, Long> {
     @Query("select m from Member m where member_id like %:member_id% ")
     List<Member> findMemberId(Long member_id);;
 
+    // 트레이너한테 신청한 목록
     @Query(value = "select * from PT_User where TRAINER_ID = :trainer and accept_condition = 0", nativeQuery = true)
     ArrayList<PTUser> findApply(Member trainer);
 
+    // 트레이너가 수락한 회원 목록
     @Query(value = "select * from PT_User where trainer_id = :trainer and accept_condition = 1", nativeQuery = true)
     ArrayList<PTUser> findAccept(Member trainer);
+
+    // 신청한 회원 있는지 찾기
+    @Query(value = "select * from PT_User where MEMBER_ID = :member", nativeQuery = true)
+    ArrayList<PTUser> checkApply(Member member);
+
+    @Query(value = "select count(*) from PT_User where trainer_id = :trainer and accept_condition = 0", nativeQuery = true)
+    ArrayList<PTUser> countApply(Member trainer);
+
 
 }

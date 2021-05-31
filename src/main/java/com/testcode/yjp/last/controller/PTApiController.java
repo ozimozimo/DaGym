@@ -37,8 +37,19 @@ public class PTApiController {
         ptUser.setAccept_condition("0"); // 신청 - 보류상태로 전환.
         log.info("ptuser.get user = " + ptUser.getMember_id().getId());
         log.info("ptuser.get tr = " + ptUser.getTrainer_id().getId());
+        log.info("ptuser.get ac = " + ptUser.getAccept_condition());
         ptUserRepository.save(ptUser);
         return ptUser;
+    }
+
+    // 이미 신청했는지 확인하기
+    @GetMapping("/apply/check")
+    public ArrayList<PTUserApplyMemberDto> checkApply(@RequestParam Long member_id) {
+        log.info("ptUser checkApply Get Controller");
+        System.out.println("member_id = " + member_id);
+        ArrayList<PTUserApplyMemberDto> ptCheck = ptUserService.getCheckList(member_id);
+        log.info("checkApply value = " + ptCheck);
+        return ptCheck;
     }
 
     // 신청 내역 확인
@@ -46,7 +57,6 @@ public class PTApiController {
     public ArrayList<PTUserApplyMemberDto> findMember(@RequestParam Long trainer_id) {
         log.info("ptUser findMember Get Controller");
         System.out.println("trainer_id = " + trainer_id);
-        // 신청받은 트레이너 ID && accept_condition = 1인거 가져오기
         ArrayList<PTUserApplyMemberDto> ptUserApplies = ptUserService.getPTUserApply(trainer_id);
         log.info("applyMember value = " + ptUserApplies);
         return ptUserApplies;

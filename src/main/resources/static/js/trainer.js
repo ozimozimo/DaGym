@@ -1,7 +1,30 @@
-$(function () {
-    acceptList();
-    showList();
-})
+function check() {
+    var member = $('.loginUserId').val();
+    console.log(member);
+    var data = {
+        member_id: member,
+    }
+    $.ajax({
+        type: 'get',
+        url: '/ptUser/apply/check',
+        data: data,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+    }).done(function (data) {
+        if(data[0].accept_condition == 0) {
+            alert('PT 수락 대기 중입니다.');
+            window.location.href = '/ptUser/view';
+            console.log(data);
+        } else if(data[0].accept_condition == 1) {
+            alert('PT가 진행 중입니다.')
+            window.location.href = '/ptUser/view';
+        } else if(data[0].accept_condition == null || data[0].accept_condition == 2) {
+            console.log(data);
+        }
+    }).fail(function (error) {
+        console.log(error);
+    })
+}
 
 function apply() {
     var main = {
@@ -43,7 +66,7 @@ function apply() {
 function acceptList() {
     var id = $('.member_id').val();
     var data = {
-        trainer_id: id
+        id: id // 앞에 trainer_id -> id
     }
     $.ajax({
         type: 'get',
@@ -51,7 +74,6 @@ function acceptList() {
         data: data,
         contentType: 'application/json; charset=utf-8'
     }).done(function (data) {
-        console.log(data);
     }).fail(function (error) {
         console.log(error);
     })
@@ -136,3 +158,8 @@ function updateAccept(a) {
         console.log(error);
     })
 }
+
+$(function () {
+    acceptList();
+    showList();
+})

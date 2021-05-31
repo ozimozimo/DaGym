@@ -17,7 +17,7 @@
             <span>트레이너 아이디 : </span><span th:text="${trainer.getUser_id()}"></span> <br>
             <span>트레이너 이름 : </span><span th:text="${trainer.getUser_name()}"></span> <br>
             <span>트레이너 이메일 : </span><span th:text="${trainer.getUser_email()}"></span> <br>
-            <span>트레이너 전화번호 : </span><span th:text="${trainer.getUser_pn()}"></span>
+            <span>트레이너 연락처 : </span><span th:text="${trainer.getUser_pn()}"></span>
         </div>
 
         <p>-----------------------------------------------------------------</p>
@@ -57,7 +57,7 @@
                 <!-- 휴대폰 확인 -->
                 <ul>
                     <li>
-                        <p><label for="user_pn">휴대폰 번호</label></p>
+                        <p><label for="user_pn">연락처</label></p>
                     </li>
                     <li>
                         <input type="text" id="user_pn" name="user_pn" th:value="${member.getUser_pn}"/>

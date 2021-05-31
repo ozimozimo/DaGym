@@ -101,6 +101,30 @@ public class PTUserService {
                 .address_detail(member.getAddress_detail())
                 .build();
     }
+    // 신청 전에 확인하기
+    public ArrayList<PTUserApplyMemberDto> getCheckList(Long member_id) {
+        // 트레이너 아이디 조회하면 신청했는 회원 아이디도 딸려온다
+        Member member = memberRepository.findById(member_id).get();
+        log.info("member_id = " + member);
+        ArrayList<PTUser> ptUsers = ptUserRepository.checkApply(member);
+        ArrayList<PTUserApplyMemberDto> ptUserApplyCheckDtos = new ArrayList<>();
+        for(PTUser ptUser : ptUsers) {
+            PTUserApplyMemberDto ptUserApplyCheckDto = new PTUserApplyMemberDto(
+                    ptUser.getId(),
+                    ptUser.getMember_id().getId(),
+                    ptUser.getUser_id(),
+                    ptUser.getUser_name(),
+                    ptUser.getStart_date(),
+                    ptUser.getEnd_date(),
+                    ptUser.getAccept_condition(),
+                    ptUser.getTrainer_id().getId(),
+                    ptUser.getUser_pn()
+            );
+            ptUserApplyCheckDtos.add(ptUserApplyCheckDto);
+            log.info("ptUserApplyCheckDtos = " + ptUserApplyCheckDtos);
+        }
+        return ptUserApplyCheckDtos;
+    }
 
     // 수락회원 조회하기
     public ArrayList<PTUserApplyMemberDto> getAcceptList(Long trainer_id) {
@@ -111,6 +135,7 @@ public class PTUserService {
         for(PTUser ptUser : ptUsers) {
             PTUserApplyMemberDto ptUserApplyMemberDto = new PTUserApplyMemberDto(
                     ptUser.getId(),
+                    ptUser.getMember_id().getId(),
                     ptUser.getUser_id(),
                     ptUser.getUser_name(),
                     ptUser.getStart_date(),
@@ -138,8 +163,8 @@ public class PTUserService {
             // ptUser에서 가져온 것들을 PTUserApply에 맞춰서 넣어준다
             PTUserApplyMemberDto ptUserApplyMemberDto = new PTUserApplyMemberDto(
                     ptUser.getId(),
+                    ptUser.getMember_id().getId(),
                     ptUser.getUser_name(),
-//                    ptUser.getMember_id().getId(),
                     // member_id는 Member타입인데 PTUserApply에서 Long 타입으로 선언해서 getId씀
                     ptUser.getUser_id(),
                     ptUser.getStart_date(),
@@ -154,6 +179,29 @@ public class PTUserService {
         }
         return ptUserApplies;
     }
+
+    // 신청온거 표시
+    public ArrayList<PTUserApplyMemberDto> getApplyCount(Long trainer_id) {
+        Member trainer = memberRepository.findById(trainer_id).get();
+        // member에서 trainer_id들만 찾아와서 trainer에 넣는다
+        ArrayList<PTUser> ptUsers = ptUserRepository.countApply(trainer);
+        // PTUser에서 위에서 넣은 trainer만 찾아서 ptUsers에 넣는다
+        ArrayList<PTUserApplyMemberDto> ptUserCount = new ArrayList<>();
+        // PTUserApply를 새로운 ArrayList로 선언하고
+        for (PTUser ptUser : ptUsers) {
+            // for each문 써서 ptUsers에 있는 값들을 ptUser에 넣어준다는데 이게 뭔소리지 시발
+            // ptUser에서 가져온 것들을 PTUserApply에 맞춰서 넣어준다
+            PTUserApplyMemberDto ptUserApplyMemberDto = new PTUserApplyMemberDto(
+                    ptUser.getId(),
+                    ptUser.getAccept_condition(),
+                    ptUser.getTrainer_id().getId()
+            );
+            ptUserCount.add(ptUserApplyMemberDto);
+            log.info("ptUserApplies = " + ptUserCount);
+        }
+        return ptUserCount;
+    }
+
 
     // trainer.js에 updateAccpet()에서 받아온 값이 PTUserApplyConDto에 들어가있다
     // 거기서 받아온 id로 신청한 id를 찾아낸다

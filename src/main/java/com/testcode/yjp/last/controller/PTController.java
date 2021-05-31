@@ -26,7 +26,6 @@ public class PTController {
         return "ptUser/trainerView";
     }
 
-    // 회원관리
     // 해당 트레이너가 관리하는 회원들 목록 보여주는 뷰
     @GetMapping("/manage")
     public String acceptList(Model model, @RequestParam(value="id") Long trainer_id) {

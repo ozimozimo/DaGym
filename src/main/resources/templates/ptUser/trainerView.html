@@ -12,7 +12,7 @@
 <div layout:fragment="content">
     <!--    로그인한 유저롤이 트레이너일 때-->
     <div class="container-fluid p-0" th:if="${session.loginRole == 'trainer'}">
-        <input type="text" th:value="${session.loginUser}" class="member_id">
+        <input type="hidden" th:value="${session.loginUser}" class="member_id">
         <div class="row">
             <div class="col-12 col-xl-12">
                 <h1>받은 신청</h1>
@@ -35,7 +35,8 @@
     <!-- 로그인한 유저롤이 유저일 때-->
     <div class="container-fluid p-0" th:if="${session.loginRole == 'user'}">
         <h1 class="h3 mb-3">트레이너 찾기</h1>
-        <h1 th:text="${session.loginId}" class="loginId"></h1>
+        <h1 th:text="${session.loginId}" class="loginId" style="display: none"></h1>
+        <input type="hidden" th:value="${session.loginUser}" class="loginUserId">
         <!--트레이너 검색-->
         <form th:action="@{~/ptUser/search}" method="get">
             <div>
@@ -67,16 +68,14 @@
                         </thead>
                         <tbody>
                         <tr th:each="member : ${memberList}">
-                            <td><a th:text="${member.user_name}"></a></td>
-                            <td><span th:text="${member.user_id}"></span></td>
-                            <td><span th:text="${member.user_pn}"></span></td>
-                            <td><span th:text="${member.address_detail}+'('+${member.address_normal}+')'"></span></td>
-                            <td>
-                                <button th:text="위치정보"></button>
-                            </td>
+                            <td th:text="${member.user_id}" class="trainer"></td>
+                            <td th:text="${member.user_name}"></td>
+                            <td th:text="${member.user_pn}"></td>
+                            <td th:text="${member.address_detail}+'('+${member.address_normal}+')'"></td>
+                            <td><button th:text="위치정보"></button></td>
                             <td>
                                 <a th:href="@{~/ptUser/apply(member_id = ${session.loginUser} , trainer_id = ${member.id})}"
-                                   th:if="${session.loginRole == 'user'}" th:text="신청"></a></td>
+                                   th:text="신청" onclick="check()"></a></td>
                         </tr>
                         </tbody>
                     </table>

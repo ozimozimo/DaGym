@@ -10,7 +10,7 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <input type="text" th:value="${session.loginUser}" class="member_id">
+    <input type="hidden" th:value="${session.loginUser}" class="member_id">
     <div class="container">
         <div class="row">
             <div th:each="acceptList: ${acceptList}" class="col-lg-3">
