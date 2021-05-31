@@ -188,7 +188,6 @@ var calendar = $('#calendar').fullCalendar({
         console.log(start);
         console.log(event.id);
         console.log(end);
-        var id
 
         //드롭한 일정 업데이트
         $.ajax({

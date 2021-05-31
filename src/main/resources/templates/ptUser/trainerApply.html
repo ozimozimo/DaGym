@@ -17,7 +17,7 @@
             <span>트레이너 아이디 : </span><span th:text="${trainer.getUser_id()}"></span> <br>
             <span>트레이너 이름 : </span><span th:text="${trainer.getUser_name()}"></span> <br>
             <span>트레이너 이메일 : </span><span th:text="${trainer.getUser_email()}"></span> <br>
-            <span>트레이너 전화번호 : </span><span th:text="${trainer.getUser_pn()}"></span>
+            <span>트레이너 연락처 : </span><span th:text="${trainer.getUser_pn()}"></span>
         </div>
 
         <p>-----------------------------------------------------------------</p>
@@ -26,29 +26,14 @@
             <div th:each="member : ${memberList}">
                 <!-- 이름 -->
                 <ul>
-                    <input
-                            type="hidden"
-                            id="member_id"
-                            name="member_id"
-                            th:value="${session.loginUser}"
-                    />
-                    <input
-                            type="hidden"
-                            id="trainer_id"
-                            name="trainer_id"
-                            th:value="${trainer_id}"
-                    />
+                    <input type="hidden" id="member_id" name="member_id" th:value="${session.loginUser}"/>
+                    <input type="hidden" id="trainer_id" name="trainer_id" th:value="${trainer_id}"/>
 
                     <li>
                         <p><label for="user_name">이름</label></p>
                     </li>
                     <li>
-                        <input
-                                type="text"
-                                id="user_name"
-                                name="user_name"
-                                th:value="${member.getUser_name}"
-                        />
+                        <input type="text" id="user_name" name="user_name" th:value="${member.getUser_name}"/>
                     </li>
                 </ul>
                 <!-- 아이디 -->
@@ -57,12 +42,7 @@
                         <p><label for="user_id">아이디</label></p>
                     </li>
                     <li>
-                        <input
-                                type="text"
-                                id="user_id"
-                                name="user_id"
-                                th:value="${member.getUser_id}"
-                        />
+                        <input type="text" id="user_id" name="user_id" th:value="${member.getUser_id}"/>
                     </li>
                 </ul>
                 <!-- 이메일 -->
@@ -71,26 +51,16 @@
                         <p><label for="user_email">이메일</label></p>
                     </li>
                     <li>
-                        <input
-                                type="text"
-                                id="user_email"
-                                name="user_email"
-                                th:value="${member.getUser_email}"
-                        />
+                        <input type="text" id="user_email" name="user_email" th:value="${member.getUser_email}"/>
                     </li>
                 </ul>
                 <!-- 휴대폰 확인 -->
                 <ul>
                     <li>
-                        <p><label for="user_pn">휴대폰 번호</label></p>
+                        <p><label for="user_pn">연락처</label></p>
                     </li>
                     <li>
-                        <input
-                                type="text"
-                                id="user_pn"
-                                name="user_pn"
-                                th:value="${member.getUser_pn}"
-                        />
+                        <input type="text" id="user_pn" name="user_pn" th:value="${member.getUser_pn}"/>
                     </li>
                 </ul>
                 <!-- 시작날짜 -->
@@ -99,12 +69,7 @@
                         <p><label for="start_date">시작날짜</label></p>
                     </li>
                     <li>
-                        <input
-                                type="text"
-                                id="start_date"
-                                name="start_date"
-                                placeholder="시작날짜를 입력하세요"
-                        />
+                        <input type="text" id="start_date" name="start_date" placeholder="시작날짜를 입력하세요"/>
                     </li>
                 </ul>
                 <!-- 종료날짜 -->
@@ -113,12 +78,7 @@
                         <p><label for="end_date">종료날짜</label></p>
                     </li>
                     <li>
-                        <input
-                                type="text"
-                                id="end_date"
-                                name="end_date"
-                                placeholder="종료날짜를 입력하세요"
-                        />
+                        <input type="text" id="end_date" name="end_date" placeholder="종료날짜를 입력하세요"/>
                     </li>
                 </ul>
             </div>

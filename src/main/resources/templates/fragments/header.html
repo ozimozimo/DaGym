@@ -3,45 +3,55 @@
 
 <header th:fragment="headerFragment">
 
-<!--        <li class="nav-item">-->
-<!--            <a class="nav-link" th:href="@{/inBody/register}">-->
-<!--                <i class="fas fa-fw fa-chart-area"></i>-->
-<!--                <span>인바디</span>-->
-<!--            </a>-->
-<!--        </li>-->
-<!--        <li class="nav-item">-->
-<!--            <a class="nav-link" th:href="@{/ExRecord/exercise(id=${session.loginId})}">-->
-<!--                <i class="fas fa-fw fa-chart-area"></i>-->
-<!--                <span>운동기록</span>-->
-<!--            </a>-->
-<!--        </li>-->
-<!--        <li class="nav-item">-->
-<!--            <a class="nav-link" th:href="@{/diet/list(id=${session.loginId})}">-->
-<!--                <i class="fas fa-fw fa-chart-area"></i>-->
-<!--                <span>식단</span>-->
-<!--            </a>-->
-<!--        </li>-->
+    <!--        <li class="nav-item">-->
+    <!--            <a class="nav-link" th:href="@{/inBody/register}">-->
+    <!--                <i class="fas fa-fw fa-chart-area"></i>-->
+    <!--                <span>인바디</span>-->
+    <!--            </a>-->
+    <!--        </li>-->
+    <!--        <li class="nav-item">-->
+    <!--            <a class="nav-link" th:href="@{/ExRecord/exercise(id=${session.loginId})}">-->
+    <!--                <i class="fas fa-fw fa-chart-area"></i>-->
+    <!--                <span>운동기록</span>-->
+    <!--            </a>-->
+    <!--        </li>-->
+    <!--        <li class="nav-item">-->
+    <!--            <a class="nav-link" th:href="@{/diet/list(id=${session.loginId})}">-->
+    <!--                <i class="fas fa-fw fa-chart-area"></i>-->
+    <!--                <span>식단</span>-->
+    <!--            </a>-->
+    <!--        </li>-->
 
-        <div class="logo">
-            <a th:href="@{/}">
-            <img th:src="@{~/image/dagym.png}" height="70px" />
-            </a>
-        </div>
-        <nav class="stroke">
-            <ul>
-                <li><a th:href="@{/member/mypage/mypageSelect}">회원 관리</a></li>
-                <li><a th:href="@{/ptUser/view}">PT 관리</a></li>
-                <li><a th:href="@{/calendar/memo(id=${session.loginUser})}">일정</a></li>
-                <li><a href="#">채팅</a></li>
-                <li><a th:href="@{/board}">트레이너 게시판</a></li>
+    <div class="logo">
+        <a th:href="@{/}">
+            <img th:src="@{~/image/dagym.png}" height="70px"/>
+        </a>
+    </div>
+    <nav class="stroke">
+        <ul>
+            <li><a th:href="@{/member/mypage/mypageSelect}" style="text-decoration:none">회원 관리</a></li>
+            <li><a th:href="@{/ptUser/view}" style="text-decoration:none">PT 관리</a></li>
+            <li><a th:href="@{/calendar/memo(id=${session.loginUser})}" style="text-decoration:none">일정</a></li>
+            <li><a href="#" style="text-decoration:none">채팅</a></li>
+            <li><a th:href="@{/board}" style="text-decoration:none">트레이너 게시판</a></li>
+        </ul>
 
+    </nav>
+    <div class="right_menu">
+        <a th:if="${session.loginUser == null}" th:href="@{/member/login}">
+            <span class="material-icons md-36">account_circle</span>
+        </a>
+        <div class="dropdown" th:if="${session.loginUser != null}">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class=" material-icons-outlined md-48">manage_accounts</span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#">마이페이지</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">로그아웃</a></li>
             </ul>
-        </nav>
-        <div class="right_menu">
-            <a th:if="${session.loginUser == null}" th:href="@{/member/login}">
-                <span class="material-icons md-36">account_circle</span>
-            </a>
         </div>
+    </div>
 
 </header>
 
