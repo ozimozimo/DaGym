@@ -30,7 +30,7 @@ var editEvent = function (event, element, view) {
     editType.val(event.type);
     editDesc.val(event.description);
     editColor.val(event.backgroundColor).css('color', event.backgroundColor);
-    editId.val(event.id);
+    // editId.val(event.id);
 
     addBtnContainer.hide();
     modifyBtnContainer.show();
@@ -82,7 +82,7 @@ var editEvent = function (event, element, view) {
         event.type = editType.val();
         event.backgroundColor = editColor.val();
         event.description = editDesc.val();
-        event.id = editId.val();
+        // event.id = editId.val();
 
 
         $("#calendar").fullCalendar('updateEvent', event);
