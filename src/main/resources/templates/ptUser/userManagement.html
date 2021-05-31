@@ -1,0 +1,37 @@
+<html
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        data-layout-decorate="~{layout/default}"
+>
+<head>
+    <title>PT회원 목록</title>
+    <script th:src="@{/js/trainer.js?ver=1.0}"></script>
+</head>
+<body>
+<div layout:fragment="content">
+    <input type="hidden" th:value="${session.loginUser}" class="member_id">
+    <div class="container">
+        <div class="row">
+            <div th:each="acceptList: ${acceptList}" class="col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <!--                        <img src="/image/facebook.png" alt=""/>-->
+                        <div>아이디 : <span th:text="${acceptList.user_id}"></span></div>
+                        <div>이름 : <span th:text="${acceptList.user_name}"></span></div>
+                        <div>연락처 : <span th:text="${acceptList.user_pn}"></span></div>
+                        <div>시작날짜 : <span th:text="${acceptList.start_date}"></span></div>
+                        <div>종료날짜 : <span th:text="${acceptList.end_date}"></span></div>
+                        <div>
+                            <a class="btn btn-primary" th:href="@{/diet/list(id=${acceptList.user_id})}">식단</a>
+                            <a class="btn btn-primary" th:href="@{/ExRecord/exercise(id=${acceptList.user_id})}">운동기록</a>
+                            <a class="btn btn-primary" th:href="@{/inBody/inBodyResult(id=${acceptList.user_id})}">인바디</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
