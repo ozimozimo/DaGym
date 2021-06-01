@@ -71,8 +71,7 @@
                             <td th:text="${member.user_id}" class="trainer"></td>
                             <td th:text="${member.user_name}"></td>
                             <td th:text="${member.user_pn}"></td>
-                            <td th:text="${member.address_detail}+'('+${member.address_normal}+')'"></td>
-                            <td><button th:text="위치정보"></button></td>
+                            <td th:text="${member.address_normal}+'('+${member.address_detail}+')'"></td>
                             <td>
                                 <a th:href="@{~/ptUser/apply(member_id = ${session.loginUser} , trainer_id = ${member.id})}"
                                    th:text="신청" onclick="check()"></a></td>

@@ -1,10 +1,20 @@
 $(function () {
     $(".addEx_btn").on("click", addExBtnClick);
     todayData();
+    changeId();
 });
 
 let date = new Date();
 date = getFormatDate(date);
+
+function changeId(){
+    let location = window.location.href;
+    let arr = location.split("=");
+    $('.member_id').val(arr[1]);
+    console.log('arr : ' + arr[1]);
+    let b = $('.loginId').text(arr[1]);
+    console.log(b)
+}
 
 function getFormatDate(date) {
     let year = date.getFullYear();
@@ -16,7 +26,7 @@ function getFormatDate(date) {
 }
 
 function addExBtnClick() {
-    let id = $(".member_id").val();
+    let id = $(".member").val();
     let ex_record_member_id = $('.ex_record_member_id').val();
     let ex_name = $("#ex_name").val();
     let ex_set = $("#ex_set").val();
