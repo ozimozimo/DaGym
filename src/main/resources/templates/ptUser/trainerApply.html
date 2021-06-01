@@ -6,7 +6,7 @@
         data-layout-decorate="~{layout/default}"
 >
 <head>
-    <title>신청</title>
+    <title>PT 신청</title>
     <script th:src="@{/js/trainer.js}"></script>
 </head>
 <div layout:fragment="content">
@@ -14,6 +14,7 @@
         <h2 class="title">PT 신청</h2>
 
         <div th:each="trainer : ${trainerList}">
+            <span>트레이너 번호 : </span><span th:text="${trainer.getId()}"></span> <br>
             <span>트레이너 아이디 : </span><span th:text="${trainer.getUser_id()}"></span> <br>
             <span>트레이너 이름 : </span><span th:text="${trainer.getUser_name()}"></span> <br>
             <span>트레이너 이메일 : </span><span th:text="${trainer.getUser_email()}"></span> <br>

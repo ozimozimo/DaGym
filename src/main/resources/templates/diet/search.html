@@ -14,8 +14,8 @@
     <div>
         <h1 class="h3 mt-4">음식검색</h1>
         <!--        현재 로그인한 회원의 member_id-->
-        <input type="hidden" th:value="${session.loginUser}" class="member_id">
-        <input type="hidden" th:value="${session.loginId}" class="diet_member_id">
+        <input type="hidden" th:value="${session.loginUser}" class="member"/>
+        <input type="hidden" th:value="${session.loginId}" class="diet_member_id" />
         <input type="hidden" class="date" value="">
 
         <div class="search-form my-4">
@@ -44,7 +44,7 @@
                             <th>지방(g)</th>
                             <th class="amount">섭취량</th>
                             <th>식사주기</th>
-                            <th>추가하기</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody class="dietList">

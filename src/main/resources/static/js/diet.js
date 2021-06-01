@@ -13,13 +13,17 @@ $(function () {
         todayData();
     }
 })
+
+// 내가 선택한 회원 정보 조회를 위해 회원 아이디만 따로 빼오는 곳
 function changeId(){
     let location = window.location.href;
     let arr = location.split("=");
     $('.member_id').val(arr[1]);
     console.log('arr : ' + arr[1]);
+    let b = $('.loginId').text(arr[1]);
+    console.log(b)
 }
-
+// 이상하다고 쌰발
 
 // 오늘 날짜 가져오기 (2021-04-30 형태)
 var date = new Date();
@@ -104,7 +108,7 @@ function dietAdd() {
     $('.dietAdd').on('click', function (e) {
         splitDate();
         console.log($('.date').val());
-        var id = $('.member_id').val();
+        var id = $('.member').val();
         // 내가 먹은 양
         var eat_rate = $(this).parent().siblings().children('.eat_rate').val();
         // 기존 제공량
@@ -135,6 +139,7 @@ function dietAdd() {
             console.log(data)
         }).fail(function (error) {
             alert(error);
+            console.log(data);
             console.log(JSON.stringify(error));
         })
     })

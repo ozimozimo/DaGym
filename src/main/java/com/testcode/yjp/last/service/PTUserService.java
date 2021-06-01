@@ -74,6 +74,7 @@ public class PTUserService {
         for (Member member : memberEntities) {
             MemberList memberList = MemberList
                     .builder()
+                    .id(member.getId())
                     .user_id(member.getUser_id())
                     .user_pw(member.getUser_pw())
                     .user_name(member.getUser_name())
@@ -101,6 +102,7 @@ public class PTUserService {
                 .address_detail(member.getAddress_detail())
                 .build();
     }
+
     // 신청 전에 확인하기
     public ArrayList<PTUserApplyMemberDto> getCheckList(Long member_id) {
         // 트레이너 아이디 조회하면 신청했는 회원 아이디도 딸려온다
