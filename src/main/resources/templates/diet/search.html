@@ -7,20 +7,23 @@
 >
 <head>
     <title>dietSelect</title>
+    <link rel="stylesheet" th:href="@{/css/search.css}">
     <script th:src="@{/js/diet.js}"></script>
 </head>
 <div layout:fragment="content">
     <div>
-        <h1 class="h3 mb-3">음식검색</h1>
+        <h1 class="h3 mt-4">음식검색</h1>
         <!--        현재 로그인한 회원의 member_id-->
-        <input type="hidden" th:value="${session.loginUser}" class="member_id">
-        <input type="hidden" th:value="${session.loginId}" class="diet_member_id">
+        <input type="hidden" th:value="${session.loginUser}" class="member"/>
+        <input type="hidden" th:value="${session.loginId}" class="diet_member_id" />
         <input type="hidden" class="date" value="">
-        <div>
-            <input type="text" id="diet" placeholder="음식을 입력하세요">
-            <button type="button" class="dietSearch">찾기</button>
-            <button type="button" class="dietClose">선택완료</button>
-            <br>
+
+        <div class="search-form my-4">
+            <div class="search-input">
+                <input type="text" id="diet" placeholder="음식을 입력하세요">
+            </div>
+            <button type="button" class="search-btn dietSearch">찾기</button>
+            <button type="button" class="search-btn dietClose">선택완료</button>
         </div>
 
         <!--음식 데이터 조회-->
@@ -28,7 +31,7 @@
             <div class="col-12 col-xl-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">식단</h5>
+                        <!--                        <h5 class="card-title">식단</h5>-->
                     </div>
                     <table class="table">
                         <thead>
@@ -39,10 +42,13 @@
                             <th>탄수화물(g)</th>
                             <th>단백질(g)</th>
                             <th>지방(g)</th>
-                            <th>섭취량</th>
+                            <th class="amount">섭취량</th>
+                            <th>식사주기</th>
+                            <th></th>
                         </tr>
                         </thead>
-                        <tbody class="dietList"></tbody>
+                        <tbody class="dietList">
+                        </tbody>
                     </table>
                 </div>
             </div>
