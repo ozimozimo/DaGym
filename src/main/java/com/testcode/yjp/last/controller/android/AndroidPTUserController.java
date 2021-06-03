@@ -1,16 +1,20 @@
 package com.testcode.yjp.last.controller.android;
 
+import com.testcode.yjp.last.domain.Calendar;
+import com.testcode.yjp.last.domain.InBody;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.PTUser;
 import com.testcode.yjp.last.domain.dto.android.*;
-import com.testcode.yjp.last.repository.android.AndroidMemberRepository;
-import com.testcode.yjp.last.repository.android.AndroidPTUserRepository;
+import com.testcode.yjp.last.repository.android.*;
 import com.testcode.yjp.last.service.android.AndPTUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -20,7 +24,9 @@ public class AndroidPTUserController {
     private final AndroidPTUserRepository androidPTUserRepository;
     private final AndroidMemberRepository androidMemberRepository;
     private final AndPTUserService andPTUserService;
-
+    private final AndroidCalendarRepository androidCalendarRepository;
+    private final AndroidInBodyRepository androidInBodyRepository;
+    private final AndroidExcerciseRecordRepository androidExcerciseRecordRepository;
 
     // 트레이너 검색
     @PostMapping("/search")
@@ -95,7 +101,7 @@ public class AndroidPTUserController {
         Long trainer_id = andPTUserApply.getTrainer_id();
         String apply_if = andPTUserApply.getApply_if();
         log.info("member_id = " + user_id + "trainer_id = " + trainer_id);
-        
+
         // 해당 트레이너의 Member를 받아옴
         Member trainer = androidMemberRepository.findById(trainer_id).get();
 
@@ -112,4 +118,30 @@ public class AndroidPTUserController {
         // save해서 update해줌.
         androidPTUserRepository.save(ptUserBy);
     }
+
+    @PostMapping("/userfind/member")
+    public Member findMember(@RequestBody String user_id) {
+        user_id = user_id.replaceAll("\\\"", "");
+        return androidMemberRepository.findByUser_id(user_id);
+    }
+
+//    @Transactional
+//    @PostMapping("/user/allfind")
+//    public Map<String, Object> allFind(@RequestBody String user_id) {
+//        user_id = user_id.replaceAll("\\\"", "");
+//        Member member = androidMemberRepository.findByUser_id(user_id);
+//        ArrayList<Calendar> calendars = androidCalendarRepository.findCalendarByMember(member);
+//        ArrayList<InBody> inbodys = androidInBodyRepository.findByUserId(user_id);
+//
+//        Map<String, Object> result = new HashMap<String, Object>();
+//
+//        log.info("member = " + member);
+//        result.put("member", member);
+//        result.put("calendar", calendars);
+//        result.put("inbody", inbodys);
+//
+//
+//        return result;
+//    }
+
 }

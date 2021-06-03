@@ -47,19 +47,8 @@ public class AndroidInBodyController {
     public void saveInBody(@RequestBody InBody inBody, @PathVariable("member_id") Long member_id) {
         Member member = androidMemberRepository.findById(member_id).get();
         String inBody_date = inBody.getInBody_date();
-        SimpleDateFormat test = new SimpleDateFormat("yyyy-MM-dd");
-        String format = "";
-        try {
-            log.info("inbody_date" + inBody_date);
-            Date parse = test.parse(inBody_date);
-            log.info("parse" + parse.toString());
-            format = test.format(parse) + "T00:00";
-            log.info("format" + format);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
-        InBody byInBody = androidInBodyRepository.findByInBody(member.getUser_id(), format);
+        InBody byInBody = androidInBodyRepository.findByInBody(member.getUser_id(), inBody_date);
         if (byInBody != null) {
             byInBody.setInBody_weight(inBody.getInBody_weight());
             byInBody.setInBody_smm(inBody.getInBody_smm());
@@ -71,6 +60,19 @@ public class AndroidInBodyController {
             inBody.setInBody_user_id(member.getUser_id());
             androidInBodyRepository.save(inBody);
         }
+    }
+
+    @PutMapping("update")
+    public void updateInbody(@RequestBody InBody i) {
+        Long id = i.getId();
+        InBody findByInBody = androidInBodyRepository.findById(id).get();
+        findByInBody.setInBody_rmr(i.getInBody_rmr());
+        findByInBody.setInBody_smm(i.getInBody_smm());
+        findByInBody.setInBody_bfp(i.getInBody_bfp());
+        findByInBody.setInBody_weight(findByInBody.getInBody_weight());
+        findByInBody.setInBody_date(i.getInBody_date());
+
+        androidInBodyRepository.save(findByInBody);
     }
 
     @DeleteMapping("delete/{inbody_id}")
