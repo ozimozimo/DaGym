@@ -1,5 +1,6 @@
 package com.testcode.yjp.last.domain;
 
+import com.testcode.yjp.last.domain.dto.android.AndExerciseRecordDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "exrecord")
 public class ExRecord {
 
@@ -35,5 +37,13 @@ public class ExRecord {
         this.ex_weight = ex_weight;
         this.ex_count = ex_count;
         this.ex_date = ex_date;
+    }
+
+    public void ExRecordUpdate(AndExerciseRecordDto exerciseRecordDto) {
+        this.ex_name = exerciseRecordDto.getEx_name();
+        this.ex_set = exerciseRecordDto.getEx_set();
+        this.ex_weight =exerciseRecordDto.getEx_weight();
+        this.ex_count = exerciseRecordDto.getEx_count();
+        this.ex_date = exerciseRecordDto.getEx_date();
     }
 }

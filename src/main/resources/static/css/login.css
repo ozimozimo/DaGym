@@ -16,12 +16,14 @@ a {
 }
 
 .title {
-  margin: 20px auto;
-  text-align: center;
+  width: 150px;
+  margin: 0 auto;
+  background-color: blue;
 }
 
 .login_form {
   width: 320px;
+  background-color: red;
 }
 
 .resp_member_login {

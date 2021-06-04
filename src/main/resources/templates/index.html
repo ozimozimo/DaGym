@@ -1,6 +1,80 @@
-<!doctype html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      data-layout-decorate="~{layout/default}">
+<!DOCTYPE html>
+<html
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        data-layout-decorate="~{layout/default}"
+>
+<head>
+    <title>Main</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}"/>
+</head>
+<div layout:fragment="content">
+
+    <div class="wrapper">
+        <div class="home">
+            <div class="container">
+                <div class="person">
+                    <span class="person-overlay"></span>
+                    <!--                    <img th:src="@{}" alt="" />-->
+                </div>
+                <div class="home-text">
+                    <h6 class="student">우리는함께 운동한다.</h6>
+                    <h1 class="name">DAGYM</h1>
+
+                    <p class="small-intro">
+                        안녕하세요 이동기입니다.안녕하세요 이동기입니다.안녕하세요
+                        이동기입니다.안녕하세요 이동기입니다.안녕하세요
+                        이동기입니다.안녕하세요 이동기입니다.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="card">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <div class="content">
+                    <h2>01</h2>
+                    <h3>Post title</h3>
+                    <p>다짐은 다짐은 다짐은 다짐은 다짐은</p>
+                    <a href="#"> Read More</a>
+                </div>
+            </div>
+            <div class="card">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <div class="content">
+                    <h2>02</h2>
+                    <h3>Post Title</h3>
+                    <p>다짐은</p>
+                    <a href="#"> Read More</a>
+                </div>
+            </div>
+            <div class="card">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <div class="content">
+                    <h2>03</h2>
+                    <h3>Post Title</h3>
+                    <p>다짐은</p>
+                    <a href="#"> Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.7.0/jquery.lettering.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script th:src="@{/js/index.js}"></script>
+</div>
 </html>

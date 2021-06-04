@@ -1,10 +1,20 @@
 $(function () {
+    changeId();
     $(".addEx_btn").on("click", addExBtnClick);
     todayData();
+
 });
 
 let date = new Date();
 date = getFormatDate(date);
+
+function changeId(){
+    let location = window.location.href;
+    let arr = location.split("=");
+    $('.member').val(arr[1]);
+    console.log('arr : ' + arr[1]);
+   $('.ex_record_member_id').val(arr[1]);
+}
 
 function getFormatDate(date) {
     let year = date.getFullYear();
@@ -16,7 +26,7 @@ function getFormatDate(date) {
 }
 
 function addExBtnClick() {
-    let id = $(".member_id").val();
+    let id = $(".member").val();
     let ex_record_member_id = $('.ex_record_member_id').val();
     let ex_name = $("#ex_name").val();
     let ex_set = $("#ex_set").val();
@@ -100,7 +110,7 @@ function mkExr(result) {
 // 오늘 날짜 데이터
 function todayData() {
     let today = date;
-    let id = $('.loginId').text();
+    let id = $('.ex_record_member_id').val();
     let data = {
         id: id,
         ex_date: today

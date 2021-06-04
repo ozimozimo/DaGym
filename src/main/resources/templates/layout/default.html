@@ -23,46 +23,43 @@
     <!-- 아이콘-->
     <link rel="shortcut icon" href="/main"/>
 
-    <!-- 메인 css -->
-    <link th:href="@{~/css/main/all.min.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{~/css/main/bootstrap.min.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{~/css/main/ruang-admin.min.css}" rel="stylesheet">
-
     <!--    공통 css js-->
-    <link rel="stylesheet" th:href="@{/css/calendar/fullcalendar.min.css}"/>
-    <link rel="stylesheet" th:href="@{~/css/calendar/bootstrap-datetimepicker.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main/fullcalendar.min.css}"/>
+    <link rel="stylesheet" th:href="@{~/css/main/bootstrap-datetimepicker.min.css}"/>
 
     <script th:src="@{/js/chart.js}"></script>
-
     <script th:src="@{~/js/main/jquery.min.js}"></script>
-    <script th:src="@{~/js/main/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{~/js/main/bootstrap.min.js}"></script>
     <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
 
+    <link th:href="@{~/css/main/bootstrap.min.css}" rel="stylesheet" type="text/css">
+<!--    <link href="https://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400"-->
+<!--          rel="stylesheet"-->
+<!--          type="text/css"-->
+<!--    />-->
+    <!--    아이콘 -->
+    <!--    <link-->
+    <!--            href="https://fonts.googleapis.com/icon?family=Material+Icons"-->
+    <!--            rel="stylesheet"-->
+    <!--    />-->
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+          rel="stylesheet">
+
+    <!-- 메인 css -->
+    <link th:href="@{~/css/header.css}" rel="stylesheet" type="text/css">
+
 </head>
-<body id="page-top">
-<div id="wrapper">
-    <!-- body 태그 내부의 header 를 담당하는 부분이다. -->
-    <ul th:replace="fragments/header :: headerFragment"></ul>
-    <div id="content-wrapper" class="d-flex flex-column">
-        <div id="content">
-            <nav th:replace="fragments/topnav :: topnavFragment"></nav>
-            <!-- 아래 div가 컨트롤러에 의해 교체되는 content 영역이다. -->
-            <!--            컨텐츠-->
-            <div layout:fragment="content" class="container-fluid" id="container-wrapper"></div>
-            <!--            컨텐츠 끝 -->
-        </div>
-        <!-- body 태그 내부의 footer 를 담당하는 부분이다. -->
-        <footer th:replace="fragments/footer :: footerFragment"></footer>
-    </div>
-</div>
+<body>
 
-<!-- Scroll to top -->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
+<!-- body 태그 내부의 header 를 담당하는 부분이다. -->
+<header th:replace="fragments/header :: headerFragment"></header>
 
-<!--<script src="vendor/chart.js/Chart.min.js"></script>-->
-<!--<script src="js/demo/chart-area-demo.js"></script>-->
-<script th:src="@{~/js/main/ruang-admin.min.js}"></script>
+<!--            컨텐츠-->
+<div layout:fragment="content"></div>
+<!--            컨텐츠 끝 -->
+
+<!-- body 태그 내부의 footer 를 담당하는 부분이다. -->
+<!--<footer th:replace="fragments/footer :: footerFragment"></footer>-->
+
 </body>
 </html>

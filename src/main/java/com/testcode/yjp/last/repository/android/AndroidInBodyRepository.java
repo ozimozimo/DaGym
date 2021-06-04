@@ -11,4 +11,7 @@ import java.util.ArrayList;
 public interface AndroidInBodyRepository extends JpaRepository<InBody,Long> {
     @Query("select m from InBody m where m.inBody_user_id = :user_id order by m.inBody_date")
     ArrayList<InBody> findByUserId(String user_id);
+
+    @Query("select m from InBody m where m.inBody_user_id = :user_id and m.inBody_date like :date%")
+    InBody findByInBody(String user_id, String date);
 }

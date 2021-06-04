@@ -36,7 +36,6 @@ td.extra_kcal,td.extra_carbo,td.extra_protein,td.extra_fat{
 }
 
 .diet_name {
-
     max-width:50px;
     white-space: nowrap;
     overflow: hidden;

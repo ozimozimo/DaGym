@@ -16,7 +16,6 @@ import java.util.ArrayList;
 @Slf4j
 @RequestMapping("/android/board/comment")
 public class AndroidCommentsController {
-
     private final AndroidBoardRepository androidBoardRepository;
     private final AndroidCommentRepository androidCommentRepository;
 

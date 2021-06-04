@@ -1,15 +1,10 @@
 package com.testcode.yjp.last.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 @Entity
 @NoArgsConstructor
 @Table(name = "PT_USER")
@@ -22,7 +17,7 @@ public class PTUser {
     @JoinColumn(name = "member_id")
     private Member member_id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "trainer_id")
     private Member trainer_id;
 
@@ -45,6 +40,11 @@ public class PTUser {
         this.user_email = user_email;
         this.start_date = start_date;
         this.end_date = end_date;
+        this.accept_condition = accept_condition;
+    }
+
+    public void update(Long id, String accept_condition) {
+        this.id = id;
         this.accept_condition = accept_condition;
     }
 }

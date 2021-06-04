@@ -11,7 +11,6 @@ $(function () {
         console.log('오늘');
         todayData();
     }
-
 })
 
 // 오늘 날짜 가져오기 (2021-04-30 형태)
@@ -307,12 +306,9 @@ function showDayAllResult() {
 
     nutr(e, '.dailyEatRate');
     nutr(k, '.dailyKcal');
-    let aa = nutr(c, '.dailyCarbo');
-    let ab = nutr(p, '.dailyProtein');
-    let ac = nutr(f, '.dailyFat');
-
-    chartCreate(aa,ab,ac);
-
+    nutr(c, '.dailyCarbo');
+    nutr(p, '.dailyProtein');
+    nutr(f, '.dailyFat');
 
 }
 
@@ -325,7 +321,6 @@ function nutr(arr, where) {
 
     })
     $(where).text(sum);
-    return sum;
 }
 
 // 식단 리스트 삭제
@@ -355,39 +350,4 @@ function showEat(){
     $('.extraEat').show();
     $('.dailyEat').show();
     $('.noData').hide();
-}
-
-function chartCreate(a,b,c){
-    // let dailyCarbo = $('.dailyCarbo').html();
-    // let dailyProtein = $('.dailyProtein').val();
-    // let dailyFat = $('.dailyFat').text();
-    //
-    // console.log(dailyCarbo);
-    // console.log(dailyProtein);
-    // console.log(dailyFat);
-
-    let myChart = new Chart(
-        document.getElementById('myChart'),
-        {
-            type: 'pie',
-            data: {
-                labels: [
-                    '탄수화물',
-                    '단백질',
-                    '지방'
-                ],
-                datasets: [{
-                    label: 'My First Dataset',
-                    data: [a, b, c],
-                    backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 205, 86)'
-                    ],
-                    hoverOffset: 4
-                }]
-            },
-        }
-    );
-
 }
