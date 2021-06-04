@@ -3,35 +3,17 @@
 
 <header th:fragment="headerFragment">
 
-    <!--        <li class="nav-item">-->
-    <!--            <a class="nav-link" th:href="@{/inBody/register}">-->
-    <!--                <i class="fas fa-fw fa-chart-area"></i>-->
-    <!--                <span>인바디</span>-->
-    <!--            </a>-->
-    <!--        </li>-->
-    <!--        <li class="nav-item">-->
-    <!--            <a class="nav-link" th:href="@{/ExRecord/exercise(id=${session.loginId})}">-->
-    <!--                <i class="fas fa-fw fa-chart-area"></i>-->
-    <!--                <span>운동기록</span>-->
-    <!--            </a>-->
-    <!--        </li>-->
-    <!--        <li class="nav-item">-->
-    <!--            <a class="nav-link" th:href="@{/diet/list(id=${session.loginId})}">-->
-    <!--                <i class="fas fa-fw fa-chart-area"></i>-->
-    <!--                <span>식단</span>-->
-    <!--            </a>-->
-    <!--        </li>-->
-
-    <div class="logo">
+    <div class="dagym">
         <a th:href="@{/}">
             <img th:src="@{~/image/dagym.png}" height="70px"/>
         </a>
     </div>
     <nav class="stroke">
         <ul>
-<!--            로그인한게 트레이너이면 회원관리(현재 PT중인 회원), PT관리는 트레이너가 신청받은 회원들 조회-->
-            <li th:if="${session.loginRole == 'trainer'}"><a th:href="@{/ptUser/manage(id=${session.loginUser})}" style="text-decoration:none">회원 관리</a></li>
-<!--            트레이너이면 수락한 회원목록, 회원이면 트레이너 검색창으로 이동-->
+            <!--            로그인한게 트레이너이면 회원관리(현재 PT중인 회원), PT관리는 트레이너가 신청받은 회원들 조회-->
+            <li th:if="${session.loginRole == 'trainer'}"><a th:href="@{/ptUser/manage(id=${session.loginUser})}"
+                                                             style="text-decoration:none">회원 관리</a></li>
+            <!--            트레이너이면 수락한 회원목록, 회원이면 트레이너 검색창으로 이동-->
             <li><a th:href="@{/ptUser/view}" style="text-decoration:none">PT 신청</a></li>
             <li><a th:href="@{/calendar/memo(id=${session.loginUser})}" style="text-decoration:none">일정</a></li>
             <li><a href="#" style="text-decoration:none">채팅</a></li>
@@ -40,20 +22,34 @@
 
     </nav>
     <div class="right_menu">
+        <div class="beforLogin_wrap">
         <a th:if="${session.loginUser == null}" th:href="@{/member/login}">
-            <span class="material-icons md-36">account_circle</span>
+            <span class="material-icons md-48">account_circle</span>
         </a>
-        <div class="dropdown" th:if="${session.loginUser != null}">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                <span class=" material-icons-outlined md-48">manage_accounts</span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">마이페이지</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">로그아웃</a></li>
-            </ul>
+        </div>
+
+        <div th:if="${session.loginUser != null}" class="afterLogin">
+
+            <div class="afterLogin_wrap">
+                <a href="#" class="notice"><span class="material-icons-outlined">check_circle</span></a>
+            </div>
+            <div class="dropdown">
+                <a class="dropdown toggle" data-toggle="dropdown">
+                    <strong class="name" th:text="${session.loginName}"></strong> 님
+                    <!--                <span class="caret"></span>-->
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right " role="menu">
+                    <li><a class="dropdown-item" th:href="@{/member/mypage(member_id = ${session.loginUser})}">마이페이지</a></li>
+                    <li><a class="dropdown-item" th:href="@{/diet/list(id=${session.loginId})}">식단</a></li>
+                    <li><a class="dropdown-item" th:href="@{/ExRecord/exercise(id=${session.loginId})}">운동기록</a></li>
+                    <li><a class="dropdown-item" th:href="@{/inBody/register}">인바디</a></li>
+                    <li class="divider"><a class="dropdown-item"></a></li>
+                    <li><a class="dropdown-item" th:href="@{/member/logout}">로그아웃</a></li>
+                </ul>
+            </div>
         </div>
     </div>
+
 
 </header>
 
