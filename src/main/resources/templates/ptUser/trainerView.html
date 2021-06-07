@@ -7,16 +7,17 @@
 >
 <head>
     <script th:src="@{/js/trainer.js?ver=1.0}"></script>
+    <link rel="stylesheet" th:href="@{/css/userView.css}"/>
 </head>
 <body>
 <div layout:fragment="content">
     <!--    로그인한 유저롤이 트레이너일 때-->
-    <div class="container-fluid p-0" th:if="${session.loginRole == 'trainer'}">
+    <div th:if="${session.loginRole == 'trainer'}">
         <input type="hidden" th:value="${session.loginUser}" class="member_id">
-        <div class="row">
-            <div class="col-12 col-xl-12">
+        <div>
+            <div>
                 <h1>받은 신청</h1>
-                <div class="card">
+                <div>
                     <table class="applyList">
                         <th>회원아이디</th>
                         <th>회원이름</th>
@@ -33,8 +34,8 @@
 
 
     <!-- 로그인한 유저롤이 유저일 때-->
-    <div class="container-fluid p-0" th:if="${session.loginRole == 'user'}">
-        <h1 class="h3 mb-3">트레이너 찾기</h1>
+    <div th:if="${session.loginRole == 'user'}">
+        <h2>트레이너 찾기</h2>
         <h1 th:text="${session.loginId}" class="loginId" style="display: none"></h1>
         <input type="hidden" th:value="${session.loginUser}" class="loginUserId">
         <!--트레이너 검색-->
@@ -49,38 +50,34 @@
                 <button>검색하기</button>
             </div>
         </form>
-        <div class="row">
-            <div class="col-12 col-xl-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">트레이너 검색 결과</h5>
-                    </div>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>이름</th>
-                            <th>아이디</th>
-                            <th>휴대폰 번호</th>
-                            <th>헬스장 이름</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="member : ${memberList}">
-                            <td th:text="${member.user_id}" class="trainer"></td>
-                            <td th:text="${member.user_name}"></td>
-                            <td th:text="${member.user_pn}"></td>
-                            <td th:text="${member.address_normal}+'('+${member.address_detail}+')'"></td>
-                            <td>
-                                <a th:href="@{~/ptUser/apply(member_id = ${session.loginUser} , trainer_id = ${member.id})}"
-                                   th:text="신청" onclick="check()"></a></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+
+        <div class="user_view">
+            <h5>트레이너 검색 결과</h5>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>이름</th>
+                    <th>아이디</th>
+                    <th>휴대폰 번호</th>
+                    <!--                            <th>헬스장 이름</th>-->
+                    <!--                            <th></th>-->
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="member : ${memberList}">
+                    <td th:text="${member.user_id}" class="trainer"></td>
+                    <td th:text="${member.user_name}"></td>
+                    <td th:text="${member.user_pn}"></td>
+                    <!--                            <td th:text="${member.address_normal}+'('+${member.address_detail}+')'"></td>-->
+                    <td>
+                        <a th:href="@{~/ptUser/apply(member_id = ${session.loginUser} , trainer_id = ${member.id})}"
+                           th:text="신청" onclick="check()"></a></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
+
     </div>
 </div>
 </body>

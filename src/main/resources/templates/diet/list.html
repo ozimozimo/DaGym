@@ -23,7 +23,7 @@
 <!-- 달력, 식단검색-->
 <div layout:fragment="content">
     <!--    th:if 부분 추가-->
-    <input type="hidden" th:value="${session.loginUser}" class="member" />
+    <input type="text" th:value="${session.loginUser}" class="member" />
     <input type="hidden" class="date" value=""/>
     <div th:if="${session.loginId != null}">
         <h1 th:text="${session.loginId}" class="loginId"></h1>
@@ -191,21 +191,21 @@
         </table>
     </div>
 
-    <div class="trainerAdvice">
-        <h1>트레이너 코멘트</h1>
-        <form action="#" type="post">
-            <textarea class="adviceWrite" cols="50" rows="5" style="resize: none"
-                      placeholder="피드백할 내용을 입력하세요"></textarea>
-            <div>
-                <button type="button" class="adviceAdd">피드백</button>
-                <input type="reset">
-            </div>
-            <div class="adviceList"></div>
-            <div>
-                <button type="button" class="adviceUpdate">수정하기</button>
-            </div>
-        </form>
-    </div>
+<!--    <div class="trainerAdvice">-->
+<!--        <h1>트레이너 코멘트</h1>-->
+<!--        <form action="#" type="post">-->
+<!--            <textarea class="adviceWrite" cols="50" rows="5" style="resize: none"-->
+<!--                      placeholder="피드백할 내용을 입력하세요"></textarea>-->
+<!--            <div>-->
+<!--                <button type="button" class="adviceAdd">피드백</button>-->
+<!--                <input type="reset">-->
+<!--            </div>-->
+<!--            <div class="adviceList"></div>-->
+<!--            <div>-->
+<!--                <button type="button" class="adviceUpdate">수정하기</button>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
 </div>
 </body>
 </html>
