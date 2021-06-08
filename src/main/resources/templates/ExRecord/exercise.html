@@ -13,14 +13,16 @@
     <script th:src="@{/js/exercise.js?ver=1.0}"></script>
     <script th:src="@{/js/calendar.js?ver=1.0}"></script>
 
+
+
 </head>
 
 <body>
 <div layout:fragment="content">
     <!--        현재 로그인한 회원의 member_id-->
-    <input type="text" th:value="${session.loginUser}" class="member">
-    <input type="text" th:value="${session.loginId}" class="ex_record_member_id">
-    <input type="text" class="date" value="">
+    <input type="hidden" th:value="${session.loginUser}" class="member">
+    <input type="hidden" th:value="${session.loginId}" class="ex_record_member_id">
+    <input type="hidden" class="date" value="">
     <div th:if="${session.loginId != null}">
         <p>
         <h1 th:text="${session.loginId}" class="loginId" style="display: none"></h1></p>

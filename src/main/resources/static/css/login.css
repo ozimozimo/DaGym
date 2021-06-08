@@ -70,7 +70,7 @@
   padding-left: 10px;
   font-size: 1.1rem; */
   color: white;
-  font-size: 1rem;
+  font-size: 15px;
 }
 
 input:focus {
@@ -79,7 +79,7 @@ input:focus {
 
 input::placeholder {
   color: #e2e2e2;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: bold;
   font-family: "S-CoreDream-3Light";
 }
@@ -140,7 +140,8 @@ button {
 }
 
 .kakao {
-  background-color: #ffd400;
+  /*background-color: #ffd400;*/
+  background-color: #FBE300;
   margin-bottom: 10px;
 }
 

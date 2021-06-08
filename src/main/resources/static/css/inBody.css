@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+.content {
+    padding: 50px 100px 0 150px;
+}
+
 .head{
     font-size: 40px;
     color: #dc1a65;
