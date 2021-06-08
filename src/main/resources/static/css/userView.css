@@ -1,4 +1,16 @@
-.user_view {
-    max-width: 1000px;
-    background-color: #0d6efd;
+.content {
+    padding: 50px 100px 0 150px;
+}
+.search-form {
+    display: flex;
+}
+
+.search-type {
+    width: 150px;
+    margin-right: 5px;
+}
+
+.search-input {
+    width: 250px;
+    margin-right: 5px;
 }

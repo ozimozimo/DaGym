@@ -24,6 +24,7 @@
     background-size: cover;
 }
 
+
 .home .container {
     max-width: 1266px;
     margin-right: 0 auto;
@@ -107,7 +108,10 @@ span {
     height: 100%;
     object-fit: cover;
 }
-
+/*두번째 div 배경 */
+.introduction .container{
+    background-color: #5c91fe;
+}
 
 /*
 밑에 카드

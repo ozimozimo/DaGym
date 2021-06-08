@@ -23,10 +23,10 @@
 <!-- 달력, 식단검색-->
 <div layout:fragment="content">
     <!--    th:if 부분 추가-->
-    <input type="text" th:value="${session.loginUser}" class="member" />
+    <input type="hidden" th:value="${session.loginUser}" class="member" />
     <input type="hidden" class="date" value=""/>
     <div th:if="${session.loginId != null}">
-        <h1 th:text="${session.loginId}" class="loginId"></h1>
+        <h1 th:text="${session.loginId}" class="loginId" style="display:none;"></h1>
     </div>
     <div style="display: flex; align-items: center; justify-content: center; padding-left:150px">
         <div id="calendar" style="min-width: 600px;"></div>
