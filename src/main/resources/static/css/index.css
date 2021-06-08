@@ -18,7 +18,7 @@
     /*width: 100%;*/
     /*height: 900px;*/
 
-    height:850px;
+    height:750px;
     background-image: url("../image/index_background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -27,53 +27,54 @@
 
 .home .container {
     max-width: 1266px;
-    margin-right: 0 auto;
+    /*margin : 0 auto;*/
 }
 /* MICHAEL IMAGE 사람 이미지부분 */
-.home .person {
-    float: right;
-    margin: 70px 180px 0;
-    position: relative;
-    border-radius: 70px 0 70px 0;
-    overflow: hidden;
-}
-.home .person img {
-    filter: brightness(1.5);
-}
-.home .person-overlay {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: #525252;
-    z-index: 99;
-}
+/*.home .person {*/
+/*    float: right;*/
+/*    margin: 70px 180px 0;*/
+/*    position: relative;*/
+/*    border-radius: 70px 0 70px 0;*/
+/*    overflow: hidden;*/
+/*}*/
+/*.home .person img {*/
+/*    filter: brightness(1.5);*/
+/*}*/
+/*.home .person-overlay {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: -100%;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    background: #525252;*/
+/*    z-index: 99;*/
+/*}*/
 span {
     font-weight: bold;
 }
 /* MICHAEL TEXT */
 .home-text {
     color: #fff;
-    margin-top: 220px;
+    margin-top: 0px;
     position: absolute;
-    left: 40%;
+    left: 10%;
+    top:30%;
 }
 .home-text h6 {
     text-transform: uppercase;
     letter-spacing: 10px;
-    font-size: 16px;
+    font-size: 22px;
 }
 .home-text h1 {
     text-transform: uppercase;
     font-size: 100px;
 }
-.home-text p {
-    max-width: 500px;
-    font-size: 16px;
-    margin-top: 230px;
-}
+/*.home-text p {*/
+/*    max-width: 500px;*/
+/*    font-size: 16px;*/
+/*    margin-top: 230px;*/
+/*}*/
 .home-text .name span {
     margin-right: 130px;
     display: inline-block;
@@ -92,22 +93,6 @@ span {
     opacity: 0;
 }
 
-.map_area {
-    padding: 30px 0px;
-    text-align: center;
-}
-
-.map_img {
-    width: 1140px;
-    height: 450px;
-    margin: 0 auto;
-}
-
-.map_img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
 /*두번째 div 배경 */
 .introduction .container{
     background-color: #5c91fe;
@@ -127,11 +112,11 @@ span {
     justify-content: center;
     align-items: center;
     /* background: #08001b; */
-    min-height: 100vh;
+    /*min-height: 100vh;*/
 }
 .container {
     width: 100%;
-    height: 200x;
+    height: 900px;
     display: flex;
     justify-items: center;
     align-items: center;
@@ -146,7 +131,7 @@ span {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 30px;
+    margin: 70px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
     overflow: hidden;
 }
@@ -292,6 +277,27 @@ span {
     }
 }
 
-.introduction {
-    background-color: rgba(0, 0, 0, 0.3);
+.introduction .container {
+    /*background-color: rgba(77, 53, 184, 0.48);*/
+    background-image: url("../image/index_bgimg2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+.map_area {
+    padding: 30px 0px;
+    text-align: center;
+    height:700px;
+}
+
+/*.map_img {*/
+/*    width: 1140px;*/
+/*    height: 450px;*/
+/*    margin: 0 auto;*/
+/*}*/
+
+.map_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
