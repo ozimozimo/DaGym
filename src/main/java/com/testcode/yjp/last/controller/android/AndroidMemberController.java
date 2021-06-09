@@ -49,12 +49,15 @@ public class AndroidMemberController {
 
     // Json Id 중복검사
     @PostMapping("/idChk")
-    public String IdChk(@RequestBody String user_id) throws Exception {
+    public Member IdChk(@RequestBody String user_id) throws Exception {
         log.info("AndroidController IdChk 1st Line");
 
         user_id = user_id.replaceAll("\\\"", "");
-        String str = andMemberService.IdChk(user_id); // YES or NO
-        return str;
+
+        Member data = androidMemberRepository.findByUser_id(user_id);
+
+//        String str = andMemberService.IdChk(user_id); // YES or NO
+        return data;
     }
 
     //로그인

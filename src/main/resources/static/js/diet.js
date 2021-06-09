@@ -1,4 +1,5 @@
 $(function () {
+    changeId();
     $('.dietSearch').on('click', dietSearch);
     $('.dietWindow').on('click', dietWindow);
     $('.dietClose').on('click', function () {
@@ -13,9 +14,21 @@ $(function () {
     }
 })
 
+// 내가 선택한 회원 정보 조회를 위해 회원 아이디만 따로 빼오는 곳
+function changeId(){
+    let location = window.location.href;
+    let arr = location.split("=");
+    $('.member_id').val(arr[1]);
+    console.log('arr : ' + arr[1]);
+    let b = $('.loginId').text(arr[1]);
+    console.log(b)
+}
+// 이상하다고 쌰발
+
 // 오늘 날짜 가져오기 (2021-04-30 형태)
 var date = new Date();
 date = getFormatDate(date);
+let myChart;
 
 // 날짜 포맷 변경
 function getFormatDate(date) {
@@ -90,14 +103,12 @@ function dietResult(result) {
     }
 }
 
-
-
 // 식단 추가
 function dietAdd() {
     $('.dietAdd').on('click', function (e) {
         splitDate();
         console.log($('.date').val());
-        var id = $('.member_id').val();
+        var id = $('.member').val();
         // 내가 먹은 양
         var eat_rate = $(this).parent().siblings().children('.eat_rate').val();
         // 기존 제공량
@@ -128,6 +139,7 @@ function dietAdd() {
             console.log(data)
         }).fail(function (error) {
             alert(error);
+            console.log(data);
             console.log(JSON.stringify(error));
         })
     })
@@ -138,13 +150,12 @@ function dietWindow() {
     var popupX = (window.screen.width / 2) - (800 / 2);
     var popupY = (window.screen.height / 2) - (700 / 2);
     var date = $('.date').val();
-    var option = 'status=no, height=700, width=800, left=' + popupX + ', top=' + popupY + ', screenX=' + popupX + ', screenY= ' + popupY;
+    var option = 'status=no, height=700, width=1560, left=' + popupX + ', top=' + popupY + ', screenX=' + popupX + ', screenY= ' + popupY;
     var url = "http://localhost:8090"
+    // var url = "http://140.238.25.78:8090";
     url += "/diet/search" + "?" + date;
     window.open(url, 'dietWindow', option);
     console.log($('.date').val());
-    // var url = "http://140.238.25.78:8090";
-    // window.open(url, 'dietWindow', option);
 }
 
 // 식단 삭제
@@ -208,6 +219,9 @@ function showSumNutr(){
     sumNutr('.extraList', '.diet_carbo', '.extra_carbo');
     sumNutr('.extraList', '.diet_protein', '.extra_protein');
     sumNutr('.extraList', '.diet_fat', '.extra_fat');
+
+    chartCreate();
+
 }
 // 영양소별 합계
 function sumNutr(timeList, nutr, timeNutr) {
@@ -217,8 +231,8 @@ function sumNutr(timeList, nutr, timeNutr) {
         sum += value;
     }
     $(timeNutr).text(sum);
-
     showDayAllResult();
+
 }
 
 // 값 넣기
@@ -256,7 +270,7 @@ function input(obj) {
     let content = "<tr class=" + timeObj.list + ">"
     content += "<td class='diet_id' style='display: none'>" + obj.g + "</td>"
     content += "<td class='diet_member_id' style='display: none'>" + obj.h + "</td>"
-    content += "<td class='diet_name'>" + obj.a + "</td>"
+    content += `<td class='diet_name' title='${obj.a}'>` + obj.a + "</td>"
     content += "<td class='eat_rate'>" + obj.k + "</td>"
     content += "<td class='diet_kcal'>" + obj.b + "</td>"
     content += "<td class='diet_carbo'>" + obj.c + "</td>"
@@ -309,18 +323,18 @@ function showDayAllResult() {
     nutr(c, '.dailyCarbo');
     nutr(p, '.dailyProtein');
     nutr(f, '.dailyFat');
-
 }
 
 // 일일 합계
 function nutr(arr, where) {
     let sum = 0;
     arr.forEach(function (el, index) {
-        let value = parseInt($(el).text());
-        sum += value;
-
+        let value = $(el).text();
+        sum += parseInt(value);
     })
+
     $(where).text(sum);
+    return sum;
 }
 
 // 식단 리스트 삭제
@@ -343,6 +357,7 @@ function hideEat(){
     $('.extraList').remove();
     $('.noData').show();
 }
+
 function showEat(){
     $('.breakfastEat').show();
     $('.lunchEat').show();
@@ -350,4 +365,57 @@ function showEat(){
     $('.extraEat').show();
     $('.dailyEat').show();
     $('.noData').hide();
+}
+
+function chartCreate(){
+    let a = parseInt($('.dailyCarbo').text());
+    let b = parseInt($('.dailyProtein').text());
+    let c = parseInt($('.dailyFat').text());
+
+    let dailyCarbo = (a/(a+b+c)*100).toFixed(2);
+    let dailyProtein = (b/(a+b+c)*100).toFixed(2);
+    let dailyFat = (c/(a+b+c)*100).toFixed(2);
+    if(myChart){
+        myChart.destroy();
+    }
+
+    myChart = new Chart(
+        document.getElementById('myChart'),
+        {
+
+            type: 'pie',
+            data: {
+                labels: [
+                    '탄수화물',
+                    '단백질',
+                    '지방'
+                ],
+                datasets: [{
+                    label: 'chart',
+                    data: [dailyCarbo, dailyProtein, dailyFat],
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 205, 86)'
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options : {
+                responsive:false,
+                title: {
+                    display: true,
+                    text: '하루 섭취량',
+                }
+            }
+        }
+    );
+
+}
+
+function zeroData(){
+    $('.dailyCarbo').text('0');
+    $('.dailyProtein').text('0');
+    $('.dailyFat').text('0');
+
 }
