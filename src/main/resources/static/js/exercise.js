@@ -3,6 +3,10 @@ $(function () {
     $(".addEx_btn").on("click", addExBtnClick);
     todayData();
 
+    if($('.loginId').text() != $('.member').val()){
+        $('.add_area').hide();
+    }
+
 });
 
 let date = new Date();
@@ -100,6 +104,7 @@ function mkExr(result) {
         content += "<td class='res_ex_count'>" + e + "개</td>"
         content += "<td class='res_ex_weight'>" + f + "KG</td>"
         content += "<td class='res_ex_date' style='display: none'>" + g + "</td>"
+
         if (id == b)
             content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>"
         content += "</tr>"

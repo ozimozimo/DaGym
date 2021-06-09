@@ -12,6 +12,13 @@ $(function () {
         console.log('오늘');
         todayData();
     }
+
+    if( $('.loginId').text() != $('.member').val()){
+        $('.addBtn').hide();
+        $('.diet_Delete').hide();
+    }
+
+
 })
 
 // 내가 선택한 회원 정보 조회를 위해 회원 아이디만 따로 빼오는 곳
@@ -23,7 +30,6 @@ function changeId(){
     let b = $('.loginId').text(arr[1]);
     console.log(b)
 }
-// 이상하다고 쌰발
 
 // 오늘 날짜 가져오기 (2021-04-30 형태)
 var date = new Date();
@@ -250,7 +256,7 @@ function input(obj) {
     let dinnerList = new eatTime('저녁', 'dinnerList', '.dinner', '.dinnerEat');
     let extra = new eatTime('간식', 'extraList', '.extra', '.extraEat');
     let timeObj;
-    let id = $('.loginId').text();
+    let id = $('.member').val();
 
     switch (obj.f) {
         case "아침" :
