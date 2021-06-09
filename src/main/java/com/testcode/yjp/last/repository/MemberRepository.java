@@ -17,7 +17,7 @@ public interface MemberRepository  extends JpaRepository<Member,Long> {
 //    @Query("select m from Member m where user_id = :user_id and user_password = :user_password")
 //    Member findMember(String user_id, String user_password);
 //
-    @Query("select m from Member m where user_id = :user_id")
+    @Query("select m from Member m where m.user_id = :user_id")
     Member findByUser_id(String user_id);
     // 로그인 정보값
     @Query("select m from Member m where user_id = :user_id and user_pw = :user_pw")

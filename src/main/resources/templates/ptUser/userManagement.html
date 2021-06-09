@@ -26,14 +26,14 @@
         </thead>
         <tbody>
         <tr th:each="acceptList: ${acceptList}">
-        <td> <span th:text="${acceptList.user_id}"></span></td>
         <td> <span th:text="${acceptList.user_name}"></span></td>
+        <td> <span th:text="${acceptList.user_id}"></span></td>
         <td> <span th:text="${acceptList.user_pn}"></span></td>
         <td> <span th:text="${acceptList.start_date}"></span></td>
         <td>  <span th:text="${acceptList.end_date}"></span></td>
-            <td> <a class="btn btn-primary" th:href="@{/diet/list(id=${acceptList.user_id})}">식단</a></td>
-            <td> <a class="btn btn-primary" th:href="@{/ExRecord/exercise(id=${acceptList.user_id})}">운동기록</a></td>
-            <td><a class="btn btn-primary" th:href="@{/inBody/inBodyResult(id=${acceptList.user_id})}">인바디</a></td>
+            <td> <a class="btn btn-primary" th:href="@{/diet/list(id=${acceptList.user_name})}">식단</a></td>
+            <td> <a class="btn btn-primary" th:href="@{/ExRecord/exercise(id=${acceptList.user_name})}">운동기록</a></td>
+            <td><a class="btn btn-primary" th:href="@{/inBody/inBodyResult(id=${acceptList.user_name})}">인바디</a></td>
         </tr>
         </tbody>
     </table>

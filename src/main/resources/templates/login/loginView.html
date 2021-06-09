@@ -69,12 +69,12 @@
           <p></p>
           <div class="line">or</div>
           <p></p>
-          <button class="kakao">
-            <img th:src="@{/image/kakaotalk.png}" alt=""/>
+          <button  id="kakao-login-btn" class="kakao social-btn" onclick="kakaoLogin()">
+            <img th:src="@{/image/kakaotalk.png}" alt="" />
             <span>카카오톡으로 로그인</span>
           </button>
-          <button class="google">
-            <img th:src="@{/image/google.png}" alt=""/>
+          <button id="google-login-btn" class="google social-btn" onclick="googleLogin()">
+            <img th:src="@{/image/google.png}" alt="" value="GoogleLogin"/>
             <span>구글로 로그인</span>
           </button>
         </div>
