@@ -1,7 +1,8 @@
 $(function () {
+    changeId();
     $(".addEx_btn").on("click", addExBtnClick);
     todayData();
-    changeId();
+
 });
 
 let date = new Date();
@@ -10,10 +11,9 @@ date = getFormatDate(date);
 function changeId(){
     let location = window.location.href;
     let arr = location.split("=");
-    $('.member_id').val(arr[1]);
+    $('.member').val(arr[1]);
     console.log('arr : ' + arr[1]);
-    let b = $('.loginId').text(arr[1]);
-    console.log(b)
+   $('.ex_record_member_id').val(arr[1]);
 }
 
 function getFormatDate(date) {
@@ -110,7 +110,7 @@ function mkExr(result) {
 // 오늘 날짜 데이터
 function todayData() {
     let today = date;
-    let id = $('.loginId').text();
+    let id = $('.ex_record_member_id').val();
     let data = {
         id: id,
         ex_date: today

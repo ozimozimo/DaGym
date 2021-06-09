@@ -35,10 +35,10 @@
 .fc-prev-button {
     width: 30px;
 }
-
-.fc-icon-chevron-right,
-.fc-icon-chevron-left {
-    margin-left: -5px;
+.fc-icon-chevron-right:before,
+.fc-icon-chevron-left:before {
+    margin-left: -17px;
+    margin-top: -10px;
 }
 
 /* 캘린더 끝 */

@@ -8,7 +8,7 @@
 <head>
   <title>login</title>
   <script th:src="@{/js/login.js}"></script>
-  <link rel="stylesheet" th:href="@{/css/login.css}" />
+  <link rel="stylesheet" th:href="@{/css/login.css}"/>
   <meta name="google-signin-client_id"
         content="831600705653-q3poakj6j0ehm7ihhe09l4k77n1tnbme.apps.googleusercontent.com">
   <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -16,64 +16,77 @@
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <div layout:fragment="content">
-  <div class="container">
-    <div class="login_form">
-      <h2 class="title">LOGIN</h2>
-
-      <form action="/member/signIn" method="post" name="loginForm">
-        <div class="resp_member_login">
-          <div class="form-group">
-            <div class="form-group">
-              <input
-                      type="text"
-                      id="user_id"
-                      name="user_id"
-                      placeholder="아이디"
-                      autofocus
-                      required
-              />
+  <div class="contentsLogin">
+    <div class="login-area">
+      <p class="login-title">LOGIN</p>
+      <p class="login-subtitle">Log in to your account</p>
+      <div class="login_form">
+        <form action="/member/signIn" method="post" name="loginForm">
+          <div class="input-area">
+            <input
+                    type="text"
+                    id="user_id"
+                    name="user_id"
+                    placeholder="ID"
+                    autofocus
+                    required
+            />
+            <input
+                    type="password"
+                    id="user_pw"
+                    name="user_pw"
+                    class="form-control"
+                    placeholder="Password"
+                    required
+            />
+            <div class="save_area">
+              <input type="checkbox" id="save_id"/>
+              <span>아이디저장</span>
             </div>
-            <div class="form-group password">
-              <input
-                      type="password"
-                      id="user_pw"
-                      name="user_pw"
-                      class="form-control"
-                      placeholder="패스워드"
-                      required
-              />
+            <div class="area">
+              <div class="check-area">
+                <a href="/member/IdPwCheck" class="find">ID/PW 찾기</a>
+              </div>
+              <div class="sign-area">
+                <a href="/member/join" class="signupBtn">회원가입</a>
+              </div>
             </div>
+            <button
+                    type="submit"
+                    id="loginBtn"
+                    class="login_size btn"
+                    onclick="login()"
+            >
+              LOGIN
+            </button>
+            <!-- <label>
+              <input type="checkbox" id="save_id" />
+              <span>아이디저장</span>
+            </label> -->
           </div>
-
-          <button type="submit" id="loginBtn" class="login_size btn" onclick="login()">로그인</button>
+        </form>
+        <div class="other-login">
+          <p></p>
+          <div class="line">or</div>
+          <p></p>
+          <button class="kakao">
+            <img th:src="@{/image/kakaotalk.png}" alt=""/>
+            <span>카카오톡으로 로그인</span>
+          </button>
+          <button class="google">
+            <img th:src="@{/image/google.png}" alt=""/>
+            <span>구글로 로그인</span>
+          </button>
         </div>
-
-        <div class="form-group save_id">
-          <label for="save_id">
-            <input type="checkbox" id="save_id" />
-            <span>아이디저장</span>
-          </label>
-        </div>
-
-        <div class="link_area">
-          <a href="/member/IdPwCheck">ID/PW 찾기</a>
-          <span class="middle"></span>
-          <a href="/member/join">회원가입</a>
-        </div>
-      </form>
-      <button id="kakao-login-btn" class="social-btn" onclick="kakaoLogin()" >
-        <img th:src="@{/image/kakaotalk.png}" alt="" />
-        <span>카카오톡으로 로그인</span>
-      </button>
-      <button id="google-login-btn" class="social-btn" value="GoogleLogin" onclick="googleLogin()" >
-        <img th:src="@{/image/google.png}" alt="" />
-        <span>구글로 로그인</span>
-      </button>
-
-      <!--        이 위치에 onload=init있어야 구글api 작동함.-->
-      <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+      </div>
     </div>
   </div>
-</div>
+  <script
+          src="https://apis.google.com/js/platform.js?onload=init"
+          async
+          defer
+  ></script>
 
+
+</div>
 </html>

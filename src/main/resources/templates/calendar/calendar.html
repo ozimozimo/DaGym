@@ -12,12 +12,12 @@
 
     <link rel="stylesheet" th:href="@{~/css/calendar/select2.min.css}"/>
     <link rel="stylesheet" th:href="@{~/css/calendar/calendar.css}"/>
-    <!--    <link rel="stylesheet" th:href="@{/css/calendar/bootstrap.min.css}"/>-->
+
     <!--    폰트 -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-    <!--    <script th:src="@{~/js/calendar/bootstrap.min.js}"></script>-->
+
 
     <script th:src="@{~/js/calendar/moment.min.js}"></script>
     <script th:src="@{~/js/calendar/fullcalendar.min.js}"></script>
@@ -46,7 +46,7 @@
 
     <div id="wrapper">
         <div id="loading"></div>
-        <div id="calendar"></div>
+        <div id="calendar" style="max-width: 900px; margin: 0 auto;"></div>
     </div>
 
     <!-- 일정 추가 MODAL -->
@@ -136,7 +136,7 @@
     </div><!-- /.modal -->
 
 
-    <div class="panel panel-default">
+    <div class="panel panel-default" style="width: 900px; margin:0 auto;">
 
         <div class="panel-heading">
             <h4 class="panel-title">필터</h4>

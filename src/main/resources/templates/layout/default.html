@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>default</title>
+    <title>Dagym</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!--    만약 css 부트 템플릿 끌어오면 작성법-->
     <!--<link rel="stylesheet" th:href="@{/css/amdin.css}">-->
@@ -33,15 +33,15 @@
     <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
 
     <link th:href="@{~/css/main/bootstrap.min.css}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400"
-          rel="stylesheet"
-          type="text/css"
-    />
-    <!--    아이콘 -->
-<!--    <link-->
-<!--            href="https://fonts.googleapis.com/icon?family=Material+Icons"-->
-<!--            rel="stylesheet"-->
+<!--    <link href="https://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400"-->
+<!--          rel="stylesheet"-->
+<!--          type="text/css"-->
 <!--    />-->
+    <!--    아이콘 -->
+    <!--    <link-->
+    <!--            href="https://fonts.googleapis.com/icon?family=Material+Icons"-->
+    <!--            rel="stylesheet"-->
+    <!--    />-->
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
           rel="stylesheet">
 
@@ -55,7 +55,7 @@
 <header th:replace="fragments/header :: headerFragment"></header>
 
 <!--            컨텐츠-->
-<div layout:fragment="content"></div>
+<div layout:fragment="content" class="content"></div>
 <!--            컨텐츠 끝 -->
 
 <!-- body 태그 내부의 footer 를 담당하는 부분이다. -->

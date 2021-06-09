@@ -1,134 +1,168 @@
-@charset "UTF-8";
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@font-face {
+  font-family: "NEXON Lv1 Gothic OTF";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
-a {
-  color: #000;
-  text-decoration: none;
+.contentsLogin {
+  width: 100vw;
+  height: 100vh;
+  border-radius: 2px;
+  /* background-color: dimgray; */
+  background-image: url("../image/bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
 }
 
-.container {
-  padding-left: 30%;
+.login-area {
+  width: 600px;
+  height: 530px;
+  position: absolute;
+  top: 20%;
+  left: 35%;
+  /* margin: 0 auto; */
+
+  background-color: rgba(100, 100, 100, 0.5);
+  border-radius: 8px;
 }
 
-.title {
-  margin: 20px auto;
-  text-align: center;
+.login-title {
+  font-family: "NEXON Lv1 Gothic OTF";
+  font-size: 2.2rem;
+  width: 300px;
+  margin: 0 auto;
+  text-align: left;
+  overflow: hidden;
+  color: white;
+  font-weight: bold;
+  margin-top: 50px;
+}
+
+.login-subtitle {
+  font-family: "S-CoreDream-3Light";
+  font-size: 15px;
+  width: 300px;
+  margin: 0 auto;
+  text-align: left;
+  overflow: hidden;
+  color: white;
 }
 
 .login_form {
-  width: 320px;
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 30px;
 }
 
-.resp_member_login {
-  display: flex;
-}
-.resp_member_login input {
-  padding: 0 9px;
-  width: 200px;
-  height: 32px;
-  font-size: 14px;
-  line-height: 32px;
-  color: #333;
-  border: 1px #ccc solid;
-  border-radius: 2px;
-}
-.resp_member_login .password {
-  margin-top: 5px;
-}
-.resp_member_login button {
-  margin-left: 5px;
-  background-color: #4a5164;
-  color: #fff;
-  border-radius: 3px;
-  padding: 8px 30px;
-  border: revert;
-  cursor: pointer;
-}
-.resp_member_login button:hover {
-  color: #ffffff;
-}
-/*form .save_id {*/
-/*  margin-top: 5px;*/
-/*}*/
-form .save_id span {
-  font-size: 14px;
-}
-
-.link_area {
-  margin-top: 10px;
-  border-top: 2px solid #aaa;
-  display: flex;
-  align-items: center;
-}
-.link_area a {
-  width: 200px;
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
+#user_id,
+#user_pw {
+  border: none;
+  background: none;
+  border-bottom: 1px solid #e9e9e9;
+  width: 96%;
+  margin-top: 20px;
+  padding-bottom: 7px;
+  padding-left: 7px;
+  /* width: 100%;
+  height: 30px;
+  padding-left: 10px;
+  font-size: 1.1rem; */
+  color: white;
   font-size: 15px;
 }
-.link_area .middle {
-  width: 3px;
-  height: 25px;
-  background-color: #aaa;
+
+input:focus {
+  outline: none;
 }
 
-.social-btn {
+input::placeholder {
+  color: #e2e2e2;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: "S-CoreDream-3Light";
+}
+
+#loginBtn {
+  margin-top: 20px;
   width: 100%;
-  height: 54px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 38px;
   border: none;
+  background-color: rgb(29, 29, 29);
+  color: white;
+  font-family: "S-CoreDream-3Light";
   border-radius: 2px;
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 8px;
 }
 
-.social-btn img {
-  width: 25px;
-  height: 25px;
-  margin-right: 10px;
+
+label {
+  color: white;
 }
 
-.social-btn span {
-  width: 150px;
+.line {
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  font-size: 12px;
+  margin: 25px 0px;
 }
 
-#google-login-btn {
-  /*background-color: #ea3d30;*/
-  background-color: #eb5348;
+.line::before,
+.line::after {
+  content: "";
+  flex-grow: 1;
+  background: rgb(114, 114, 114);
+  height: 1px;
+  font-size: 0px;
+  line-height: 0px;
+  margin: 0px 7px;
+}
+
+.other-login {
+  width: 100%;
+}
+
+button {
+  cursor: pointer;
+}
+
+.kakao,
+.google {
+  width: 100%;
+  height: 38px;
+  border: none;
+  color: black;
+  font-family: "S-CoreDream-3Light";
+  border-radius: 2px;
+  font-weight: bold;
+}
+
+.kakao {
+  /*background-color: #ffd400;*/
+  background-color: #FBE300;
+  margin-bottom: 10px;
+}
+
+.save_area {
+  padding-top: 5px;
   color: #ffffff;
-  border-radius: 10px;
 }
 
-#kakao-login-btn {
-  background-color: #fce51e;
-  color: #333;
-  border-radius: 10px;
+.area {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 10px;
 }
 
-#naver-login-btn {
-  background-color: #01c73c;
+.sign-area a,
+.check-area a {
+  text-decoration: none;
   color: #ffffff;
-}
 
-#facebook-login-btn {
-  background-color: #1877f2;
-  color: #ffffff;
 }
-.login_size{
-  height: 80px;
-}
-@media all and (min-width:0px) and (max-width:767px) {
-  .container {
-    padding-left: 15%;
-  }
-
+.kakao img,
+.google img{
+  width:30px;
 }

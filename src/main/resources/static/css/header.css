@@ -4,6 +4,14 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'HangeulNuri-Bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/HangeulNuri-Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /*@font-face {*/
 /*  font-family: 'Material Icons';*/
 /*  font-style: normal;*/
@@ -21,33 +29,8 @@ body {
   margin: 0;
   padding-top: 80px;
   background: #f2f2f2;
-
+  /*font-family: 'HangeulNuri-Bold';*/
 }
-/*.material-icons {*/
-/*  font-family: 'Material Icons';*/
-/*  font-weight: normal;*/
-/*  font-style: normal;*/
-/*  font-size: 24px;  !* Preferred icon size *!*/
-/*  display: inline-block;*/
-/*  line-height: 1;*/
-/*  text-transform: none;*/
-/*  letter-spacing: normal;*/
-/*  word-wrap: normal;*/
-/*  white-space: nowrap;*/
-/*  direction: ltr;*/
-
-/*  !* Support for all WebKit browsers. *!*/
-/*  -webkit-font-smoothing: antialiased;*/
-/*  !* Support for Safari and Chrome. *!*/
-/*  text-rendering: optimizeLegibility;*/
-
-/*  !* Support for Firefox. *!*/
-/*  -moz-osx-font-smoothing: grayscale;*/
-
-/*  !* Support for IE. *!*/
-/*  font-feature-settings: 'liga';*/
-/*}*/
-
 
 .material-icons.md-18 {
   font-size: 18px;
@@ -62,6 +45,10 @@ body {
   font-size: 48px;
 }
 .material-icons.md-white { color: #ffffff; }
+
+.material-icons-outlined {
+  font-size : 36px;
+}
 
 header {
   font-family: "GmarketSansBold", sans-serif;
@@ -79,17 +66,19 @@ header {
   border-bottom: 1px solid rgb(214, 214, 214);
   z-index: 9999;
   background: #ffffff;
+
+  box-shadow: 0px 0.1px 8px 1px gray;
 }
 header a {
   color: black;
   text-decoration: none;
 }
 
-.logo {
+.dagym {
   display: inline-block;
   width: 150px;
 }
-.logo img {
+.dagym img {
   width: 100%;
 }
 
@@ -105,7 +94,8 @@ nav {
 nav ul {
   list-style: none;
   text-align: center;
-  padding-top: 25px;
+  /*padding-top: 25px;*/
+  margin-top:25px;
 }
 nav ul li {
   display: inline-block;
@@ -150,7 +140,31 @@ nav.stroke ul li a:hover:after {
 }
 
 .right_menu {
-  display: inline-block;
-  width: 150px;
+  width: 200px;
   text-align: center;
+  /*display: flex;*/
+  /*justify-content: center;*/
+}
+
+.right_menu .name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.right_menu .notice{
+ display: inline-block;
+
+  margin-top:5px;
+}
+
+.afterLogin{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.afterLogin_wrap{
+  padding-right: 20px;
+}
+.beforLogin_wrap {
+  padding-top: 7px;
 }
