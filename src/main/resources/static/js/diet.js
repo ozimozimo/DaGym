@@ -9,7 +9,7 @@ $(function () {
 
     // 오늘 날짜랑 선택한 날짜가 같다면
     if ($('.date').val() == date) {
-        console.log('오늘');
+        // console.log('오늘');
         todayData();
     }
 
@@ -25,10 +25,9 @@ $(function () {
 function changeId(){
     let location = window.location.href;
     let arr = location.split("=");
-    $('.member_id').val(arr[1]);
-    console.log('arr : ' + arr[1]);
-    let b = $('.loginId').text(arr[1]);
-    console.log(b)
+    $('.member').val(arr[1]);
+    // $('.loginId').text(arr[1]);
+
 }
 
 // 오늘 날짜 가져오기 (2021-04-30 형태)
