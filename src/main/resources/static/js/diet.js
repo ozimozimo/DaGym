@@ -25,9 +25,10 @@ $(function () {
 function changeId(){
     let location = window.location.href;
     let arr = location.split("=");
-    $('.member').val(arr[1]);
-    // $('.loginId').text(arr[1]);
-
+    $('.member_id').val(arr[1]);
+    console.log('arr : ' + arr[1]);
+    let b = $('.loginId').text(arr[1]);
+    console.log(b)
 }
 
 // 오늘 날짜 가져오기 (2021-04-30 형태)
