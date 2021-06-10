@@ -1,7 +1,5 @@
 package com.testcode.yjp.last.controller.android;
 
-import com.testcode.yjp.last.domain.Calendar;
-import com.testcode.yjp.last.domain.InBody;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.PTUser;
 import com.testcode.yjp.last.domain.dto.android.*;
@@ -9,12 +7,9 @@ import com.testcode.yjp.last.repository.android.*;
 import com.testcode.yjp.last.service.android.AndPTUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController

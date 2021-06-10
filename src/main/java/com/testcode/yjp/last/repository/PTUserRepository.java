@@ -43,5 +43,9 @@ public interface PTUserRepository extends JpaRepository<PTUser, Long> {
     @Query(value = "select count(*) from PT_User where trainer_id = :trainer and accept_condition = 0", nativeQuery = true)
     ArrayList<PTUser> countApply(Member trainer);
 
+    // 전체 트레이너 조회
+    @Query("select m from Member m where m.user_role like 'trainer'")
+    List<Member> selectTrainer();
+
 
 }

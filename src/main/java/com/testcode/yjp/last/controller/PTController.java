@@ -22,7 +22,10 @@ public class PTController {
 
     // 트레이너 조회, 검색 페이지 뷰
     @GetMapping("/view")
-    public String trainerView() {
+    public String trainerView(Model model) {
+        List<MemberList> memberLists = ptUserService.getMemberList();
+        model.addAttribute("memberList", memberLists);
+
         return "ptUser/trainerView";
     }
 

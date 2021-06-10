@@ -22,6 +22,19 @@ public class PTUserService {
     private final PTUserRepository ptUserRepository;
     private final MemberRepository memberRepository;
 
+    public List<MemberList> getMemberList() {
+        List<Member> members = ptUserRepository.selectTrainer();
+        List<MemberList> memberLists = new ArrayList<>();
+
+        for (Member member : members) {
+            MemberList memberList = getMemberList(member);
+            memberLists.add(memberList);
+        }
+        log.info("memberLists = " + memberLists.toString());
+
+        return memberLists;
+    }
+
     //이름검색
     public List<MemberList> nameSearch(String search) {
         log.info("service = " + search);
