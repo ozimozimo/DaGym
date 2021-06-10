@@ -40,7 +40,7 @@
                         <h2>01</h2>
                         <h3>식단</h3>
                         <p>식단관리 서비스를 제공합니다</p>
-                        <a href="#"> Read More</a>
+                        <a th:href="@{/diet/list(id=${session.loginId})}"> Read More</a>
                     </div>
                 </div>
                 <div class="card">
@@ -52,7 +52,7 @@
                         <h2>02</h2>
                         <h3>인바디</h3>
                         <p>인바디관리 서비스를 제공합니다.</p>
-                        <a href="#"> Read More</a>
+                        <a th:href="@{/inBody/register}"> Read More</a>
                     </div>
                 </div>
                 <div class="card">
@@ -64,7 +64,7 @@
                         <h2>03</h2>
                         <h3>운동기록</h3>
                         <p>운동기록 서비스를 제공합니다</p>
-                        <a href="#"> Read More</a>
+                        <a th:href="@{/ExRecord/exercise(id=${session.loginId})}"> Read More</a>
                     </div>
                 </div>
             </div>

@@ -6,86 +6,86 @@
         data-layout-decorate="~{layout/default}"
 >
 <head>
-  <title>login</title>
-  <script th:src="@{/js/login.js}"></script>
-  <link rel="stylesheet" th:href="@{/css/login.css}"/>
-  <meta name="google-signin-client_id"
-        content="831600705653-q3poakj6j0ehm7ihhe09l4k77n1tnbme.apps.googleusercontent.com">
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <title>login</title>
+    <script th:src="@{/js/login.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/login.css}"/>
+    <meta name="google-signin-client_id"
+          content="831600705653-q3poakj6j0ehm7ihhe09l4k77n1tnbme.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <div layout:fragment="content">
-  <div class="contentsLogin">
-    <div class="login-area">
-      <p class="login-title">LOGIN</p>
-      <p class="login-subtitle">Log in to your account</p>
-      <div class="login_form">
-        <form action="/member/signIn" method="post" name="loginForm">
-          <div class="input-area">
-            <input
-                    type="text"
-                    id="user_id"
-                    name="user_id"
-                    placeholder="ID"
-                    autofocus
-                    required
-            />
-            <input
-                    type="password"
-                    id="user_pw"
-                    name="user_pw"
-                    class="form-control"
-                    placeholder="Password"
-                    required
-            />
-            <div class="save_area">
-              <input type="checkbox" id="save_id"/>
-              <span>아이디저장</span>
+    <div class="contentsLogin">
+        <div class="login-area">
+            <p class="login-title">LOGIN</p>
+            <p class="login-subtitle">Log in to your account</p>
+            <div class="login_form">
+                <form action="/member/signIn" method="post" name="loginForm">
+                    <div class="input-area">
+                        <input
+                                type="text"
+                                id="user_id"
+                                name="user_id"
+                                placeholder="ID"
+                                autofocus
+                                required
+                        />
+                        <input
+                                type="password"
+                                id="user_pw"
+                                name="user_pw"
+                                placeholder="Password"
+                                required
+                        />
+                        <div class="area">
+                            <input type="checkbox" id="save_id"/>
+                            <span>아이디저장</span>
+                            <span><a href="/member/IdPwCheck" class="find">ID/PW 찾기</a></span>
+                        </div>
+
+                        <button
+                                type="submit"
+                                id="loginBtn"
+                                class="login_size btn"
+                                onclick="login()"
+                        >
+                            LOGIN
+                        </button>
+                        <!-- <label>
+                          <input type="checkbox" id="save_id" />
+                          <span>아이디저장</span>
+                        </label> -->
+                    </div>
+                </form>
+                <div class="other-login">
+                    <p></p>
+                    <div class="line">or</div>
+                    <p></p>
+                    <button id="kakao-login-btn" class="kakao social-btn" onclick="kakaoLogin()">
+                        <!--            <img th:src="@{/image/kakaotalk.png}" alt="" />-->
+                        <span>카카오톡 로그인</span>
+                    </button>
+                    <button id="google-login-btn" class="google social-btn" onclick="googleLogin()">
+                        <!--            <img th:src="@{/image/google.png}" alt="" value="GoogleLogin"/>-->
+                        <span>구글 로그인</span>
+                    </button>
+                </div>
+                <div class="sign-area">
+                    <span>계정이 없으신가요? </span>
+                    <a href="/member/join" class="signupBtn">회원가입 하러가기</a>
+                </div>
             </div>
-            <div class="area">
-              <div class="check-area">
-                <a href="/member/IdPwCheck" class="find">ID/PW 찾기</a>
-              </div>
-              <div class="sign-area">
-                <a href="/member/join" class="signupBtn">회원가입</a>
-              </div>
-            </div>
-            <button
-                    type="submit"
-                    id="loginBtn"
-                    class="login_size btn"
-                    onclick="login()"
-            >
-              LOGIN
-            </button>
-            <!-- <label>
-              <input type="checkbox" id="save_id" />
-              <span>아이디저장</span>
-            </label> -->
-          </div>
-        </form>
-        <div class="other-login">
-          <p></p>
-          <div class="line">or</div>
-          <p></p>
-          <button  id="kakao-login-btn" class="kakao social-btn" onclick="kakaoLogin()">
-            <img th:src="@{/image/kakaotalk.png}" alt="" />
-            <span>카카오톡으로 로그인</span>
-          </button>
-          <button id="google-login-btn" class="google social-btn" onclick="googleLogin()">
-            <img th:src="@{/image/google.png}" alt="" value="GoogleLogin"/>
-            <span>구글로 로그인</span>
-          </button>
         </div>
-      </div>
+
     </div>
-  </div>
-  <script
-          src="https://apis.google.com/js/platform.js?onload=init"
-          async
-          defer
-  ></script>
+
+
+    <script
+            src="https://apis.google.com/js/platform.js?onload=init"
+            async
+            defer
+    ></script>
 
 
 </div>

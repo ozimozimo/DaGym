@@ -9,7 +9,7 @@ $(function () {
 
     // 오늘 날짜랑 선택한 날짜가 같다면
     if ($('.date').val() == date) {
-        console.log('오늘');
+        // console.log('오늘');
         todayData();
     }
 
