@@ -23,15 +23,15 @@ public class AdviceApiController {
     private final AdviceService adviceService;
     private final DietRepository dietRepository;
 
-    @PostMapping("/save/{advice_id}")
-    public Advice adviceSave(@PathVariable("advice_id") Long id, @RequestBody Advice advice) {
-        log.info("advice save Controller");
-        System.out.println("advice.getMember_id() = " + advice.getMember_id());
-
-        Optional<Diet> diet = dietRepository.findById(id);
-        advice.setDiet(diet.get());
-        adviceRepository.save(advice);
-
-        return advice;
-    }
+//    @PostMapping("/save/{advice_id}")
+//    public Advice adviceSave(@PathVariable("advice_id") Long id, @RequestBody Advice advice) {
+//        log.info("advice save Controller");
+//        System.out.println("advice.getMember_id() = " + advice.getMember_id());
+//
+//        Optional<Diet> diet = dietRepository.findById(id);
+//        advice.setDiet(diet.get());
+//        adviceRepository.save(advice);
+//
+//        return advice;
+//    }
 }
