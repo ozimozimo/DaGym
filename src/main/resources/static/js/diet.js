@@ -25,10 +25,7 @@ $(function () {
 function changeId(){
     let location = window.location.href;
     let arr = location.split("=");
-    $('.member_id').val(arr[1]);
-    console.log('arr : ' + arr[1]);
-    let b = $('.loginId').text(arr[1]);
-    console.log(b)
+    $('.member').val(arr[1]);
 }
 
 // 오늘 날짜 가져오기 (2021-04-30 형태)
@@ -292,7 +289,7 @@ function input(obj) {
 // 오늘 날짜 데이터
 function todayData() {
     var today = date;
-    var id = $('.loginId').text();
+    var id = $('.member').text();
     var data = {
         id: id,
         diet_date: today

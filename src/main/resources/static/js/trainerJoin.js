@@ -59,3 +59,40 @@ const addr_concat = () => {
 
     $('#trainer_address_normal').val(zipAddr);
 };
+
+function trainerJoin(){
+    var id;
+    var data = {
+        trainer_type : $('#trainer_type').val(),
+        trainer_time1 : $('#trainer_time1').val(),
+        trainer_time2 : $('#trainer_time2').val(),
+        zipCode : $('#zipCode').val(),
+        trainer_address_normal : $('#trainer_address_normal').val(),
+        trainer_address_detail : $('#trainer_address_detail').val(),
+        trainer_instagram : $('#trainer_instagram').val(),
+        trainer_kakao : $('#trainer_kakao').val(),
+        trainer_content : $('#trainer_content').val()
+    }
+    console.log(data.trainer_type);
+    console.log(data.trainer_time1);
+    console.log(data.trainer_time2);
+    console.log(data.zipCode);
+    console.log(data.trainer_address_normal);
+    console.log(data.trainer_address_detail);
+    console.log(data.trainer_instagram);
+    console.log(data.trainer_kakao);
+    console.log(data.trainer_content);
+    $.ajax({
+        url: '/' + id,
+        type: 'get',
+        dataType: "json",
+        data: JSON.stringify(data),
+        contentType: 'application/json; charset=utf-8',
+        success: function (data){
+            alert('성공');
+        },
+        error : function (){
+            alert('실패');
+        }
+    })
+}
