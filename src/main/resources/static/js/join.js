@@ -9,7 +9,6 @@ $(document).ready(function () {
     let sendUser_pn = document.getElementById('sendUser_pn');
     let zip = document.getElementById('zip');
     let joinbtn = document.getElementById('joinbtn');
-
     memberJoinForm.addEventListener("submit", function (e) {
         if (!joinChk()) e.preventDefault();
     });

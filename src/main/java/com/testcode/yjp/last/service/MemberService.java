@@ -161,6 +161,10 @@ public class MemberService {
     // ajax 로그인 값 다를때
     public String findMember(String user_id, String user_pw) {
         List<Member> create = memberRepository.findByMemberIn(user_id, user_pw);
+        Member member = memberRepository.findMember(user_id, user_pw);
+        if (member.getUser_id().equals("ehgus0006")) {
+            return "3";
+        }
         if (create.isEmpty()) {
             return "1";
         } else {

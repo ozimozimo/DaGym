@@ -18,6 +18,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +41,12 @@ public class MemberController {
     @PostMapping("/join")
     public String save(MemberJoinDto memberJoinDto) {
         memberService.save(memberJoinDto);
+
+        String member = memberJoinDto.getUser_role();
+        System.out.println(member);
+        if (member.equals("trainer")) {
+            return "redirect:/trainer/trainerJoin";
+        }
         return "redirect:/member/login";
     }
 
@@ -53,7 +60,7 @@ public class MemberController {
     // 로그인 
     @PostMapping("/signIn")
     public String signIn(String user_id, String user_pw,
-                         HttpServletRequest request, HttpServletResponse response) {
+                         HttpServletRequest request, HttpServletResponse response) throws IOException {
         Member member = memberRepository.findMember(user_id, user_pw);
 
         try {
@@ -66,7 +73,6 @@ public class MemberController {
             System.out.println(n);
             return "redirect:/member/login";
         }
-
         return "redirect:/";
     }
 

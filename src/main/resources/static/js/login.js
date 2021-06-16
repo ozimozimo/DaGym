@@ -225,6 +225,9 @@ function login() {
             } else if ($.trim(data) == "2") {
                 alert("로그인에 성공하셨습니다");
                 location.href = "/";
+            }else if ($.trim(data) == "3") {
+                alert("관리자 페이지로 이동하겠습니다");
+                location.href = "/admin/adminMain";
             } else {
                 alert("잘못된 정보입니다");
             }

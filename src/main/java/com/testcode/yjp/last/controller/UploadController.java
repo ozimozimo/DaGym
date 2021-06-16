@@ -47,8 +47,8 @@ public class UploadController {
     private final BoardImageRepository boardImageRepository;
     private final MemberRepository memberRepository;
     
-    @PostMapping("/uploadFile/{id}")
-    public ResponseEntity<List<UploadResultDto>> uploadFile(@PathVariable Long id, MultipartFile[] uploadFiles) {
+    @PostMapping("/uploadFile")
+    public ResponseEntity<List<UploadResultDto>> uploadFile(MultipartFile[] uploadFiles) {
 
         System.out.println(uploadFiles);
 
@@ -96,11 +96,10 @@ public class UploadController {
 
                 resultDtoList.add(new UploadResultDto(fileName, uuid, folderPath));
 
-                Optional<Member> byId = memberRepository.findById(id);
+//                Optional<Member> byId = memberRepository.findById(id);
                 BoardImage boardImage = BoardImage.builder()
                         .uuid(uuid)
                         .imgName(thumbnailSaveName)
-                        .member(byId.get())
                         .build();
                 boardImageRepository.save(boardImage);
 

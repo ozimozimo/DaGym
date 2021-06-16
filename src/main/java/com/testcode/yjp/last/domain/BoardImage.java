@@ -21,11 +21,4 @@ public class BoardImage {
 
     private String imgName;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
-
-    @ManyToOne
-    @JoinColumn(name = "hb_num")
-    private Board board;
 }
