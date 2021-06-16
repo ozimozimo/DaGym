@@ -7,6 +7,7 @@ import com.testcode.yjp.last.domain.dto.MemberJoinDto;
 import com.testcode.yjp.last.domain.dto.MemberUpdate;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.service.MemberService;
+import com.testcode.yjp.last.service.PTUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.repository.query.Param;
@@ -30,6 +31,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MemberRepository memberRepository;
+    private final PTUserService ptUserService;
 
     // 회원가입
     @GetMapping("/join")
@@ -62,6 +64,9 @@ public class MemberController {
     public String signIn(String user_id, String user_pw,
                          HttpServletRequest request, HttpServletResponse response) throws IOException {
         Member member = memberRepository.findMember(user_id, user_pw);
+
+        // pt 기간 만료
+        ptUserService.endDate(member);
 
         try {
             HttpSession session = (HttpSession) request.getSession();
