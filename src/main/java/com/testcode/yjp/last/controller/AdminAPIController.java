@@ -19,10 +19,10 @@ public class AdminAPIController {
 
     private final MemberRepository memberRepository;
 
-    @PostMapping("select")
-    public List<Member> selectUser() {
-        List<Member> memberAll = memberRepository.findAll();
-        return memberAll;
-
-    }
+//    @PostMapping("select")
+//    public List<Member> selectUser() {
+//        List<Member> memberAll = memberRepository.findAll();
+//        return memberAll;
+//
+//    }
 }
