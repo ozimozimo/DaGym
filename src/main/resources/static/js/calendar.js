@@ -16,10 +16,10 @@ document.addEventListener("DOMContentLoaded", function () {
         events: [],
         // 날짜 클릭했을 때
         dateClick: function (info) {
-            console.log(info);
             var url = window.location.pathname;
 
             var id = $('.loginId').text();
+            var diet_id = $('.loginId').val();
             var click = info.dateStr;
             $('.date').val(click);
             var ex_data = {
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 ex_date: click
             }
             var diet_data = {
-                id: id,
+                id: diet_id,
                 diet_date: click
             }
             // 식단 부분
@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     data: diet_data,
                     contentType: 'application/json; charset=utf-8',
                 }).done(function (result) {
+                    console.log(result);
                     if (result.length == 0) {
                         alert('기록된 데이터가 없습니다');
                         zeroData();

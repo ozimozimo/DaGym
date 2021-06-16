@@ -9,23 +9,27 @@ $(function () {
 
     // 오늘 날짜랑 선택한 날짜가 같다면
     if ($('.date').val() == date) {
-        // console.log('오늘');
+        console.log('오늘');
         todayData();
     }
 
-    if( $('.loginId').text() != $('.member').val()){
-        $('.addBtn').hide();
-        $('.diet_Delete').hide();
-    }
+    // if( $('.loginId').text() != $('.member').val()){
+    //     $('.addBtn').hide();
+    //     $('.diet_Delete').hide();
+    // }
 
 
 })
 
 // 내가 선택한 회원 정보 조회를 위해 회원 아이디만 따로 빼오는 곳
-function changeId(){
+function changeId() {
     let location = window.location.href;
-    let arr = location.split("=");
-    $('.member').val(arr[1]);
+    if(location.indexOf('list')>-1) {
+        let arr = location.split("=");
+        $('.diet_member_id').val(arr[1]);
+    } else {
+        splitDate();
+    }
 }
 
 // 오늘 날짜 가져오기 (2021-04-30 형태)
@@ -109,20 +113,20 @@ function dietResult(result) {
 // 식단 추가
 function dietAdd() {
     $('.dietAdd').on('click', function (e) {
-        splitDate();
         console.log($('.date').val());
-        var id = $('.member').val();
+        var id = $('.diet_member_id').val();
+        console.log("id : " + id);
         // 내가 먹은 양
         var eat_rate = $(this).parent().siblings().children('.eat_rate').val();
         // 기존 제공량
         var default_eat_rate = $(this).parent().siblings('.diet_serve').text();
         var divide_eat_rate = default_eat_rate / eat_rate;
-        var eat_kcal = $(this).parent().siblings("td.diet_kcal").text()/divide_eat_rate;
-        var eat_carbo = $(this).parent().siblings("td.diet_carbo").text()/divide_eat_rate;
-        var eat_protein = $(this).parent().siblings("td.diet_protein").text()/divide_eat_rate;
-        var eat_fat = $(this).parent().siblings("td.diet_fat").text()/divide_eat_rate;
+        var eat_kcal = $(this).parent().siblings("td.diet_kcal").text() / divide_eat_rate;
+        var eat_carbo = $(this).parent().siblings("td.diet_carbo").text() / divide_eat_rate;
+        var eat_protein = $(this).parent().siblings("td.diet_protein").text() / divide_eat_rate;
+        var eat_fat = $(this).parent().siblings("td.diet_fat").text() / divide_eat_rate;
         var data = {
-            diet_member_id: $('.diet_member_id').val(),
+            diet_member_id: id,
             diet_name: $(this).parent().siblings("td.diet_name").text(),
             eat_rate: eat_rate || default_eat_rate,
             diet_kcal: eat_kcal || $(this).parent().siblings("td.diet_kcal").text() || 0,
@@ -132,8 +136,9 @@ function dietAdd() {
             diet_time: $(this).parent().siblings().children("select[name=diet_time]").val(),
             diet_date: $('.date').val(),
         }
+        console.log('데이타 : ', data);
         $.ajax({
-            type: 'post',
+            type: 'POST',
             url: '/diet/save/' + id,
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
@@ -198,7 +203,7 @@ function mkDiet(result) {
     showSumNutr();
 }
 
-function showSumNutr(){
+function showSumNutr() {
     sumNutr('.breakfastList', '.eat_rate', '.breakfast_eat_rate');
     sumNutr('.breakfastList', '.diet_kcal', '.breakfast_kcal');
     sumNutr('.breakfastList', '.diet_carbo', '.breakfast_carbo');
@@ -226,6 +231,7 @@ function showSumNutr(){
     chartCreate();
 
 }
+
 // 영양소별 합계
 function sumNutr(timeList, nutr, timeNutr) {
     let sum = 0;
@@ -253,7 +259,7 @@ function input(obj) {
     let dinnerList = new eatTime('저녁', 'dinnerList', '.dinner', '.dinnerEat');
     let extra = new eatTime('간식', 'extraList', '.extra', '.extraEat');
     let timeObj;
-    let id = $('.member').val();
+    let id = $('.diet_member_id').val();
 
     switch (obj.f) {
         case "아침" :
@@ -289,7 +295,7 @@ function input(obj) {
 // 오늘 날짜 데이터
 function todayData() {
     var today = date;
-    var id = $('.member').text();
+    var id = $('.diet_member_id').val();
     var data = {
         id: id,
         diet_date: today
@@ -300,6 +306,7 @@ function todayData() {
         data: data,
         contentType: 'application/json; charset=utf-8',
     }).done(function (result) {
+        console.log(result);
         mkDiet(result);
     }).fail(function () {
         alert('문제가 있다');
@@ -335,7 +342,6 @@ function nutr(arr, where) {
         let value = $(el).text();
         sum += parseInt(value);
     })
-
     $(where).text(sum);
     return sum;
 }
@@ -348,7 +354,7 @@ function removeNutr() {
     $('.extraList').remove();
 }
 
-function hideEat(){
+function hideEat() {
     $('.breakfastEat').hide();
     $('.lunchEat').hide();
     $('.dinnerEat').hide();
@@ -361,7 +367,7 @@ function hideEat(){
     $('.noData').show();
 }
 
-function showEat(){
+function showEat() {
     $('.breakfastEat').show();
     $('.lunchEat').show();
     $('.dinnerEat').show();
@@ -370,15 +376,15 @@ function showEat(){
     $('.noData').hide();
 }
 
-function chartCreate(){
+function chartCreate() {
     let a = parseInt($('.dailyCarbo').text());
     let b = parseInt($('.dailyProtein').text());
     let c = parseInt($('.dailyFat').text());
 
-    let dailyCarbo = (a/(a+b+c)*100).toFixed(2);
-    let dailyProtein = (b/(a+b+c)*100).toFixed(2);
-    let dailyFat = (c/(a+b+c)*100).toFixed(2);
-    if(myChart){
+    let dailyCarbo = (a / (a + b + c) * 100).toFixed(2);
+    let dailyProtein = (b / (a + b + c) * 100).toFixed(2);
+    let dailyFat = (c / (a + b + c) * 100).toFixed(2);
+    if (myChart) {
         myChart.destroy();
     }
 
@@ -404,8 +410,8 @@ function chartCreate(){
                     hoverOffset: 4
                 }]
             },
-            options : {
-                responsive:false,
+            options: {
+                responsive: false,
                 title: {
                     display: true,
                     text: '하루 섭취량',
@@ -416,7 +422,7 @@ function chartCreate(){
 
 }
 
-function zeroData(){
+function zeroData() {
     $('.dailyCarbo').text('0');
     $('.dailyProtein').text('0');
     $('.dailyFat').text('0');
