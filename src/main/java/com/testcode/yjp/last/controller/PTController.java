@@ -2,7 +2,6 @@ package com.testcode.yjp.last.controller;
 
 import com.testcode.yjp.last.domain.dto.MemberList;
 import com.testcode.yjp.last.domain.dto.PTUserApplyMemberDto;
-import com.testcode.yjp.last.domain.dto.TrainerCountDto;
 import com.testcode.yjp.last.domain.dto.TrainerSearchDto;
 import com.testcode.yjp.last.repository.PTUserRepository;
 import com.testcode.yjp.last.service.PTUserService;
@@ -84,12 +83,6 @@ public class PTController {
         model.addAttribute("trainer_id", trainer_id);
 
         return "ptUser/trainerApply";
-    }
-
-    @GetMapping("/test")
-    public int count() {
-        int aLong = ptUserRepository.selectTrainerAndCount();
-        return aLong;
     }
 
     /* PTApiController에서 신청시 setAccept_condition("0")를 넣어줌.
