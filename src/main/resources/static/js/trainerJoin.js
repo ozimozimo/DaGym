@@ -1,16 +1,36 @@
-$(document).ready(function () {
+$(function () {
 
-    let zip = document.getElementById('zip');
+    let zip = $('#zip');
 
-    let uploadBtn = document.getElementById('uploadBtn');
-    let uploadResult = document.getElementById('uploadResult');
+    let uploadBtn = $('#uploadBtn');
+    let uploadResult = $('#uploadResult');
+    let joinBtn = $('.joinBtn');
+
+    $('#uploadResult').on("click", ".removeBtn", function (e) {
+
+        var target = $(this);
+        var fileName = target.data("name");
+        var targetDiv = $(this).closest("div");
+        console.log(fileName);
+
+        $.post('/removeFile', {fileName: fileName}, function (result) {
+            console.log(result);
+            if (result === true) {
+                targetDiv.remove();
+            }
+        })
+    });
+
+    zip.on("click", GymPostCode);
+    uploadBtn.on("click", Upload);
+    joinBtn.on("click", trainerJoin);
 
 
-    zip.addEventListener("click", GymPostCode);
-    uploadBtn.addEventListener("click", Upload);
 
 });
 
+
+// 도로명주소 가져오는 함수
 function GymPostCode() {
     new daum.Postcode({
         oncomplete: function (data) {
@@ -54,22 +74,7 @@ function GymPostCode() {
     }).open();
 }
 
-
-$('#uploadResult').on("click", ".removeBtn", function (e) {
-
-    var target = $(this);
-    var fileName = target.data("name");
-    var targetDiv = $(this).closest("div");
-    console.log(fileName);
-
-    $.post('/removeFile', {fileName: fileName}, function (result) {
-        console.log(result);
-        if (result === true) {
-            targetDiv.remove();
-        }
-    })
-})
-
+//사진 업로드
 function Upload() {
     var formData = new FormData();
     var inputFile = $("input[type='file']");
@@ -118,9 +123,8 @@ function showUploadedImages(arr) {
         str += "<img src='/display?fileName=" + arr[i].thumbnailURL + "'>";
         str += "<button class='removeBtn' data-name='" + arr[i].imageURL + "'>삭제</button>";
         str += "</div>"
-        str += "<input type='hidden' id='uuid' name='uuid' value='" + uuid + "'>"
-        str += "<input type='hidden' id='imgName' name='imgName' value='" + imgName + "'>"
-        str += "<input type='hidden' id='fileName' name='fileName' value='" + fileName + "'>"
+        str += "<input type='hidden' id='uuid' name='uuid' value='"+ uuid+"'>"
+        str += "<input type='hidden' id='imgName' name='imgName' value='"+ imgName+"'>"
     }
     divArea.append(str);
 }
@@ -163,7 +167,7 @@ function trainerJoin() {
         trainer_kakao: $('#trainer_kakao').val(),
         trainer_content: $('#trainer_content').val()
     }
-   
+
 
     console.log(id);
     console.log(data.trainer_type);
@@ -194,4 +198,47 @@ function trainerJoin() {
             alert('잘못된 정보입니다');
         }
     })
+}
+
+// trim = 양옆 공백 제거
+function checkData() {
+    let data = {
+        trainer_time1: $('#trainer_time1').val().trim().length,
+        trainer_time2: $('#trainer_time2').val().trim().length,
+        trainer_category: $('#trainer_category').val().trim().length,
+        trainer_address_normal: $('#trainer_address_normal').val().trim().length,
+        trainer_address_detail: $('#trainer_address_detail').val().trim().length,
+        trainer_instagram: $('#trainer_instagram').val().trim().length,
+        trainer_kakao: $('#trainer_kakao').val().trim().length,
+        trainer_content: $('#trainer_content').val().trim().length
+    }
+
+    let {
+        trainer_time1,
+        trainer_time2,
+        trainer_category,
+        trainer_address_normal,
+        trainer_address_detail,
+        trainer_instagram,
+        trainer_kakao,
+        trainer_content
+    } = data;
+    if (trainer_time1==0 || trainer_time2==0) {
+        alert('시간을 입력하세요');
+    } else if (trainer_address_normal == 0) {
+        alert('주소를 입력하세요');
+    } else if (trainer_address_detail == 0) {
+        alert('주소를 입력하세요');
+    } else if (trainer_instagram == 0) {
+        alert('인스타그램 아이디를 입력하세요');
+    } else if (trainer_kakao == 0) {
+        alert('카카오톡 아이디를 입력하세요');
+    } else if (trainer_content == 0) {
+        alert('트레이너 경력사항을 입력하세요');
+    } else {
+        return true;
+    }
+    return false;
+
+
 }
