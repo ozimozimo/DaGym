@@ -70,8 +70,8 @@ public class MemberService {
 
     // 회원 전체 조회
     public List<MemberList> getMemberList() {
-        List<Member> memberEntities = memberRepository.findAll();
-        List<MemberList> memberLists = new ArrayList<>();
+        List<Member> memberEntities = memberRepository.findAll(); // Member List 전체값
+        List<MemberList> memberLists = new ArrayList<>(); //Member DTO 이름, 아이디, 등등~~
         for (Member member : memberEntities) {
             MemberList memberList = MemberList
                     .builder()
