@@ -23,6 +23,9 @@ public class TrainerInfo {
     // 트레이너 이미지
     private String imgName;
 
+    // 파일 이름
+    private String fileName;
+
     // 트레이너 주특기
     private String trainer_category;
     // 근무시간

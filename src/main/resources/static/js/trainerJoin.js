@@ -70,7 +70,7 @@ $('#uploadResult').on("click", ".removeBtn", function (e) {
     })
 })
 
-function Upload(){
+function Upload() {
     var formData = new FormData();
     var inputFile = $("input[type='file']");
     var files = inputFile[0].files;
@@ -100,19 +100,27 @@ function Upload(){
 };
 
 function showUploadedImages(arr) {
-    console.log(arr);
+    console.log("===================================" + arr + "======================================");
     var divArea = $(".uploadResult");
 
     var str = "";
     for (var i = 0; i < arr.length; i++) {
         var uuid = arr[i].thumbnailURL;
         var imgName = arr[i].imageURL;
+        var fileName = arr[i].fileName;
+
+        console.log(uuid);
+        console.log(imgName);
+        console.log(fileName);
+
+
         str += "<div>";
         str += "<img src='/display?fileName=" + arr[i].thumbnailURL + "'>";
         str += "<button class='removeBtn' data-name='" + arr[i].imageURL + "'>삭제</button>";
         str += "</div>"
-        str += "<input type='hidden' id='uuid' name='uuid' value='"+ uuid+"'>"
-        str += "<input type='hidden' id='imgName' name='imgName' value='"+ imgName+"'>"
+        str += "<input type='hidden' id='uuid' name='uuid' value='" + uuid + "'>"
+        str += "<input type='hidden' id='imgName' name='imgName' value='" + imgName + "'>"
+        str += "<input type='hidden' id='fileName' name='fileName' value='" + fileName + "'>"
     }
     divArea.append(str);
 }
@@ -147,17 +155,22 @@ function trainerJoin() {
         trainer_category: $('#trainer_category').val(),
         trainer_workTime,
         uuid: $('#uuid').val(),
-        img: $('#imgName').val(),
+        imgName: $('#imgName').val(),
+        fileName: $('#fileName').val(),
         trainer_address_normal: $('#trainer_address_normal').val(),
         trainer_address_detail: $('#trainer_address_detail').val(),
         trainer_instagram: $('#trainer_instagram').val(),
         trainer_kakao: $('#trainer_kakao').val(),
         trainer_content: $('#trainer_content').val()
     }
+   
+
     console.log(id);
     console.log(data.trainer_type);
     console.log(data.trainer_workTime);
     console.log(data.uuid + "위에서 변환");
+    console.log(data.imgName + "이미지 이름");
+    console.log(data.fileName + "파일이름");
     console.log(data.trainer_address_normal + "통과");
     console.log(data.trainer_address_detail + "통과");
     console.log(data.trainer_instagram + "통과");
@@ -172,6 +185,8 @@ function trainerJoin() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             console.log(data);
+            console.log(data.fileName);
+            console.log(data.imgName)
             alert('추가정보 가입에 성공하였습니다');
             location.href = "/member/login";
         },

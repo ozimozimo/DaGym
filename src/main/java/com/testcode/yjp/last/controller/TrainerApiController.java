@@ -44,8 +44,9 @@ public class TrainerApiController {
     private String fileName = null;
     private String uuid = null;
     private String folderPath = null;
-    private final Long count=0L;
-
+    private  String srcFileName = null;
+    String lastImage = null;
+    String loadImageName= null;
 
     private final MemberRepository memberRepository;
     private final TrainerService trainerService;
@@ -94,6 +95,7 @@ public class TrainerApiController {
                 Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile,640,427);
                 resultDtoList.add(new UploadResultDto(fileName, uuid, folderPath));
 
+                lastImage = fileName;
 //                Optional<Member> byId = memberRepository.findById(id);
 //                BoardImage boardImage = BoardImage.builder()
 //                        .uuid(uuid)
@@ -121,6 +123,9 @@ public class TrainerApiController {
 
     @GetMapping("/display")
     public ResponseEntity<byte[]> getFile(String fileName) {
+
+        System.out.println("파일이름은=?"+fileName);
+        loadImageName = fileName;
         ResponseEntity<byte[]> result = null;
         try {
             String srcFileName = URLDecoder.decode(fileName, "UTF-8");
@@ -143,7 +148,7 @@ public class TrainerApiController {
     @PostMapping("/removeFile")
     public ResponseEntity<Boolean> removeFile(String fileName) {
         System.out.println(fileName);
-        String srcFileName = null;
+
         try {
             srcFileName = URLDecoder.decode(fileName, "UTF-8");
             File file = new File(uploadPath + File.separator + srcFileName);
@@ -172,22 +177,19 @@ public class TrainerApiController {
     @PostMapping("/trainer/trInfo/{id}")
     public TrainerInfoDto save(@PathVariable Long id, @RequestBody TrainerInfoDto trainerInfoDto) {
 
-        log.info(trainerInfoDto);
+        log.info("trainer 추가 정보 페이지 controller ");
+
+        log.info(trainerInfoDto.getFileName());
+        log.info(trainerInfoDto.getImgName());
         log.info(id + "-===================================");
 
         Optional<Member> byId = memberRepository.findById(id);
-
-
         trainerInfoDto.setId(id);
-
-        System.out.println(trainerInfoDto.getId()+"pk값은");
         trainerInfoDto.setMember(byId.get());
-        System.out.println("트레이너 셋팅한값"+trainerInfoDto.getMember());
-        trainerInfoDto.setImgName(thumbnailSaveName);
-        trainerInfoDto.setUuid(uuid);
+        trainerInfoDto.setUuid(thumbnailSaveName);
 
-        log.info("uuid=" + trainerInfoDto.getUuid());
-        log.info(thumbnailSaveName+"이미지 이름");
+
+
         trainerService.save(trainerInfoDto);
         return trainerInfoDto;
     }

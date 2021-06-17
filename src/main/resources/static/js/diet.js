@@ -159,7 +159,7 @@ function dietWindow() {
     var popupY = (window.screen.height / 2) - (700 / 2);
     var date = $('.date').val();
     var option = 'status=no, height=700, width=1560, left=' + popupX + ', top=' + popupY + ', screenX=' + popupX + ', screenY= ' + popupY;
-    var url = "http://localhost:8090"
+    var url = "http://localhost:8080"
     // var url = "http://140.238.25.78:8090";
     url += "/diet/search" + "?" + date;
     window.open(url, 'dietWindow', option);

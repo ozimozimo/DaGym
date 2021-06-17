@@ -46,6 +46,10 @@ public class TrainerController {
         log.info(id);
         log.info("trainerPage get controller 입니다");
         TrainerInfoDto result = trainerService.findById(id);
+        log.info(result.getFileName());
+        log.info(result.getImgName());
+        log.info(result.getUuid());
+
         model.addAttribute("trainerInfo", result);
 
 

@@ -24,6 +24,9 @@ public class TrainerInfoDto {
     // 트레이너 이미지
     private String imgName;
 
+    // 파일 이름
+    private String fileName;
+
     // 트레이너 주특기
     private String trainer_category;
     // 근무시간
@@ -45,6 +48,7 @@ public class TrainerInfoDto {
         this.id = entity.getId();
         this.uuid = entity.getUuid();
         this.imgName = entity.getImgName();
+        this.fileName = entity.getFileName();
         this.trainer_category = entity.getTrainer_category();
         this.trainer_workTime = entity.getTrainer_workTime();
         this.trainer_address_normal = entity.getTrainer_address_normal();
