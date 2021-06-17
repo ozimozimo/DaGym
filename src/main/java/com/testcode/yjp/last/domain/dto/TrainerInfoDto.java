@@ -1,6 +1,8 @@
 package com.testcode.yjp.last.domain.dto;
 
+import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Member;
+import com.testcode.yjp.last.domain.TrainerInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,5 +40,18 @@ public class TrainerInfoDto {
     private String trainer_content;
     private Member member;
 
+
+    public TrainerInfoDto(TrainerInfo entity){
+        this.id = entity.getId();
+        this.uuid = entity.getUuid();
+        this.imgName = entity.getImgName();
+        this.trainer_category = entity.getTrainer_category();
+        this.trainer_workTime = entity.getTrainer_workTime();
+        this.trainer_address_normal = entity.getTrainer_address_normal();
+        this.trainer_address_detail = entity.getTrainer_address_detail();
+        this.trainer_instagram = entity.getTrainer_instagram();
+        this.trainer_kakao = entity.getTrainer_kakao();
+        this.member = entity.getMember();
+    }
 
 }

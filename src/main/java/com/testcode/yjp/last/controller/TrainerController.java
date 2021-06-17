@@ -2,6 +2,7 @@ package com.testcode.yjp.last.controller;
 
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.TrainerInfo;
+import com.testcode.yjp.last.domain.dto.TrainerInfoDto;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.TrainerRepository;
 import com.testcode.yjp.last.service.TrainerService;
@@ -30,12 +31,26 @@ public class TrainerController {
     public String trainerJoin(String id, Model model) {
         System.out.println(id+ "값 받아옴><");
 
-        Long trainerId = memberRepository.trainerId(id);
+        Member trainer = memberRepository.findId(id);
+        Long trainerId = trainer.getId();
         System.out.println(trainerId+"ehgusid는");
 //        System.out.println(trainerId+"=============================");
         model.addAttribute("id", trainerId);
 
         return "join/trainerJoin";
+    }
+
+
+    @GetMapping("/trainerPage/{id}")
+    public String trainerUpdate(@PathVariable Long id,Model model) {
+        log.info(id);
+        log.info("trainerPage get controller 입니다");
+        TrainerInfoDto result = trainerService.findById(id);
+        model.addAttribute("trainerInfo", result);
+
+
+
+        return "trainer/trainerPage";
     }
 
 

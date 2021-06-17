@@ -1,15 +1,21 @@
-<!doctype html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      data-layout-decorate="~{layout/default}">
+<!DOCTYPE html>
+<html
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        data-layout-decorate="~{layout/default}"
+>
+<head>
+    <title>Main</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}"/>
+</head>
 <div layout:fragment="content">
-
+    <h1>성공</h1>
 
     <div>
-<!--
-        <a th:href="@{/board/trainerBoard/save(member_id = ${session.loginUser})}"  -->
-<!--        <img src='/display?fileName=" + arr[i].thumbnailURL + "'>";-->
+
+    <!--             <a th:href="@{/board/trainerBoard/save(member_id = ${session.loginUser})}"  -->
+        <img th:src="@{/display(fileName= ${trainerInfo.imgName})}">
     </div>
 
     <script>
@@ -28,6 +34,4 @@
         }
     </script>
 </div>
-
-
 </html>
