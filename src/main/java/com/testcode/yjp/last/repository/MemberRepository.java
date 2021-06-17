@@ -54,4 +54,7 @@ public interface MemberRepository  extends JpaRepository<Member,Long> {
     //트레이너 조회
     @Query("select m from Member m where m.user_role='trainer'")
     List<Member> selectTrainer();
+
+    @Query("select m.id from Member m where m.user_id= :id")
+    Long trainerId(String id);
 }
