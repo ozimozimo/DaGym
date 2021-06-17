@@ -49,10 +49,13 @@ public class DietApiController {
 
     // 데이터 추가
     @PostMapping("/save/{id}")
-    public Diet save(@PathVariable Long id, @RequestBody Diet diet) {
+    public Diet save(@PathVariable String id, @RequestBody Diet diet) {
         log.info("DietController Save Api Post");
-        Optional<Member> result = memberRepository.findById(id);
-        diet.setMember(result.get());
+        Member result = memberRepository.findId(id);
+        Long member_id = result.getId();
+        Optional<Member> byId = memberRepository.findById(member_id);
+
+        diet.setMember(byId.get());
         dietRepository.save(diet);
         return diet;
     }

@@ -38,6 +38,7 @@ public class DietAddDto {
     public Diet toEntity() {
         return Diet.builder()
                 .diet_id(diet_id)
+                .diet_member_id(diet_member_id)
                 .diet_name(diet_name)
                 .diet_kcal(diet_kcal)
                 .diet_carbo(diet_carbo)
@@ -49,17 +50,18 @@ public class DietAddDto {
                 .build();
     }
 
-    @Builder
-    public DietAddDto(Long diet_id, String diet_name, String diet_kcal, String diet_carbo, String diet_protein, String diet_fat, String diet_time, String diet_date, String eat_rate) {
-        this.diet_id = diet_id;
-        this.diet_name = diet_name;
-        this.diet_kcal = diet_kcal;
-        this.diet_carbo = diet_carbo;
-        this.diet_protein = diet_protein;
-        this.diet_fat = diet_fat;
-        this.diet_time = diet_time;
-        this.diet_date = diet_date;
-        this.eat_rate = eat_rate;
-    }
+//    @Builder
+//    public DietAddDto(Long diet_id, String diet_member_id, String diet_name, String diet_kcal, String diet_carbo, String diet_protein, String diet_fat, String diet_time, String diet_date, String eat_rate) {
+//        this.diet_id = diet_id;
+//        this.diet_member_id = diet_member_id;
+//        this.diet_name = diet_name;
+//        this.diet_kcal = diet_kcal;
+//        this.diet_carbo = diet_carbo;
+//        this.diet_protein = diet_protein;
+//        this.diet_fat = diet_fat;
+//        this.diet_time = diet_time;
+//        this.diet_date = diet_date;
+//        this.eat_rate = eat_rate;
+//    }
 }
 

@@ -1,7 +1,9 @@
 package com.testcode.yjp.last.service;
 
+import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.TrainerInfo;
+import com.testcode.yjp.last.domain.dto.BoardResponseDto;
 import com.testcode.yjp.last.domain.dto.TrainerInfoDto;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.TrainerRepository;
@@ -35,5 +37,11 @@ public class TrainerService {
                 .build();
 
         return trainerRepository.save(trainerInfo);
+    }
+
+
+    public TrainerInfoDto findById(Long id) {
+        TrainerInfo entity = trainerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 정보가 없습니다= id" + id));
+        return new TrainerInfoDto(entity);
     }
 }
