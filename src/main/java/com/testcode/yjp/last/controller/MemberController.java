@@ -46,8 +46,11 @@ public class MemberController {
 
         String member = memberJoinDto.getUser_role();
         System.out.println(member);
+
+        String user_id = memberJoinDto.getUser_id();
+        System.out.println(user_id + "====================================");
         if (member.equals("trainer")) {
-            return "redirect:/trainer/trainerJoin";
+            return "redirect:/trainer/trainerJoin?id="+user_id;
         }
         return "redirect:/member/login";
     }

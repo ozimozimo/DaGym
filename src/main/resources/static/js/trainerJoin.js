@@ -2,7 +2,12 @@ $(document).ready(function () {
 
     let zip = document.getElementById('zip');
 
+    let uploadBtn = document.getElementById('uploadBtn');
+    let uploadResult = document.getElementById('uploadResult');
+
+
     zip.addEventListener("click", GymPostCode);
+    uploadBtn.addEventListener("click", Upload);
 
 });
 
@@ -49,8 +54,71 @@ function GymPostCode() {
     }).open();
 }
 
+
+$('#uploadResult').on("click", ".removeBtn", function (e) {
+
+    var target = $(this);
+    var fileName = target.data("name");
+    var targetDiv = $(this).closest("div");
+    console.log(fileName);
+
+    $.post('/removeFile', {fileName: fileName}, function (result) {
+        console.log(result);
+        if (result === true) {
+            targetDiv.remove();
+        }
+    })
+})
+
+function Upload(){
+    var formData = new FormData();
+    var inputFile = $("input[type='file']");
+    var files = inputFile[0].files;
+
+    for (var i = 0; i < files.length; i++) {
+        console.log(files[i]);
+        formData.append("uploadFiles", files[i]);
+    }
+
+
+    // 실제 업로드 부분
+    $.ajax({
+        url: '/uploadFile',
+        processData: false,
+        contentType: false,
+        data: formData,
+        type: "POST",
+        dataType: "json",
+        success: function (result) {
+            console.log(result);
+            showUploadedImages(result);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
+        }
+    }) // ajax end
+};
+
+function showUploadedImages(arr) {
+    console.log(arr);
+    var divArea = $(".uploadResult");
+
+    var str = "";
+    for (var i = 0; i < arr.length; i++) {
+        var uuid = arr[i].thumbnailURL;
+        var imgName = arr[i].imageURL;
+        str += "<div>";
+        str += "<img src='/display?fileName=" + arr[i].thumbnailURL + "'>";
+        str += "<button class='removeBtn' data-name='" + arr[i].imageURL + "'>삭제</button>";
+        str += "</div>"
+        str += "<input type='hidden' id='uuid' name='uuid' value='"+ uuid+"'>"
+        str += "<input type='hidden' id='imgName' name='imgName' value='"+ imgName+"'>"
+    }
+    divArea.append(str);
+}
+
 // 집코드 + 상세주소 합치기
-const addr_concat = () => {
+const trainer_addr_concat = () => {
     // 네임 값
     let zip = $('#zipCode').val();
     let addr = $('#trainer_address_normal').val();
@@ -60,39 +128,55 @@ const addr_concat = () => {
     $('#trainer_address_normal').val(zipAddr);
 };
 
-function trainerJoin(){
-    var id;
+// 트레이너 근무시작시간 + 종료시간
+const trainer_time_concat = () => {
+
+    let trainer_time1 = $('#trainer_time1').val();
+    let trainer_time2 = $('#trainer_time2').val();
+
+    let trainer_workTime = trainer_time1 + trainer_time2;
+}
+
+function trainerJoin() {
+    var id = $('#id').val();
+    let trainer_time1 = $('#trainer_time1').val();
+    let trainer_time2 = $('#trainer_time2').val();
+    let trainer_workTime = trainer_time1 + "~" + trainer_time2;
+
     var data = {
-        trainer_type : $('#trainer_type').val(),
-        trainer_time1 : $('#trainer_time1').val(),
-        trainer_time2 : $('#trainer_time2').val(),
-        zipCode : $('#zipCode').val(),
-        trainer_address_normal : $('#trainer_address_normal').val(),
-        trainer_address_detail : $('#trainer_address_detail').val(),
-        trainer_instagram : $('#trainer_instagram').val(),
-        trainer_kakao : $('#trainer_kakao').val(),
-        trainer_content : $('#trainer_content').val()
+        trainer_category: $('#trainer_category').val(),
+        trainer_workTime,
+        uuid: $('#uuid').val(),
+        img: $('#imgName').val(),
+        trainer_address_normal: $('#trainer_address_normal').val(),
+        trainer_address_detail: $('#trainer_address_detail').val(),
+        trainer_instagram: $('#trainer_instagram').val(),
+        trainer_kakao: $('#trainer_kakao').val(),
+        trainer_content: $('#trainer_content').val()
     }
+    console.log(id);
     console.log(data.trainer_type);
-    console.log(data.trainer_time1);
-    console.log(data.trainer_time2);
-    console.log(data.zipCode);
-    console.log(data.trainer_address_normal);
-    console.log(data.trainer_address_detail);
-    console.log(data.trainer_instagram);
-    console.log(data.trainer_kakao);
-    console.log(data.trainer_content);
+    console.log(data.trainer_workTime);
+    console.log(data.uuid + "위에서 변환");
+    console.log(data.trainer_address_normal + "통과");
+    console.log(data.trainer_address_detail + "통과");
+    console.log(data.trainer_instagram + "통과");
+    console.log(data.trainer_kakao + "통과");
+    console.log(data.trainer_content + "통과");
+
     $.ajax({
-        url: '/' + id,
-        type: 'get',
+        url: '/trainer/trInfo/' + id,
+        type: 'post',
         dataType: "json",
         data: JSON.stringify(data),
         contentType: 'application/json; charset=utf-8',
-        success: function (data){
-            alert('성공');
+        success: function (data) {
+            console.log(data);
+            alert('추가정보 가입에 성공하였습니다');
+            location.href = "/member/login";
         },
-        error : function (){
-            alert('실패');
+        error: function () {
+            alert('잘못된 정보입니다');
         }
     })
 }
