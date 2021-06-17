@@ -1,13 +1,429 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>관리자페이지</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" th:href="@{~/vender/bootstrap/css/bootstrap.min.css}"/>
+    <link
+            rel="stylesheet"
+            th:href="@{/css/font-awesome.min.css}"
+    />
+    <link rel="stylesheet" th:href="@{/vendor/linearicons/style.css}"/>
+    <link
+            rel="stylesheet"
+            th:href="@{/vendor/chartist/css/chartist-custom.css}"
+    />
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{/css/admin/main.css}"/>
+    <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+    <link rel="stylesheet" th:href="@{/css/admin/demo.css}"/>
+    <!-- GOOGLE FONTS -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700"
+            rel="stylesheet"
+    />
+    <!-- ICONS -->
+    <link
+            rel="apple-touch-icon"
+            sizes="76x76"
+            href="../../static/image/apple-icon.png"
+    />
+    <link
+            rel="icon"
+            type="image/png"
+            sizes="96x96"
+            href="../../static/image/favicon.png"
+    />
 </head>
+
 <body>
-        <h1> 관리자 페이지입니다 </h1>
+<!-- WRAPPER -->
+<div id="wrapper">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="brand">
+            <a th:href="@{/adminMain}"
+            ><img
+                    th:src="@{/static/image/logo-dark.png}"
+                    alt="Klorofil Logo"
+                    class="img-responsive logo"
+            /></a>
+        </div>
+        <div class="container-fluid">
+            <div class="navbar-btn">
+                <button type="button" class="btn-toggle-fullwidth">
+                </button>
+            </div>
+            <div id="navbar-menu">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a
+                                href="#"
+                                class="dropdown-toggle icon-menu"
+                                data-toggle="dropdown">
+                        </a>
+                        <ul class="dropdown-menu notifications">
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END NAVBAR -->
+    <!-- 왼쪽 SIDEBAR 시작부분 -->
+    <div id="sidebar-nav" class="sidebar">
+        <div class="sidebar-scroll">
+            <nav>
+                <ul class="nav">
+                    <li>
+                        <a th:href="@{/adminMain}" class="active"
+                        ><i class="lnr lnr-home"></i> <span>홈</span></a>
+                    </li>
+                    <li>
+                        <a th:href="@{/admin/userManagement}" class=""
+                        ><i class="lnr lnr-code"></i> <span>회원 관리</span></a
+                        >
+                    </li>
+                    <li>
+                        <a th:href="@{/admin/trainerManagement}" class=""
+                        ><i class="lnr lnr-chart-bars"></i>
+                            <span>트레이너 관리</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#" class=""
+                        ><i class="lnr lnr-chart-bars"></i>
+                            <span>게시판 관리</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#" class=""
+                        ><i class="lnr lnr-chart-bars"></i>
+                            <span>1:1문의</span></a
+                        >
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- 왼쪽 사이드바 END부분 -->
+    <!-- MAIN -->
+    <div class="main">
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="container-fluid">
+                <!-- 다짐 통계부분 -->
+                <div class="panel panel-headline">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">다짐 통계</h3> </br>
+                        <p>관리자는 회원수,트레이너수 및 게시글수를 볼수있습니다.</p>
+
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="metric">
+                                    <span class="icon"><i class="fa fa-download"></i></span>
+                                    <p>
+                                        <span class="number">1,252</span>
+                                        <span class="title">회원수</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="metric">
+                      <span class="icon"
+                      ><i class="fa fa-shopping-bag"></i
+                      ></span>
+                                    <p>
+                                        <span class="number">203</span>
+                                        <span class="title">트레이너수</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="metric">
+                                    <span class="icon"><i class="fa fa-eye"></i></span>
+                                    <p>
+                                        <span class="number">274,678</span>
+                                        <span class="title">게시글수</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END OVERVIEW -->
+                <!-- 문의사항 시작부분 -->
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">문의사항</h3>
+                        <div class="right">
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-unstyled todo-list">
+                            <li>
+                                <label class="control-inline fancy-checkbox">
+                                    <input type="checkbox"/><span></span>
+                                </label>
+                                <p>
+                                    <span class="title">돈을 잘못보냈어요</span>
+                                    <span class="short-description">
+                        돈 잘못보냈어요 돈 다시 환불좀해주세요.</span>
+                                    <span class="date">2021년 6월 19일</span>
+                                </p>
+                                <div class="controls">
+                                    <a href="#"
+                                    ><i class="icon-software icon-software-pencil"></i
+                                    ></a>
+                                    <a href="#"
+                                    ><i
+                                            class="icon-arrows icon-arrows-circle-remove"
+                                    ></i
+                                    ></a>
+                                </div>
+                            </li>
+                            <li>
+                                <label class="control-inline fancy-checkbox">
+                                    <input type="checkbox"/><span></span>
+                                </label>
+                                <p>
+                                    <span class="title">Retest Upload Scenario</span>
+                                    <span class="short-description"
+                                    >Compellingly implement clicks-and-mortar
+                        relationships without highly efficient
+                        metrics.</span
+                                    >
+                                    <span class="date">Oct 23, 2016</span>
+                                </p>
+                            </li>
+                            <li>
+                                <label class="control-inline fancy-checkbox">
+                                    <input type="checkbox"/><span></span>
+                                </label>
+                                <p>
+                                    <strong>Functional Spec Meeting</strong>
+                                    <span class="short-description"
+                                    >Monotonectally formulate client-focused core
+                        competencies after parallel web-readiness.</span
+                                    >
+                                    <span class="date">Oct 11, 2016</span>
+                                </p>
+                                <div class="controls">
+                                    <a href="#"
+                                    ><i class="icon-software icon-software-pencil"></i
+                                    ></a>
+                                    <a href="#"
+                                    ><i
+                                            class="icon-arrows icon-arrows-circle-remove"
+                                    ></i
+                                    ></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- END TODO LIST -->
+                <!-- 회원목록 -->
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">회원목록</h3>
+                        <div class="right">
+                        </div>
+                    </div>
+                    <div class="panel-body no-padding">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Order No.</th>
+                                <th>Name</th>
+                                <th>Amount</th>
+                                <th>Date &amp; Time</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><a href="#">763648</a></td>
+                                <td>Steve</td>
+                                <td>$122</td>
+                                <td>Oct 21, 2016</td>
+                                <td>
+                                    <span class="label label-success">COMPLETED</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">763649</a></td>
+                                <td>Amber</td>
+                                <td>$62</td>
+                                <td>Oct 21, 2016</td>
+                                <td>
+                                    <span class="label label-warning">PENDING</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">763650</a></td>
+                                <td>Michael</td>
+                                <td>$34</td>
+                                <td>Oct 18, 2016</td>
+                                <td>
+                                    <span class="label label-danger">FAILED</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">763651</a></td>
+                                <td>Roger</td>
+                                <td>$186</td>
+                                <td>Oct 17, 2016</td>
+                                <td>
+                                    <span class="label label-success">SUCCESS</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">763652</a></td>
+                                <td>Smith</td>
+                                <td>$362</td>
+                                <td>Oct 16, 2016</td>
+                                <td>
+                                    <span class="label label-success">SUCCESS</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-6">
+                        <span class="panel-note">
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <a th:href="@{/admin/userManagement}" class="btn btn-primary"
+                                >모든회원보기</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END 회원목록 -->
+                <!-- 트레이너목록 -->
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">트레이너목록</h3>
+                        <div class="right">
+                        </div>
+                    </div>
+                    <div class="panel-body no-padding">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Order No.</th>
+                                <th>Name</th>
+                                <th>Amount</th>
+                                <th>Date &amp; Time</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><a href="#">763648</a></td>
+                                <td>Steve</td>
+                                <td>$122</td>
+                                <td>Oct 21, 2016</td>
+                                <td>
+                                    <span class="label label-success">COMPLETED</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">763649</a></td>
+                                <td>Amber</td>
+                                <td>$62</td>
+                                <td>Oct 21, 2016</td>
+                                <td>
+                                    <span class="label label-warning">PENDING</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">763650</a></td>
+                                <td>Michael</td>
+                                <td>$34</td>
+                                <td>Oct 18, 2016</td>
+                                <td>
+                                    <span class="label label-danger">FAILED</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">763651</a></td>
+                                <td>Roger</td>
+                                <td>$186</td>
+                                <td>Oct 17, 2016</td>
+                                <td>
+                                    <span class="label label-success">SUCCESS</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">763652</a></td>
+                                <td>Smith</td>
+                                <td>$362</td>
+                                <td>Oct 16, 2016</td>
+                                <td>
+                                    <span class="label label-success">SUCCESS</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-6">
+                        <span class="panel-note">
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <a th:href="@{/admin/trainerManagement}" class="btn btn-primary"
+                                >모든트레이너보기</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END 트레이너목록 -->
+            </div>
+            <div class="col-md-6">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-7">
+
+            </div>
+            <div class="col-md-5">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- END MAIN CONTENT -->
+</div>
+<!-- END MAIN -->
+<div class="clearfix"></div>
+<footer>
+    <div class="container-fluid">
+        <p class="copyright">
+            &copy; 2021 DAGYM</a>. All Rights Reserved.
+        </p>
+    </div>
+</footer>
+</div>
+<!-- END WRAPPER -->
 </body>
 </html>

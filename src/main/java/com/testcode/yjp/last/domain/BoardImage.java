@@ -21,4 +21,6 @@ public class BoardImage {
 
     private String imgName;
 
+
+
 }

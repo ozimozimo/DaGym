@@ -35,6 +35,8 @@
             var inputFile = $("input[type='file']");
             var files = inputFile[0].files;
 
+            console.log(files)
+
             for (var i = 0; i < files.length; i++) {
                 console.log(files[i]);
                 formData.append("uploadFiles", files[i]);

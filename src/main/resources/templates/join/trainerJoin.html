@@ -16,149 +16,93 @@
 
     <h1>트레이너 추가 정보 기입 페이지 입니다</h1>
 
+    <form id="trainerInfo">
+        <h2>트레이너 대표 이미지</h2>
+        <input type="hidden" id="id" name="id" th:value="${id}">
+        <input name="uploadFiles" type="file" multiple>
+        <button type="button" id="uploadBtn">업로드</button>
 
-    <h2>트레이너 대표 이미지</h2>
-    <div class="uploadResult"></div>
-    <input name="uploadFiles" type="file" multiple>
-    <button class="uploadBtn">업로드</button>
+
+        <div class="uploadResult"></div>
 
 
-    <div>
-        <label for="trainer_type">트레이너 분야</label>
-        <select name="trainer_type" id="trainer_type">
-            <option value="PT">PT</option>
-            <option value="재활">재활</option>
-            <option value="대회">대회</option>
-            <option value="기타">기타</option>
-        </select>
-    </div>
-    <div>
-        <label for="trainer_time1">근무 시간</label>
-        <input type="time" id="trainer_time1" name="trainer_time1"> ~
-        <input type="time" id="trainer_time2" name="trainer_time2">
+        <div>
+            <label for="trainer_category">트레이너 분야</label>
+            <select name="trainer_category" id="trainer_category">
+                <option value="PT">PT</option>
+                <option value="재활">재활</option>
+                <option value="대회">대회</option>
+                <option value="기타">기타</option>
+            </select>
+        </div>
+        <div>
+            <label for="trainer_time1">근무 시간</label>
+            <input type="hidden" id="trainer_workTime" name="trainer_workTime">
+            <input type="time" id="trainer_time1" name="trainer_time1"> ~
+            <input type="time" id="trainer_time2" name="trainer_time2">
 
-    </div>
+        </div>
 
-    <!-- 주소 -->
-    <ul>
-        <li class="th">
-            <p>헬스장 주소</p>
-        </li>
-        <li class="td">
-            <input
-                    type="text"
-                    id="zipCode"
-                    name="gym_addr"
-                    readonly="readonly"
-                    class="size_zip_all"
-            />
-            <button
-                    type="button"
-                    class="btn zip_btn"
-                    id="zip"
-            >
-                우편번호
-            </button>
-            <div class="address_area">
+        <!-- 주소 -->
+        <ul>
+            <li class="th">
+                <p>헬스장 주소</p>
+            </li>
+            <li class="td">
                 <input
-                        placeholder="도로명 주소"
-                        id="trainer_address_normal"
                         type="text"
-                        name="trainer_address_normal"
-                        class="address size_address"
+                        id="zipCode"
+                        name="gym_addr"
                         readonly="readonly"
+                        class="size_zip_all"
                 />
-                <span>기본주소</span>
-            </div>
-            <div class="address_area">
-                <input
-                        placeholder="상세주소"
-                        type="text"
-                        name="trainer_address_detail"
-                        id="trainer_address_detail"
-                        class="size_address"
-                />
-            </div>
-        </li>
-    </ul>
+                <button
+                        type="button"
+                        class="btn zip_btn"
+                        id="zip"
+                >
+                    우편번호
+                </button>
+                <div class="address_area">
+                    <input
+                            placeholder="도로명 주소"
+                            id="trainer_address_normal"
+                            type="text"
+                            name="trainer_address_normal"
+                            class="address size_address"
+                            readonly="readonly"
+                    />
+                    <span>기본주소</span>
+                </div>
+                <div class="address_area">
+                    <input
+                            placeholder="상세주소"
+                            type="text"
+                            name="trainer_address_detail"
+                            id="trainer_address_detail"
+                            class="size_address"
+                    />
+                </div>
+            </li>
+        </ul>
 
-    <div>
-        <label for="trainer_instagram">인스타그램</label>
-        <input type="text" name="trainer_instagram" id="trainer_instagram">
-    </div>
-    <div>
-        <label for="trainer_kakao">카카오 아이디</label>
-        <input type="text" name="trainer_kakao" id="trainer_kakao">
-    </div>
+        <div>
+            <label for="trainer_instagram">인스타그램</label>
+            <input type="text" name="trainer_instagram" id="trainer_instagram">
+        </div>
+        <div>
+            <label for="trainer_kakao">카카오 아이디</label>
+            <input type="text" name="trainer_kakao" id="trainer_kakao">
+        </div>
 
-    <div>
-        <label for="trainer_content">트레이너 경력사항</label><br/>
-        <textarea name="trainer_content" id="trainer_content" cols="30" rows="5"></textarea>
-    </div>
+        <div>
+            <label for="trainer_content">트레이너 경력사항</label><br/>
+            <textarea name="trainer_content" id="trainer_content" cols="30" rows="5"></textarea>
+        </div>
 
+        <button type="button"  onclick="trainerJoin()">가입하기</button>
+    </form>
 
-    <script>
-
-        // 사진 삭제
-        $('.uploadResult').on("click", ".removeBtn", function (e) {
-
-            var target = $(this);
-            var fileName = target.data("name");
-            var targetDiv = $(this).closest("div");
-            console.log(fileName);
-
-            $.post('/removeFile', {fileName: fileName}, function (result) {
-                console.log(result);
-                if (result === true) {
-                    targetDiv.remove();
-                }
-            })
-        })
-
-        // 사진 받아오기
-        $('.uploadBtn').click(function () {
-            var formData = new FormData();
-            var inputFile = $("input[type='file']");
-            var files = inputFile[0].files;
-
-            for (var i = 0; i < files.length; i++) {
-                console.log(files[i]);
-                formData.append("uploadFiles", files[i]);
-            }
-
-
-            // 실제 업로드 부분
-            $.ajax({
-                url: '/uploadFile',
-                processData: false,
-                contentType: false,
-                data: formData,
-                type: "POST",
-                dataType: "json",
-                success: function (result) {
-                    console.log(result);
-                    showUploadedImages(result);
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus);
-                }
-            }) // ajax end
-        });
-
-        function showUploadedImages(arr) {
-            console.log(arr);
-            var divArea = $(".uploadResult");
-
-            var str = "";
-            for (var i = 0; i < arr.length; i++) {
-                str += "<div>";
-                str += "<img src='/display?fileName=" + arr[i].thumbnailURL + "'>";
-                str += "<button class='removeBtn' data-name='" + arr[i].imageURL + "'>삭제</button>";
-                str += "</div>"
-            }
-            divArea.append(str);
-        }
-    </script>
 
 </div>
 </html>

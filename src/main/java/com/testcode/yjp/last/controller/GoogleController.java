@@ -4,6 +4,7 @@ import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.dto.MemberSoDto;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.service.MemberService;
+import com.testcode.yjp.last.service.PTUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.json.simple.JSONObject;
@@ -27,6 +28,7 @@ import java.net.URL;
 public class GoogleController {
     private final MemberService soMemberService;
     private final MemberRepository memberRepository;
+    private final PTUserService ptUserService;
 
     @PostMapping(value = "/login/google")
     public String googleLogin(@RequestBody String param, HttpServletRequest request, HttpServletResponse response) {
@@ -67,6 +69,9 @@ public class GoogleController {
                 soMemberService.googleSave(memberGoogleDto);
             }
             ckUserId = memberRepository.findByUser_id(user_id);
+
+            // pt 기간 만료
+            ptUserService.endDate(ckUserId);
 
             HttpSession session = (HttpSession) request.getSession();
             session.setAttribute("loginUser", ckUserId.getId());

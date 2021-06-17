@@ -4,6 +4,7 @@ import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.dto.MemberSoDto;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.service.MemberService;
+import com.testcode.yjp.last.service.PTUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpSession;
 public class KakaoController {
     private final MemberService MemberService;
     private final MemberRepository memberRepository;
+    private final PTUserService ptUserService;
 
     @RequestMapping(value = "/login/kakao")
     public String kakao(@RequestParam("userId") String user_id, @RequestParam("userEmail") String user_email,
@@ -41,6 +43,9 @@ public class KakaoController {
             MemberService.kakaoSave(memberSoDto);
         }
         ckUserId = memberRepository.findByUser_id(user_id);
+
+        // pt 기간 만료
+        ptUserService.endDate(ckUserId);
 
         HttpSession session = (HttpSession) request.getSession();
         session.setAttribute("loginId", ckUserId.getId());

@@ -3,6 +3,7 @@ package com.testcode.yjp.last.controller;
 import com.testcode.yjp.last.domain.dto.MemberList;
 import com.testcode.yjp.last.domain.dto.PTUserApplyMemberDto;
 import com.testcode.yjp.last.domain.dto.TrainerSearchDto;
+import com.testcode.yjp.last.repository.PTUserRepository;
 import com.testcode.yjp.last.service.PTUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import java.util.List;
 @RequestMapping("/ptUser")
 public class PTController {
     private final PTUserService ptUserService;
+    private final PTUserRepository ptUserRepository;
 
     // 트레이너 조회, 검색 페이지 뷰
     @GetMapping("/view")
@@ -31,7 +33,7 @@ public class PTController {
 
     // 해당 트레이너가 관리하는 회원들 목록 보여주는 뷰
     @GetMapping("/manage")
-    public String acceptList(Model model, @RequestParam(value="id") Long trainer_id) {
+    public String acceptList(Model model, @RequestParam(value = "id") Long trainer_id) {
         System.out.println("trainer_id = " + trainer_id);
         ArrayList<PTUserApplyMemberDto> acceptList = ptUserService.getAcceptList(trainer_id);
         model.addAttribute("acceptList", acceptList);
