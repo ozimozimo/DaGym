@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
             var url = window.location.pathname;
 
             var id = $('.loginId').text();
-            var diet_id = $('.loginId').val();
+            var diet_id = $('.diet_member_id').val();
             var click = info.dateStr;
             $('.date').val(click);
             var ex_data = {

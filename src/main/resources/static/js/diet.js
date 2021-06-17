@@ -13,10 +13,10 @@ $(function () {
         todayData();
     }
 
-    // if( $('.loginId').text() != $('.member').val()){
-    //     $('.addBtn').hide();
-    //     $('.diet_Delete').hide();
-    // }
+    if( $('.login_id').val() != $('.diet_member_id').val()){
+        $('.addBtn').hide();
+        // $('.diet_Delete').hide();
+    }
 
 
 })
@@ -259,7 +259,7 @@ function input(obj) {
     let dinnerList = new eatTime('저녁', 'dinnerList', '.dinner', '.dinnerEat');
     let extra = new eatTime('간식', 'extraList', '.extra', '.extraEat');
     let timeObj;
-    let id = $('.diet_member_id').val();
+    let id = $('.login_id').val();
 
     switch (obj.f) {
         case "아침" :
@@ -288,6 +288,9 @@ function input(obj) {
     content += "<td class='diet_date' style='display: none'>" + obj.j + "</td>"
     if (obj.h == id)
         content += "<td><button type='button' class='diet_Delete' onclick='dietDelete(this)'>삭제</button>" + "</td>"
+    // else {
+    //     content += "<td></td>"
+    // }
     content += "</tr>"
     $(timeObj.eat).before(content);
 }

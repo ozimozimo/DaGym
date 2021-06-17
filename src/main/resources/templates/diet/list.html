@@ -25,11 +25,11 @@
     <!--    th:if 부분 추가-->
 <!--    <input type="text" th:value="${session.loginUser}" class="member" />-->
 <!--    로그인 아이디-->
-    <input type="text" th:value="${session.loginId}" class="login_id" />
+    <input type="hidden" th:value="${session.loginId}" class="login_id" />
 <!--    식단을 보여줄 기준 아이디-->
-    <input type="text" th:value="${session.loginId}" class="diet_member_id" />
+    <input type="hidden" th:value="${session.loginId}" class="diet_member_id" />
 <!--    날짜 -->
-    <input type="text" class="date" value=""/>
+    <input type="hidden" class="date" value=""/>
 
     <div style="display: flex; align-items: center; justify-content: center; padding-left:150px">
         <div id="calendar" style="min-width: 600px; "></div>
