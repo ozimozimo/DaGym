@@ -162,7 +162,7 @@ public class MemberService {
     public String findMember(String user_id, String user_pw) {
         List<Member> create = memberRepository.findByMemberIn(user_id, user_pw);
         Member member = memberRepository.findMember(user_id, user_pw);
-        if (member.getUser_id().equals("ehgus0006")) {
+        if (member.getUser_id().equals("admin")) {
             return "3";
         }
         if (create.isEmpty()) {

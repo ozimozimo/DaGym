@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
     <title>관리자페이지</title>
     <meta charset="utf-8"/>
@@ -9,23 +11,20 @@
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     />
     <!-- VENDOR CSS -->
+    <link rel="stylesheet" th:href="@{~/vender/bootstrap/css/bootstrap.min.css}"/>
     <link
             rel="stylesheet"
-            href="/static/vendor/bootstrap/css/bootstrap.min.css"
+            th:href="@{/css/font-awesome.min.css}"
     />
+    <link rel="stylesheet" th:href="@{/vendor/linearicons/style.css}"/>
     <link
             rel="stylesheet"
-            href="../../static/vendor/font-awesome/css/font-awesome.min.css"
-    />
-    <link rel="stylesheet" href="../../static/vendor/linearicons/style.css"/>
-    <link
-            rel="stylesheet"
-            href="../../static/vendor/chartist/css/chartist-custom.css"
+            th:href="@{/vendor/chartist/css/chartist-custom.css}"
     />
     <!-- MAIN CSS -->
-    <link rel="stylesheet" href="../../static/css/admin/main.css"/>
+    <link rel="stylesheet" th:href="@{/css/admin/main.css}"/>
     <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
-    <link rel="stylesheet" href="../../static/css/admin/demo.css"/>
+    <link rel="stylesheet" th:href="@{/css/admin/demo.css}"/>
     <!-- GOOGLE FONTS -->
     <link
             href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700"
@@ -51,9 +50,9 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="brand">
-            <a href="adminMain"
+            <a th:href="@{/adminMain}"
             ><img
-                    src="../../static/image/logo-dark.png"
+                    th:src="@{/static/image/logo-dark.png}"
                     alt="Klorofil Logo"
                     class="img-responsive logo"
             /></a>
@@ -85,16 +84,16 @@
             <nav>
                 <ul class="nav">
                     <li>
-                        <a href="adminMain" class="active"
+                        <a th:href="@{/adminMain}" class="active"
                         ><i class="lnr lnr-home"></i> <span>홈</span></a>
                     </li>
                     <li>
-                        <a href="#" class=""
+                        <a th:href="@{/admin/userManagement}" class=""
                         ><i class="lnr lnr-code"></i> <span>회원 관리</span></a
                         >
                     </li>
                     <li>
-                        <a href="#" class=""
+                        <a th:href="@{/admin/trainerManagement}" class=""
                         ><i class="lnr lnr-chart-bars"></i>
                             <span>트레이너 관리</span></a
                         >
@@ -307,7 +306,7 @@
                         <span class="panel-note">
                             </div>
                             <div class="col-md-6 text-right">
-                                <a href="#" class="btn btn-primary"
+                                <a th:href="@{/admin/userManagement}" class="btn btn-primary"
                                 >모든회원보기</a
                                 >
                             </div>
@@ -388,7 +387,7 @@
                         <span class="panel-note">
                             </div>
                             <div class="col-md-6 text-right">
-                                <a href="#" class="btn btn-primary"
+                                <a th:href="@{/admin/trainerManagement}" class="btn btn-primary"
                                 >모든트레이너보기</a>
                             </div>
                         </div>

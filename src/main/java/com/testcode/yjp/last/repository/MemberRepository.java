@@ -46,4 +46,12 @@ public interface MemberRepository  extends JpaRepository<Member,Long> {
     // 비밀번호 찾기
     @Query("select m from Member m where m.user_name= :user_name and m.user_email = :user_email and m.user_id = :user_id")
     Member findCheckPw(String user_name, String user_email, String user_id);
+
+    //회원 조회
+    @Query("select m from Member m where m.user_role='user'")
+    List<Member> selectUser();
+
+    //트레이너 조회
+    @Query("select m from Member m where m.user_role='trainer'")
+    List<Member> selectTrainer();
 }
