@@ -31,6 +31,10 @@ public class TrainerInfoDto {
     private String trainer_category;
     // 근무시간
     private String trainer_workTime;
+
+    // 헬스장 이름
+    private String trainer_gymName;
+
     // 헬스장 주소
     private String trainer_address_normal;
     // 헬스장 상세주소
@@ -50,6 +54,7 @@ public class TrainerInfoDto {
         this.uuid = entity.getUuid();
         this.imgName = entity.getImgName();
         this.fileName = entity.getFileName();
+        this.trainer_gymName = entity.getTrainer_gymName();
         this.trainer_category = entity.getTrainer_category();
         this.trainer_workTime = entity.getTrainer_workTime();
         this.trainer_address_normal = entity.getTrainer_address_normal();
