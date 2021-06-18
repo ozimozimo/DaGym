@@ -17,6 +17,8 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -175,7 +177,7 @@ public class TrainerApiController {
 
 
     @PostMapping("/trainer/trInfo/{id}")
-    public TrainerInfoDto save(@PathVariable Long id, @RequestBody TrainerInfoDto trainerInfoDto) {
+    public TrainerInfoDto save(@PathVariable Long id, @RequestBody TrainerInfoDto trainerInfoDto, HttpServletRequest request) {
 
         log.info("trainer 추가 정보 페이지 controller ");
 
@@ -192,6 +194,9 @@ public class TrainerApiController {
 
 
         trainerService.save(trainerInfoDto);
+        HttpSession session = (HttpSession) request.getSession();
+        session.removeAttribute("loginUser");
+        session.invalidate();
         return trainerInfoDto;
     }
 

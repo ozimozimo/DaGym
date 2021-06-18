@@ -119,7 +119,18 @@ public class MemberController {
         memberService.update(member_id, memberFindIdDto);
         System.out.println(memberFindIdDto.getUser_pw());
         HttpSession session = (HttpSession) request.getSession();
-        session.setAttribute("loginRole", memberFindIdDto.getUser_role());
+        String user_role = memberFindIdDto.getUser_role();
+
+        Member member = memberRepository.findById(member_id).get();
+
+        String user_id = member.getUser_id();
+
+
+        session.setAttribute("loginRole", user_role);
+
+        if (user_role.equals("trainer")) {
+            return "redirect:/trainer/trainerJoin?id="+user_id;
+        }
 
         return "redirect:/";
     }
@@ -157,6 +168,10 @@ public class MemberController {
         System.out.println(memberFindIdDto.getUser_pw());
         HttpSession session = (HttpSession) request.getSession();
         session.setAttribute("loginRole", memberFindIdDto.getUser_role());
+
+        if (memberFindIdDto.getUser_role().equals("trainer")) {
+            return "redirect:/trainer/trainerJoin?id="+memberFindIdDto.getUser_id();
+        }
 
         return "redirect:/";
     }
