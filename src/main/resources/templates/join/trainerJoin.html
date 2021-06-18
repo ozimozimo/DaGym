@@ -8,6 +8,20 @@
 <head>
     <title>Main</title>
     <link rel="stylesheet" th:href="@{/css/index.css}"/>
+    <style>
+        img {
+            border: 0;
+            vertical-align: middle;
+        }
+        .trainer_image{
+            width: 200px;
+            height: 200px;
+        }
+        .hidden {
+            display: none;
+        }
+
+    </style>
     <script th:src="@{~/js/trainerJoin.js}"></script>
     <script th:src="@{http://dmaps.daum.net/map_js_init/postcode.v2.js}"></script>
 </head>
@@ -24,7 +38,7 @@
 
 
         <div class="uploadResult"></div>
-
+        <div class="uploadResult2"></div>
 
         <div>
             <label for="trainer_category">트레이너 분야</label>

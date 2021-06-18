@@ -6,8 +6,9 @@ $(function () {
     let uploadResult = $('#uploadResult');
     let joinBtn = $('.joinBtn');
 
-    $('#uploadResult').on("click", ".removeBtn", function (e) {
+    $('.uploadResult').on("click", ".removeBtn", function (e) {
 
+        $('#uploadBtn').removeClass('hidden');
         var target = $(this);
         var fileName = target.data("name");
         var targetDiv = $(this).closest("div");
@@ -107,6 +108,7 @@ function Upload() {
 function showUploadedImages(arr) {
     console.log("===================================" + arr + "======================================");
     var divArea = $(".uploadResult");
+    $('#uploadBtn').addClass('hidden');
 
     var str = "";
     for (var i = 0; i < arr.length; i++) {
@@ -121,7 +123,7 @@ function showUploadedImages(arr) {
 
         str += "<div>";
         str += "<img src='/display?fileName=" + arr[i].thumbnailURL + "'>";
-        str += "<button class='removeBtn' data-name='" + arr[i].imageURL + "'>삭제</button>";
+        str += "<button type='button' class='removeBtn' data-name='" + arr[i].imageURL + "'>삭제</button>";
         str += "</div>"
         str += "<input type='hidden' id='uuid' name='uuid' value='"+ uuid+"'>"
         str += "<input type='hidden' id='imgName' name='imgName' value='"+ imgName+"'>"
@@ -149,11 +151,26 @@ const trainer_time_concat = () => {
     let trainer_workTime = trainer_time1 + trainer_time2;
 }
 
+// 주소 합체하기
+const addr_concat = () => {
+    // 네임 값
+    let zip = $('#zipCode').val();
+    let addr = $('#trainer_address_normal').val();
+
+    let zipAddr = zip + addr;
+
+    $('#address_normal').val(zipAddr);
+};
+
 function trainerJoin() {
     var id = $('#id').val();
     let trainer_time1 = $('#trainer_time1').val();
     let trainer_time2 = $('#trainer_time2').val();
     let trainer_workTime = trainer_time1 + "~" + trainer_time2;
+    let zip = $('#zipCode').val();
+    let addr = $('#trainer_address_normal').val();
+
+    let trainer_address_normal = zip + addr;
 
     var data = {
         trainer_category: $('#trainer_category').val(),
@@ -161,7 +178,7 @@ function trainerJoin() {
         uuid: $('#uuid').val(),
         imgName: $('#imgName').val(),
         fileName: $('#fileName').val(),
-        trainer_address_normal: $('#trainer_address_normal').val(),
+        trainer_address_normal,
         trainer_address_detail: $('#trainer_address_detail').val(),
         trainer_instagram: $('#trainer_instagram').val(),
         trainer_kakao: $('#trainer_kakao').val(),
@@ -180,7 +197,7 @@ function trainerJoin() {
     console.log(data.trainer_instagram + "통과");
     console.log(data.trainer_kakao + "통과");
     console.log(data.trainer_content + "통과");
-
+    addr_concat();
     $.ajax({
         url: '/trainer/trInfo/' + id,
         type: 'post',
@@ -192,6 +209,7 @@ function trainerJoin() {
             console.log(data.fileName);
             console.log(data.imgName)
             alert('추가정보 가입에 성공하였습니다');
+
             location.href = "/member/login";
         },
         error: function () {
@@ -239,6 +257,5 @@ function checkData() {
         return true;
     }
     return false;
-
 
 }

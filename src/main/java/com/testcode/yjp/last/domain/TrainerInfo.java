@@ -1,5 +1,6 @@
 package com.testcode.yjp.last.domain;
 
+import com.testcode.yjp.last.domain.dto.TrainerInfoDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -46,6 +47,17 @@ public class TrainerInfo {
     private Member member;
 
 
+    public void update(TrainerInfoDto trainerInfoDto) {
+        this.uuid = trainerInfoDto.getUuid();
+        this.imgName = trainerInfoDto.getImgName();
+        this.fileName = trainerInfoDto.getFileName();
+        this.trainer_category = trainerInfoDto.getTrainer_category();
+        this.trainer_workTime = trainerInfoDto.getTrainer_workTime();
+        this.trainer_address_normal = trainerInfoDto.getTrainer_address_normal();
+        this.trainer_address_detail = trainerInfoDto.getTrainer_address_detail();
+        this.trainer_instagram = trainerInfoDto.getTrainer_instagram();
+        this.trainer_kakao = trainerInfoDto.getTrainer_kakao();
+        this.trainer_content = trainerInfoDto.getTrainer_content();
 
-
+    }
 }

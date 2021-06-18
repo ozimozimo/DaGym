@@ -44,9 +44,9 @@ public class TrainerApiController {
     private String fileName = null;
     private String uuid = null;
     private String folderPath = null;
-    private  String srcFileName = null;
+    private String srcFileName = null;
     String lastImage = null;
-    String loadImageName= null;
+    String loadImageName = null;
 
     private final MemberRepository memberRepository;
     private final TrainerService trainerService;
@@ -59,7 +59,7 @@ public class TrainerApiController {
         for (MultipartFile uploadFile : uploadFiles) {
 
             // 이미지 파일만 업로드 가능
-            if(!uploadFile.getContentType().startsWith("image")){
+            if (!uploadFile.getContentType().startsWith("image")) {
                 log.warn("이미지 타입이 아닙니다");
                 return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             }
@@ -92,7 +92,7 @@ public class TrainerApiController {
                 // 섬네일 파일 이름은 중간에 s_로 시작하도록 설정
                 File thumbnailFile = new File(thumbnailSaveName);
                 // 섬네일 생성
-                Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile,640,427);
+                Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile, 640, 427);
                 resultDtoList.add(new UploadResultDto(fileName, uuid, folderPath));
 
                 lastImage = fileName;
@@ -124,14 +124,14 @@ public class TrainerApiController {
     @GetMapping("/display")
     public ResponseEntity<byte[]> getFile(String fileName) {
 
-        System.out.println("파일이름은=?"+fileName);
+        System.out.println("파일이름은=?" + fileName);
         loadImageName = fileName;
         ResponseEntity<byte[]> result = null;
         try {
             String srcFileName = URLDecoder.decode(fileName, "UTF-8");
             log.info("fileName : " + srcFileName);
             File file = new File(uploadPath + File.separator + srcFileName);
-            log.info("display file :"+file);
+            log.info("display file :" + file);
             HttpHeaders header = new HttpHeaders();
 
             //MIME타입 처리
@@ -179,6 +179,7 @@ public class TrainerApiController {
 
         log.info("trainer 추가 정보 페이지 controller ");
 
+        log.info(trainerInfoDto.getTrainer_content());
         log.info(trainerInfoDto.getFileName());
         log.info(trainerInfoDto.getImgName());
         log.info(id + "-===================================");
@@ -187,10 +188,20 @@ public class TrainerApiController {
         trainerInfoDto.setId(id);
         trainerInfoDto.setMember(byId.get());
         trainerInfoDto.setUuid(thumbnailSaveName);
-
+        trainerInfoDto.setFileName(fileName);
 
 
         trainerService.save(trainerInfoDto);
         return trainerInfoDto;
     }
+
+    @PostMapping("/trainer/trUpdate/{id}")
+    public TrainerInfo trUpdate(@PathVariable Long id, @RequestBody TrainerInfoDto trainerInfoDto) {
+        log.info("trUpdate Controller postMapping");
+        log.info(id);
+        log.info(trainerInfoDto);
+
+        return trainerService.update(id, trainerInfoDto);
+    }
+
 }

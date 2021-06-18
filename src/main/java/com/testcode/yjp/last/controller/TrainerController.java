@@ -49,6 +49,8 @@ public class TrainerController {
         log.info(result.getFileName());
         log.info(result.getImgName());
         log.info(result.getUuid());
+        log.info(result.getTrainer_content());
+        log.info(result.getTrainer_workTime());
 
         model.addAttribute("trainerInfo", result);
 

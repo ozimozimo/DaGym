@@ -1,17 +1,11 @@
 package com.testcode.yjp.last.service;
 
-import com.testcode.yjp.last.domain.Board;
-import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.TrainerInfo;
-import com.testcode.yjp.last.domain.dto.BoardResponseDto;
 import com.testcode.yjp.last.domain.dto.TrainerInfoDto;
-import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.TrainerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @Log4j2
@@ -44,5 +38,14 @@ public class TrainerService {
     public TrainerInfoDto findById(Long id) {
         TrainerInfo entity = trainerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 정보가 없습니다= id" + id));
         return new TrainerInfoDto(entity);
+    }
+
+    public TrainerInfo update(Long id, TrainerInfoDto trainerInfoDto) {
+
+        log.info("update Service 입니다");
+        TrainerInfo trainerInfo = trainerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 정보가 없습니다" + id));
+        trainerInfo.update(trainerInfoDto);
+
+        return trainerRepository.save(trainerInfo);
     }
 }

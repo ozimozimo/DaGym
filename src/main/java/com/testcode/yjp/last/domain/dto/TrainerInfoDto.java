@@ -41,6 +41,7 @@ public class TrainerInfoDto {
     private String trainer_kakao;
     // 트레이너 상세정보
     private String trainer_content;
+
     private Member member;
 
 
@@ -55,6 +56,7 @@ public class TrainerInfoDto {
         this.trainer_address_detail = entity.getTrainer_address_detail();
         this.trainer_instagram = entity.getTrainer_instagram();
         this.trainer_kakao = entity.getTrainer_kakao();
+        this.trainer_content = entity.getTrainer_content();
         this.member = entity.getMember();
     }
 
