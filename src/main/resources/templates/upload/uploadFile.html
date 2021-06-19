@@ -4,7 +4,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       data-layout-decorate="~{layout/default}">
 <div layout:fragment="content">
-
     <input name="uploadFiles" type="file" multiple>
     <button class="uploadBtn">업로드</button>
 
@@ -36,6 +35,8 @@
             var inputFile = $("input[type='file']");
             var files = inputFile[0].files;
 
+            console.log(files)
+
             for (var i = 0; i < files.length; i++) {
                 console.log(files[i]);
                 formData.append("uploadFiles", files[i]);
@@ -61,7 +62,7 @@
         });
 
         function showUploadedImages(arr) {
-            console.log(arr);
+            console.log(arr+"====================================");
             var divArea = $(".uploadResult");
 
             var str = "";

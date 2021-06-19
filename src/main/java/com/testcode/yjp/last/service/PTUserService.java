@@ -11,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -21,6 +23,22 @@ public class PTUserService {
 
     private final PTUserRepository ptUserRepository;
     private final MemberRepository memberRepository;
+
+    public List<MemberList> getMemberList() {
+        List<Member> members = ptUserRepository.selectTrainer();
+        List<MemberList> memberLists = new ArrayList<>();
+
+//        List<TrainerCountInterface> trainerCountDtos = ptUserRepository.selectTrainerAndCount();
+//        log.info("count = " + trainerCountDtos);
+
+        for (Member member : members) {
+            MemberList memberList = getMemberList(member);
+            memberLists.add(memberList);
+        }
+        log.info("memberLists = " + memberLists.toString());
+
+        return memberLists;
+    }
 
     //이름검색
     public List<MemberList> nameSearch(String search) {
@@ -217,6 +235,25 @@ public class PTUserService {
         System.out.println("신청상태 : " + ptUserApplyConDto.getApply_if());
         ptUserRepository.save(ptUser);
         return id;
+    }
+
+    // (기간만료) pt신청 endDate와 오늘 날짜 비교해서 endDate지나면 수락상태 3으로 변경
+    public void endDate(Member member) {
+        Date today = new Date();
+        log.info("today = " + today.toString());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String format = simpleDateFormat.format(today);
+        log.info("format = " + format);
+        ArrayList<PTUser> ptUsers = ptUserRepository.endDate(member, format);
+        log.info("ptUsers = " + ptUsers.toString());
+        for (PTUser ptUser : ptUsers) {
+            log.info("for in");
+            ptUser.setAccept_condition("3");
+            log.info("condition 3");
+            ptUserRepository.save(ptUser);
+            log.info("save succ");
+        }
+
     }
 
 }

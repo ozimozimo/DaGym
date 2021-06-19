@@ -11,14 +11,14 @@ function check() {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
     }).done(function (data) {
-        if(data[0].accept_condition == 0) {
+        if (data[0].accept_condition == 0) {
             alert('PT 수락 대기 중입니다.');
             window.location.href = '/ptUser/view';
             console.log(data);
-        } else if(data[0].accept_condition == 1) {
+        } else if (data[0].accept_condition == 1) {
             alert('PT가 진행 중입니다.')
             window.location.href = '/ptUser/view';
-        } else if(data[0].accept_condition == null || data[0].accept_condition == 2) {
+        } else if (data[0].accept_condition == null || data[0].accept_condition == 2) {
             console.log(data);
         }
     }).fail(function (error) {
@@ -131,7 +131,7 @@ function updateAccept(a) {
     // 내가 누른 버튼의 텍스트값
     let con = a.innerText;
     // 수락이면 apply_if에 1 저장하고 아니면 2 저장
-    if(con == "수락") {
+    if (con == "수락") {
         apply_if = 1;
     } else {
         apply_if = 2;
@@ -143,14 +143,14 @@ function updateAccept(a) {
     }
     $.ajax({
         type: 'post',
-        url: '/ptUser/apply/update/'+id,
+        url: '/ptUser/apply/update/' + id,
         data: JSON.stringify(data),
         contentType: 'application/json; charset=utf-8',
     }).done(function (data) {
         console.log(data);
-        if(con == "수락") {
+        if (con == "수락") {
             alert("PT신청이 수락되었습니다");
-        } else if(con == "거절") {
+        } else if (con == "거절") {
             alert("PT신청이 거절되었습니다");
         }
         location.reload();
@@ -163,3 +163,21 @@ $(function () {
     acceptList();
     showList();
 })
+
+function a() {
+    $('#selectEmail').change(function () {
+        $(".category option:selected").each(function () {
+            if ($(this).val() == '1') { //직접입력일 경우
+                $('.category').removeId
+                $('#trainer_category').append("<input type='text' id='trainer_category'>");
+
+                $("#str_email02").val(''); //값 초기화
+                $("#str_email02").attr("disabled", false); //활성화
+            } else { //직접입력이 아닐경우
+                $("#str_email02").val($(this).text()); //선택값 입력
+                $("#str_email02").attr("disabled", true); //비활성화
+            }
+        });
+    });
+
+}

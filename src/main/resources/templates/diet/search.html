@@ -14,9 +14,10 @@
     <div>
         <h1 class="h3 mt-4">음식검색</h1>
         <!--        현재 로그인한 회원의 member_id-->
-        <input type="hidden" th:value="${session.loginUser}" class="member"/>
-        <input type="hidden" th:value="${session.loginId}" class="diet_member_id" />
-        <input type="hidden" class="date" value="">
+<!--        <input type="text" th:value="${session.loginUser}" class="member"/>-->
+        <input type="text" th:value="${session.loginId}" class="login_id" />
+        <input type="text" th:value="${session.loginId}" class="diet_member_id" />
+        <input type="text" class="date" value="">
 
         <div class="search-form my-4">
             <div class="search-input">

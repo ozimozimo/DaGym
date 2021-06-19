@@ -47,6 +47,10 @@ public class Member extends BaseEntity{
     @OneToMany(mappedBy = "member", orphanRemoval = true)
     private List<Board> boards = new ArrayList<>();
 
+//    @OneToOne
+//    @JoinColumn(name = "trainer_id")
+//    private TrainerInfo trainerInfo;
+
     @Builder
     public Member(Long id, String user_id, String user_pw, String user_name, String user_pn, String user_email,  String address_normal, String address_detail,String user_rrn,String user_gender,String user_role) {
         this.id = id;

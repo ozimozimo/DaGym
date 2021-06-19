@@ -42,8 +42,6 @@ public class Board extends BaseEntity{
 //    @OneToMany(mappedBy = "board",orphanRemoval = true)
 //    private Set<Comment> comments = new HashSet<>();
 
-    @OneToMany(mappedBy = "board",orphanRemoval = true)
-    private List<BoardImage> boardImages = new ArrayList<>();
 
     @OneToMany(mappedBy = "board",orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
