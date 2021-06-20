@@ -4,44 +4,41 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity
 @NoArgsConstructor
+@Builder
 @Table(name = "PT_USER")
-public class PTUser {
+public class PTUser extends BaseEntity{
+
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column
     private Long id;
 
+    // 키
+    private String member_height;
+
+    // 몸무게
+    private String member_weight;
+
+    // pt 목적
+    private String pt_purpose;
+
+    // 횟수
+    private String pt_count;
+    
+    // member_id 기본정보에 + pt 추가 정보기입
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member_id;
 
+    // pt 받게 될 트레이너 정보
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "trainer_id")
-    private Member trainer_id;
+    private TrainerInfo trainer_id;
 
-    private String user_id;
-    private String user_name;
-    private String user_pn;
-    private String user_email;
-    private String start_date;
-    private String end_date;
     private String accept_condition; // {0 신청(보류), 1 신청(수락), 2 신청(거절)}로 생각
-
-    @Builder
-    public PTUser(Long id, Member member_id, Member trainer_id, String user_id, String user_name, String user_pn, String user_email, String start_date, String end_date, String accept_condition) {
-        this.id = id;
-        this.user_id = user_id;
-        this.member_id = member_id;
-        this.trainer_id = trainer_id;
-        this.user_name = user_name;
-        this.user_pn = user_pn;
-        this.user_email = user_email;
-        this.start_date = start_date;
-        this.end_date = end_date;
-        this.accept_condition = accept_condition;
-    }
 
     public void update(Long id, String accept_condition) {
         this.id = id;

@@ -21,49 +21,57 @@
             <span>트레이너 연락처 : </span><span th:text="${trainer.getUser_pn()}"></span>
         </div>
 
+        <!--        <form>-->
+        <!--            <div th:each="member : ${memberList}">-->
+        <!--                &lt;!&ndash; 이름 &ndash;&gt;-->
+        <!--                <ul>-->
+        <!--                    <input type="hidden" id="member_id" name="member_id" th:value="${session.loginUser}"/>-->
+        <!--                    <input type="hidden" id="trainer_id" name="trainer_id" th:value="${trainer_id}"/>-->
+
+        <!--                    <li>-->
+        <!--                        <p><label for="user_name">이름</label></p>-->
+        <!--                    </li>-->
+        <!--                    <li>-->
+        <!--                        <input type="text" id="user_name" name="user_name" th:value="${member.getUser_name}" readonly="readonly"/>-->
+        <!--                    </li>-->
+        <!--                </ul>-->
+        <!--                &lt;!&ndash; 아이디 &ndash;&gt;-->
+        <!--                <ul>-->
+        <!--                    <li>-->
+        <!--                        <p><label for="user_id">아이디</label></p>-->
+        <!--                    </li>-->
+        <!--                    <li>-->
+        <!--                        <input type="text" id="user_id" name="user_id" th:value="${member.getUser_id}" readonly="readonly"/>-->
+        <!--                    </li>-->
+        <!--                </ul>-->
+        <!--                &lt;!&ndash; 이메일 &ndash;&gt;-->
+        <!--                <ul>-->
+        <!--                    <li>-->
+        <!--                        <p><label for="user_email">이메일</label></p>-->
+        <!--                    </li>-->
+        <!--                    <li>-->
+        <!--                        <input type="text" id="user_email" name="user_email" th:value="${member.getUser_email}" readonly="readonly"/>-->
+        <!--                    </li>-->
+        <!--                </ul>-->
+        <!--                &lt;!&ndash; 휴대폰 확인 &ndash;&gt;-->
+        <!--                <ul>-->
+        <!--                    <li>-->
+        <!--                        <p><label for="user_pn">연락처</label></p>-->
+        <!--                    </li>-->
+        <!--                    <li>-->
+        <!--                        <input type="text" id="user_pn" name="user_pn" th:value="${member.getUser_pn}" readonly="readonly"/>-->
+        <!--                    </li>-->
+        <!--                </ul>-->
+
+        <!--            </div>-->
+        <!--        </form>
+        -->
         <form>
-            <div th:each="member : ${memberList}">
-                <!-- 이름 -->
-                <ul>
-                    <input type="hidden" id="member_id" name="member_id" th:value="${session.loginUser}"/>
-                    <input type="hidden" id="trainer_id" name="trainer_id" th:value="${trainer_id}"/>
+            <input type="hidden" id="member_id" name="member_id" th:value="${session.loginUser}"/>
+            <input type="hidden" id="trainer_id" name="trainer_id" th:value="${trainer_id}"/>
+<!--            member 이름, 전화번호, pt 추가정보 나이,성별 ,키, 몸무게, pt목적, pt 횟수, pt신청 날짜-->
 
-                    <li>
-                        <p><label for="user_name">이름</label></p>
-                    </li>
-                    <li>
-                        <input type="text" id="user_name" name="user_name" th:value="${member.getUser_name}" readonly="readonly"/>
-                    </li>
-                </ul>
-                <!-- 아이디 -->
-                <ul>
-                    <li>
-                        <p><label for="user_id">아이디</label></p>
-                    </li>
-                    <li>
-                        <input type="text" id="user_id" name="user_id" th:value="${member.getUser_id}" readonly="readonly"/>
-                    </li>
-                </ul>
-                <!-- 이메일 -->
-                <ul>
-                    <li>
-                        <p><label for="user_email">이메일</label></p>
-                    </li>
-                    <li>
-                        <input type="text" id="user_email" name="user_email" th:value="${member.getUser_email}" readonly="readonly"/>
-                    </li>
-                </ul>
-                <!-- 휴대폰 확인 -->
-                <ul>
-                    <li>
-                        <p><label for="user_pn">연락처</label></p>
-                    </li>
-                    <li>
-                        <input type="text" id="user_pn" name="user_pn" th:value="${member.getUser_pn}" readonly="readonly"/>
-                    </li>
-                </ul>
 
-            </div>
         </form>
         <div>
             <button type="button" onclick="apply()">신청</button>

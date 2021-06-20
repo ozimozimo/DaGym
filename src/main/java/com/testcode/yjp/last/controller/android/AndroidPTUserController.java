@@ -44,31 +44,31 @@ public class AndroidPTUserController {
     }
 
     // 신청
-    @PostMapping("/apply")
-    public void applyTo(@RequestBody AndPTUserSaveDto andPTUserSaveDto) {
-        String start_date = andPTUserSaveDto.getStart_date();
-        String end_date = andPTUserSaveDto.getEnd_date();
-        Long member_id = andPTUserSaveDto.getMember_id();
-        Long trainer_id = andPTUserSaveDto.getTrainer_id();
-        log.info("member_id = " + member_id + ", trainer_id = " + trainer_id + ", start_date = " + start_date + ", end_date = " + end_date);
+//    @PostMapping("/apply")
+//    public void applyTo(@RequestBody AndPTUserSaveDto andPTUserSaveDto) {
+//        String start_date = andPTUserSaveDto.getStart_date();
+//        String end_date = andPTUserSaveDto.getEnd_date();
+//        Long member_id = andPTUserSaveDto.getMember_id();
+//        Long trainer_id = andPTUserSaveDto.getTrainer_id();
+//        log.info("member_id = " + member_id + ", trainer_id = " + trainer_id + ", start_date = " + start_date + ", end_date = " + end_date);
+//
+//        andPTUserService.extracted(member_id, trainer_id, andPTUserSaveDto);
+//    }
 
-        andPTUserService.extracted(member_id, trainer_id, andPTUserSaveDto);
-    }
-
-    // 일반회원 -> 자기 트레이너 조회
-    @GetMapping("/find/trainer/{member_id}")
-    public AndMemberMypageDto selectTrainers(@PathVariable("member_id") Long member_id) {
-        log.info("selectTrainers in + :" + member_id);
-        // 회원이 자신의 트레이너 조회 (회원의 친구창)
-        return andPTUserService.getTrainers(member_id);
-    }
-
-    // 트레이너 -> 자기회원 조회
-    @GetMapping("/find/member/{trainer_id}")
-    public ArrayList<AndPTUserSearchDto> selectMembers(@PathVariable("trainer_id") Long trainer_id) {
-        // 트레이너가 자신의 회원들 조회 (트레이너의 친구창)
-        return andPTUserService.getMembers(trainer_id);
-    }
+//    // 일반회원 -> 자기 트레이너 조회
+//    @GetMapping("/find/trainer/{member_id}")
+//    public AndMemberMypageDto selectTrainers(@PathVariable("member_id") Long member_id) {
+//        log.info("selectTrainers in + :" + member_id);
+//        // 회원이 자신의 트레이너 조회 (회원의 친구창)
+//        return andPTUserService.getTrainers(member_id);
+//    }
+//
+//    // 트레이너 -> 자기회원 조회
+//    @GetMapping("/find/member/{trainer_id}")
+//    public ArrayList<AndPTUserSearchDto> selectMembers(@PathVariable("trainer_id") Long trainer_id) {
+//        // 트레이너가 자신의 회원들 조회 (트레이너의 친구창)
+//        return andPTUserService.getMembers(trainer_id);
+//    }
 
     //신청 갯수
     @PostMapping("/apply/request")
@@ -80,14 +80,14 @@ public class AndroidPTUserController {
         return ptUsers.size();
     }
 
-    //신청온 회원 확인
-    @PostMapping("/apply/findMember")
-    public ArrayList<AndPTUserApplyMemberDto> applyMember(@RequestBody Long member_id) {
-        // 서비스에서 신청온 회원들을 받아옴 ArrayList<AndPTUserApplyMemberDto> 리턴.
-        ArrayList<AndPTUserApplyMemberDto> andPTUserApplyMemberDtos = andPTUserService.getAndPTUserSearchDtos(member_id);
-
-        return andPTUserApplyMemberDtos;
-    }
+//    //신청온 회원 확인
+//    @PostMapping("/apply/findMember")
+//    public ArrayList<AndPTUserApplyMemberDto> applyMember(@RequestBody Long member_id) {
+//        // 서비스에서 신청온 회원들을 받아옴 ArrayList<AndPTUserApplyMemberDto> 리턴.
+//        ArrayList<AndPTUserApplyMemberDto> andPTUserApplyMemberDtos = andPTUserService.getAndPTUserSearchDtos(member_id);
+//
+//        return andPTUserApplyMemberDtos;
+//    }
 
     // 신청 수락인지 거절인지 판단. 후 update
     @PutMapping("/apply/if")

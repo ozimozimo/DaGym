@@ -2,6 +2,7 @@ package com.testcode.yjp.last.repository;
 
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.PTUser;
+import com.testcode.yjp.last.domain.TrainerInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -28,8 +29,8 @@ public interface PTUserRepository extends JpaRepository<PTUser, Long> {
     List<Member> findMemberId(Long member_id);;
 
     // 트레이너한테 신청한 목록
-    @Query(value = "select * from PT_User where TRAINER_ID = :trainer and accept_condition = 0", nativeQuery = true)
-    ArrayList<PTUser> findApply(Member trainer);
+    @Query(value = "select p from PTUser p where p.trainer_id=:trainer and p.accept_condition = 0")
+    List<PTUser> findApply(TrainerInfo trainer);
 
     // 트레이너가 수락한 회원 목록
     @Query(value = "select * from PT_User where trainer_id = :trainer and accept_condition = 1", nativeQuery = true)

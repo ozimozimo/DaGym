@@ -45,13 +45,13 @@ public class PTController {
         return "ptUser/trainerView";
     }
 
-    // 해당 트레이너가 관리하는 회원들 목록 보여주는 뷰
+//     해당 트레이너가 관리하는 회원들 목록 보여주는 뷰
     @GetMapping("/manage")
     public String acceptList(Model model, @RequestParam(value = "id") Long trainer_id) {
         System.out.println("trainer_id = " + trainer_id);
-        ArrayList<PTUserApplyMemberDto> acceptList = ptUserService.getAcceptList(trainer_id);
-        model.addAttribute("acceptList", acceptList);
-        System.out.println("acceptList = " + acceptList);
+//        ArrayList<PTUserApplyMemberDto> acceptList = ptUserService.getAcceptList(trainer_id);
+//        model.addAttribute("acceptList", acceptList);
+//        System.out.println("acceptList = " + acceptList);
         return "ptUser/userManagement";
     }
 
@@ -67,38 +67,6 @@ public class PTController {
 
         return "ptUser/trainerDetail";
     }
-
-
-//    @GetMapping("/search")
-//    public String search(PageRequestDto pageRequestDto, Model model) {
-//
-//        model.addAttribute("pageRequestDto", pageRequestDto);
-//        model.addAttribute("result", ptUserService.getList(pageRequestDto));
-//        return "ptUser/trainerView";
-//    }
-
-
-    // 트레이너 검색 (이름, 아이디, 헬스장 검색)
-//    @GetMapping("/search")
-//    public String search(Model model, TrainerSearchDto trainerSearchDto) {
-//        String search = trainerSearchDto.getSearch();
-//        String head = trainerSearchDto.getHead();
-//        log.info("controller Search = " + search);
-//        log.info("controller Head = " + head);
-//
-//        List<MemberList> memberLists;
-//
-//        if (head.equals("user_name")) {
-//            memberLists = ptUserService.nameSearch(search);
-//        } else if (head.equals("user_id")) {
-//            memberLists = ptUserService.idSearch(search);
-//        } else {
-//            memberLists = ptUserService.addrSearch(search);
-//        }
-//
-//        model.addAttribute("memberList", memberLists);
-//        return "ptUser/trainerView";
-//    }
 
     // 신청 페이지 / 유저 id(member_id), 트레이너 id(trainer_id) 받아서 일치하는 Member의 값
     // 보내줌. 시작날짜, 종료날짜는 달력 입혀줘야됨.
