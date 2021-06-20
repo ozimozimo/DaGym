@@ -30,6 +30,7 @@ public class AdminController {
     private final BoardService boardService;
     private final CommentsService commentsService;
     private final ReCommentsService reCommentsService;
+    private final NoticeRepository noticeRepository;
 
     @GetMapping("/adminMain")
     public String adminPage() {
@@ -95,14 +96,23 @@ public class AdminController {
     }
 
     @GetMapping("/noticeDetail")
-    public String noticeDetail(Model model, Long id) {
+    public String noticeDetail(Model model, Long id, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
         log.info("id = " + id);
+        Notice notice = noticeRepository.findById(id).get();
+        model.addAttribute("notices", notice);
+        adminService.updateView(id);
         return "admin/notice/noticeDetail";
     }
 
     @GetMapping("/noticeInsertView")
     public String noticeInsert(Model model) {
         return "admin/notice/noticeInsert";
+    }
+
+    @GetMapping("/noticeUpdateView")
+    public String noticeUpdate(Model model, Long id, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
+        model.addAttribute("notices", noticeRepository.findById(id).get());
+        return "admin/notice/noticeUpdate";
     }
 }
 

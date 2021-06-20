@@ -44,4 +44,17 @@ public class AdminApiController {
         log.info("id = " + id);
         boardRepository.deleteById(id);
     }
+
+    @PutMapping("/noticeUpdate/{id}")
+    public void noticeUpdate(@PathVariable("id") Long id, @RequestBody Notice getNotice) {
+        Notice notice = noticeRepository.findById(id).get();
+        notice.setContent(getNotice.getContent());
+        notice.setTitle(getNotice.getTitle());
+        noticeRepository.save(notice);
+    }
+
+    @DeleteMapping("/noticeDelete/{id}")
+    public void noticeDelete(@PathVariable("id") Long id) {
+        noticeRepository.deleteById(id);
+    }
 }

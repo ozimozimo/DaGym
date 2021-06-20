@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,6 +136,12 @@ public class AdminService {
         booleanBuilder.and(conditionBuilder);
 
         return booleanBuilder;
+    }
+
+    @Transactional
+    public int updateView(Long id) {
+        log.info("조회수 증가 서비스");
+        return noticeRepository.updateView(id);
     }
 
 

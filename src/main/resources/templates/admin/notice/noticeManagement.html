@@ -6,7 +6,8 @@
     <script th:src="@{~/js/main/jquery.min.js}"></script>
     <script th:src="@{~/js/main/bootstrap.min.js}"></script>
     <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
-    <script th:src="@{~/js/admin.js}"></script>
+    <script th:src="@{~/js/admin/admin.js}"></script>
+    <script th:src="@{~/js/admin/notice.js}"></script>
 
 </head>
 <body>
@@ -25,7 +26,10 @@
     <tbody id="tbody">
     <tr th:each="notices : ${notice.dtoList}">
         <td th:text="${notices.id}" id="notice_id"></td>
-        <td ><a th:text="${notices.title}" th:href="@{/admin/noticeDetail/(id = ${notices.id})}"></a></td>
+        <td ><a th:text="${notices.title}" th:href="@{/admin/noticeDetail/(id = ${notices.id},
+                                                       page=${PageRequestDto.page},
+                                                       type=${PageRequestDto.type},
+                                                       keyword=${PageRequestDto.keyword})}"></a></td>
         <td th:text="${notices.user_id}"></td>
         <td th:text="${notices.hit}"></td>
         <td th:text="${#temporals.format(notices.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
