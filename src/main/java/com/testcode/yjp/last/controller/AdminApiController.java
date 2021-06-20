@@ -39,8 +39,8 @@ public class AdminApiController {
         noticeRepository.save(notice);
     }
 
-    @DeleteMapping("/boardDelete")
-    public void boardDelete(Long id) {
+    @DeleteMapping("/boardDelete/{id}")
+    public void boardDelete(@PathVariable("id") Long id) {
         log.info("id = " + id);
         boardRepository.deleteById(id);
     }
