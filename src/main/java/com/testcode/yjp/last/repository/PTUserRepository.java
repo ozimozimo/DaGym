@@ -53,12 +53,12 @@ public interface PTUserRepository extends JpaRepository<PTUser, Long> {
     List<Member> selectTrainer();
 
     // pt신청 endDate와 오늘 날짜 비교해서 endDate지나면 수락상태 3으로 변경
-    @Query("select m from PTUser m " +
-            "where (m.member_id = :member " +
-            "or m.trainer_id = :member )" +
-            "and m.accept_condition = '1' " +
-            "and m.end_date < :today")
-    ArrayList<PTUser> endDate(Member member, String today);
+//    @Query("select m from PTUser m " +
+//            "where (m.member_id = :member " +
+//            "or m.trainer_id = :member )" +
+//            "and m.accept_condition = '1' " +
+//            "and m.end_date < :today")
+//    ArrayList<PTUser> endDate(Member member, String today);
 
 
 }

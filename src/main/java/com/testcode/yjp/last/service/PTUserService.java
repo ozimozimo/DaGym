@@ -226,23 +226,23 @@ public class PTUserService {
     }
 
     // (기간만료) pt신청 endDate와 오늘 날짜 비교해서 endDate지나면 수락상태 3으로 변경
-    public void endDate(Member member) {
-        Date today = new Date();
-        log.info("today = " + today.toString());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String format = simpleDateFormat.format(today);
-        log.info("format = " + format);
-        ArrayList<PTUser> ptUsers = ptUserRepository.endDate(member, format);
-        log.info("ptUsers = " + ptUsers.toString());
-        for (PTUser ptUser : ptUsers) {
-            log.info("for in");
-            ptUser.setAccept_condition("3");
-            log.info("condition 3");
-            ptUserRepository.save(ptUser);
-            log.info("save succ");
-        }
-
-    }
+//   public void endDate(Member member) {
+//        Date today = new Date();
+//        log.info("today = " + today.toString());
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        String format = simpleDateFormat.format(today);
+//        log.info("format = " + format);
+//        ArrayList<PTUser> ptUsers = ptUserRepository.endDate(member, format);
+//        log.info("ptUsers = " + ptUsers.toString());
+//        for (PTUser ptUser : ptUsers) {
+//            log.info("for in");
+//            ptUser.setAccept_condition("3");
+//            log.info("condition 3");
+//            ptUserRepository.save(ptUser);
+//            log.info("save succ");
+//         }
+//
+//    }
 
     public PageResultDto<TrainerInfoDto, TrainerInfo> getList(PageRequestDto pageRequestDto) {
         Pageable pageable = pageRequestDto.getPageable(Sort.by("id").descending());
