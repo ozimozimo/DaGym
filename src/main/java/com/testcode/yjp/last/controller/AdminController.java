@@ -1,14 +1,20 @@
 package com.testcode.yjp.last.controller;
 
+import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Notice;
 import com.testcode.yjp.last.domain.dto.*;
+import com.testcode.yjp.last.repository.BoardRepository;
 import com.testcode.yjp.last.repository.NoticeRepository;
 import com.testcode.yjp.last.service.AdminService;
+import com.testcode.yjp.last.service.BoardService;
+import com.testcode.yjp.last.service.CommentsService;
+import com.testcode.yjp.last.service.ReCommentsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -20,7 +26,10 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
     private final AdminService adminService;
-    private final NoticeRepository noticeRepository;
+    private final BoardRepository boardRepository;
+    private final BoardService boardService;
+    private final CommentsService commentsService;
+    private final ReCommentsService reCommentsService;
 
     @GetMapping("/adminMain")
     public String adminPage() {
@@ -48,11 +57,34 @@ public class AdminController {
     }
 
     @GetMapping("/boardManagement")
-    public String boardManagement(Model model) {
-
+    public String boardManagement(PageRequestDto pageRequestDto, Model model) {
+        List<Board> allDesc = boardRepository.findAllDesc();
+        PageResultDto<BoardDto, Board> boardList = adminService.getBoardList(pageRequestDto);
+        log.info("게시판 개수 = " + boardList.getDtoList().size());
+        model.addAttribute("result", boardList);
+        model.addAttribute("PageRequestDto", pageRequestDto);
         return "admin/board/boardManagement";
     }
 
+    @GetMapping("/boardManagement/detail")
+    public String boardManagementDetail(Model model, Long hb_num,@ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
+        log.info("hb_num = " + hb_num);
+        Board board = boardRepository.findById(hb_num).get();
+        model.addAttribute("boards", board);
+        model.addAttribute("boards", boardService.findById(hb_num));
+        model.addAttribute("comments", commentsService.findAllDesc());
+        model.addAttribute("commentLikeAll",commentsService.findLikeAll(hb_num));
+        model.addAttribute("commentDisLikeAll",commentsService.findDisLikeAll(hb_num));
+        model.addAttribute("commentLikeLatestAll",commentsService.findLatestAllClass(hb_num));
+        model.addAttribute("commentLikePastAll",commentsService.findPastAllClass(hb_num));
+        model.addAttribute("commentCountAll", commentsService.findCountAllClass(hb_num));
+        model.addAttribute("re_comments", reCommentsService.findAllDesc());
+
+        boardService.updateView(hb_num);
+
+        model.addAttribute("count", commentsService.findAllCount(hb_num).size());
+        return "admin/board/boardManagementDetail";
+    }
     @GetMapping("/noticeManagement")
     public String noticeManagement(Model model, PageRequestDto pageRequestDto) {
         PageResultDto<NoticeDto, Notice> list = adminService.getList(pageRequestDto);
@@ -73,3 +105,6 @@ public class AdminController {
         return "admin/notice/noticeInsert";
     }
 }
+
+
+

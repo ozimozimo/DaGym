@@ -3,6 +3,7 @@ package com.testcode.yjp.last.controller;
 import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.Notice;
+import com.testcode.yjp.last.repository.BoardRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 public class AdminApiController {
     private final MemberRepository memberRepository;
     private final NoticeRepository noticeRepository;
+    private final BoardRepository boardRepository;
+
     @DeleteMapping("/delete/{id}")
     public void deleteUser(@PathVariable("id") Long id) {
         log.info("id = " + id);
@@ -34,5 +37,11 @@ public class AdminApiController {
         Member member = memberRepository.findById(id).get();
         notice.setMember(member);
         noticeRepository.save(notice);
+    }
+
+    @DeleteMapping("/boardDelete")
+    public void boardDelete(Long id) {
+        log.info("id = " + id);
+        boardRepository.deleteById(id);
     }
 }

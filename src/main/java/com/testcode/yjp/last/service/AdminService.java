@@ -7,6 +7,7 @@ import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.Notice;
 import com.testcode.yjp.last.domain.QBoard;
 import com.testcode.yjp.last.domain.dto.*;
+import com.testcode.yjp.last.repository.BoardRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ import java.util.function.Function;
 public class AdminService {
     private final MemberRepository memberRepository;
     private final NoticeRepository noticeRepository;
+    private final BoardRepository boardRepository;
 
     public List<MemberList> selectUser() {
         List<Member> members = memberRepository.selectUser();
@@ -84,5 +86,57 @@ public class AdminService {
                 .build();
         return dto;
     }
+
+    public PageResultDto<BoardDto, Board> getBoardList(PageRequestDto requestDto) {
+        Pageable pageable = requestDto.getPageable(Sort.by("id").descending());
+        BooleanBuilder booleanBuilder = getSearch(requestDto);
+        Page<Board> result = boardRepository.findAll(booleanBuilder, pageable);
+        Function<Board, BoardDto> function = (entity -> boardToDto(entity));
+        return new PageResultDto<>(result, function);
+    }
+
+    private BoardDto boardToDto(Board entity) {
+        BoardDto boardDto = new BoardDto();
+        boardDto.setId(entity.getId());
+        boardDto.setTitle(entity.getTitle());
+        boardDto.setContent(entity.getContent());
+        boardDto.setUser_id(entity.getUser_id());
+        boardDto.setHit(entity.getHit());
+        boardDto.setRecommend(entity.getRecommends().size());
+        boardDto.setRegDate(entity.getRegDate());
+        boardDto.setModifiedDate(entity.getModDate());
+        return boardDto;
+    }
+
+    private BooleanBuilder getSearch(PageRequestDto requestDto) {
+        String type = requestDto.getType();
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        QBoard qBoard = QBoard.board;
+        String keyword = requestDto.getKeyword();
+        BooleanExpression booleanExpression = qBoard.id.gt(0L);
+        booleanBuilder.and(booleanExpression);
+
+        if(type == null || type.trim().length() == 0) {
+            return booleanBuilder;
+        }
+
+        BooleanBuilder conditionBuilder = new BooleanBuilder();
+
+        if(type.contains("t")) {
+            conditionBuilder.or(qBoard.title.contains(keyword));
+        }
+        if(type.contains("c")) {
+            conditionBuilder.or(qBoard.content.contains(keyword));
+        }
+        if(type.contains("u")) {
+            conditionBuilder.or(qBoard.user_id.contains(keyword));
+        }
+
+        booleanBuilder.and(conditionBuilder);
+
+        return booleanBuilder;
+    }
+
+
 
 }
