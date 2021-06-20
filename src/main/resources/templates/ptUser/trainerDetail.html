@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        data-layout-decorate="~{layout/default}"
+>
+<head>
+
+</head>
+<div layout:fragment="content">
+        <h1>트레이너 상세 보기 페이지 다</h1>
+
+        <table class="table table-striped">
+                <thead>
+                <tr>
+                        <th>트레이너 번호</th>
+                        <th>프로필 이미지</th>
+                        <th>이름</th>
+                        <th>휴대폰 번호</th>
+                        <th>헬스장 이름</th>
+                        <th>헬스장 위치</th>
+                        <th>카카오톡 아이디</th>
+                        <th>인스타그램 아이디</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                        <td th:text="${trainerInfo.id}"></td>
+                        <td><img class="trainer_image" width="200px" height="200px" th:src="@{/display(fileName=${trainerInfo.imgName})}"></td>
+                        <td th:text="${trainerInfo.member.user_name}">이름</td>
+                        <td th:text="${trainerInfo.member.user_pn}">폰번호</td>
+                        <td th:text="${trainerInfo.trainer_gymName}">헬스장이름</td>
+                        <td th:text="${trainerInfo.trainer_address_normal}">헬스장위치</td>
+                        <td th:text="${trainerInfo.trainer_kakao}">카카오톡</td>
+                        <td th:text="${trainerInfo.trainer_instagram}">Instagram</td>
+                </tr>
+                </tbody>
+        </table>
+        <a th:href="@{/ptUser/view(page=${pageRequestDto.page},
+                                        type=${pageRequestDto.type},
+                                        keyword=${pageRequestDto.keyword})}">이전</a>
+</div>
+</html>

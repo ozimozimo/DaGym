@@ -1,20 +1,24 @@
 package com.testcode.yjp.last.service;
 
-import com.testcode.yjp.last.domain.Member;
-import com.testcode.yjp.last.domain.PTUser;
-import com.testcode.yjp.last.domain.dto.MemberList;
-import com.testcode.yjp.last.domain.dto.PTUserApplyConDto;
-import com.testcode.yjp.last.domain.dto.PTUserApplyMemberDto;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.testcode.yjp.last.domain.*;
+import com.testcode.yjp.last.domain.dto.*;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.PTUserRepository;
+import com.testcode.yjp.last.repository.TrainerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Function;
 
 @RequiredArgsConstructor
 @Service
@@ -23,6 +27,7 @@ public class PTUserService {
 
     private final PTUserRepository ptUserRepository;
     private final MemberRepository memberRepository;
+    private final TrainerRepository trainerRepository;
 
     public List<MemberList> getMemberList() {
         List<Member> members = ptUserRepository.selectTrainer();
@@ -255,5 +260,72 @@ public class PTUserService {
         }
 
     }
+
+    public PageResultDto<TrainerInfoDto, TrainerInfo> getList(PageRequestDto pageRequestDto) {
+        Pageable pageable = pageRequestDto.getPageable(Sort.by("id").descending());
+        BooleanBuilder booleanBuilder = getSearch(pageRequestDto);
+        Page<TrainerInfo> result = trainerRepository.findAll(booleanBuilder, pageable);
+        Function<TrainerInfo, TrainerInfoDto> fn = (entity -> entityToDto(entity));
+        return new PageResultDto<>(result, fn);
+    }
+
+    private TrainerInfoDto entityToDto(TrainerInfo entity) {
+        TrainerInfoDto dto = TrainerInfoDto.builder()
+                .id(entity.getId())
+                .imgName(entity.getImgName())
+                .fileName(entity.getFileName())
+                .user_pn(entity.getMember().getUser_pn())
+                .trainer_workTime(entity.getTrainer_workTime())
+                .trainer_category(entity.getTrainer_category())
+                .trainer_kakao(entity.getTrainer_kakao())
+                .trainer_instagram(entity.getTrainer_instagram())
+                .user_name(entity.getMember().getUser_name())
+                .trainer_content(entity.getTrainer_content())
+                .build();
+        return dto;
+    }
+
+    private BooleanBuilder getSearch(PageRequestDto requestDto) {  // Querydsl처리
+        String type = requestDto.getType();
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        QTrainerInfo qTrainerInfo = QTrainerInfo.trainerInfo;
+        String keyword = requestDto.getKeyword();
+        BooleanExpression expression = qTrainerInfo.id.gt(0L);
+        booleanBuilder.and(expression);
+
+        //검색조건이 없는경우
+        if (type == null || type.trim().length() == 0) {
+            return booleanBuilder;
+        }
+
+        // 검색조건을 작성하기
+        BooleanBuilder conditionBuilder = new BooleanBuilder();
+
+        if (type.contains("n")) {
+            conditionBuilder.or(qTrainerInfo.member.user_name.contains(keyword));
+        }
+        if (type.contains("g")) {
+            conditionBuilder.or(qTrainerInfo.trainer_gymName.contains(keyword));
+        }
+        if (type.contains("c")) {
+            conditionBuilder.or(qTrainerInfo.trainer_category.contains(keyword));
+        }
+        if (type.contains("k")) {
+            conditionBuilder.or(qTrainerInfo.trainer_kakao.contains(keyword));
+        }
+        if (type.contains("i")) {
+            conditionBuilder.or(qTrainerInfo.trainer_instagram.contains(keyword));
+        }
+        if (type.contains("p")) {
+            conditionBuilder.or(qTrainerInfo.trainer_content.contains(keyword));
+        }
+
+        // 모든조건 통합
+        booleanBuilder.and(conditionBuilder);
+
+        return booleanBuilder;
+    }
+
+
 
 }

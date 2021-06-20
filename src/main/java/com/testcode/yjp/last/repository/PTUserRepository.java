@@ -12,15 +12,15 @@ import java.util.List;
 @Repository
 public interface PTUserRepository extends JpaRepository<PTUser, Long> {
     //name 검색
-    @Query("select m from Member m where user_role like 'trainer' and m.user_name like %:user_name% ")
+    @Query("select m from Member m where m.user_role like 'trainer' and m.user_name like %:user_name% ")
     List<Member> findTrainerN(String user_name);
 
     //id 검색
-    @Query("select m from Member m where user_role like 'trainer' and m.user_id like %:user_id% ")
+    @Query("select m from Member m where m.user_role like 'trainer' and m.user_id like %:user_id% ")
     List<Member> findTrainerI(String user_id);
 
     //헬스장 검색
-    @Query("select m from Member m where user_role like 'trainer' and m.address_detail like %:address_detail%")
+    @Query("select m from Member m where m.user_role like 'trainer' and m.address_detail like %:address_detail%")
     List<Member> findTrainerA(String address_detail);
 
     //id로 select

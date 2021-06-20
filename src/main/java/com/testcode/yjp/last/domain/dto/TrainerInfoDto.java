@@ -3,10 +3,7 @@ package com.testcode.yjp.last.domain.dto;
 import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.TrainerInfo;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.OneToOne;
 import java.io.UnsupportedEncodingException;
@@ -16,9 +13,14 @@ import java.net.URLEncoder;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class TrainerInfoDto {
 
     private Long id;
+
+    private String user_name;
+
+    private String user_pn;
 
     private String uuid;
     // 트레이너 이미지

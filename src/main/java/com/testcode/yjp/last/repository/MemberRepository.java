@@ -58,4 +58,11 @@ public interface MemberRepository  extends JpaRepository<Member,Long> {
     @Query("select m from Member m where m.user_id= :id")
     Member findId(String id);
 
+
+//    @Query("select m, t from Member m left JOIN TrainerInfo t on t.member = m where m.user_role='trainer'")
+//    List<Object[]> getTrainerList();
+
+    //
+//    @Query("select b,r from Board b left JOIN Reply r on r.board = b where b.bno=:bno")
+//    List<Object[]> getBoardWithReply(@Param("bno") Long bno);
 }
