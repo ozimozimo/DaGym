@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{~/css/main/bootstrap.min.css}"/>
+    <style>
+        .text-center {
+            text-align: center;
+        }
+
+        .mainArea {
+            background-color: #eaeef1;
+            padding: 20px;
+        }
+
+        .pageInfo {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .pageInfo .title {
+            padding-left: 20px;
+        }
+
+        .userListArea {
+            margin-top: 25px;
+            background-color: white;
+            padding: 20px;
+        }
+
+        .userListArea table {
+            margin-top: 20px;
+        }
+
+        .userListArea table thead tr {
+            border-top: 2px solid #ddd;
+            background-color: #f2f2f2;
+        }
+
+        .userListArea table tbody tr:last-child {
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+
+    <script th:src="@{~/js/main/jquery.min.js}"></script>
+    <script th:src="@{~/js/main/bootstrap.min.js}"></script>
+    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
+    <script th:src="@{~/js/admin.js}"></script>
+
+</head>
+<body>
+<p th:if="${tr_if == 'user'}" > </p>
+<p th:if="${tr_if == 'trainer'}"></p>
+
+<div class="mainArea">
+    <div class="pageInfo">
+        <h3 class="title" th:if="${tr_if == 'user'}">회원 목록</h3>
+        <h3 class="title" th:if="${tr_if == 'trainer'}">트레이너 목록</h3>
+        <p>회원 > 회원목록</p>
+    </div>
+
+    <div class="userListArea">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="text-center">id</th>
+                <th class="text-center">아이디</th>
+                <th class="text-center">이름</th>
+                <th class="text-center">이메일</th>
+                <th class="text-center">성별</th>
+                <th class="text-center">휴대번호</th>
+                <th class="text-center">주소</th>
+                <th class="text-center">가입일</th>
+                <th class="text-center">탈퇴</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="member : ${members}" class="text-center">
+                <td><span th:text="${member.id}" th:href="@{/admin/adminMain}" id="member_id"></span></td>
+                <td><span th:text="${member.user_id}"></span></td>
+                <td><span th:text="${member.user_name}"></span></td>
+                <td><span th:text="${member.user_email}"></span></td>
+                <td><span th:text="${member.user_rrn}"></span></td>
+                <td><span th:text="${member.user_pn}"></span></td>
+                <td><span th:text="${member.address_normal}"></span><span th:text="${member.address_detail}"></span></td>
+                <td><span th:text="${member.regDate}"></span></td>
+                <td><button type="button" class="Delete">탈퇴</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

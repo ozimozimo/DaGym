@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{~/js/main/jquery.min.js}"></script>
+    <script th:src="@{~/js/main/bootstrap.min.js}"></script>
+    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
+    <script th:src="@{~/js/admin.js}"></script>
+
+</head>
+<body>
+디테일
+<!--<div layout:fragment="content" class="content">-->
+<!--    <div class="post_header">-->
+<!--        <input type="hidden" th:value="${boards.id}" id="hb_num" name="hb_num">-->
+<!--        <div th:text="${boards.title}" class="post_title"></div>-->
+<!--        <div class="post_info">-->
+<!--            <div class="left">-->
+<!--                <div th:text="${boards.user_id}" class="post_author"></div>-->
+<!--            </div>-->
+<!--            <div class="right">-->
+<!--                <div class="updated_at">-->
+<!--                    <span>수정날짜:</span>-->
+<!--                    <span th:text="${#temporals.format(boards.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">-->
+
+<!--                    </span>-->
+<!--                </div>-->
+<!--                <div class="hits">-->
+<!--                    <span>조회수:</span>-->
+<!--                    <span th:text="${boards.hit}" class="hit"></span>-->
+<!--                </div>-->
+<!--                <div class="recommends">-->
+<!--                    <span>추천:</span>-->
+<!--                    <span th:text="${boards.recommends}"></span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="uploadResult">-->
+<!--        <ul>-->
+<!--            <li>-->
+
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+
+<!--    <div class="post_content" th:text="${boards.content}"></div>-->
+<!--    &lt;!&ndash;    // 추천 기능&ndash;&gt;-->
+<!--    <div style="text-align: center">-->
+<!--        <input type="hidden" th:value="${session.loginId}" id="recommendId">-->
+<!--        <input type="hidden" th:value="${boards.id}" id="boards_id">-->
+<!--        <button type="button" class="recommendButton">추천</button>-->
+<!--    </div>-->
+
+<!--    <div class="post_control_btn_area">-->
+<!--        <a th:href="@{/board/trainerBoard/update(hb_num = ${boards.id},-->
+<!--                                        page=${PageRequestDto.page},-->
+<!--                                        type=${PageRequestDto.type},-->
+<!--                                        keyword=${PageRequestDto.keyword})}"-->
+<!--           th:if="${session.loginId == boards.user_id}"-->
+<!--           class="custom_btn post_update">글수정</a>-->
+<!--        <a th:href="@{/board(page=${PageRequestDto.page},-->
+<!--                                        page=${PageRequestDto.page},-->
+<!--                                        type=${PageRequestDto.type},-->
+<!--                                        keyword=${PageRequestDto.keyword})}" class="custom_btn post_delete">이전-->
+<!--        </a>-->
+<!--    </div>-->
+</body>
+</html>

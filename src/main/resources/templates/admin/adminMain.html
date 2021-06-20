@@ -11,6 +11,7 @@
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     />
     <!-- VENDOR CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"> <!--CDN 링크 -->
     <link rel="stylesheet" th:href="@{~/css/main/bootstrap.min.css}"/>
     <link
             rel="stylesheet"
@@ -89,25 +90,31 @@
                     </li>
                     <li>
                         <a th:href="@{/admin/userManagement}" class=""
-                        ><i class="lnr lnr-code"></i> <span>회원 관리</span></a
+                        ><i class="far fa-user"></i> <span>회원 관리</span></a
                         >
                     </li>
                     <li>
                         <a th:href="@{/admin/trainerManagement}" class=""
-                        ><i class="lnr lnr-chart-bars"></i>
+                        ><i class="fas fa-running"></i>
                             <span>트레이너 관리</span></a
                         >
                     </li>
                     <li>
                         <a href="#" class=""
-                        ><i class="lnr lnr-chart-bars"></i>
+                        ><i class="fas fa-clipboard-list"></i>
                             <span>게시판 관리</span></a
                         >
                     </li>
                     <li>
                         <a href="#" class=""
-                        ><i class="lnr lnr-chart-bars"></i>
+                        ><i class="fas fa-question-circle"></i>
                             <span>1:1문의</span></a
+                        >
+                    </li>
+                    <li>
+                        <a th:href="@{/admin/noticeManagement}" class=""
+                        ><i class="lnr lnr-chart-bars"></i>
+                            <span>공지사항 관리</span></a
                         >
                     </li>
                 </ul>
@@ -129,19 +136,19 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-lg-4 col-sm-4">
                                 <div class="metric">
-                                    <span class="icon"><i class="fa fa-download"></i></span>
+                                    <span class="icon"><i class="far fa-user"></i></span>
                                     <p>
                                         <span class="number">1,252</span>
                                         <span class="title">회원수</span>
                                     </p>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-lg-4 col-sm-4">
                                 <div class="metric">
                       <span class="icon"
-                      ><i class="fa fa-shopping-bag"></i
+                      ><i class="fas fa-running"></i
                       ></span>
                                     <p>
                                         <span class="number">203</span>
@@ -149,9 +156,9 @@
                                     </p>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-lg-4 col-sm-4">
                                 <div class="metric">
-                                    <span class="icon"><i class="fa fa-eye"></i></span>
+                                    <span class="icon"><i class="fas fa-clipboard-list"></i></span>
                                     <p>
                                         <span class="number">274,678</span>
                                         <span class="title">게시글수</span>
@@ -244,11 +251,11 @@
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>Order No.</th>
-                                <th>Name</th>
-                                <th>Amount</th>
-                                <th>Date &amp; Time</th>
-                                <th>Status</th>
+                                <th>번호</th>
+                                <th>이름</th>
+                                <th>성별</th>
+                                <th>가입날짜</th>
+                                <th>휴대폰번호</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -258,7 +265,7 @@
                                 <td>$122</td>
                                 <td>Oct 21, 2016</td>
                                 <td>
-                                    <span class="label label-success">COMPLETED</span>
+                                    <span class="#">01033939132</span>
                                 </td>
                             </tr>
                             <tr>
@@ -267,7 +274,7 @@
                                 <td>$62</td>
                                 <td>Oct 21, 2016</td>
                                 <td>
-                                    <span class="label label-warning">PENDING</span>
+                                    <span class="#">PENDING</span>
                                 </td>
                             </tr>
                             <tr>
@@ -276,7 +283,7 @@
                                 <td>$34</td>
                                 <td>Oct 18, 2016</td>
                                 <td>
-                                    <span class="label label-danger">FAILED</span>
+                                    <span class="#">FAILED</span>
                                 </td>
                             </tr>
                             <tr>
@@ -285,7 +292,7 @@
                                 <td>$186</td>
                                 <td>Oct 17, 2016</td>
                                 <td>
-                                    <span class="label label-success">SUCCESS</span>
+                                    <span class="#">SUCCESS</span>
                                 </td>
                             </tr>
                             <tr>
@@ -294,7 +301,7 @@
                                 <td>$362</td>
                                 <td>Oct 16, 2016</td>
                                 <td>
-                                    <span class="label label-success">SUCCESS</span>
+                                    <span class="#">SUCCESS</span>
                                 </td>
                             </tr>
                             </tbody>

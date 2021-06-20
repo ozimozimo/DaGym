@@ -19,6 +19,4 @@ public interface BoardRepository extends JpaRepository<Board, Long>,
     @Query("update Board p set p.hit = p.hit + 1 where p.id = :hb_num")
     int updateView(Long hb_num);
 
-
-
 }
