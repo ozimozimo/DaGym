@@ -1,13 +1,13 @@
 package com.testcode.yjp.last.controller;
 
+import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Member;
+import com.testcode.yjp.last.domain.Notice;
 import com.testcode.yjp.last.repository.MemberRepository;
+import com.testcode.yjp.last.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,10 +15,24 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class AdminApiController {
     private final MemberRepository memberRepository;
-
+    private final NoticeRepository noticeRepository;
     @DeleteMapping("/delete/{id}")
     public void deleteUser(@PathVariable("id") Long id) {
         log.info("id = " + id);
         memberRepository.deleteById(id);
+    }
+
+    @PutMapping("/update/active/{id}/{active}")
+    public void updateActive(@PathVariable("active") int active, @PathVariable("id") Long id) {
+        Notice notice = noticeRepository.findById(id).get();
+        notice.setActive(active);
+        noticeRepository.save(notice);
+    }
+
+    @PostMapping("/noticeInsert/{id}")
+    public void noticeInsert(@RequestBody Notice notice, @PathVariable("id") Long id) {
+        Member member = memberRepository.findById(id).get();
+        notice.setMember(member);
+        noticeRepository.save(notice);
     }
 }

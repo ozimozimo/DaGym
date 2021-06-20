@@ -1,23 +1,33 @@
 package com.testcode.yjp.last.service;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Member;
-import com.testcode.yjp.last.domain.dto.MemberList;
+import com.testcode.yjp.last.domain.Notice;
+import com.testcode.yjp.last.domain.QBoard;
+import com.testcode.yjp.last.domain.dto.*;
 import com.testcode.yjp.last.repository.MemberRepository;
+import com.testcode.yjp.last.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class AdminService {
     private final MemberRepository memberRepository;
+    private final NoticeRepository noticeRepository;
 
     public List<MemberList> selectUser() {
-
         List<Member> members = memberRepository.selectUser();
         List<MemberList> memberLists = new ArrayList<>();
         for(Member member : members) {
@@ -53,4 +63,26 @@ public class AdminService {
         }
         return memberLists;
     }
+
+    public PageResultDto<NoticeDto, Notice> getList(PageRequestDto requestDto) {
+        Pageable pageable = requestDto.getPageable(Sort.by("id").descending());
+        Page<Notice> result = noticeRepository.findAll(pageable);
+        Function<Notice, NoticeDto> fn = (entity -> entityToDto(entity));
+        return new PageResultDto<>(result, fn);
+    }
+
+    private NoticeDto entityToDto(Notice entity) {
+        NoticeDto dto = NoticeDto.builder()
+                .id(entity.getId())
+                .title(entity.getTitle())
+                .content(entity.getContent())
+                .user_id(entity.getUser_id())
+                .active(entity.getActive())
+                .hit(entity.getHit())
+                .regDate(entity.getRegDate())
+                .modifiedDate(entity.getModDate())
+                .build();
+        return dto;
+    }
+
 }

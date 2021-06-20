@@ -1,11 +1,17 @@
 package com.testcode.yjp.last.controller;
 
+import com.testcode.yjp.last.domain.Member;
+import com.testcode.yjp.last.domain.TrainerInfo;
 import com.testcode.yjp.last.domain.dto.MemberList;
 import com.testcode.yjp.last.domain.dto.PTUserApplyMemberDto;
+import com.testcode.yjp.last.domain.dto.PageRequestDto;
 import com.testcode.yjp.last.domain.dto.TrainerSearchDto;
+import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.PTUserRepository;
+import com.testcode.yjp.last.repository.TrainerRepository;
 import com.testcode.yjp.last.service.PTUserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,16 +23,24 @@ import java.util.List;
 @RequiredArgsConstructor
 @Controller
 @Slf4j
+@Log4j2
 @RequestMapping("/ptUser")
 public class PTController {
     private final PTUserService ptUserService;
-    private final PTUserRepository ptUserRepository;
+    private final TrainerRepository trainerRepository;
+    private final MemberRepository memberRepository;
 
     // 트레이너 조회, 검색 페이지 뷰
     @GetMapping("/view")
-    public String trainerView(Model model) {
+    public String trainerView(Model model,PageRequestDto pageRequestDto) {
         List<MemberList> memberLists = ptUserService.getMemberList();
+//        List<Object[]> trainerLists = trainerRepository.getTrainerList();
+        List<TrainerInfo> trainerLists = trainerRepository.findAll();
+
+        model.addAttribute("pageRequestDto", pageRequestDto);
+        model.addAttribute("result", ptUserService.getList(pageRequestDto));
         model.addAttribute("memberList", memberLists);
+        model.addAttribute("trainerList", trainerLists);
 
         return "ptUser/trainerView";
     }
@@ -41,27 +55,50 @@ public class PTController {
         return "ptUser/userManagement";
     }
 
-    // 트레이너 검색 (이름, 아이디, 헬스장 검색)
-    @GetMapping("/search")
-    public String search(Model model, TrainerSearchDto trainerSearchDto) {
-        String search = trainerSearchDto.getSearch();
-        String head = trainerSearchDto.getHead();
-        log.info("controller Search = " + search);
-        log.info("controller Head = " + head);
 
-        List<MemberList> memberLists;
+    @GetMapping("/detail")
+    public String trainerDetail(Long id, Model model, PageRequestDto pageRequestDto) {
+        log.info("트레이너 디테일 아디는=" + id);
+        log.info("트레이너 검색조건=" + pageRequestDto);
 
-        if (head.equals("user_name")) {
-            memberLists = ptUserService.nameSearch(search);
-        } else if (head.equals("user_id")) {
-            memberLists = ptUserService.idSearch(search);
-        } else {
-            memberLists = ptUserService.addrSearch(search);
-        }
+        TrainerInfo trainerInfo = trainerRepository.findById(id).get();
+        model.addAttribute("pageRequestDto", pageRequestDto);
+        model.addAttribute("trainerInfo", trainerInfo);
 
-        model.addAttribute("memberList", memberLists);
-        return "ptUser/trainerView";
+        return "ptUser/trainerDetail";
     }
+
+
+//    @GetMapping("/search")
+//    public String search(PageRequestDto pageRequestDto, Model model) {
+//
+//        model.addAttribute("pageRequestDto", pageRequestDto);
+//        model.addAttribute("result", ptUserService.getList(pageRequestDto));
+//        return "ptUser/trainerView";
+//    }
+
+
+    // 트레이너 검색 (이름, 아이디, 헬스장 검색)
+//    @GetMapping("/search")
+//    public String search(Model model, TrainerSearchDto trainerSearchDto) {
+//        String search = trainerSearchDto.getSearch();
+//        String head = trainerSearchDto.getHead();
+//        log.info("controller Search = " + search);
+//        log.info("controller Head = " + head);
+//
+//        List<MemberList> memberLists;
+//
+//        if (head.equals("user_name")) {
+//            memberLists = ptUserService.nameSearch(search);
+//        } else if (head.equals("user_id")) {
+//            memberLists = ptUserService.idSearch(search);
+//        } else {
+//            memberLists = ptUserService.addrSearch(search);
+//        }
+//
+//        model.addAttribute("memberList", memberLists);
+//        return "ptUser/trainerView";
+//    }
 
     // 신청 페이지 / 유저 id(member_id), 트레이너 id(trainer_id) 받아서 일치하는 Member의 값
     // 보내줌. 시작날짜, 종료날짜는 달력 입혀줘야됨.
@@ -76,8 +113,6 @@ public class PTController {
 
         List<MemberList> trainerLists = ptUserService.getMemberList(trainer_id);
         List<MemberList> memberLists = ptUserService.getMemberList(member_id);
-
-
         model.addAttribute("trainerList", trainerLists);
         model.addAttribute("memberList", memberLists);
         model.addAttribute("trainer_id", trainer_id);
