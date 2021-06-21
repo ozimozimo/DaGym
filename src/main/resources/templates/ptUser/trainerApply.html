@@ -13,22 +13,28 @@
             width: 460px;
             /* background-color: bisque; */
         }
+
         .title {
             font-size: 30px;
         }
+
         .item {
             display: block;
             /* border: 1px solid; */
         }
-        .contentss {
+
+        .contents {
             display: none;
         }
+
         .first {
             display: block;
         }
+
         .pre {
             display: none;
         }
+
         .submit {
             display: none;
         }
@@ -42,22 +48,20 @@
             stroke-dashoffset: 200; */
         }
     </style>
-    <script
-            type="text/javascript"
-            src="https://code.jquery.com/jquery-1.12.4.min.js"
-    ></script>
 </head>
 <div layout:fragment="content">
     <div class="container">
         <h2 class="title">PT 신청</h2>
 
-        <div th:each="trainer : ${trainerList}">
-            <span>트레이너 번호 : </span><span th:text="${trainer.getId()}"></span> <br>
-            <span>트레이너 아이디 : </span><span th:text="${trainer.getUser_id()}"></span> <br>
-            <span>트레이너 이름 : </span><span th:text="${trainer.getUser_name()}"></span> <br>
-            <span>트레이너 이메일 : </span><span th:text="${trainer.getUser_email()}"></span> <br>
-            <span>트레이너 연락처 : </span><span th:text="${trainer.getUser_pn()}"></span>
-        </div>
+<!--        <div th:each="trainer : ${trainerList}">-->
+<!--            <span>트레이너 번호 : </span><span th:text="${trainer.getId()}"></span> <br>-->
+<!--            <span>트레이너 아이디 : </span><span th:text="${trainer.getUser_id()}"></span> <br>-->
+<!--            <span>트레이너 이름 : </span><span th:text="${trainer.getUser_name()}"></span> <br>-->
+<!--            <span>트레이너 이메일 : </span><span th:text="${trainer.getUser_email()}"></span> <br>-->
+<!--            <span>트레이너 연락처 : </span><span th:text="${trainer.getUser_pn()}"></span>-->
+<!--        </div>-->
+
+
 
         <svg class="bar" width="200" height="20" data-value="25">
             <path class="bg" stroke="#ccc" d="M0 10, 200 10"></path>
@@ -76,95 +80,68 @@
                 <!--            member 이름, 전화번호, pt 추가정보 나이,성별 ,키, 몸무게, pt목적, pt 횟수, pt신청 날짜-->
                 <!-- first 시작 -->
                 <div class="first contents">
-                    <div class="title">PT 목적은 무엇인가요?</div>
+                    <div class="title">틀린 정보가 있으시면 밑에 있는 마이페이지 버튼을 눌러서 정보를 변경해주세요</div>
 
                     <div class="item">
-                        이름 : <input type="text" name="first" value="" />
+                        이름 : <input type="text" id="user_name" name="user_name" th:value="${member.user_name}"
+                                    readonly/>
                     </div>
                     <div class="item">
-                        전화번호 : <input type="text" name="first" value="" />
+                        전화번호 : <input type="text" id="user_pn" name="user_pn" th:value="${member.user_pn}" readonly/>
                     </div>
                     <div class="item">
-                        나이 : <input type="text" name="first" value="" />
+                        나이 : <input type="text" name="user_age" id="user_age"/>
+                              <input hidden="hidden" name="user_rrn" id="user_rrn" th:value="${member.user_rrn}"/>
                     </div>
                     <div class="item">
                         성별 :
-                        <input type="radio" name="gender" value="" />남
-                        <input type="radio" name="gender" value="" />여
+                        <input type="hidden" name="user_gender" id="user_gender" th:value="${member.user_gender}">
+                        <input type="radio" name="user_gender1" id="user_gender1" value="남"/>남
+                        <input type="radio" name="user_gender2" id="user_gender2" value="여"/>여
                     </div>
+                    <a th:href="@{/member/mypage(member_id = ${session.loginUser})}">마이페이지</a>
                 </div>
                 <!-- first  끝 -->
                 <div class="second contents">
-                    <div class="title">레슨생의 연령대는 어떻게 되나요?</div>
-
                     <div class="item">
-                        <input type="checkbox" name="second" value="" />10대 미만
+                        키 :  <input type="text" name="member_height"/>
                     </div>
                     <div class="item">
-                        <input type="checkbox" name="second" value="" />10대
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="second" value="" />20대
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="second" value="" />30대
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="second" value="" />40대
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="second" value="" />50대
+                        몸무게 :  <input type="text" name="member_weight"/>
                     </div>
                 </div>
                 <!-- second  끝 -->
                 <div class="third contents">
-                    <div class="title">3</div>
                     <div class="item">
-                        <input type="checkbox" name="first" value="yyy" />근력 강화
+                        <h2>운동 목적</h2>
+                    </div>
+
+                    <div class="item">
+                        <input type="checkbox" name="pt_purpose" value="yyy"/>근력 강화
                     </div>
                     <div class="item">
-                        <input type="checkbox" name="first" value="yyy" />체중 증가
+                        <input type="checkbox" name="pt_purpose" value="yyy"/>체중 증가
                     </div>
                     <div class="item">
-                        <input type="checkbox" name="first" value="yyy" />체력 증진
+                        <input type="checkbox" name="pt_purpose" value="yyy"/>체력 증진
                     </div>
                     <div class="item">
-                        <input type="checkbox" name="first" value="yyy" />체형 교정
+                        <input type="checkbox" name="pt_purpose" value="yyy"/>체형 교정
                     </div>
                     <div class="item">
-                        <input type="checkbox" name="first" value="yyy" />재활/통증 케어
+                        <input type="checkbox" name="pt_purpose" value="yyy"/>재활/통증 케어
                     </div>
                     <div class="item">
-                        <input type="checkbox" name="first" value="yyy" />바디 프로필
+                        <input type="checkbox" name="pt_purpose" value="yyy"/>바디 프로필
                     </div>
                     <div class="item">
-                        <input type="checkbox" name="first" value="yyy" />기타
+                        <input type="checkbox" name="pt_purpose" value="yyy"/>기타
                     </div>
                 </div>
                 <!-- third  끝 -->
                 <div class="fourth contents">
-                    <div class="title">4</div>
-
                     <div class="item">
-                        <input type="checkbox" name="first" value="yyy" />근력 강화
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="first" value="yyy" />체중 증가
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="first" value="yyy" />체력 증진
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="first" value="yyy" />체형 교정
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="first" value="yyy" />재활/통증 케어
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="first" value="yyy" />바디 프로필
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="first" value="yyy" />기타
+                        <input type="date" name="pt_count" value="yyy"/>PT 카운트
                     </div>
                 </div>
                 <!-- fourth  끝 -->
@@ -186,10 +163,56 @@
             $(".pre").on("click", preBtn);
             $(".next").on("click", nextBtn);
             changBarPercent();
+            gender();
+            age();
         });
+
+        function age() {
+            var today = new Date();
+            var year = String(today.getFullYear()).substring(2, 4);
+
+            let ss = $('#user_rrn').val();
+
+            let getUserYear = parseInt(ss.substring(0, 2));
+
+            // 00년대생 이상
+            if (year - getUserYear >= 0) {
+                console.log("현재 년도 : ", year);
+                console.log("태어난 년도 : ", getUserYear);
+
+                let age = year - getUserYear + 1;
+                console.log(age);
+                $("#user_age").attr("value", age);
+
+            } else {
+                console.log("현재 년도 : ", year);
+                console.log("태어난 년도 : ", getUserYear);
+
+                let age = year - getUserYear + 101;
+                console.log(age);
+                $("#user_age").attr("value", age);
+            }
+        }
+
+
+        function gender() {
+            // 기본주소 값 가져오기
+            let gender = $('#user_gender').val();
+
+            gender = parseInt(gender);
+            console.log(gender + "성별");
+            console.log(typeof (gender));
+
+            if (gender % 2 == 1) {
+                $("input:radio[name='user_gender1']:radio[value='남']").prop("checked", true);
+            } else {
+                $("input:radio[name='user_gender2']:radio[value='여']").prop("checked", true);
+            }
+        }
 
         let page = [true, false, false, false];
         let percentValue = 25;
+
         function nextBtn() {
             percentValue += 25;
             $(".percent").text(percentValue + "%");

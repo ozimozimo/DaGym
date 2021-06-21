@@ -105,7 +105,7 @@
                     <!--                            <td th:text="${member.address_normal}+'('+${member.address_detail}+')'"></td>-->
                     <td>
                         <a
-                                th:href="@{~/ptUser/apply(memloginUserIdber_id = ${session.loginUser},
+                                th:href="@{~/ptUser/apply(member_id = ${session.loginUser},
                                                             trainer_id = ${trainer.id})}"
                                 th:text="PT신청"
 

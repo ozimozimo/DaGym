@@ -22,6 +22,9 @@ public class PTUser extends BaseEntity{
     // 몸무게
     private String member_weight;
 
+    // 연령대
+    private String pt_age_group;
+
     // pt 목적
     private String pt_purpose;
 
