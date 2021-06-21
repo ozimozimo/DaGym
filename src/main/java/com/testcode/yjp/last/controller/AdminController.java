@@ -1,5 +1,6 @@
 package com.testcode.yjp.last.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.Notice;
@@ -48,18 +49,16 @@ public class AdminController {
         List<Member> users = new ArrayList<>();
         List<Member> trainers = new ArrayList<>();
 //        if (userList.size() >= 5 || trainerList.size() >= 5) {
-            for(int i = 0; i < 5; i++) {
-                try {
-                    users.add(userList.get(i));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                try {
-                    trainers.add(trainerList.get(i));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        for (int i = 0; i < 5; i++) {
+            try {
+                users.add(userList.get(i));
+            } catch (Exception e) {
             }
+            try {
+                trainers.add(trainerList.get(i));
+            } catch (Exception e) {
+            }
+        }
 //        }
 //        else {
 //            users = userList;
@@ -107,16 +106,16 @@ public class AdminController {
 
     //게시판 상세
     @GetMapping("/boardManagement/detail")
-    public String boardManagementDetail(Model model, Long hb_num,@ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
+    public String boardManagementDetail(Model model, Long hb_num, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
         log.info("hb_num = " + hb_num);
         Board board = boardRepository.findById(hb_num).get();
         model.addAttribute("boards", board);
         model.addAttribute("boards", boardService.findById(hb_num));
         model.addAttribute("comments", commentsService.findAllDesc());
-        model.addAttribute("commentLikeAll",commentsService.findLikeAll(hb_num));
-        model.addAttribute("commentDisLikeAll",commentsService.findDisLikeAll(hb_num));
-        model.addAttribute("commentLikeLatestAll",commentsService.findLatestAllClass(hb_num));
-        model.addAttribute("commentLikePastAll",commentsService.findPastAllClass(hb_num));
+        model.addAttribute("commentLikeAll", commentsService.findLikeAll(hb_num));
+        model.addAttribute("commentDisLikeAll", commentsService.findDisLikeAll(hb_num));
+        model.addAttribute("commentLikeLatestAll", commentsService.findLatestAllClass(hb_num));
+        model.addAttribute("commentLikePastAll", commentsService.findPastAllClass(hb_num));
         model.addAttribute("commentCountAll", commentsService.findCountAllClass(hb_num));
         model.addAttribute("re_comments", reCommentsService.findAllDesc());
 
@@ -125,7 +124,7 @@ public class AdminController {
         model.addAttribute("count", commentsService.findAllCount(hb_num).size());
         return "admin/board/boardManagementDetail";
     }
-    
+
     // 공지사항 관리
     @GetMapping("/noticeManagement")
     public String noticeManagement(Model model, PageRequestDto pageRequestDto) {
@@ -143,12 +142,14 @@ public class AdminController {
         Notice notice = noticeRepository.findById(id).get();
         model.addAttribute("notices", notice);
         adminService.updateView(id);
+
         return "admin/notice/noticeDetail";
     }
 
     //공지사항 등록 뷰
     @GetMapping("/noticeInsertView")
     public String noticeInsert(Model model) {
+
         return "admin/notice/noticeInsert";
     }
 
@@ -156,10 +157,28 @@ public class AdminController {
     @GetMapping("/noticeUpdateView")
     public String noticeUpdate(Model model, Long id, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
         model.addAttribute("notices", noticeRepository.findById(id).get());
+
         return "admin/notice/noticeUpdate";
     }
 
+    @GetMapping("/faqManagement")
+    public String faqManagement(Model model, PageRequestDto pageRequestDto) {
+        PageResultDto<NoticeDto, Notice> list = adminService.getList(pageRequestDto);
+        model.addAttribute("notice", list);
+        model.addAttribute("PageRequestDto", pageRequestDto);
+
+        return "admin/FAQ/faqManagement";
+    }
+
+    @GetMapping("/faqInsertView")
+    public String faqInsert(Model model) {
+        return "admin/FAQ/faqInsert";
+    }
+
+    @GetMapping("/fagDetail")
+    public String faqDetail(Model model, Long id, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
+        Notice notice = noticeRepository.findById(id).get();
+        model.addAttribute("faq", notice);
+        return "admin/FAQ/faqDetail";
+    }
 }
-
-
-

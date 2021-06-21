@@ -49,11 +49,11 @@ public interface MemberRepository  extends JpaRepository<Member,Long>, QuerydslP
     Member findCheckPw(String user_name, String user_email, String user_id);
 
     //회원 조회
-    @Query("select m from Member m where m.user_role='user'")
+    @Query("select m from Member m where m.user_role='user' and m.user_id not like 'admin'")
     List<Member> selectUser();
 
     //트레이너 조회
-    @Query("select m from Member m where m.user_role='trainer'")
+    @Query("select m from Member m where m.user_role='trainer' and m.user_id not like 'admin'")
     List<Member> selectTrainer();
 
     @Query("select m from Member m where m.user_id= :id")
