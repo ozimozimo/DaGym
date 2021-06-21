@@ -7,34 +7,25 @@
     <script th:src="@{~/js/main/bootstrap.min.js}"></script>
     <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
     <script th:src="@{~/js/admin/admin.js}"></script>
-    <script th:src="@{~/js/admin/notice.js}"></script>
 
 </head>
 <body>
-공지사항 관리 페이지
+FAQ 관리 페이지
 <table>
     <thead>
     <tr>
-        <td width="10%">글번호</td>
-        <td width="40%">글 제목</td>
-        <td width="10%">작성자</td>
-        <td width="10%">조회수</td>
-        <td width="20%">글수정날짜</td>
-        <td width="10%">활성화</td>
+        <td>FAQ</td>
     </tr>
     </thead>
-    <tbody id="tbody">
-    <tr th:each="notices : ${notice.dtoList}" th:if="${notices.active != 2}">
-        <td th:text="${notices.id}" id="notice_id"></td>
-        <td ><a th:text="${notices.title}" th:href="@{/admin/noticeDetail/(id = ${notices.id},
+    <tbody id="tbody"  th:each="notices : ${notice.dtoList}" th:if="${notices.active == 2}">
+    <tr>
+        <td><label>Q : </label><a th:text="${notices.title}" th:href="@{/admin/faqDetail/(id = ${notices.id},
                                                        page=${PageRequestDto.page},
                                                        type=${PageRequestDto.type},
                                                        keyword=${PageRequestDto.keyword})}"></a></td>
-        <td th:text="${notices.user_id}"></td>
-        <td th:text="${notices.hit}"></td>
-        <td th:text="${#temporals.format(notices.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
-<!--        <td th:text="${notices.active}"></td>-->
-        <td><input type="checkbox" class="activeCBox" th:checked="${notices.active} == 1" th:value="${notices.active}"></td>
+    </tr>
+    <tr>
+        <td><label>A : </label><span th:text="${notices.content}"></span></td>
     </tr>
 
     </tbody>
@@ -60,7 +51,7 @@
     </ul>
 </div>
 <div>
-    <a th:href="@{/admin/noticeInsertView}">글쓰기</a>
+    <a th:href="@{/admin/faqInsertView}">글쓰기</a>
 </div>
 </body>
 </html>

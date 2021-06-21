@@ -63,4 +63,12 @@ public class AdminApiController {
     public void noticeDelete(@PathVariable("id") Long id) {
         noticeRepository.deleteById(id);
     }
+
+    @PostMapping("/faqInsert/{id}")
+    public void faqInsert(@PathVariable("id") Long id, @RequestBody Notice notice) {
+        Member member = memberRepository.findById(id).get();
+        notice.setMember(member);
+        notice.setActive(2);
+        noticeRepository.save(notice);
+    }
 }

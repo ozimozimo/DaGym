@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{~/js/main/jquery.min.js}"></script>
+    <script th:src="@{~/js/main/bootstrap.min.js}"></script>
+    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
+    <script th:src="@{~/js/admin/admin.js}"></script>
+
+</head>
+<body>
+<div>
+    <h3>FAQ 작성</h3>
+    <form>
+        <input type="hidden" th:value="${session.loginUser}" id="member_id" name="member_id">
+        <input type="hidden" class="form-control" id="user_id" th:value="${session.loginId}" readonly="">
+        <div class="custom_form_control">
+            <label for="Q">Question</label>
+            <textarea class="form-control" id="Q" placeholder="제목을 입력하세요" style="resize: none" cols="50" rows="20"></textarea>
+
+        </div>
+
+        <div class="custom_form_control">
+            <label for="A">Answer</label>
+            <textarea class="form-control" id="A" placeholder="내용을 입력하세요" style="resize: none" cols="50" rows="20"></textarea>
+        </div>
+    </form>
+    <a th:href="@{/admin/faqManagement}" role="button">이전</a>
+    <button type="button" class="FAQ-save">등록</button>
+</div>
+</body>
+</html>
