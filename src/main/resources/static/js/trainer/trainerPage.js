@@ -201,11 +201,12 @@ function category_input() {
             if ($(this).val() == '기타') { //직접입력일 경우
                 $('.category').attr('id',''); //id 초기화
                 $('.input_category').show();
-
+                $('.input_category').attr('id', 'trainer_category');
             } else { //직접입력이 아닐경우 $("#str_email02").val($(this).text()); //선택값 입력
                 // $('.trainer_category').attr('value','');
                 $('.category').attr('id','trainer_category');
                 $('.input_category').hide();
+                $('.input_category').attr('id', '');
             }
         });
     });

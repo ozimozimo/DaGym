@@ -98,7 +98,7 @@ input::placeholder {
     color: #e2e2e2;
     font-size: 15px;
     font-weight: bold;
-    font-family: "S-CoreDream-3Light";
+    /*font-family: "S-CoreDream-3Light";*/
 }
 
 #loginBtn {
@@ -108,7 +108,7 @@ input::placeholder {
     border: none;
     background-color: rgb(29, 29, 29);
     color: white;
-    font-family: "S-CoreDream-3Light";
+    /*font-family: "S-CoreDream-3Light";*/
     border-radius: 2px;
 }
 
@@ -151,7 +151,7 @@ button {
     height: 38px;
     border: none;
     color: black;
-    font-family: "S-CoreDream-3Light";
+    /*font-family: "S-CoreDream-3Light";*/
     border-radius: 2px;
     font-weight: bold;
 }
