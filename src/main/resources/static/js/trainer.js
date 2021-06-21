@@ -129,7 +129,7 @@ function mkApply(data) {
         content += "<td class='ptUserGender'>" + k + "</td>"
         content += "<td class='ptUserHeight'>" + a + "</td>"
         content += "<td class='ptUserWeight'>" + b + "</td>"
-        content += "<td><a href='/ptUser/UserDetail'>상세보기</a></td>"
+        content += `<td><a href='/ptUser/view/detail/${l}'>상세보기</a></td>`
         content += "<td><button type='button' class='btn-primary Accept' onclick='updateAccept(this)'>수락</button></td>"
         content += "<td><button type='button' class='btn-primary Deny' onclick='updateAccept(this)'>거절</button></td></tr>"
         $('.applyListDetail').append(content);
