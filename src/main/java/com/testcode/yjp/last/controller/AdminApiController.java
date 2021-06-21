@@ -35,8 +35,8 @@ public class AdminApiController {
     }
 
     // 게시판 삭제
-    @DeleteMapping("/boardDelete")
-    public void boardDelete(Long id) {
+    @DeleteMapping("/boardDelete/{id}")
+    public void boardDelete(@PathVariable("id") Long id) {
         log.info("id = " + id);
         boardRepository.deleteById(id);
     }
