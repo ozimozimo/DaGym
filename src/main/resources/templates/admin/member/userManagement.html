@@ -50,7 +50,7 @@
 
 </head>
 <body>
-<p th:if="${tr_if == 'user'}" > </p>
+<p th:if="${tr_if == 'user'}"></p>
 <p th:if="${tr_if == 'trainer'}"></p>
 
 <div class="mainArea">
@@ -58,6 +58,32 @@
         <h3 class="title" th:if="${tr_if == 'user'}">회원 목록</h3>
         <h3 class="title" th:if="${tr_if == 'trainer'}">트레이너 목록</h3>
         <p>회원 > 회원목록</p>
+
+        <form th:action="@{/admin/userManagement}" id="searchUForm" method="get" th:if="${tr_if == 'user'}">
+            <input type="hidden" name="page" value="1">
+            <div>
+                <select name="type">
+                    <option value="u" th:selected="${PageRequestDto.type == 'u'}">아이디검색</option>
+                    <option value="n" th:selected="${PageRequestDto.type == 'n'}">이름검색</option>
+                </select>
+                <input name="keyword" th:value="${PageRequestDto.keyword}" placeholder="검색어">
+                <button type="button" onclick="USearch()">검색</button>
+                <button type="button" onclick="UClear()">초기화</button>
+            </div>
+        </form>
+
+        <form th:action="@{/admin/trainerManagement}" id="searchTForm" method="get" th:if="${tr_if == 'trainer'}">
+            <input type="hidden" name="page" value="1">
+            <div>
+                <select name="type">
+                    <option value="u" th:selected="${PageRequestDto.type == 'u'}">아이디검색</option>
+                    <option value="n" th:selected="${PageRequestDto.type == 'n'}">이름검색</option>
+                </select>
+                <input name="keyword" th:value="${PageRequestDto.keyword}" placeholder="검색어">
+                <button type="button" onclick="TSearch()">검색</button>
+                <button type="button" onclick="TClear()">초기화</button>
+            </div>
+        </form>
     </div>
 
     <div class="userListArea">
@@ -76,19 +102,83 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="member : ${members}" class="text-center">
+            <tr th:each="member : ${members.dtoList}" class="text-center">
                 <td><span th:text="${member.id}" th:href="@{/admin/adminMain}" id="member_id"></span></td>
                 <td><span th:text="${member.user_id}"></span></td>
                 <td><span th:text="${member.user_name}"></span></td>
                 <td><span th:text="${member.user_email}"></span></td>
                 <td><span th:text="${member.user_rrn}"></span></td>
                 <td><span th:text="${member.user_pn}"></span></td>
-                <td><span th:text="${member.address_normal}"></span><span th:text="${member.address_detail}"></span></td>
+                <td><span th:text="${member.address_normal}"></span><span th:text="${member.address_detail}"></span>
+                </td>
                 <td><span th:text="${member.regDate}"></span></td>
-                <td><button type="button" class="Delete">탈퇴</button></td>
+                <td>
+                    <button type="button" class="Delete">탈퇴</button>
+                </td>
             </tr>
             </tbody>
         </table>
+
+        <div th:if="${tr_if == 'user'}">
+            <ul>
+                <li th:if="${members.prev}">
+                    <a class="custom_btn" th:href="@{/admin/userManagement(page = ${members.start -1},
+                                        type=${PageRequestDto.type},
+                                        keyword=${PageRequestDto.keyword})}">이전</a>
+                </li>
+                <li th:each="page: ${members.pageList}">
+                    <a class="custom_btn" th:href="@{/admin/userManagement(page= ${page},
+                                        type=${PageRequestDto.type},
+                                        keyword=${PageRequestDto.keyword})}" th:text="${page}">1</a>
+                </li>
+                <li th:if="${members.next}">
+                    <a class="custom_btn" th:href="@{/admin/userManagement(page = ${members.end +1},
+                                        type=${PageRequestDto.type},
+                                        keyword=${PageRequestDto.keyword})}">다음</a>
+                </li>
+            </ul>
+        </div>
+        <div th:if="${tr_if == 'trainer'}">
+            <ul>
+                <li th:if="${members.prev}">
+                    <a class="custom_btn" th:href="@{/admin/trainerManagement(page = ${members.start -1},
+                                        type=${PageRequestDto.type},
+                                        keyword=${PageRequestDto.keyword})}">이전</a>
+                </li>
+                <li th:each="page: ${members.pageList}">
+                    <a class="custom_btn" th:href="@{/admin/trainerManagement(page= ${page},
+                                        type=${PageRequestDto.type},
+                                        keyword=${PageRequestDto.keyword})}" th:text="${page}">1</a>
+                </li>
+                <li th:if="${members.next}">
+                    <a class="custom_btn" th:href="@{/admin/trainerManagement(page = ${members.end +1},
+                                        type=${PageRequestDto.type},
+                                        keyword=${PageRequestDto.keyword})}">다음</a>
+                </li>
+            </ul>
+        </div>
+        <script th:inline="javascript">
+
+            var searchUForm = $('#searchUForm');
+            var searchTForm = $('#searchTForm');
+
+            function USearch() {
+                searchUForm.submit();
+            }
+
+            function UClear() {
+                searchUForm.empty().submit();
+            }
+
+            function TSearch() {
+                searchTForm.submit();
+            }
+
+            function TClear() {
+                searchTForm.empty().submit();
+            }
+
+        </script>
     </div>
 </div>
 </body>

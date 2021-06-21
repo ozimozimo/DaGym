@@ -81,9 +81,13 @@ public class PTController {
 
         List<MemberList> trainerLists = ptUserService.getMemberList(trainer_id);
         List<MemberList> memberLists = ptUserService.getMemberList(member_id);
+
+        Member member = memberRepository.findById(trainerSearchDto.getMember_id()).get();
+
         model.addAttribute("trainerList", trainerLists);
         model.addAttribute("memberList", memberLists);
         model.addAttribute("trainer_id", trainer_id);
+        model.addAttribute("member", member);
 
         return "ptUser/trainerApply";
     }
