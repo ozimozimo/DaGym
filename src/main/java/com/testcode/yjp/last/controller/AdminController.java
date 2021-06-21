@@ -5,6 +5,7 @@ import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.Notice;
 import com.testcode.yjp.last.domain.dto.*;
 import com.testcode.yjp.last.repository.BoardRepository;
+import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.NoticeRepository;
 import com.testcode.yjp.last.service.AdminService;
 import com.testcode.yjp.last.service.BoardService;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import sun.awt.ModalityListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -32,10 +35,42 @@ public class AdminController {
     private final CommentsService commentsService;
     private final ReCommentsService reCommentsService;
     private final NoticeRepository noticeRepository;
+    private final MemberRepository memberRepository;
 
     //메인
     @GetMapping("/adminMain")
-    public String adminPage() {
+    public String adminPage(Model model) {
+        int userSize = memberRepository.selectUser().size();
+        int trainerSize = memberRepository.selectTrainer().size();
+        int boardSize = boardRepository.findAll().size();
+        List<Member> userList = memberRepository.selectUser();
+        List<Member> trainerList = memberRepository.selectTrainer();
+        List<Member> users = new ArrayList<>();
+        List<Member> trainers = new ArrayList<>();
+//        if (userList.size() >= 5 || trainerList.size() >= 5) {
+            for(int i = 0; i < 5; i++) {
+                try {
+                    users.add(userList.get(i));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    trainers.add(trainerList.get(i));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+//        }
+//        else {
+//            users = userList;
+//            trainers = trainerList;
+//        }
+
+        model.addAttribute("user_list", users);
+        model.addAttribute("trainer_list", trainers);
+        model.addAttribute("user", userSize);
+        model.addAttribute("trainer", trainerSize);
+        model.addAttribute("board", boardSize);
         return "admin/adminMain";
     }
 

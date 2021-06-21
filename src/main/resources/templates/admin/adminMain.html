@@ -140,7 +140,7 @@
                                 <div class="metric">
                                     <span class="icon"><i class="far fa-user"></i></span>
                                     <p>
-                                        <span class="number">1,252</span>
+                                        <span class="number" th:text="${user}"></span>
                                         <span class="title">회원수</span>
                                     </p>
                                 </div>
@@ -151,7 +151,7 @@
                       ><i class="fas fa-running"></i
                       ></span>
                                     <p>
-                                        <span class="number">203</span>
+                                        <span class="number" th:text="${trainer}"></span>
                                         <span class="title">트레이너수</span>
                                     </p>
                                 </div>
@@ -160,7 +160,7 @@
                                 <div class="metric">
                                     <span class="icon"><i class="fas fa-clipboard-list"></i></span>
                                     <p>
-                                        <span class="number">274,678</span>
+                                        <span class="number" th:text="${board}"></span>
                                         <span class="title">게시글수</span>
                                     </p>
                                 </div>
@@ -259,50 +259,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td><a href="#">763648</a></td>
-                                <td>Steve</td>
-                                <td>$122</td>
-                                <td>Oct 21, 2016</td>
-                                <td>
-                                    <span class="#">01033939132</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">763649</a></td>
-                                <td>Amber</td>
-                                <td>$62</td>
-                                <td>Oct 21, 2016</td>
-                                <td>
-                                    <span class="#">PENDING</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">763650</a></td>
-                                <td>Michael</td>
-                                <td>$34</td>
-                                <td>Oct 18, 2016</td>
-                                <td>
-                                    <span class="#">FAILED</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">763651</a></td>
-                                <td>Roger</td>
-                                <td>$186</td>
-                                <td>Oct 17, 2016</td>
-                                <td>
-                                    <span class="#">SUCCESS</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">763652</a></td>
-                                <td>Smith</td>
-                                <td>$362</td>
-                                <td>Oct 16, 2016</td>
-                                <td>
-                                    <span class="#">SUCCESS</span>
-                                </td>
+                            <tr th:each="user : ${user_list}">
+                                <td th:text="${user.id}"></td>
+                                <td th:text="${user.user_name}"></td>
+                                <td th:text="${user.user_gender}"></td>
+                                <td th:text="${user.regDate}"></td>
+                                <td th:text="${user.user_pn}"></td>
                             </tr>
                             </tbody>
                         </table>
@@ -332,58 +294,20 @@
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>Order No.</th>
-                                <th>Name</th>
-                                <th>Amount</th>
-                                <th>Date &amp; Time</th>
-                                <th>Status</th>
+                                <th>번호</th>
+                                <th>이름</th>
+                                <th>성별</th>
+                                <th>가입날짜</th>
+                                <th>휴대폰번호</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td><a href="#">763648</a></td>
-                                <td>Steve</td>
-                                <td>$122</td>
-                                <td>Oct 21, 2016</td>
-                                <td>
-                                    <span class="label label-success">COMPLETED</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">763649</a></td>
-                                <td>Amber</td>
-                                <td>$62</td>
-                                <td>Oct 21, 2016</td>
-                                <td>
-                                    <span class="label label-warning">PENDING</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">763650</a></td>
-                                <td>Michael</td>
-                                <td>$34</td>
-                                <td>Oct 18, 2016</td>
-                                <td>
-                                    <span class="label label-danger">FAILED</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">763651</a></td>
-                                <td>Roger</td>
-                                <td>$186</td>
-                                <td>Oct 17, 2016</td>
-                                <td>
-                                    <span class="label label-success">SUCCESS</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">763652</a></td>
-                                <td>Smith</td>
-                                <td>$362</td>
-                                <td>Oct 16, 2016</td>
-                                <td>
-                                    <span class="label label-success">SUCCESS</span>
-                                </td>
+                            <tr th:each="trainer : ${trainer_list}">
+                                <td th:text="${trainer.id}"></td>
+                                <td th:text="${trainer.user_name}"></td>
+                                <td th:text="${trainer.user_gender}"></td>
+                                <td th:text="${trainer.regDate}"></td>
+                                <td th:text="${trainer.user_pn}"></td>
                             </tr>
                             </tbody>
                         </table>
