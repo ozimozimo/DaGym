@@ -48,8 +48,8 @@ function Save() {
         alert(JSON.stringify(error));
     })
 }
-
 $(function () {
     $(".Delete").on("click", Delete);
     $(".btn-save").on("click", Save);
+
 });

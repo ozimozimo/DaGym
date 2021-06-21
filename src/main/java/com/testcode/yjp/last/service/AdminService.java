@@ -2,10 +2,7 @@ package com.testcode.yjp.last.service;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.testcode.yjp.last.domain.Board;
-import com.testcode.yjp.last.domain.Member;
-import com.testcode.yjp.last.domain.Notice;
-import com.testcode.yjp.last.domain.QBoard;
+import com.testcode.yjp.last.domain.*;
 import com.testcode.yjp.last.domain.dto.*;
 import com.testcode.yjp.last.repository.BoardRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
@@ -30,29 +27,10 @@ public class AdminService {
     private final NoticeRepository noticeRepository;
     private final BoardRepository boardRepository;
 
-    public List<MemberList> selectUser() {
-        List<Member> members = memberRepository.selectUser();
-        List<MemberList> memberLists = new ArrayList<>();
-        for(Member member : members) {
-            MemberList memberList = new MemberList();
-            memberList.setId(member.getId());
-            memberList.setUser_name(member.getUser_name());
-            memberList.setUser_id(member.getUser_id());
-            memberList.setUser_pn(member.getUser_pn());
-            memberList.setUser_rrn(member.getUser_rrn());
-            memberList.setAddress_normal(member.getAddress_normal());
-            memberList.setAddress_detail(member.getAddress_detail());
-            memberList.setRegDate(member.getRegDate());
-
-            memberLists.add(memberList);
-        }
-        return memberLists;
-    }
-
     public List<MemberList> selectTrainer() {
         List<Member> members = memberRepository.selectTrainer();
         List<MemberList> memberLists = new ArrayList<>();
-        for(Member member : members) {
+        for (Member member : members) {
             MemberList memberList = new MemberList();
             memberList.setId(member.getId());
             memberList.setUser_name(member.getUser_name());
@@ -96,6 +74,31 @@ public class AdminService {
         return new PageResultDto<>(result, function);
     }
 
+    public PageResultDto<MemberList, Member> getMemberList(PageRequestDto requestDto, String tr_if) {
+        Pageable pageable = requestDto.getPageable(Sort.by("id").descending());
+        BooleanBuilder booleanBuilder = getMemberSearch(requestDto, tr_if);
+        Page<Member> result = memberRepository.findAll(booleanBuilder, pageable);
+        Function<Member, MemberList> function = (entity -> memberToDto(entity));
+        return new PageResultDto<>(result, function);
+    }
+
+    private MemberList memberToDto(Member entity) {
+        MemberList memberList = MemberList.builder()
+                .id(entity.getId())
+                .user_id(entity.getUser_id())
+                .user_pw(entity.getUser_pw())
+                .user_pn(entity.getUser_pn())
+                .user_name(entity.getUser_name())
+                .user_email(entity.getUser_email())
+                .address_normal(entity.getAddress_normal())
+                .address_detail(entity.getAddress_detail())
+                .user_rrn(entity.getUser_rrn())
+                .user_gender(entity.getUser_gender())
+                .user_role(entity.getUser_role())
+                .build();
+        return memberList;
+    }
+
     private BoardDto boardToDto(Board entity) {
         BoardDto boardDto = new BoardDto();
         boardDto.setId(entity.getId());
@@ -109,6 +112,36 @@ public class AdminService {
         return boardDto;
     }
 
+    private BooleanBuilder getMemberSearch(PageRequestDto requestDto, String tr_if) {
+        String type = requestDto.getType();
+        log.info("type = " + type);
+        BooleanBuilder builder = new BooleanBuilder();
+        QMember qMember = QMember.member;
+        String keyword = requestDto.getKeyword();
+        BooleanExpression gt = qMember.id.gt(0L);
+        builder.and(qMember.user_role.contains(tr_if));
+        builder.andNot(qMember.user_id.contains("admin"));
+        builder.and(gt);
+
+        if (type == null || type.trim().length() == 0) {
+            return builder;
+        }
+
+        BooleanBuilder conditionBuilder = new BooleanBuilder();
+//        conditionBuilder.and(qMember.user_role.contains(tr_if));
+//        conditionBuilder.andNot(qMember.user_id.contains("admin"));
+        if (type.contains("u")) {
+            conditionBuilder.or(qMember.user_id.contains(keyword));
+        }
+        if (type.contains("n")) {
+            conditionBuilder.or(qMember.user_name.contains(keyword));
+        }
+        builder.and(conditionBuilder);
+
+        log.info("value = " + builder.getValue());
+        return builder;
+    }
+
     private BooleanBuilder getSearch(PageRequestDto requestDto) {
         String type = requestDto.getType();
         BooleanBuilder booleanBuilder = new BooleanBuilder();
@@ -117,19 +150,19 @@ public class AdminService {
         BooleanExpression booleanExpression = qBoard.id.gt(0L);
         booleanBuilder.and(booleanExpression);
 
-        if(type == null || type.trim().length() == 0) {
+        if (type == null || type.trim().length() == 0) {
             return booleanBuilder;
         }
 
         BooleanBuilder conditionBuilder = new BooleanBuilder();
 
-        if(type.contains("t")) {
+        if (type.contains("t")) {
             conditionBuilder.or(qBoard.title.contains(keyword));
         }
-        if(type.contains("c")) {
+        if (type.contains("c")) {
             conditionBuilder.or(qBoard.content.contains(keyword));
         }
-        if(type.contains("u")) {
+        if (type.contains("u")) {
             conditionBuilder.or(qBoard.user_id.contains(keyword));
         }
 
@@ -143,7 +176,6 @@ public class AdminService {
         log.info("조회수 증가 서비스");
         return noticeRepository.updateView(id);
     }
-
 
 
 }

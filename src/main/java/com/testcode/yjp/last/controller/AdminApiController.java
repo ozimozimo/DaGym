@@ -19,12 +19,14 @@ public class AdminApiController {
     private final NoticeRepository noticeRepository;
     private final BoardRepository boardRepository;
 
+    // 회원 삭제
     @DeleteMapping("/delete/{id}")
     public void deleteUser(@PathVariable("id") Long id) {
         log.info("id = " + id);
         memberRepository.deleteById(id);
     }
 
+    // 회원 수정
     @PutMapping("/update/active/{id}/{active}")
     public void updateActive(@PathVariable("active") int active, @PathVariable("id") Long id) {
         Notice notice = noticeRepository.findById(id).get();
@@ -32,6 +34,14 @@ public class AdminApiController {
         noticeRepository.save(notice);
     }
 
+    // 게시판 삭제
+    @DeleteMapping("/boardDelete")
+    public void boardDelete(Long id) {
+        log.info("id = " + id);
+        boardRepository.deleteById(id);
+    }
+
+    // 공지사항 등록
     @PostMapping("/noticeInsert/{id}")
     public void noticeInsert(@RequestBody Notice notice, @PathVariable("id") Long id) {
         Member member = memberRepository.findById(id).get();
@@ -39,12 +49,7 @@ public class AdminApiController {
         noticeRepository.save(notice);
     }
 
-    @DeleteMapping("/boardDelete")
-    public void boardDelete(Long id) {
-        log.info("id = " + id);
-        boardRepository.deleteById(id);
-    }
-
+    // 공지사항 수정
     @PutMapping("/noticeUpdate/{id}")
     public void noticeUpdate(@PathVariable("id") Long id, @RequestBody Notice getNotice) {
         Notice notice = noticeRepository.findById(id).get();
@@ -53,6 +58,7 @@ public class AdminApiController {
         noticeRepository.save(notice);
     }
 
+    // 공지사항 삭제
     @DeleteMapping("/noticeDelete/{id}")
     public void noticeDelete(@PathVariable("id") Long id) {
         noticeRepository.deleteById(id);

@@ -1,6 +1,7 @@
 package com.testcode.yjp.last.controller;
 
 import com.testcode.yjp.last.domain.Board;
+import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.Notice;
 import com.testcode.yjp.last.domain.dto.*;
 import com.testcode.yjp.last.repository.BoardRepository;
@@ -32,31 +33,33 @@ public class AdminController {
     private final ReCommentsService reCommentsService;
     private final NoticeRepository noticeRepository;
 
+    //메인
     @GetMapping("/adminMain")
     public String adminPage() {
         return "admin/adminMain";
     }
 
+    //회원관리
     @GetMapping("/userManagement")
-    public String userManagement(Model model) {
-        List<MemberList> memberLists = adminService.selectUser();
-        log.info("memberLists = " + memberLists);
-        model.addAttribute("members", memberLists);
-        model.addAttribute("count", memberLists.size());
+    public String userManagement(Model model, @ModelAttribute("PageRequestDto") PageRequestDto requestDto) {
+        PageResultDto<MemberList, Member> memberList = adminService.getMemberList(requestDto, "user");
+        model.addAttribute("members", memberList);
         model.addAttribute("tr_if", "user");
 
         return "admin/member/userManagement";
     }
 
+    //트레이너관리
     @GetMapping("/trainerManagement")
-    public String trainerManagement(Model model) {
-        List<MemberList> memberLists = adminService.selectTrainer();
-        model.addAttribute("members", memberLists);
-        model.addAttribute("count", memberLists.size());
+    public String trainerManagement(Model model, @ModelAttribute("PageRequestDto") PageRequestDto requestDto) {
+        PageResultDto<MemberList, Member> memberList = adminService.getMemberList(requestDto, "trainer");
+        model.addAttribute("members", memberList);
         model.addAttribute("tr_if", "trainer");
+
         return "admin/member/userManagement";
     }
 
+    //게시판 관리
     @GetMapping("/boardManagement")
     public String boardManagement(PageRequestDto pageRequestDto, Model model) {
         List<Board> allDesc = boardRepository.findAllDesc();
@@ -67,6 +70,7 @@ public class AdminController {
         return "admin/board/boardManagement";
     }
 
+    //게시판 상세
     @GetMapping("/boardManagement/detail")
     public String boardManagementDetail(Model model, Long hb_num,@ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
         log.info("hb_num = " + hb_num);
@@ -86,6 +90,8 @@ public class AdminController {
         model.addAttribute("count", commentsService.findAllCount(hb_num).size());
         return "admin/board/boardManagementDetail";
     }
+    
+    // 공지사항 관리
     @GetMapping("/noticeManagement")
     public String noticeManagement(Model model, PageRequestDto pageRequestDto) {
         PageResultDto<NoticeDto, Notice> list = adminService.getList(pageRequestDto);
@@ -95,6 +101,7 @@ public class AdminController {
         return "admin/notice/noticeManagement";
     }
 
+    //공지사항 상세
     @GetMapping("/noticeDetail")
     public String noticeDetail(Model model, Long id, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
         log.info("id = " + id);
@@ -104,16 +111,19 @@ public class AdminController {
         return "admin/notice/noticeDetail";
     }
 
+    //공지사항 등록 뷰
     @GetMapping("/noticeInsertView")
     public String noticeInsert(Model model) {
         return "admin/notice/noticeInsert";
     }
 
+    //공지사항 수정 뷰
     @GetMapping("/noticeUpdateView")
     public String noticeUpdate(Model model, Long id, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
         model.addAttribute("notices", noticeRepository.findById(id).get());
         return "admin/notice/noticeUpdate";
     }
+
 }
 
 

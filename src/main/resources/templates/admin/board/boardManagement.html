@@ -81,6 +81,22 @@
         </ul>
     </div>
 
+    <script th:inline="javascript">
+
+        var searchForm = $('#searchForm');
+
+        function search() {
+            searchForm.submit();
+        }
+
+        function Sclear() {
+            searchForm.empty().submit();
+
+        }
+
+
+    </script>
+
 </div>
 
 </body>
