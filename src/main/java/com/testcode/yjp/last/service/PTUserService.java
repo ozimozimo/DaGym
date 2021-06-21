@@ -7,6 +7,7 @@ import com.testcode.yjp.last.domain.dto.*;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.PTUserRepository;
 import com.testcode.yjp.last.repository.TrainerRepository;
+import javafx.scene.shape.TriangleMesh;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 @Slf4j
+@Transactional
 public class PTUserService {
 
     private final PTUserRepository ptUserRepository;
@@ -180,9 +182,14 @@ public class PTUserService {
 
     // 신청내용 조회하기
     public List<PTMemberInfoDto> getPTUserApply(Long member_id) {
+        log.info("ptUserService");
 
-        Member member = memberRepository.findById(member_id).get();
-        TrainerInfo trainer_id = trainerRepository.findById(member.getId()).get();
+        TrainerInfo trainer = trainerRepository.findTrainer_id(member_id);
+
+        Long trainer_id = trainer.getId();
+
+
+
         return ptUserRepository.findApply(trainer_id).stream()
                 .map(PTMemberInfoDto::new)
                 .collect(Collectors.toList());
@@ -255,6 +262,7 @@ public class PTUserService {
     private TrainerInfoDto entityToDto(TrainerInfo entity) {
         TrainerInfoDto dto = TrainerInfoDto.builder()
                 .id(entity.getId())
+                .user_id(entity.getMember().getUser_id())
                 .imgName(entity.getImgName())
                 .fileName(entity.getFileName())
                 .user_pn(entity.getMember().getUser_pn())
@@ -265,6 +273,7 @@ public class PTUserService {
                 .user_name(entity.getMember().getUser_name())
                 .trainer_content(entity.getTrainer_content())
                 .build();
+
         return dto;
     }
 
@@ -317,10 +326,12 @@ public class PTUserService {
                 .member_weight(ptMemberInfoDto.getMember_weight())
                 .pt_purpose(ptMemberInfoDto.getPt_purpose())
                 .pt_count(ptMemberInfoDto.getPt_count())
+                .pt_positiveDate(ptMemberInfoDto.getPt_positiveDate())
+                .pt_wantTime(ptMemberInfoDto.getPt_wantTime())
+                .accept_condition(ptMemberInfoDto.getAccept_condition())
                 .member_id(ptMemberInfoDto.getMember())
                 .trainer_id(ptMemberInfoDto.getTrainer())
                 .build();
-
         ptUserRepository.save(ptUser);
     }
 }

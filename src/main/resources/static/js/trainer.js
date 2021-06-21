@@ -63,27 +63,29 @@ function apply() {
 }
 
 // 수락한거 조회하기
-function acceptList() {
-    var id = $('.member_id').val();
-    var data = {
-        id: id // 앞에 trainer_id -> id
-    }
-    $.ajax({
-        type: 'get',
-        url: '/ptUser/manage',
-        data: data,
-        contentType: 'application/json; charset=utf-8'
-    }).done(function (data) {
-    }).fail(function (error) {
-        console.log(error);
-    })
-}
+// function acceptList() {
+//     var id = $('.member_id').val();
+//     var data = {
+//         id: id // 앞에 trainer_id -> id
+//     }
+//     $.ajax({
+//         type: 'get',
+//         url: '/ptUser/manage',
+//         data: data,
+//         contentType: 'application/json; charset=utf-8'
+//     }).done(function (data) {
+//     }).fail(function (error) {
+//         console.log(error);
+//     })
+// }
 
 // 신청온거 확인하기
 function showList() {
-    var id = $('.member_id').val();
+
+    var member_id = $('#member_id').val();
+    console.log(member_id);
     var data = {
-        trainer_id: id
+        member_id: member_id,
     }
     $.ajax({
         type: 'get',
@@ -91,10 +93,12 @@ function showList() {
         data: data,
         contentType: 'application/json; charset=utf-8',
     }).done(function (data) {
-        mkApply(data);
         console.log(data);
+        mkApply(data);
+        alert("성공");
     }).fail(function (error) {
         console.log(error);
+        alert("실패");
     })
 }
 
@@ -102,22 +106,32 @@ function showList() {
 function mkApply(data) {
     $('.applyListDetail').empty();
     for (let i = 0; i < data.length; i++) {
-        var a = data[i].user_id;
-        var b = data[i].user_name;
-        var c = data[i].start_date;
-        var d = data[i].end_date;
-        var e = data[i].id;
-        var f = data[i].user_pn;
+        var a = data[i].member_height;
+        var b = data[i].member_weight;
+        var c = data[i].pt_purpose;
+        var d = data[i].pt_count;
+        var e = data[i].pt_positiveDate;
+        var f = data[i].pt_wantTime;
+        var g = data[i].member.user_name;
+        var h = data[i].member.user_pn;
+        var j = data[i].member.user_rrn;
+        var k = data[i].member.user_gender;
+        var l = data[i].id;
+        var m = data[i].member.user_id;
+
+
 
         let content = "<tr>"
-        content += "<td class= 'ptId' style='display: none'>" + e + "</td>"
-        content += "<td class='ptUserId'>" + a + "</td>"
-        content += "<td class='ptUserName'>" + b + "</td>"
-        content += "<td class='ptStartDate'>" + c + "</td>"
-        content += "<td class='ptEndDate'>" + d + "</td>"
-        content += "<td class='ptPhone'>" + f + "</td>"
+        content += "<td class='ptUserId'>" + m + "</td>"
+        content += "<td class='ptUserName'>" + g + "</td>"
+        content += "<td class='ptUserPn'>" + h + "</td>"
+        content += "<td class='ptUserRrn'>" + j + "</td>"
+        content += "<td class='ptUserGender'>" + k + "</td>"
+        content += "<td class='ptUserHeight'>" + a + "</td>"
+        content += "<td class='ptUserWeight'>" + b + "</td>"
+        content += "<td><a href='/ptUser/UserDetail'>상세보기</a></td>"
         content += "<td><button type='button' class='btn-primary Accept' onclick='updateAccept(this)'>수락</button></td>"
-        content += "<td><button type='button' class='btn-primary Deny' onclick='updateAccept(this)'>거절</button></td>"
+        content += "<td><button type='button' class='btn-primary Deny' onclick='updateAccept(this)'>거절</button></td></tr>"
         $('.applyListDetail').append(content);
     }
 }
@@ -128,6 +142,9 @@ function updateAccept(a) {
     let apply_if = 0;
     // 내가 누른 버튼의 id값
     let id = a.parentNode.parentNode.firstChild.innerText;
+
+    console.log("id=" + id);
+
     // 내가 누른 버튼의 텍스트값
     let con = a.innerText;
     // 수락이면 apply_if에 1 저장하고 아니면 2 저장
@@ -160,7 +177,7 @@ function updateAccept(a) {
 }
 
 $(function () {
-    acceptList();
+    // acceptList();
     showList();
 })
 

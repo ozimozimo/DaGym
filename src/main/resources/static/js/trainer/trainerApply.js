@@ -189,8 +189,6 @@ function trainerApplySumbit() {
     });
 
     let data = {
-        member_id,
-        trainer_id,
         member_height,
         member_weight,
         pt_purpose,
@@ -200,15 +198,17 @@ function trainerApplySumbit() {
     }
 
     console.log(data);
+    $.ajax({
+        type: 'post',
+        url: '/ptUser/apply/success/' + member_id + "/" + trainer_id,
+        data: JSON.stringify(data),
+        contentType: 'application/json; charset=utf-8',
+    }).done(function (data) {
+        alert("PT 신청 하셨습니다");
 
-    // $.ajax({
-    //     type: 'post',
-    //     url: '' + id,
-    //     data: JSON.stringify(data),
-    //     contentType: 'application/json; charset=utf-8',
-    // }).done(function (data) {
-    //     console.log(data);
-    // }).fail(function (error) {
-    //     console.log(error);
-    // })
+        console.log(data);
+    }).fail(function (error) {
+        alert("PT 신청에 실패하였습니다");
+        console.log(error);
+    })
 }

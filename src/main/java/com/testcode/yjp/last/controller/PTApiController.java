@@ -67,8 +67,7 @@ public class PTApiController {
     public List<PTMemberInfoDto> findMember(@RequestParam Long member_id) {
         log.info("ptUser findMember Get Controller");
 
-        System.out.println("member_id = " + member_id);
-
+        System.out.println("트레이너 member_id = " + member_id);
 
         List<PTMemberInfoDto> ptUserApplies = ptUserService.getPTUserApply(member_id);
 

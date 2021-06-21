@@ -13,7 +13,9 @@ import javax.persistence.*;
 @Table(name = "PT_USER")
 public class PTUser extends BaseEntity{
 
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "pt_user_id")
     private Long id;
 
     // 키
@@ -22,11 +24,14 @@ public class PTUser extends BaseEntity{
     // 몸무게
     private String member_weight;
 
-    // 연령대
-    private String pt_age_group;
-
     // pt 목적
     private String pt_purpose;
+
+    // pt 신청일
+    private String pt_positiveDate;
+
+    // 원하는 pt 시간대
+    private String pt_wantTime;
 
     // 횟수
     private String pt_count;

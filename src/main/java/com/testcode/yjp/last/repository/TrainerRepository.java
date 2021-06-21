@@ -15,4 +15,6 @@ public interface TrainerRepository extends JpaRepository<TrainerInfo, Long>, Que
     @Query("select m,t from Member m, TrainerInfo t where m.id=t.member.id and m.user_role='trainer' ")
     List<Object[]> getTrainerList();
 
+    @Query("select t from TrainerInfo t where t.member.id=:member_id")
+    TrainerInfo findTrainer_id(Long member_id);
 }

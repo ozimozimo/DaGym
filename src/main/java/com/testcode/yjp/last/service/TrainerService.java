@@ -22,6 +22,7 @@ public class TrainerService {
                 .imgName(trainerInfoDto.getImgName())
                 .fileName(trainerInfoDto.getFileName())
                 .trainer_category(trainerInfoDto.getTrainer_category())
+                .trainer_gymName(trainerInfoDto.getTrainer_gymName())
                 .trainer_workTime(trainerInfoDto.getTrainer_workTime())
                 .trainer_address_normal(trainerInfoDto.getTrainer_address_normal())
                 .trainer_address_detail(trainerInfoDto.getTrainer_address_detail())
