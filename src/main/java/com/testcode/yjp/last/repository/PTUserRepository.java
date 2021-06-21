@@ -2,6 +2,7 @@ package com.testcode.yjp.last.repository;
 
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.PTUser;
+import com.testcode.yjp.last.domain.TrainerInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -28,8 +29,8 @@ public interface PTUserRepository extends JpaRepository<PTUser, Long> {
     List<Member> findMemberId(Long member_id);;
 
     // 트레이너한테 신청한 목록
-    @Query(value = "select * from PT_User where TRAINER_ID = :trainer and accept_condition = 0", nativeQuery = true)
-    ArrayList<PTUser> findApply(Member trainer);
+    @Query(value = "select p from PTUser p where p.trainer_id=:trainer and p.accept_condition = 0")
+    List<PTUser> findApply(TrainerInfo trainer);
 
     // 트레이너가 수락한 회원 목록
     @Query(value = "select * from PT_User where trainer_id = :trainer and accept_condition = 1", nativeQuery = true)
@@ -52,12 +53,12 @@ public interface PTUserRepository extends JpaRepository<PTUser, Long> {
     List<Member> selectTrainer();
 
     // pt신청 endDate와 오늘 날짜 비교해서 endDate지나면 수락상태 3으로 변경
-    @Query("select m from PTUser m " +
-            "where (m.member_id = :member " +
-            "or m.trainer_id = :member )" +
-            "and m.accept_condition = '1' " +
-            "and m.end_date < :today")
-    ArrayList<PTUser> endDate(Member member, String today);
+//    @Query("select m from PTUser m " +
+//            "where (m.member_id = :member " +
+//            "or m.trainer_id = :member )" +
+//            "and m.accept_condition = '1' " +
+//            "and m.end_date < :today")
+//    ArrayList<PTUser> endDate(Member member, String today);
 
 
 }

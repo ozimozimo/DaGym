@@ -8,6 +8,44 @@
 <head>
     <title>PT 신청</title>
     <script th:src="@{/js/trainer.js}"></script>
+    <style>
+        .card {
+            width: 460px;
+            /* background-color: bisque; */
+        }
+        .title {
+            font-size: 30px;
+        }
+        .item {
+            display: block;
+            /* border: 1px solid; */
+        }
+        .contentss {
+            display: none;
+        }
+        .first {
+            display: block;
+        }
+        .pre {
+            display: none;
+        }
+        .submit {
+            display: none;
+        }
+
+        svg path {
+            fill: none;
+            stroke-width: 20px;
+            stroke-miterlimit: round;
+            transition: stroke-dashoffset 850ms ease-in-svgout;
+            /* stroke-dasharray: 200;
+            stroke-dashoffset: 200; */
+        }
+    </style>
+    <script
+            type="text/javascript"
+            src="https://code.jquery.com/jquery-1.12.4.min.js"
+    ></script>
 </head>
 <div layout:fragment="content">
     <div class="container">
@@ -21,55 +59,237 @@
             <span>트레이너 연락처 : </span><span th:text="${trainer.getUser_pn()}"></span>
         </div>
 
-        <form>
-            <div th:each="member : ${memberList}">
-                <!-- 이름 -->
-                <ul>
-                    <input type="hidden" id="member_id" name="member_id" th:value="${session.loginUser}"/>
-                    <input type="hidden" id="trainer_id" name="trainer_id" th:value="${trainer_id}"/>
+        <svg class="bar" width="200" height="20" data-value="25">
+            <path class="bg" stroke="#ccc" d="M0 10, 200 10"></path>
+            <path
+                    class="meter"
+                    stroke="#09c"
+                    d="M0 10, 200 10"
+                    style="stroke-dasharray: 200; stroke-dashoffset: 200"
+            ></path>
+        </svg>
+        <h2 class="percent">25%</h2>
+        <div class="card">
+            <form>
+                <input type="hidden" id="member_id" name="member_id" th:value="${session.loginUser}"/>
+                <input type="hidden" id="trainer_id" name="trainer_id" th:value="${trainer_id}"/>
+                <!--            member 이름, 전화번호, pt 추가정보 나이,성별 ,키, 몸무게, pt목적, pt 횟수, pt신청 날짜-->
+                <!-- first 시작 -->
+                <div class="first contents">
+                    <div class="title">PT 목적은 무엇인가요?</div>
 
-                    <li>
-                        <p><label for="user_name">이름</label></p>
-                    </li>
-                    <li>
-                        <input type="text" id="user_name" name="user_name" th:value="${member.getUser_name}" readonly="readonly"/>
-                    </li>
-                </ul>
-                <!-- 아이디 -->
-                <ul>
-                    <li>
-                        <p><label for="user_id">아이디</label></p>
-                    </li>
-                    <li>
-                        <input type="text" id="user_id" name="user_id" th:value="${member.getUser_id}" readonly="readonly"/>
-                    </li>
-                </ul>
-                <!-- 이메일 -->
-                <ul>
-                    <li>
-                        <p><label for="user_email">이메일</label></p>
-                    </li>
-                    <li>
-                        <input type="text" id="user_email" name="user_email" th:value="${member.getUser_email}" readonly="readonly"/>
-                    </li>
-                </ul>
-                <!-- 휴대폰 확인 -->
-                <ul>
-                    <li>
-                        <p><label for="user_pn">연락처</label></p>
-                    </li>
-                    <li>
-                        <input type="text" id="user_pn" name="user_pn" th:value="${member.getUser_pn}" readonly="readonly"/>
-                    </li>
-                </ul>
+                    <div class="item">
+                        이름 : <input type="text" name="first" value="" />
+                    </div>
+                    <div class="item">
+                        전화번호 : <input type="text" name="first" value="" />
+                    </div>
+                    <div class="item">
+                        나이 : <input type="text" name="first" value="" />
+                    </div>
+                    <div class="item">
+                        성별 :
+                        <input type="radio" name="gender" value="" />남
+                        <input type="radio" name="gender" value="" />여
+                    </div>
+                </div>
+                <!-- first  끝 -->
+                <div class="second contents">
+                    <div class="title">레슨생의 연령대는 어떻게 되나요?</div>
 
-            </div>
-        </form>
+                    <div class="item">
+                        <input type="checkbox" name="second" value="" />10대 미만
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" name="second" value="" />10대
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" name="second" value="" />20대
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" name="second" value="" />30대
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" name="second" value="" />40대
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" name="second" value="" />50대
+                    </div>
+                </div>
+                <!-- second  끝 -->
+                <div class="third contents">
+                    <div class="title">3</div>
+                    <div class="item">
+                        <input type="checkbox" name="first" value="yyy" />근력 강화
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" name="first" value="yyy" />체중 증가
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" name="first" value="yyy" />체력 증진
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" name="first" value="yyy" />체형 교정
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" name="first" value="yyy" />재활/통증 케어
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" name="first" value="yyy" />바디 프로필
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" name="first" value="yyy" />기타
+                    </div>
+                </div>
+                <!-- third  끝 -->
+                <div class="fourth contents">
+                    <div class="title">4</div>
+
+                    <div class="item">
+                        <input type="checkbox" name="first" value="yyy" />근력 강화
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" name="first" value="yyy" />체중 증가
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" name="first" value="yyy" />체력 증진
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" name="first" value="yyy" />체형 교정
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" name="first" value="yyy" />재활/통증 케어
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" name="first" value="yyy" />바디 프로필
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" name="first" value="yyy" />기타
+                    </div>
+                </div>
+                <!-- fourth  끝 -->
+                <div>
+                    <button type="button" class="btn pre">이전</button>
+                    <button type="button" class="btn next">다음</button>
+                    <button type="button" class="btn submit">전송</button>
+                </div>
+            </form>
+        </div>
         <div>
             <button type="button" onclick="apply()">신청</button>
             <button type="button" onclick="history.go(-1)">이전</button>
         </div>
     </div>
+
+    <script>
+        $(function () {
+            $(".pre").on("click", preBtn);
+            $(".next").on("click", nextBtn);
+            changBarPercent();
+        });
+
+        let page = [true, false, false, false];
+        let percentValue = 25;
+        function nextBtn() {
+            percentValue += 25;
+            $(".percent").text(percentValue + "%");
+            changBarPercent(percentValue);
+            let showPage;
+            let hidePage;
+
+            for (let i = 0; i < page.length; i++) {
+                if (page[i]) {
+                    showPage = i + 1;
+                    hidePage = i;
+                    $(".pre").show();
+
+                    //   페이지가 0이 아닐때
+                    if (i != 0) {
+                        page[i] = false;
+                        // 페이지가 1 이상 끝-1 사이일때
+                        if (i < page.length - 1) {
+                            page[i + 1] = true;
+                            console.log("중간");
+                            //페이지가 끝일때
+                            if (i == page.length - 2) {
+                                console.log("끝");
+                                $(".submit").show();
+                                $(".next").hide();
+                            }
+                        }
+                    }
+                    // 페이지가 0일때
+                    else if (i == 0) {
+                        page[i] = false;
+                        page[i + 1] = true;
+                        console.log("중간");
+                    }
+
+                    $(".contents").eq(showPage).show();
+                    $(".contents").eq(hidePage).hide();
+                    console.log("페이지" + (showPage + 1));
+                    break;
+                }
+            }
+            console.log(page);
+        }
+
+        function preBtn() {
+            percentValue -= 25;
+            $(".percent").text(percentValue + "%");
+            changBarPercent(percentValue);
+            let showPage;
+            let hidePage;
+            $(".submit").hide();
+            $(".next").show();
+            for (let i = 0; i < page.length; i++) {
+                if (page[i]) {
+                    showPage = i - 1;
+                    hidePage = i;
+
+                    //   페이지가 1이 아닐때
+
+                    $(".pre").show();
+                    page[i] = false;
+                    // 페이지가 1 이상 끝-1 사이일때
+                    if (i < page.length) {
+                        page[i - 1] = true;
+                    }
+                    if (i == 1) $(".pre").hide();
+                    $(".contents").eq(showPage).show();
+                    $(".contents").eq(hidePage).hide();
+                    console.log("페이지" + (showPage + 1));
+                    break;
+                }
+            }
+            console.log(page);
+        }
+
+        function changBarPercent(percent) {
+            const meters = document.querySelectorAll("svg[data-value] .meter");
+
+            meters.forEach((path) => {
+                // Get the length of the path
+                let length = path.getTotalLength();
+
+                // console.log(length) and hardcode the value for both stroke-dasharray & stroke-dashoffest styles
+                // If unable to hardcode, set dynamically...
+                // path.style.strokeDashoffset = length;
+                // path.style.strokeDasharray = length;
+
+                // Get the value of the meter
+                // let value = parseInt(path.parentNode.getAttribute("data-value"));
+                let value = percent || parseInt(path.parentNode.getAttribute("data-value"));
+                // Calculate the percentage of the total length
+                let to = length * ((100 - value) / 100);
+
+                path.getBoundingClientRect();
+                // Set the Offset
+                path.style.strokeDashoffset = Math.max(0, to);
+            });
+        }
+
+    </script>
 </div>
 
 </html>

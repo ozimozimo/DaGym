@@ -13,12 +13,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -126,83 +129,63 @@ public class PTUserService {
                 .build();
     }
 
-    // 신청 전에 확인하기
-    public ArrayList<PTUserApplyMemberDto> getCheckList(Long member_id) {
-        // 트레이너 아이디 조회하면 신청했는 회원 아이디도 딸려온다
-        Member member = memberRepository.findById(member_id).get();
-        log.info("member_id = " + member);
-        ArrayList<PTUser> ptUsers = ptUserRepository.checkApply(member);
-        ArrayList<PTUserApplyMemberDto> ptUserApplyCheckDtos = new ArrayList<>();
-        for(PTUser ptUser : ptUsers) {
-            PTUserApplyMemberDto ptUserApplyCheckDto = new PTUserApplyMemberDto(
-                    ptUser.getId(),
-                    ptUser.getMember_id().getId(),
-                    ptUser.getUser_id(),
-                    ptUser.getUser_name(),
-                    ptUser.getStart_date(),
-                    ptUser.getEnd_date(),
-                    ptUser.getAccept_condition(),
-                    ptUser.getTrainer_id().getId(),
-                    ptUser.getUser_pn()
-            );
-            ptUserApplyCheckDtos.add(ptUserApplyCheckDto);
-            log.info("ptUserApplyCheckDtos = " + ptUserApplyCheckDtos);
-        }
-        return ptUserApplyCheckDtos;
-    }
-
-    // 수락회원 조회하기
-    public ArrayList<PTUserApplyMemberDto> getAcceptList(Long trainer_id) {
-        Member trainer = memberRepository.findById(trainer_id).get();
-        log.info("trainer_id = " + trainer);
-        ArrayList<PTUser> ptUsers = ptUserRepository.findAccept(trainer);
-        ArrayList<PTUserApplyMemberDto> ptUserAccepts = new ArrayList<>();
-        for(PTUser ptUser : ptUsers) {
-            PTUserApplyMemberDto ptUserApplyMemberDto = new PTUserApplyMemberDto(
-                    ptUser.getId(),
-                    ptUser.getMember_id().getId(),
-                    ptUser.getUser_id(),
-                    ptUser.getUser_name(),
-                    ptUser.getStart_date(),
-                    ptUser.getEnd_date(),
-                    ptUser.getAccept_condition(),
-                    ptUser.getTrainer_id().getId(),
-                    ptUser.getUser_pn()
-            );
-            ptUserAccepts.add(ptUserApplyMemberDto);
-            log.info("ptUserAccepts : " + ptUserAccepts);
-        }
-        return ptUserAccepts;
-    }
+//    // 신청 전에 확인하기
+//    public ArrayList<PTUserApplyMemberDto> getCheckList(Long member_id) {
+//        // 트레이너 아이디 조회하면 신청했는 회원 아이디도 딸려온다
+//        Member member = memberRepository.findById(member_id).get();
+//        log.info("member_id = " + member);
+//        ArrayList<PTUser> ptUsers = ptUserRepository.checkApply(member);
+//        ArrayList<PTUserApplyMemberDto> ptUserApplyCheckDtos = new ArrayList<>();
+//        for(PTUser ptUser : ptUsers) {
+//            PTUserApplyMemberDto ptUserApplyCheckDto = new PTUserApplyMemberDto(
+//                    ptUser.getId(),
+//                    ptUser.getMember_id().getId(),
+//                    ptUser.getUser_id(),
+//                    ptUser.getUser_name(),
+//                    ptUser.getStart_date(),
+//                    ptUser.getEnd_date(),
+//                    ptUser.getAccept_condition(),
+//                    ptUser.getTrainer_id().getId(),
+//                    ptUser.getUser_pn()
+//            );
+//            ptUserApplyCheckDtos.add(ptUserApplyCheckDto);
+//            log.info("ptUserApplyCheckDtos = " + ptUserApplyCheckDtos);
+//        }
+//        return ptUserApplyCheckDtos;
+//    }
+//
+//    // 수락회원 조회하기
+//    public ArrayList<PTUserApplyMemberDto> getAcceptList(Long trainer_id) {
+//        Member trainer = memberRepository.findById(trainer_id).get();
+//        log.info("trainer_id = " + trainer);
+//        ArrayList<PTUser> ptUsers = ptUserRepository.findAccept(trainer);
+//        ArrayList<PTUserApplyMemberDto> ptUserAccepts = new ArrayList<>();
+//        for(PTUser ptUser : ptUsers) {
+//            PTUserApplyMemberDto ptUserApplyMemberDto = new PTUserApplyMemberDto(
+//                    ptUser.getId(),
+//                    ptUser.getMember_id().getId(),
+//                    ptUser.getUser_id(),
+//                    ptUser.getUser_name(),
+//                    ptUser.getStart_date(),
+//                    ptUser.getEnd_date(),
+//                    ptUser.getAccept_condition(),
+//                    ptUser.getTrainer_id().getId(),
+//                    ptUser.getUser_pn()
+//            );
+//            ptUserAccepts.add(ptUserApplyMemberDto);
+//            log.info("ptUserAccepts : " + ptUserAccepts);
+//        }
+//        return ptUserAccepts;
+//    }
 
     // 신청내용 조회하기
-    public ArrayList<PTUserApplyMemberDto> getPTUserApply(Long trainer_id) {
-        Member trainer = memberRepository.findById(trainer_id).get();
-        // member에서 trainer_id들만 찾아와서 trainer에 넣는다
-        ArrayList<PTUser> ptUsers = ptUserRepository.findApply(trainer);
-        // PTUser에서 위에서 넣은 trainer만 찾아서 ptUsers에 넣는다
-        ArrayList<PTUserApplyMemberDto> ptUserApplies = new ArrayList<>();
-        // PTUserApply를 새로운 ArrayList로 선언하고
-        for (PTUser ptUser : ptUsers) {
-            // for each문 써서 ptUsers에 있는 값들을 ptUser에 넣어준다는데 이게 뭔소리지 시발
-            // ptUser에서 가져온 것들을 PTUserApply에 맞춰서 넣어준다
-            PTUserApplyMemberDto ptUserApplyMemberDto = new PTUserApplyMemberDto(
-                    ptUser.getId(),
-                    ptUser.getMember_id().getId(),
-                    ptUser.getUser_name(),
-                    // member_id는 Member타입인데 PTUserApply에서 Long 타입으로 선언해서 getId씀
-                    ptUser.getUser_id(),
-                    ptUser.getStart_date(),
-                    ptUser.getEnd_date(),
-                    ptUser.getAccept_condition(),
-                    ptUser.getTrainer_id().getId(),
-                    ptUser.getUser_pn()
-                    // trainer_id는 Member타입인데 PTUserApply에서 Long 타입으로 선언해서 getId씀
-            );
-            ptUserApplies.add(ptUserApplyMemberDto);
-            log.info("ptUserApplies = " + ptUserApplies);
-        }
-        return ptUserApplies;
+    public List<PTMemberInfoDto> getPTUserApply(Long member_id) {
+
+        Member member = memberRepository.findById(member_id).get();
+        TrainerInfo trainer_id = trainerRepository.findById(member.getId()).get();
+        return ptUserRepository.findApply(trainer_id).stream()
+                .map(PTMemberInfoDto::new)
+                .collect(Collectors.toList());
     }
 
     // 신청온거 표시
@@ -243,23 +226,23 @@ public class PTUserService {
     }
 
     // (기간만료) pt신청 endDate와 오늘 날짜 비교해서 endDate지나면 수락상태 3으로 변경
-    public void endDate(Member member) {
-        Date today = new Date();
-        log.info("today = " + today.toString());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String format = simpleDateFormat.format(today);
-        log.info("format = " + format);
-        ArrayList<PTUser> ptUsers = ptUserRepository.endDate(member, format);
-        log.info("ptUsers = " + ptUsers.toString());
-        for (PTUser ptUser : ptUsers) {
-            log.info("for in");
-            ptUser.setAccept_condition("3");
-            log.info("condition 3");
-            ptUserRepository.save(ptUser);
-            log.info("save succ");
-        }
-
-    }
+//   public void endDate(Member member) {
+//        Date today = new Date();
+//        log.info("today = " + today.toString());
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        String format = simpleDateFormat.format(today);
+//        log.info("format = " + format);
+//        ArrayList<PTUser> ptUsers = ptUserRepository.endDate(member, format);
+//        log.info("ptUsers = " + ptUsers.toString());
+//        for (PTUser ptUser : ptUsers) {
+//            log.info("for in");
+//            ptUser.setAccept_condition("3");
+//            log.info("condition 3");
+//            ptUserRepository.save(ptUser);
+//            log.info("save succ");
+//         }
+//
+//    }
 
     public PageResultDto<TrainerInfoDto, TrainerInfo> getList(PageRequestDto pageRequestDto) {
         Pageable pageable = pageRequestDto.getPageable(Sort.by("id").descending());
@@ -327,5 +310,17 @@ public class PTUserService {
     }
 
 
+    public void save(PTMemberInfoDto ptMemberInfoDto) {
 
+        PTUser ptUser = PTUser.builder()
+                .member_height(ptMemberInfoDto.getMember_height())
+                .member_weight(ptMemberInfoDto.getMember_weight())
+                .pt_purpose(ptMemberInfoDto.getPt_purpose())
+                .pt_count(ptMemberInfoDto.getPt_count())
+                .member_id(ptMemberInfoDto.getMember())
+                .trainer_id(ptMemberInfoDto.getTrainer())
+                .build();
+
+        ptUserRepository.save(ptUser);
+    }
 }

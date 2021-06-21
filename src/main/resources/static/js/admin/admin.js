@@ -48,8 +48,28 @@ function Save() {
         alert(JSON.stringify(error));
     })
 }
+
+function BDelete() {
+    if (!confirm('삭제하시겠습니까?')) {
+        return false;
+    }
+    var id = $('#hb_num').val();
+    console.log("id: " + id);
+
+    $.ajax({
+        type: 'DELETE',
+        url: '/admin/boardDelete/' + id,
+        contentType: 'application/json; charset=utf-8'
+    }).done(function () {
+        alert('글이 삭제되었습니다.')
+        window.location.href = "/admin/boardManagement";
+    }).fail(function (error) {
+        alert(JSON.stringify(error));
+    });
+}
+
 $(function () {
     $(".Delete").on("click", Delete);
     $(".btn-save").on("click", Save);
-
+    $(".board_delete").on('click', BDelete);
 });

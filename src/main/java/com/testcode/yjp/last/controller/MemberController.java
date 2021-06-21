@@ -69,7 +69,7 @@ public class MemberController {
         Member member = memberRepository.findMember(user_id, user_pw);
 
         // pt 기간 만료
-        ptUserService.endDate(member);
+//        ptUserService.endDate(member);
 
         try {
             HttpSession session = (HttpSession) request.getSession();

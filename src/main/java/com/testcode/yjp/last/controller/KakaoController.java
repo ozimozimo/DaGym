@@ -45,7 +45,7 @@ public class KakaoController {
         ckUserId = memberRepository.findByUser_id(user_id);
 
         // pt 기간 만료
-        ptUserService.endDate(ckUserId);
+//        ptUserService.endDate(ckUserId);
 
         HttpSession session = (HttpSession) request.getSession();
         session.setAttribute("loginId", ckUserId.getId());
