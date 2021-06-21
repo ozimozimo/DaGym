@@ -10,6 +10,25 @@ $(function () {
     findPostCode();
     findTimeCode();
     category_input();
+    $('.addBtn').on("click", function () {
+        if ($('#trainer_contents').val() == '') {
+            alert('입력 후 추가 버튼을 눌러주세요');
+            return false;
+        } else {
+            let contents = $('#trainer_contents').val();
+            let htmlContents = `<div class="con">${contents}<button type="button" class="delBtn">삭제</button></div>`
+
+            $('.showContent').append(htmlContents);
+            $('.delBtn').on('click',function (){
+                $(this).parent().remove();
+            })
+            contents = $('#trainer_contents').val() + "!";
+
+            let content = $('#trainer_content').val() + contents;
+            $('#trainer_contents').val('');
+            $('#trainer_content').val(content);
+        }
+    });
 });
 
 function trainerUpdate() {
@@ -195,16 +214,18 @@ function GymPostCode() {
 }
 
 function category_input() {
-
+    if ($("#trainer_category option:selected").val() == '기타') {
+        $('.input_category').show();
+    }
     $('.category').change(function () {
         $(".category option:selected").each(function () {
             if ($(this).val() == '기타') { //직접입력일 경우
-                $('.category').attr('id',''); //id 초기화
+                $('.category').attr('id', ''); //id 초기화
                 $('.input_category').show();
                 $('.input_category').attr('id', 'trainer_category');
             } else { //직접입력이 아닐경우 $("#str_email02").val($(this).text()); //선택값 입력
                 // $('.trainer_category').attr('value','');
-                $('.category').attr('id','trainer_category');
+                $('.category').attr('id', 'trainer_category');
                 $('.input_category').hide();
                 $('.input_category').attr('id', '');
             }
@@ -213,3 +234,4 @@ function category_input() {
 
 
 }
+
