@@ -1,0 +1,41 @@
+.card {
+    width: 600px;
+    /* background-color: bisque; */
+}
+
+.title {
+    font-size: 30px;
+}
+
+.item {
+    display: block;
+    /* border: 1px solid; */
+}
+
+.contents {
+    display: none;
+}
+
+.first {
+    display: block;
+}
+
+.pre {
+    display: none;
+}
+
+.submit {
+    display: none;
+}
+
+svg path {
+    fill: none;
+    stroke-width: 20px;
+    stroke-miterlimit: round;
+    transition: stroke-dashoffset 850ms ease-in-svgout;
+    /* stroke-dasharray: 200;
+    stroke-dashoffset: 200; */
+}
+#pt_puerpose_etc {
+    display: none;
+}
