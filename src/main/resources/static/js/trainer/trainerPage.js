@@ -11,6 +11,7 @@ $(function () {
     findTimeCode();
     category_input();
     addBtn();
+    delBtn();
 });
 
 function trainerUpdate() {
@@ -93,7 +94,7 @@ function showUploadedImages(arr) {
         var imgName = arr[i].imageURL;
         var fileName = arr[i].fileName;
         str += "<div>";
-        str += "<img src='/display?fileName=" + arr[i].thumbnailURL + "'>";
+        str += "<img src='/display?fileName=" + arr[i].thumbnailURL + "'/>";
         str += "<button class='removeBtn' data-name='" + arr[i].imageURL + "'>삭제</button>";
         str += "<input type='hidden' id='uuid' name='uuid' value='" + uuid + "'>"
         str += "<input type='hidden' id='imgName' name='imgName' value='" + imgName + "'>"
@@ -103,7 +104,7 @@ function showUploadedImages(arr) {
     divArea.append(str);
 }
 
-$('.updateResult2').on("click", ".removeBtn", function (e) {
+$('.updateResult2').on("click", ".removeBtn", function () {
     var target = $(this);
     var fileName = target.data("name");
     var targetDiv = $(this).closest("div");
@@ -226,7 +227,7 @@ function addBtn() {
                 let contents = value;
                 let htmlContents = `<div class="con"><span>${contents}</span><button type="button" class="delBtn">삭제</button></div>`
                 $('.showContent').append(htmlContents);
-                delBtn();
+                // delBtn();
             }
         })
     }
@@ -241,31 +242,28 @@ function addBtn() {
             let htmlContents = `<div class="con">${contents}<button type="button" class="delBtn">삭제</button></div>`
 
             $('.showContent').append(htmlContents);
-            delBtn();
+
             contents = $('#trainer_contents').val() + "!";
 
             let content = $('#trainer_content').val() + contents;
             $('#trainer_contents').val('');
             $('#trainer_content').val(content);
+            delBtn();
         }
     });
 
 }
 
 function delBtn(){
-    console.log('힝힝')
-    $('.delBtn').on('click', function (e) {
-
-        let content = $('#trainer_content').text();
-        // 배열에 넣어서
-
-
+    $('.delBtn').on('click', function () {
+        console.log('무야호');
+        let content = $('#trainer_content').val();
         let span = $(this).siblings('span').text()+"!";
         console.log(span);
-        // 배열에 넣어서
         let replaceContent = content.replace(span,'');
         console.log(replaceContent);
-        $('#trainer_content').text(replaceContent);
+        $('#trainer_content').val(replaceContent);
         $(this).parent().remove();
+
     })
 }
