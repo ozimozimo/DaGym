@@ -19,7 +19,7 @@ public class ExerciseRecordService {
     private final ExerciseRecordRepository exerciseRecordRepository;
 
     @Transactional(readOnly = true)
-    public List<ExerciseRecordDto> findAll(String id) {
+    public List<ExerciseRecordDto> findAll(Long id) {
         System.out.println("service id = " + id);
         log.info("ExRecord Service List");
         return exerciseRecordRepository.findAllDesc(id).stream()

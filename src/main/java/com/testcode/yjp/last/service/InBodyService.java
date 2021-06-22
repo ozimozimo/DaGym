@@ -25,8 +25,8 @@ public class InBodyService {
 
 
     @Transactional(readOnly = true)
-    public List<InBodyDto> findAllDesc(String inBodyId) {
-        return inBodyRepository.findAllDesc(inBodyId).stream()
+    public List<InBodyDto> findAllDesc(Long id) {
+        return inBodyRepository.findAllDesc(id).stream()
                 .map(InBodyDto::new)
                 .collect(Collectors.toList());
     }

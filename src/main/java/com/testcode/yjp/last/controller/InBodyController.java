@@ -34,10 +34,10 @@ public class InBodyController {
 
 
     @GetMapping("/inBodyResult")
-    public String inBodyResult(String inBodyId,Model model) {
-        System.out.println(inBodyId);
+    public String inBodyResult(Long id,Model model) {
+        System.out.println("member_id 는"+id);
 
-        model.addAttribute("inBody",inBodyService.findAllDesc(inBodyId));
+        model.addAttribute("inBody",inBodyService.findAllDesc(id));
         return "inBody/inBodyResult";
 
     }

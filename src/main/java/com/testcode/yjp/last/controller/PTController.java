@@ -57,12 +57,12 @@ public class PTController {
 
 //     해당 트레이너가 관리하는 회원들 목록 보여주는 뷰
     @GetMapping("/manage")
-    public String acceptList(Model model, @RequestParam(value = "id") Long trainer_id) {
+    public String acceptList(Model model, Long id) {
 
-        System.out.println("trainer_id = " + trainer_id);
-//        ArrayList<PTUserApplyMemberDto> acceptList = ptUserService.getAcceptList(trainer_id);
-//        model.addAttribute("acceptList", acceptList);
-//        System.out.println("acceptList = " + acceptList);
+        System.out.println("trainer session login id = " + id);
+        List<PTUserApplyMemberDto> acceptList = ptUserService.getAcceptList(id);
+        model.addAttribute("acceptList", acceptList);
+        System.out.println("acceptList = " + acceptList);
         return "ptUser/userManagement";
     }
 

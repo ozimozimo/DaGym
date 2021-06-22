@@ -156,29 +156,19 @@ public class PTUserService {
 //        return ptUserApplyCheckDtos;
 //    }
 //
-//    // 수락회원 조회하기
-//    public ArrayList<PTUserApplyMemberDto> getAcceptList(Long trainer_id) {
-//        Member trainer = memberRepository.findById(trainer_id).get();
-//        log.info("trainer_id = " + trainer);
-//        ArrayList<PTUser> ptUsers = ptUserRepository.findAccept(trainer);
-//        ArrayList<PTUserApplyMemberDto> ptUserAccepts = new ArrayList<>();
-//        for(PTUser ptUser : ptUsers) {
-//            PTUserApplyMemberDto ptUserApplyMemberDto = new PTUserApplyMemberDto(
-//                    ptUser.getId(),
-//                    ptUser.getMember_id().getId(),
-//                    ptUser.getUser_id(),
-//                    ptUser.getUser_name(),
-//                    ptUser.getStart_date(),
-//                    ptUser.getEnd_date(),
-//                    ptUser.getAccept_condition(),
-//                    ptUser.getTrainer_id().getId(),
-//                    ptUser.getUser_pn()
-//            );
-//            ptUserAccepts.add(ptUserApplyMemberDto);
-//            log.info("ptUserAccepts : " + ptUserAccepts);
-//        }
-//        return ptUserAccepts;
-//    }
+    // 수락회원 조회하기
+    public List<PTUserApplyMemberDto> getAcceptList(Long id) {
+
+        // trainer 의 member Id 를 받아옴
+        TrainerInfo trainer = trainerRepository.findTrainer_id(id);
+        Long trainer_id = trainer.getId();
+
+        // trainer_id 를 먼저 구하고 query 문을 사용해서 accept = 1이고 trainer_id 한테 신청한 내역을 조회한다
+
+        return ptUserRepository.findByUser(trainer_id).stream()
+                .map(PTUserApplyMemberDto::new)
+                .collect(Collectors.toList());
+    }
 
     // 신청내용 조회하기
     public List<PTMemberInfoDto> getPTUserApply(Long member_id) {
@@ -196,26 +186,26 @@ public class PTUserService {
     }
 
     // 신청온거 표시
-    public ArrayList<PTUserApplyMemberDto> getApplyCount(Long trainer_id) {
-        Member trainer = memberRepository.findById(trainer_id).get();
-        // member에서 trainer_id들만 찾아와서 trainer에 넣는다
-        ArrayList<PTUser> ptUsers = ptUserRepository.countApply(trainer);
-        // PTUser에서 위에서 넣은 trainer만 찾아서 ptUsers에 넣는다
-        ArrayList<PTUserApplyMemberDto> ptUserCount = new ArrayList<>();
-        // PTUserApply를 새로운 ArrayList로 선언하고
-        for (PTUser ptUser : ptUsers) {
-            // for each문 써서 ptUsers에 있는 값들을 ptUser에 넣어준다는데 이게 뭔소리지 시발
-            // ptUser에서 가져온 것들을 PTUserApply에 맞춰서 넣어준다
-            PTUserApplyMemberDto ptUserApplyMemberDto = new PTUserApplyMemberDto(
-                    ptUser.getId(),
-                    ptUser.getAccept_condition(),
-                    ptUser.getTrainer_id().getId()
-            );
-            ptUserCount.add(ptUserApplyMemberDto);
-            log.info("ptUserApplies = " + ptUserCount);
-        }
-        return ptUserCount;
-    }
+//    public ArrayList<PTUserApplyMemberDto> getApplyCount(Long trainer_id) {
+//        Member trainer = memberRepository.findById(trainer_id).get();
+//        // member에서 trainer_id들만 찾아와서 trainer에 넣는다
+//        ArrayList<PTUser> ptUsers = ptUserRepository.countApply(trainer);
+//        // PTUser에서 위에서 넣은 trainer만 찾아서 ptUsers에 넣는다
+//        ArrayList<PTUserApplyMemberDto> ptUserCount = new ArrayList<>();
+//        // PTUserApply를 새로운 ArrayList로 선언하고
+//        for (PTUser ptUser : ptUsers) {
+//            // for each문 써서 ptUsers에 있는 값들을 ptUser에 넣어준다는데 이게 뭔소리지 시발
+//            // ptUser에서 가져온 것들을 PTUserApply에 맞춰서 넣어준다
+//            PTUserApplyMemberDto ptUserApplyMemberDto = new PTUserApplyMemberDto(
+//                    ptUser.getId(),
+//                    ptUser.getAccept_condition(),
+//                    ptUser.getTrainer_id().getId()
+//            );
+//            ptUserCount.add(ptUserApplyMemberDto);
+//            log.info("ptUserApplies = " + ptUserCount);
+//        }
+//        return ptUserCount;
+//    }
 
 
     // trainer.js에 updateAccpet()에서 받아온 값이 PTUserApplyConDto에 들어가있다
@@ -223,13 +213,19 @@ public class PTUserService {
     // 그 id에 해당하는 accept_condition을 받아온 apply_if에 맞게 바꿔준다
     public Long update(Long id, PTUserApplyConDto ptUserApplyConDto) {
         log.info("ptuser update post service");
-        PTUser ptUser = ptUserRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-        ptUser.update(ptUserApplyConDto.getId(), ptUserApplyConDto.getApply_if());
-        System.out.println("받아온 신청 ID: " + ptUserApplyConDto.getId());
+
+        TrainerInfo trainer = trainerRepository.findTrainer_id(id);
+        Long trainer_id = trainer.getId();
+
+        PTUser ptUserId = ptUserRepository.findPtUserId(trainer_id);
+        Long ptPk = ptUserId.getId();
+
+        PTUser ptUser = ptUserRepository.findById(ptPk).get();
+
+        ptUser.update(ptUserApplyConDto.getApply_if());
         System.out.println("신청상태 : " + ptUserApplyConDto.getApply_if());
         ptUserRepository.save(ptUser);
-        return id;
+        return ptPk;
     }
 
     // (기간만료) pt신청 endDate와 오늘 날짜 비교해서 endDate지나면 수락상태 3으로 변경

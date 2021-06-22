@@ -23,12 +23,9 @@ public class ExerciseRecordController {
 
     // 전체 조회
     @GetMapping("/exercise")
-    public String exercise(String id, Model model) {
+    public String exercise(Long id, Model model) {
         log.info("ExRecord Controller Get");
         model.addAttribute("exercise", exerciseRecordService.findAll(id));
-        System.out.println("id = " + id);
-        System.out.println(exerciseRecordService.findAll(id));
-        log.info("ExRecord Result Get");
         return "ExRecord/exercise";
     }
 
