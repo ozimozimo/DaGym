@@ -27,7 +27,6 @@ public class DietController {
         log.info("result controller get");
         model.addAttribute("list", dietService.findAll(id));
         System.out.println("id = " + id);
-        System.out.println(dietService.findAll(id));
         log.info("DietController Get List");
         return "diet/list";
     }

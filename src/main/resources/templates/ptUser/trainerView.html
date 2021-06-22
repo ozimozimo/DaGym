@@ -11,6 +11,8 @@
 </head>
 <body>
 <div layout:fragment="content">
+
+    <input type="hidden" id="role" th:value="${session.loginRole}">
     <!--    로그인한 유저롤이 트레이너일 때-->
     <div th:if="${session.loginRole == 'trainer'}">
         <input type="hidden" th:value="${session.loginUser}" id="member_id">
@@ -42,21 +44,11 @@
 
 
     <!-- 로그인한 유저롤이 유저일 때-->
-    <div th:if="${session.loginRole == 'user'}">
+    <div th:if="${session.loginRole == 'user'} ">
         <h2>트레이너 찾기</h2>
         <h1 th:text="${session.loginId}" class="loginId" style="display: none"></h1>
         <input type="hidden" th:value="${session.loginUser}" class="loginUserId"/>
         <!--트레이너 검색-->
-<!--        <form th:action="@{~/ptUser/search}" method="get" class="search-form">-->
-<!--            <select name="head" class="form-control search-type">-->
-<!--                <option value="user_name">이름 검색</option>-->
-<!--                <option value="trainer_category">운동 목적</option>-->
-<!--                <option value="trainer_gym">헬스장이름 검색</option>-->
-<!--            </select>-->
-<!--            <input name="search" type="text" placeholder="이름 검색" class="form-control search-input"/>-->
-<!--            <button class="btn btn-primary">검색하기</button>-->
-<!--        </form>-->
-
         <form th:action="@{/ptUser/view}" method="get" id="searchForm">
             <div class="input-group">
                 <input type="hidden" name="page" value="1">
@@ -116,10 +108,6 @@
                         >신청</a>
 <!--                        onclick="check()"-->
                     </td>
-<!--                    <a th:href="@{/board/trainerBoard/detail(hb_num = ${board.id},-->
-<!--                                        page=${PageRequestDto.page},-->
-<!--                                        type=${PageRequestDto.type},-->
-<!--                                        keyword=${PageRequestDto.keyword})}" th:text="${board.title}"></a>-->
                     <td>
                         <a
                                 th:href="@{~/ptUser/detail(id=${trainer.id},

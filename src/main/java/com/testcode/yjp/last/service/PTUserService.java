@@ -211,21 +211,23 @@ public class PTUserService {
     // trainer.js에 updateAccpet()에서 받아온 값이 PTUserApplyConDto에 들어가있다
     // 거기서 받아온 id로 신청한 id를 찾아낸다
     // 그 id에 해당하는 accept_condition을 받아온 apply_if에 맞게 바꿔준다
-    public Long update(Long id, PTUserApplyConDto ptUserApplyConDto) {
+    public Long update(Long pt_user_id, PTUserApplyConDto ptUserApplyConDto) {
         log.info("ptuser update post service");
 
-        TrainerInfo trainer = trainerRepository.findTrainer_id(id);
-        Long trainer_id = trainer.getId();
+//        TrainerInfo trainer = trainerRepository.findTrainer_id(id);
+//        Long trainer_id = trainer.getId();
+//
+//        PTUser ptUserId = ptUserRepository.findPtUserId(trainer_id);
+//        Long ptPk = ptUserId.getId();
+//
+//        PTUser ptUser = ptUserRepository.findById(ptPk).get();
 
-        PTUser ptUserId = ptUserRepository.findPtUserId(trainer_id);
-        Long ptPk = ptUserId.getId();
-
-        PTUser ptUser = ptUserRepository.findById(ptPk).get();
+        PTUser ptUser = ptUserRepository.findById(pt_user_id).get();
 
         ptUser.update(ptUserApplyConDto.getApply_if());
         System.out.println("신청상태 : " + ptUserApplyConDto.getApply_if());
         ptUserRepository.save(ptUser);
-        return ptPk;
+        return ptUser.getId();
     }
 
     // (기간만료) pt신청 endDate와 오늘 날짜 비교해서 endDate지나면 수락상태 3으로 변경

@@ -52,6 +52,9 @@ public class ExcerciseRecordApiController {
     @PostMapping("/save/{id}")
     public ExRecord save(@PathVariable Long id, @RequestBody ExRecord exRecord) {
         log.info("ExRecord Controller Save Api Post");
+
+        log.info("ExRecord Controller Post id=" + id);
+
         Optional<Member> result = memberRepository.findById(id);
         exRecord.setMember(result.get());
         exerciseRecordRepository.save(exRecord);

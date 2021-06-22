@@ -67,6 +67,15 @@ public class PTController {
     }
 
 
+//    @GetMapping("/userdetail")
+//    public String PTUserDetail(Long id, Model model) {
+//        log.info("유저 디테일 아디는=" + id);
+//
+//        Member memberInfo = memberRepository.findById(id).get();
+//        model.addAttribute("member_info", memberInfo);
+//        return "ptUser/userDetail";
+//    }
+
     @GetMapping("/detail")
     public String trainerDetail(Long id, Model model, PageRequestDto pageRequestDto) {
         log.info("트레이너 디테일 아디는=" + id);

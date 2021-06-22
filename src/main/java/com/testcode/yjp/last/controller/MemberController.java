@@ -9,6 +9,7 @@ import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.service.MemberService;
 import com.testcode.yjp.last.service.PTUserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Controller
 @Slf4j
+@Log4j2
 @RequestMapping("/member")
 public class MemberController {
 
@@ -89,6 +91,11 @@ public class MemberController {
     public String signOut(HttpServletRequest request) {
         HttpSession session = (HttpSession) request.getSession();
         session.removeAttribute("loginUser");
+        session.removeAttribute("loginId");
+        session.removeAttribute("loginName");
+        session.removeAttribute("loginRole");
+        session.removeAttribute("social");
+
         session.invalidate();
         return "redirect:/";
     }
@@ -120,6 +127,8 @@ public class MemberController {
         System.out.println(memberFindIdDto.getUser_pw());
         HttpSession session = (HttpSession) request.getSession();
         String user_role = memberFindIdDto.getUser_role();
+        session.setAttribute("loginRole", memberFindIdDto.getUser_role());
+        session.setAttribute("loginName", memberFindIdDto.getUser_name());
 
         Member member = memberRepository.findById(member_id).get();
 
@@ -163,11 +172,14 @@ public class MemberController {
     @PostMapping("/mypage/social")
     public String socialUpdate(Long member_id, MemberFindIdDto memberFindIdDto, HttpServletRequest request) {
         System.out.println(member_id);
+        log.info(memberFindIdDto.toString()+"memberFindIdDTo");
+
         log.info("social Controller. phonenum = " + memberFindIdDto.getUser_pn());
         memberService.update(member_id, memberFindIdDto);
         System.out.println(memberFindIdDto.getUser_pw());
         HttpSession session = (HttpSession) request.getSession();
         session.setAttribute("loginRole", memberFindIdDto.getUser_role());
+        session.setAttribute("loginName", memberFindIdDto.getUser_name());
 
         if (memberFindIdDto.getUser_role().equals("trainer")) {
             return "redirect:/trainer/trainerJoin?id="+memberFindIdDto.getUser_id();

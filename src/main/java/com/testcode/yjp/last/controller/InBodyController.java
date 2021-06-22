@@ -34,7 +34,7 @@ public class InBodyController {
 
 
     @GetMapping("/inBodyResult")
-    public String inBodyResult(Long id,Model model) {
+    public String inBodyResult(String id,Model model) {
         System.out.println("member_id 는"+id);
 
         model.addAttribute("inBody",inBodyService.findAllDesc(id));

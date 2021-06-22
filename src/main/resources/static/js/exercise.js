@@ -31,6 +31,7 @@ function getFormatDate(date) {
 
 function addExBtnClick() {
     let id = $(".member").val();
+    console.log("id= " + id);
     let ex_record_member_id = $('.ex_record_member_id').val();
     let ex_name = $("#ex_name").val();
     let ex_set = $("#ex_set").val();

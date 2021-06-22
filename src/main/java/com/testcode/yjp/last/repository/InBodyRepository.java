@@ -13,8 +13,8 @@ import java.util.List;
 @Repository
 public interface InBodyRepository extends JpaRepository<InBody, Long> {
 
-    @Query("select i from InBody i where i.member.id=:id")
-    List<InBody> findAllDesc(Long id);
+    @Query("select i from InBody i where i.member.user_id=:id")
+    List<InBody> findAllDesc(String id);
 
 
     @Query("select i from InBody i where i.inBody_user_id=:inBodyId")

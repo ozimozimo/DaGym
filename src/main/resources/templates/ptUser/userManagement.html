@@ -24,6 +24,11 @@
         <th>PT 원하는 시작일</th>
         <th>PT 원하는 요일</th>
         <th>PT 원하는 시간대</th>
+        <th>회원</th>
+        <th>회원</th>
+        <th>회원</th>
+        <th>회원</th>
+        <th>회원</th>
         </thead>
         <tbody>
         <tr th:each="acceptLists: ${acceptList}">
@@ -37,9 +42,16 @@
             <td><span th:text="${acceptLists.pt_count}"></span></td>
             <td><span th:text="${acceptLists.pt_positiveDate}"></span></td>
             <td><span th:text="${acceptLists.pt_wantTime}"></span></td>
-            <td><a class="btn btn-primary" th:href="@{/diet/list(id=${acceptLists.member.id})}">식단</a></td>
-            <td><a class="btn btn-primary" th:href="@{/ExRecord/exercise(id=${acceptLists.member.id})}">운동기록</a></td>
-            <td><a class="btn btn-primary" th:href="@{/inBody/inBodyResult(id=${acceptLists.member.id})}">인바디</a></td>
+            <td><a class="btn btn-primary" th:href="@{/diet/list(id=${acceptLists.member.user_id})}">식단</a></td>
+            <td><a class="btn btn-primary" th:href="@{/ExRecord/exercise(id=${acceptLists.member.user_id})}">운동기록</a></td>
+            <td><a class="btn btn-primary" th:href="@{/inBody/inBodyResult(id=${acceptLists.member.user_id})}">인바디</a></td>
+
+<!--            th:href="@{~/ptUser/detail(id=${trainer.id},-->
+
+
+            <td><a class="btn btn-primary" href="#">채팅</a></td>
+            <td><a class="btn btn-primary" th:href="@{~/ptUser/view/detail/{id}(id=${acceptLists.id})}">상세보기</a></td>
+            <td><a class="btn btn-primary" href="#">PT일정</a></td>
         </tr>
         </tbody>
     </table>

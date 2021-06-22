@@ -23,7 +23,7 @@ public class ExerciseRecordController {
 
     // 전체 조회
     @GetMapping("/exercise")
-    public String exercise(Long id, Model model) {
+    public String exercise(String id, Model model) {
         log.info("ExRecord Controller Get");
         model.addAttribute("exercise", exerciseRecordService.findAll(id));
         return "ExRecord/exercise";
@@ -32,6 +32,8 @@ public class ExerciseRecordController {
     // 저장
     @PostMapping("/save")
     public String save(@RequestBody ExerciseRecordDto exerciseRecordDto, RedirectAttributes redirectAttributes) {
+
+
         exerciseRecordDto.setEx_record_id(1L);
         exerciseRecordService.save(exerciseRecordDto);
         redirectAttributes.addFlashAttribute("msg", "1");

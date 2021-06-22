@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface DietRepository extends JpaRepository<Diet,Long> {
 
-    @Query("select d from Diet d where d.diet_member_id = :id")
+    @Query("select d from Diet d where d.member.user_id = :id")
     List<Diet> findAllDesc(String id);
 
     // 날짜에 맞는 데이터 가져오기

@@ -51,8 +51,9 @@ function apply() {
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data)
-            }).done(function () {
-                alert('등록되었습니다');
+            }).done(function (data) {
+                alert('PT 등록되었습니다');
+
                 window.location.href = '/ptUser/view';
             }).fail(function (error) {
                 alert(JSON.stringify(error));
@@ -76,10 +77,8 @@ function acceptList() {
         data: data,
         contentType: 'application/json; charset=utf-8'
     }).done(function (data) {
-        alert("성공");
         console.log(data);
     }).fail(function (error) {
-        alert("실패");
         console.log(error);
     });
 }
@@ -100,10 +99,8 @@ function showList() {
     }).done(function (data) {
         console.log(data);
         mkApply(data);
-        alert("성공");
     }).fail(function (error) {
         console.log(error);
-        alert("실패");
     })
 }
 
@@ -124,6 +121,10 @@ function mkApply(data) {
         var l = data[i].id;
         var m = data[i].member.user_id;
 
+        // hidden 값 넣기
+        var p = data[i].id;
+        console.log("ptUser pk는"+p);
+
 
 
         let content = "<tr>"
@@ -134,6 +135,7 @@ function mkApply(data) {
         content += "<td class='ptUserGender'>" + k + "</td>"
         content += "<td class='ptUserHeight'>" + a + "</td>"
         content += "<td class='ptUserWeight'>" + b + "</td>"
+        content += `<input type="hidden" value="${p}" id="pt_user_id" name="pt_user_id"> `
         content += `<td><a href='/ptUser/view/detail/${l}'>상세보기</a></td>`
         content += "<td><button type='button' class='btn-primary Accept' onclick='updateAccept(this)'>수락</button></td>"
         content += "<td><button type='button' class='btn-primary Deny' onclick='updateAccept(this)'>거절</button></td></tr>"
@@ -150,6 +152,9 @@ function updateAccept(a) {
 
     let id = $('#member_id').val();
 
+    let pt_user_id = $('#pt_user_id').val();
+    console.log("pt_user_id="+pt_user_id)
+
     console.log("매개변수 a는" + a);
     console.log("id=" + id);
 
@@ -165,12 +170,11 @@ function updateAccept(a) {
     }
     let data = {
         // PTUserApplyConDto에 넘겨줄 id랑 apply_if값
-        id: id,
-        apply_if: apply_if
+        apply_if: apply_if,
     }
     $.ajax({
         type: 'post',
-        url: '/ptUser/apply/update/' + id,
+        url: '/ptUser/apply/update/' + pt_user_id,
         data: JSON.stringify(data),
         contentType: 'application/json; charset=utf-8',
     }).done(function (data) {
@@ -187,8 +191,17 @@ function updateAccept(a) {
 }
 
 $(function () {
-    acceptList();
-    showList();
+    let role = $('#role').val();
+    // let state = $('#')
+    console.log(role);
+
+    if (role == 'trainer') {
+        acceptList();
+        showList();
+    }else{
+
+    }
+
 })
 
 function a() {

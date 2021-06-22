@@ -1,21 +1,17 @@
 package com.testcode.yjp.last.controller;
 
 import com.testcode.yjp.last.domain.Member;
-import com.testcode.yjp.last.domain.PTUser;
 import com.testcode.yjp.last.domain.TrainerInfo;
 import com.testcode.yjp.last.domain.dto.PTMemberInfoDto;
 import com.testcode.yjp.last.domain.dto.PTUserApplyConDto;
-import com.testcode.yjp.last.domain.dto.PTUserApplyMemberDto;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.PTUserRepository;
 import com.testcode.yjp.last.repository.TrainerRepository;
 import com.testcode.yjp.last.service.PTUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,14 +72,11 @@ public class PTApiController {
     }
 
     // 수락, 거절 결정
-    @PostMapping("/apply/update/{id}")
-    public Long update(@PathVariable Long id, @RequestBody PTUserApplyConDto ptUserApplyConDto) {
-        log.info("ptlist update post controller");
-        System.out.println("id = " + id);
-        System.out.println("ptUserApply.getId() = " + ptUserApplyConDto.getId());
+    @PostMapping("/apply/update/{pt_user_id}")
+    public Long update(@PathVariable Long pt_user_id, @RequestBody PTUserApplyConDto ptUserApplyConDto) {
         System.out.println("ptUserApply.getApply_if() = " + ptUserApplyConDto.getApply_if());
-
-
-        return ptUserService.update(id, ptUserApplyConDto);
+        System.out.println("ptuser_id =" + pt_user_id);
+        ptUserService.update(pt_user_id, ptUserApplyConDto);
+        return pt_user_id;
     }
 }

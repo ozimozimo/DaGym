@@ -207,6 +207,8 @@ function trainerApplySumbit() {
         alert("PT 신청 하셨습니다");
 
         console.log(data);
+
+
     }).fail(function (error) {
         alert("PT 신청에 실패하였습니다");
         console.log(error);
