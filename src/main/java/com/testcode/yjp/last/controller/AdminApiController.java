@@ -71,4 +71,24 @@ public class AdminApiController {
         notice.setActive(2);
         noticeRepository.save(notice);
     }
+
+    @PutMapping("/faqUpdate/{id}")
+    public void faqUpdate(@PathVariable("id") Long id, @RequestBody Notice getNotice) {
+        Notice notice = noticeRepository.findById(id).get();
+        notice.setContent(getNotice.getContent());
+        notice.setTitle(getNotice.getTitle());
+        noticeRepository.save(notice);
+    }
+
+    @DeleteMapping("/faqDelete/{id}")
+    public void faqDelete(@PathVariable("id") Long id) {
+        noticeRepository.deleteById(id);
+    }
+
+    @PutMapping("/1on1Update/{id}")
+    public void oooUpdate(@PathVariable("id") Long id, @RequestBody Notice getNotice) {
+        Notice notice = noticeRepository.findById(id).get();
+        notice.setContent(getNotice.getContent());
+        noticeRepository.save(notice);
+    }
 }

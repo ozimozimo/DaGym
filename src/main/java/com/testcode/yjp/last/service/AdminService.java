@@ -45,9 +45,16 @@ public class AdminService {
         return memberLists;
     }
 
-    public PageResultDto<NoticeDto, Notice> getList(PageRequestDto requestDto) {
+    public PageResultDto<NoticeDto, Notice> getList(PageRequestDto requestDto, int active) {
         Pageable pageable = requestDto.getPageable(Sort.by("id").descending());
-        Page<Notice> result = noticeRepository.findAll(pageable);
+        Page<Notice> result = noticeRepository.findByActive(active, pageable);
+        Function<Notice, NoticeDto> fn = (entity -> entityToDto(entity));
+        return new PageResultDto<>(result, fn);
+    }
+
+    public PageResultDto<NoticeDto, Notice> getBetweenList(PageRequestDto requestDto, int fromActive, int toActive) {
+        Pageable pageable = requestDto.getPageable(Sort.by("id").descending());
+        Page<Notice> result = noticeRepository.findByActiveBetween(fromActive, toActive, pageable);
         Function<Notice, NoticeDto> fn = (entity -> entityToDto(entity));
         return new PageResultDto<>(result, fn);
     }

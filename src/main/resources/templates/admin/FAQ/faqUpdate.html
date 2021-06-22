@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{~/js/main/jquery.min.js}"></script>
+    <script th:src="@{~/js/main/bootstrap.min.js}"></script>
+    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
+    <script th:src="@{~/js/admin/admin.js}"></script>
+
+</head>
+<body>
+<div>
+    <div>
+        <h3>공지사항 수정</h3>
+        <form id="actionForm">
+            <input type="hidden" name="page" id="page" th:value="${PageRequestDto.page}">
+            <input type="hidden" name="type" id="type" th:value="${PageRequestDto.type}">
+            <input type="hidden" name="keyword" id="keyword" th:value="${PageRequestDto.keyword}">
+
+            <input type="hidden" class="form-control1" id="faq_num" th:value="${notices.id}">
+            <div class="custom_form_control">
+                <label for="faq_title">제목</label>
+                <input type="text" class="form-control" id="faq_title" th:value="${notices.title}">
+            </div>
+            <div class="custom_form_control2">
+                <label for="faq_content">내용</label>
+                <textarea style="resize: none" cols="25" rows="15" class="form-control2" id="faq_content"
+                          th:text="${notices.content}"></textarea>
+            </div>
+        </form>
+        <button type="button" class="custom_btn listBtn" id="listBtn">이전</button>
+        <button type="button" class="custom_btn success_btn" id="FAQ-update">수정</button>
+        <button type="button" class="custom_btn delete_btn" id="FAQ-delete">삭제</button>
+
+    </div>
+</div>
+</body>
+</html>

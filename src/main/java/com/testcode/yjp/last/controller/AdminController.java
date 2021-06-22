@@ -128,7 +128,7 @@ public class AdminController {
     // 공지사항 관리
     @GetMapping("/noticeManagement")
     public String noticeManagement(Model model, PageRequestDto pageRequestDto) {
-        PageResultDto<NoticeDto, Notice> list = adminService.getList(pageRequestDto);
+        PageResultDto<NoticeDto, Notice> list = adminService.getBetweenList(pageRequestDto,0,1);
         model.addAttribute("notice", list);
         model.addAttribute("PageRequestDto", pageRequestDto);
 
@@ -161,9 +161,10 @@ public class AdminController {
         return "admin/notice/noticeUpdate";
     }
 
+    //FAQ
     @GetMapping("/faqManagement")
     public String faqManagement(Model model, PageRequestDto pageRequestDto) {
-        PageResultDto<NoticeDto, Notice> list = adminService.getList(pageRequestDto);
+        PageResultDto<NoticeDto, Notice> list = adminService.getList(pageRequestDto, 2);
         model.addAttribute("notice", list);
         model.addAttribute("PageRequestDto", pageRequestDto);
 
@@ -175,10 +176,32 @@ public class AdminController {
         return "admin/FAQ/faqInsert";
     }
 
-    @GetMapping("/fagDetail")
+    @GetMapping("/faqDetail")
     public String faqDetail(Model model, Long id, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
         Notice notice = noticeRepository.findById(id).get();
         model.addAttribute("faq", notice);
         return "admin/FAQ/faqDetail";
+    }
+
+    @GetMapping("/faqUpdateView")
+    public String faqUpdateView(Model model, Long id, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
+        Notice notice = noticeRepository.findById(id).get();
+        model.addAttribute("notices", notice);
+        return "admin/FAQ/faqUpdate";
+    }
+
+    @GetMapping("/1on1Management")
+    public String oneOnOneManagement(Model model, PageRequestDto pageRequestDto) {
+        PageResultDto<NoticeDto, Notice> list = adminService.getList(pageRequestDto, 3);
+        model.addAttribute("oneOnOne", list);
+        model.addAttribute("PageRequestDto", pageRequestDto);
+        return "admin/oneOnOne/oneOnOneManagement";
+    }
+
+    @GetMapping("/1on1Detail")
+    public String oneOnOneDetail(Model model, Long id, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
+        Notice notice = noticeRepository.findById(id).get();
+        model.addAttribute("ooo", notice);
+        return "admin/oneOnOne/oneOnOneDetail";
     }
 }

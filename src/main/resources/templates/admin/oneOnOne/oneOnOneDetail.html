@@ -12,30 +12,33 @@
 <body>
 <div layout:fragment="content" class="content">
     <div class="post_header">
-        <input type="hidden" th:value="${faq.id}" id="hb_num" name="hb_num">
+        <input type="hidden" th:value="${ooo.id}" id="ooo_num" name="ooo_num">
         <div class="post_info">
             <div class="left">
-                <div th:text="${faq.user_id}" class="post_author"></div>
+                <label for="user_id">질문자 : </label>
+                <span th:text="${ooo.user_id}" id="user_id"></span>
             </div>
             <div class="right">
                 <div class="updated_at">
                     <span>수정날짜:</span>
-                    <span th:text="${#temporals.format(faq.modDate, 'yyyy/MM/dd HH:mm:ss')}">
+                    <span th:text="${#temporals.format(ooo.modDate, 'yyyy/MM/dd HH:mm:ss')}">
                     </span>
                 </div>
             </div>
         </div>
     </div>
-    <div class="post_title"><span>Q : </span><span th:text="${faq.title}"></span></div>
-    <div class="post_content"><span>A : </span><span th:text="${faq.content}"></span></div>
+    <div class="ooo_title">
+        <label for="question">질문 : </label>
+        <span id="question" th:text="${ooo.title}" ></span>
+    </div>
+    <div>
+        <label for="ooo_content">답변 : </label>
+        <textarea id="ooo_content" placeholder="내용을 입력하세요" th:text="${ooo.content}"></textarea>
+    </div>
 
     <div class="post_control_btn_area">
-        <a th:href="@{/admin/faqUpdateView(id = ${faq.id},
-                                        page=${PageRequestDto.page},
-                                        type=${PageRequestDto.type},
-                                        keyword=${PageRequestDto.keyword})}"
-           class="custom_btn post_update">글수정</a>
-        <a th:href="@{/admin/faqManagement(page=${PageRequestDto.page},
+        <button class="ooo_save">답변하기</button>
+        <a th:href="@{/admin/1on1Management(page=${PageRequestDto.page},
                                         page=${PageRequestDto.page},
                                         type=${PageRequestDto.type},
                                         keyword=${PageRequestDto.keyword})}" class="custom_btn post_delete">이전
