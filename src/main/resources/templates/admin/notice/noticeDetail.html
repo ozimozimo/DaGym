@@ -7,9 +7,83 @@
     <script th:src="@{~/js/main/bootstrap.min.js}"></script>
     <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
     <script th:src="@{~/js/admin/admin.js}"></script>
+    <style>
+        h2{
+            margin-left: 6%;
+            color: red;
+            font-size: 25px;
+        }
+        .content {
+            width: 1150px;
+            margin-top: auto;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 10px;
+        }
+        a.custom_btn {
+            font-size: 14px;
+        }
+        .post_header {
+            padding: 10px;
+            /* border-bottom: 2px solid #eee; */
+            background-color: #ffffff;
+        }
+        .post_title {
+            font-size: 28px;
+            font-weight: 400;
+        }
+        .post_info {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .post_info .left {
+            display: flex;
+        }
+        .post_info .right {
+            display: flex;
+        }
+        .post_info .right .updated_at {
+            margin-right: 15px;
+        }
+        .hits {
+            margin-right: 5px;
+        }
+        .post_content {
+            margin-top: 20px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            padding-left: 15px;
+            border-top: 2px solid #eee;
+        }
+        .post_control_btn_area {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .post_control_btn_area .custom_btn:nth-child(1) {
+            margin-right: 10px;
+        }
+        .post_control_btn_area .custom_btn {
+            padding: 5px 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #098efe;
+            border: 2px solid #098efe;
+            cursor: pointer;
+            background-color: transparent;
+        }
+        .comments_area {
+            margin-top: 35px;
+            /* border-top: 2px solid #ddd; */
+        }
+    </style>
 
 </head>
 <body>
+<h2>공지사항</h2>
 <div layout:fragment="content" class="content">
     <div class="post_header">
         <input type="hidden" th:value="${notices.id}" id="hb_num" name="hb_num">
