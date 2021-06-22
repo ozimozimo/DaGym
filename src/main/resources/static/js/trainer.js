@@ -63,21 +63,26 @@ function apply() {
 }
 
 // 수락한거 조회하기
-// function acceptList() {
-//     var id = $('.member_id').val();
-//     var data = {
-//         id: id // 앞에 trainer_id -> id
-//     }
-//     $.ajax({
-//         type: 'get',
-//         url: '/ptUser/manage',
-//         data: data,
-//         contentType: 'application/json; charset=utf-8'
-//     }).done(function (data) {
-//     }).fail(function (error) {
-//         console.log(error);
-//     })
-// }
+function acceptList() {
+    var id = $('#member_id').val();
+    console.log(id+"login 한 id는");
+
+    var data = {
+        id: id // 앞에 trainer_id -> id
+    }
+    $.ajax({
+        type: 'get',
+        url: '/ptUser/manage',
+        data: data,
+        contentType: 'application/json; charset=utf-8'
+    }).done(function (data) {
+        alert("성공");
+        console.log(data);
+    }).fail(function (error) {
+        alert("실패");
+        console.log(error);
+    });
+}
 
 // 신청온거 확인하기
 function showList() {
@@ -129,7 +134,7 @@ function mkApply(data) {
         content += "<td class='ptUserGender'>" + k + "</td>"
         content += "<td class='ptUserHeight'>" + a + "</td>"
         content += "<td class='ptUserWeight'>" + b + "</td>"
-        content += "<td><a href='/ptUser/UserDetail'>상세보기</a></td>"
+        content += `<td><a href='/ptUser/view/detail/${l}'>상세보기</a></td>`
         content += "<td><button type='button' class='btn-primary Accept' onclick='updateAccept(this)'>수락</button></td>"
         content += "<td><button type='button' class='btn-primary Deny' onclick='updateAccept(this)'>거절</button></td></tr>"
         $('.applyListDetail').append(content);
@@ -141,12 +146,17 @@ function updateAccept(a) {
     // PTUserApplyConDto에 넘겨줄 apply_if값
     let apply_if = 0;
     // 내가 누른 버튼의 id값
-    let id = a.parentNode.parentNode.firstChild.innerText;
+    // let id = a.parentNode.parentNode.firstChild.innerText;
 
+    let id = $('#member_id').val();
+
+    console.log("매개변수 a는" + a);
     console.log("id=" + id);
 
     // 내가 누른 버튼의 텍스트값
     let con = a.innerText;
+
+    console.log("수락버튼" + con);
     // 수락이면 apply_if에 1 저장하고 아니면 2 저장
     if (con == "수락") {
         apply_if = 1;
@@ -177,7 +187,7 @@ function updateAccept(a) {
 }
 
 $(function () {
-    // acceptList();
+    acceptList();
     showList();
 })
 

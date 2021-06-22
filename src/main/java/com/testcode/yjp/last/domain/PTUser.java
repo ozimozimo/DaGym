@@ -48,8 +48,7 @@ public class PTUser extends BaseEntity{
 
     private String accept_condition; // {0 신청(보류), 1 신청(수락), 2 신청(거절)}로 생각
 
-    public void update(Long id, String accept_condition) {
-        this.id = id;
+    public void update(String accept_condition) {
         this.accept_condition = accept_condition;
     }
 }

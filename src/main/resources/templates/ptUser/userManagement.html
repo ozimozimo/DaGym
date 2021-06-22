@@ -7,33 +7,39 @@
 <head>
     <title>PT회원 목록</title>
     <link rel="stylesheet" th:href="@{/css/userView.css}"/>
-    <!--  <script th:src="@{/js/trainer.js?ver=1.0}"></script>-->
+    <script th:src="@{/js/trainer.js?ver=1.0}"></script>
 </head>
 <body>
 <div layout:fragment="content">
-    <input type="hidden" th:value="${session.loginUser}" class="member_id">
+    <input type="hidden" th:value="${session.loginUser}" id="member_id">
     <h3>회원 목록</h3>
     <table class="table table-hover">
         <thead>
         <th>아이디</th>
         <th>이름</th>
         <th>연락처</th>
-        <th>시작날짜</th>
-        <th>종료날짜</th>
-        <th></th>
-        <th></th>
-        <th></th>
+        <th>키</th>
+        <th>몸무게</th>
+        <th>PT 목적</th>
+        <th>PT 원하는 시작일</th>
+        <th>PT 원하는 요일</th>
+        <th>PT 원하는 시간대</th>
         </thead>
         <tbody>
-        <tr th:each="acceptList: ${acceptList}">
-        <td> <span th:text="${acceptList.user_name}"></span></td>
-        <td> <span th:text="${acceptList.user_id}"></span></td>
-        <td> <span th:text="${acceptList.user_pn}"></span></td>
-        <td> <span th:text="${acceptList.start_date}"></span></td>
-        <td>  <span th:text="${acceptList.end_date}"></span></td>
-            <td> <a class="btn btn-primary" th:href="@{/diet/list(id=${acceptList.user_name})}">식단</a></td>
-            <td> <a class="btn btn-primary" th:href="@{/ExRecord/exercise(id=${acceptList.user_name})}">운동기록</a></td>
-            <td><a class="btn btn-primary" th:href="@{/inBody/inBodyResult(id=${acceptList.user_name})}">인바디</a></td>
+        <tr th:each="acceptLists: ${acceptList}">
+            <input type="hidden" th:value="${acceptLists.id}" id="id" name="id">
+            <td><span th:text="${acceptLists.member.user_id}"></span></td>
+            <td><span th:text="${acceptLists.member.user_name}"></span></td>
+            <td><span th:text="${acceptLists.member.user_pn}"></span></td>
+            <td><span th:text="${acceptLists.member_height}"></span></td>
+            <td><span th:text="${acceptLists.member_weight}"></span></td>
+            <td><span th:text="${acceptLists.pt_purpose}"></span></td>
+            <td><span th:text="${acceptLists.pt_count}"></span></td>
+            <td><span th:text="${acceptLists.pt_positiveDate}"></span></td>
+            <td><span th:text="${acceptLists.pt_wantTime}"></span></td>
+            <td><a class="btn btn-primary" th:href="@{/diet/list(id=${acceptLists.member.id})}">식단</a></td>
+            <td><a class="btn btn-primary" th:href="@{/ExRecord/exercise(id=${acceptLists.member.id})}">운동기록</a></td>
+            <td><a class="btn btn-primary" th:href="@{/inBody/inBodyResult(id=${acceptLists.member.id})}">인바디</a></td>
         </tr>
         </tbody>
     </table>
