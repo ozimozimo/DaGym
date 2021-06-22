@@ -75,13 +75,10 @@ function Delete() {
     });
 }
 
-function Back() {
-    history.back();
-}
+
 
 $(function () {
     $(".activeCBox").on("click", Active);
     $('#btn-update').on('click', update);
     $('#btn-delete').on('click', Delete);
-    $('#listBtn').on('click', Back);
 });
