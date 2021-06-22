@@ -39,7 +39,6 @@
         <button type="button" id="updateLoadBtn">업로드</button>
 
 
-
         <div class="updateResult">
             <img class="trainer_image" th:src="@{/display(fileName=${trainerInfo.imgName})}">
         </div>
@@ -53,8 +52,9 @@
                 <option value="대회" th:selected="${trainerInfo.trainer_category}=='대회'">대회</option>
                 <option value="기타"
                         th:selected="${trainerInfo.trainer_category} != 'PT' and
-                        ${trainerInfo.trainer_category} !=' 재활' and
-                        ${trainerInfo.trainer_category} != '대회' ">기타</option>
+                        ${trainerInfo.trainer_category} !='재활' and
+                        ${trainerInfo.trainer_category} != '대회' ">기타
+                </option>
             </select>
             <input type="text" class="input_category" th:value="${trainerInfo.trainer_category}" style="display: none">
 
@@ -63,7 +63,8 @@
 
         <div>
             <label for="trainer_time1">근무 시간</label>
-            <input type="hidden" id="trainer_workTime" name="trainer_workTime" th:value="${trainerInfo.trainer_workTime}">
+            <input type="hidden" id="trainer_workTime" name="trainer_workTime"
+                   th:value="${trainerInfo.trainer_workTime}">
             <input type="time" id="trainer_time1" name="trainer_time1"> ~
             <input type="time" id="trainer_time2" name="trainer_time2">
         </div>
@@ -75,7 +76,8 @@
             </li>
             <li>
                 <label for="trainer_gymName">헬스장 이름</label>
-                <input type="text" th:value="${trainerInfo.trainer_gymName}" id="trainer_gymName" name="trainer_gymName">
+                <input type="text" th:value="${trainerInfo.trainer_gymName}" id="trainer_gymName"
+                       name="trainer_gymName">
             </li>
             <li class="td">
                 <input
@@ -119,7 +121,8 @@
 
         <div>
             <label for="trainer_instagram">인스타그램</label>
-            <input type="text" name="trainer_instagram" id="trainer_instagram" th:value="${trainerInfo.trainer_instagram}">
+            <input type="text" name="trainer_instagram" id="trainer_instagram"
+                   th:value="${trainerInfo.trainer_instagram}">
         </div>
         <div>
             <label for="trainer_kakao">카카오 아이디</label>
@@ -128,7 +131,15 @@
 
         <div>
             <label for="trainer_content">트레이너 경력사항</label><br/>
-            <textarea style="resize: none" name="trainer_content" th:text="${trainerInfo.trainer_content}" id="trainer_content" cols="25" rows="15"></textarea>
+<!--            <div style="display: none">-->
+            <textarea style="resize: none" name="trainer_content" th:text="${trainerInfo.trainer_content}"
+                      id="trainer_content" cols="25" rows="15"></textarea>
+<!--            </div>-->
+            <div class="showContent">
+
+            </div>
+            <input type="text" name="trainer_contents" id="trainer_contents">
+            <button class="addBtn" type="button">추가</button>
         </div>
 
 
