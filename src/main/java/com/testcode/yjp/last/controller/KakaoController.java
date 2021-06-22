@@ -48,7 +48,7 @@ public class KakaoController {
 //        ptUserService.endDate(ckUserId);
 
         HttpSession session = (HttpSession) request.getSession();
-        session.setAttribute("loginId", ckUserId.getId());
+        session.setAttribute("loginId", ckUserId.getUser_id());
         session.setAttribute("loginName", user_name);
         session.setAttribute("loginUser", ckUserId.getId()); // 추가한거
         session.setAttribute("loginRole", ckUserId.getUser_role());

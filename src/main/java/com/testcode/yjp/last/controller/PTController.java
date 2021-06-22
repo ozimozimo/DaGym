@@ -1,6 +1,7 @@
 package com.testcode.yjp.last.controller;
 
 import com.testcode.yjp.last.domain.Member;
+import com.testcode.yjp.last.domain.PTUser;
 import com.testcode.yjp.last.domain.TrainerInfo;
 import com.testcode.yjp.last.domain.dto.MemberList;
 import com.testcode.yjp.last.domain.dto.PTUserApplyMemberDto;
@@ -29,6 +30,7 @@ public class PTController {
     private final PTUserService ptUserService;
     private final TrainerRepository trainerRepository;
     private final MemberRepository memberRepository;
+    private final PTUserRepository ptUserRepository;
 
     // 트레이너 조회, 검색 페이지 뷰
     @GetMapping("/view")
@@ -45,13 +47,22 @@ public class PTController {
         return "ptUser/trainerView";
     }
 
+    @GetMapping("/view/detail/{id}")
+    public String userDetail(@PathVariable Long id, Model model) {
+        PTUser ptUser = ptUserRepository.findById(id).get();
+        model.addAttribute("ptUsersInfo", ptUser);
+        return "ptUser/userDetail";
+    }
+
+
 //     해당 트레이너가 관리하는 회원들 목록 보여주는 뷰
     @GetMapping("/manage")
-    public String acceptList(Model model, @RequestParam(value = "id") Long trainer_id) {
-        System.out.println("trainer_id = " + trainer_id);
-//        ArrayList<PTUserApplyMemberDto> acceptList = ptUserService.getAcceptList(trainer_id);
-//        model.addAttribute("acceptList", acceptList);
-//        System.out.println("acceptList = " + acceptList);
+    public String acceptList(Model model, Long id) {
+
+        System.out.println("trainer session login id = " + id);
+        List<PTUserApplyMemberDto> acceptList = ptUserService.getAcceptList(id);
+        model.addAttribute("acceptList", acceptList);
+        System.out.println("acceptList = " + acceptList);
         return "ptUser/userManagement";
     }
 

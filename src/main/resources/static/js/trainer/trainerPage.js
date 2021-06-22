@@ -10,6 +10,8 @@ $(function () {
     findPostCode();
     findTimeCode();
     category_input();
+    addBtn();
+    delBtn();
 });
 
 function trainerUpdate() {
@@ -92,7 +94,7 @@ function showUploadedImages(arr) {
         var imgName = arr[i].imageURL;
         var fileName = arr[i].fileName;
         str += "<div>";
-        str += "<img src='/display?fileName=" + arr[i].thumbnailURL + "'>";
+        str += "<img src='/display?fileName=" + arr[i].thumbnailURL + "'/>";
         str += "<button class='removeBtn' data-name='" + arr[i].imageURL + "'>삭제</button>";
         str += "<input type='hidden' id='uuid' name='uuid' value='" + uuid + "'>"
         str += "<input type='hidden' id='imgName' name='imgName' value='" + imgName + "'>"
@@ -102,7 +104,7 @@ function showUploadedImages(arr) {
     divArea.append(str);
 }
 
-$('.updateResult2').on("click", ".removeBtn", function (e) {
+$('.updateResult2').on("click", ".removeBtn", function () {
     var target = $(this);
     var fileName = target.data("name");
     var targetDiv = $(this).closest("div");
@@ -195,16 +197,18 @@ function GymPostCode() {
 }
 
 function category_input() {
-
+    if ($("#trainer_category option:selected").val() == '기타') {
+        $('.input_category').show();
+    }
     $('.category').change(function () {
         $(".category option:selected").each(function () {
             if ($(this).val() == '기타') { //직접입력일 경우
-                $('.category').attr('id',''); //id 초기화
+                $('.category').attr('id', ''); //id 초기화
                 $('.input_category').show();
                 $('.input_category').attr('id', 'trainer_category');
             } else { //직접입력이 아닐경우 $("#str_email02").val($(this).text()); //선택값 입력
                 // $('.trainer_category').attr('value','');
-                $('.category').attr('id','trainer_category');
+                $('.category').attr('id', 'trainer_category');
                 $('.input_category').hide();
                 $('.input_category').attr('id', '');
             }
@@ -212,4 +216,54 @@ function category_input() {
     });
 
 
+}
+
+function addBtn() {
+    if ($('#trainer_content').val() != '') {
+        let content = $('#trainer_content').val().split('!');
+        console.log(content);
+        content.forEach((value, index) => {
+            if (value != '') {
+                let contents = value;
+                let htmlContents = `<div class="con"><span>${contents}</span><button type="button" class="delBtn">삭제</button></div>`
+                $('.showContent').append(htmlContents);
+                // delBtn();
+            }
+        })
+    }
+
+
+    $('.addBtn').on("click", function () {
+        if ($('#trainer_contents').val() == '') {
+            alert('입력 후 추가 버튼을 눌러주세요');
+            return false;
+        } else {
+            let contents = $('#trainer_contents').val();
+            let htmlContents = `<div class="con">${contents}<button type="button" class="delBtn">삭제</button></div>`
+
+            $('.showContent').append(htmlContents);
+
+            contents = $('#trainer_contents').val() + "!";
+
+            let content = $('#trainer_content').val() + contents;
+            $('#trainer_contents').val('');
+            $('#trainer_content').val(content);
+            delBtn();
+        }
+    });
+
+}
+
+function delBtn(){
+    $('.delBtn').on('click', function () {
+        console.log('무야호');
+        let content = $('#trainer_content').val();
+        let span = $(this).siblings('span').text()+"!";
+        console.log(span);
+        let replaceContent = content.replace(span,'');
+        console.log(replaceContent);
+        $('#trainer_content').val(replaceContent);
+        $(this).parent().remove();
+
+    })
 }

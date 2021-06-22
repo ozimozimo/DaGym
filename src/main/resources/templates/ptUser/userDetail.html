@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        data-layout-decorate="~{layout/default}"
+>
+<head>
+    <script th:src="@{/js/trainer.js?ver=1.0}"></script>
+    <link rel="stylesheet" th:href="@{/css/userView.css}"/>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <h1>회원 상세 보기 페이지</h1>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>회원 번호</th>
+            <th>회원이름</th>
+            <th>전화번호</th>
+            <th>나이</th>
+            <th>성별</th>
+            <th>키</th>
+            <th>몸무게</th>
+            <th>PT 목적</th>
+            <th>PT 횟수</th>
+            <th>PT 신청날짜</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${ptUsersInfo.id}">회원번호</td>
+            <td th:text="${ptUsersInfo.member_id.user_name}">이름</td>
+            <td th:text="${ptUsersInfo.member_id.user_pn}">폰번호</td>
+            <td th:text="${ptUsersInfo.member_id.user_rrn}">나이</td>
+            <td th:text="${ptUsersInfo.member_id.user_gender}">성별</td>
+            <td th:text="${ptUsersInfo.member_height}">키</td>
+            <td th:text="${ptUsersInfo.member_weight}">몸무게</td>
+            <td th:text="${ptUsersInfo.pt_purpose}">PT 목적</td>
+            <td th:text="${ptUsersInfo.pt_count}">PT 원하는 날짜</td>
+            <td th:text="${ptUsersInfo.pt_wantTime}">PT 원하는 요일</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
