@@ -1,8 +1,10 @@
 package com.testcode.yjp.last.controller;
 
 import com.testcode.yjp.last.domain.Member;
+import com.testcode.yjp.last.domain.PTUser;
 import com.testcode.yjp.last.domain.dto.MemberSoDto;
 import com.testcode.yjp.last.repository.MemberRepository;
+import com.testcode.yjp.last.repository.PTUserRepository;
 import com.testcode.yjp.last.service.MemberService;
 import com.testcode.yjp.last.service.PTUserService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,7 @@ public class GoogleController {
     private final MemberService soMemberService;
     private final MemberRepository memberRepository;
     private final PTUserService ptUserService;
+    private final PTUserRepository ptUserRepository;
 
     @PostMapping(value = "/login/google")
     public String googleLogin(@RequestBody String param, HttpServletRequest request, HttpServletResponse response) {
@@ -69,6 +72,14 @@ public class GoogleController {
                 soMemberService.googleSave(memberGoogleDto);
             }
             ckUserId = memberRepository.findByUser_id(user_id);
+
+            if (ckUserId.getUser_role().equals("user")) {
+                PTUser myTrainer = ptUserRepository.loginCheckState(ckUserId.getId());
+                if (myTrainer != null) {
+                    HttpSession session = (HttpSession) request.getSession();
+                    session.setAttribute("PTState", myTrainer.getAccept_condition());
+                }
+            }
 
             // pt 기간 만료
 //            ptUserService.endDate(ckUserId);

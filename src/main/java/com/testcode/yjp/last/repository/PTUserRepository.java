@@ -58,6 +58,18 @@ public interface PTUserRepository extends JpaRepository<PTUser, Long> {
     @Query("select p from PTUser p where p.trainer_id.id=:trainer_id and p.accept_condition='1'")
     List<PTUser> findByUser(Long trainer_id);
 
+    @Query("select p from PTUser p where p.member_id.id=:member_id and p.accept_condition='1'" )
+    PTUser findCheckApply(Long member_id);
+
+    @Query("select p from PTUser p where p.member_id.id=:id and p.accept_condition='1'")
+    List<PTUser> findPTState(Long id);
+
+    @Query("select p from PTUser p where p.member_id.id=:id and p.accept_condition='1'")
+    PTUser findMYTrainer(Long id);
+
+    @Query("select p from PTUser p where p.member_id.id=:id and p.accept_condition='1' and p.member_id.user_role='user'")
+    PTUser loginCheckState(Long id);
+
     // pt신청 endDate와 오늘 날짜 비교해서 endDate지나면 수락상태 3으로 변경
 //    @Query("select m from PTUser m " +
 //            "where (m.member_id = :member " +

@@ -130,31 +130,18 @@ public class PTUserService {
                 .build();
     }
 
-//    // 신청 전에 확인하기
-//    public ArrayList<PTUserApplyMemberDto> getCheckList(Long member_id) {
-//        // 트레이너 아이디 조회하면 신청했는 회원 아이디도 딸려온다
-//        Member member = memberRepository.findById(member_id).get();
-//        log.info("member_id = " + member);
-//        ArrayList<PTUser> ptUsers = ptUserRepository.checkApply(member);
-//        ArrayList<PTUserApplyMemberDto> ptUserApplyCheckDtos = new ArrayList<>();
-//        for(PTUser ptUser : ptUsers) {
-//            PTUserApplyMemberDto ptUserApplyCheckDto = new PTUserApplyMemberDto(
-//                    ptUser.getId(),
-//                    ptUser.getMember_id().getId(),
-//                    ptUser.getUser_id(),
-//                    ptUser.getUser_name(),
-//                    ptUser.getStart_date(),
-//                    ptUser.getEnd_date(),
-//                    ptUser.getAccept_condition(),
-//                    ptUser.getTrainer_id().getId(),
-//                    ptUser.getUser_pn()
-//            );
-//            ptUserApplyCheckDtos.add(ptUserApplyCheckDto);
-//            log.info("ptUserApplyCheckDtos = " + ptUserApplyCheckDtos);
-//        }
-//        return ptUserApplyCheckDtos;
-//    }
-//
+    // 신청 전에 확인하기
+    public PTUser getCheckList(Long member_id) {
+        // 트레이너 아이디 조회하면 신청했는 회원 아이디도 딸려온다
+        Member member = memberRepository.findById(member_id).get();
+        log.info("member_id = " + member);
+
+        PTUser checkApply = ptUserRepository.findCheckApply(member_id);
+
+
+        return checkApply;
+    }
+
     // 수락회원 조회하기
     public List<PTUserApplyMemberDto> getAcceptList(Long id) {
 
@@ -212,14 +199,6 @@ public class PTUserService {
     // 그 id에 해당하는 accept_condition을 받아온 apply_if에 맞게 바꿔준다
     public Long update(Long pt_user_id, PTUserApplyConDto ptUserApplyConDto) {
         log.info("ptuser update post service");
-
-//        TrainerInfo trainer = trainerRepository.findTrainer_id(id);
-//        Long trainer_id = trainer.getId();
-//
-//        PTUser ptUserId = ptUserRepository.findPtUserId(trainer_id);
-//        Long ptPk = ptUserId.getId();
-//
-//        PTUser ptUser = ptUserRepository.findById(ptPk).get();
 
         PTUser ptUser = ptUserRepository.findById(pt_user_id).get();
 
@@ -330,5 +309,10 @@ public class PTUserService {
                 .trainer_id(ptMemberInfoDto.getTrainer())
                 .build();
         ptUserRepository.save(ptUser);
+    }
+
+    public void delete(Long pt_user_id) {
+        PTUser ptUser = ptUserRepository.findById(pt_user_id).get();
+        ptUserRepository.delete(ptUser);
     }
 }

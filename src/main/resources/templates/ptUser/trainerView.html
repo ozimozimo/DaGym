@@ -47,7 +47,7 @@
     <div th:if="${session.loginRole == 'user'} ">
         <h2>트레이너 찾기</h2>
         <h1 th:text="${session.loginId}" class="loginId" style="display: none"></h1>
-        <input type="hidden" th:value="${session.loginUser}" class="loginUserId"/>
+        <input type="hidden" th:value="${session.loginUser}" name="member_id"/>
         <!--트레이너 검색-->
         <form th:action="@{/ptUser/view}" method="get" id="searchForm">
             <div class="input-group">
@@ -72,7 +72,6 @@
         </form>
 
 
-
         <div class="user_view">
             <h5>트레이너 검색 결과</h5>
             <table class="table table-striped">
@@ -91,7 +90,9 @@
                 </thead>
                 <tbody>
                 <tr th:each="trainer : ${result.dtoList}">
-                    <td><img class="trainer_image" width="200px" height="200px" th:src="@{/display(fileName=${trainer.imgName})}"></td>
+                    <input type="hidden" id="trainer_id" th:value="${trainer.id}">
+                    <td><img class="trainer_image" width="200px" height="200px"
+                             th:src="@{/display(fileName=${trainer.imgName})}"></td>
                     <td th:text="${trainer.user_id}">아이디</td>
                     <td th:text="${trainer.user_name}">이름</td>
                     <td th:text="${trainer.user_pn}">폰번호</td>
@@ -100,13 +101,14 @@
                     <td th:text="${trainer.trainer_instagram}">Instagram</td>
                     <!--                            <td th:text="${member.address_normal}+'('+${member.address_detail}+')'"></td>-->
                     <td>
-                        <a
-                                th:href="@{~/ptUser/apply(member_id = ${session.loginUser},
-                                                            trainer_id = ${trainer.id})}"
-                                th:text="PT신청"
-
-                        >신청</a>
-<!--                        onclick="check()"-->
+<!--                        a th:href="@{~/ptUser/apply(member_id = ${session.loginUser},-->
+<!--                        trainer_id = ${trainer.id})}">PT신청</a>-->
+                        <div>
+                            <button type="button"
+                                    th:text="PT신청"
+                                    onclick="check()"
+                            ><</button>
+                        </div>
                     </td>
                     <td>
                         <a
@@ -114,8 +116,11 @@
                                         page = ${pageRequestDto.page},
                                         type=${pageRequestDto.type},
                                         keyword=${pageRequestDto.keyword})}"
-                                        th:text="상세보기"
+                                th:text="상세보기"
                         >상세보기</a>
+                        <div>
+
+                        </div>
                     </td>
                 </tr>
                 </tbody>

@@ -2,10 +2,12 @@ package com.testcode.yjp.last.controller;
 
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.testcode.yjp.last.domain.Member;
+import com.testcode.yjp.last.domain.PTUser;
 import com.testcode.yjp.last.domain.dto.MemberFindIdDto;
 import com.testcode.yjp.last.domain.dto.MemberJoinDto;
 import com.testcode.yjp.last.domain.dto.MemberUpdate;
 import com.testcode.yjp.last.repository.MemberRepository;
+import com.testcode.yjp.last.repository.PTUserRepository;
 import com.testcode.yjp.last.service.MemberService;
 import com.testcode.yjp.last.service.PTUserService;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +36,7 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final PTUserService ptUserService;
+    private final PTUserRepository ptUserRepository;
 
     // 회원가입
     @GetMapping("/join")
@@ -49,10 +52,11 @@ public class MemberController {
         String member = memberJoinDto.getUser_role();
         System.out.println(member);
 
+
         String user_id = memberJoinDto.getUser_id();
         System.out.println(user_id + "====================================");
         if (member.equals("trainer")) {
-            return "redirect:/trainer/trainerJoin?id="+user_id;
+            return "redirect:/trainer/trainerJoin?id=" + user_id;
         }
         return "redirect:/member/login";
     }
@@ -69,20 +73,37 @@ public class MemberController {
     public String signIn(String user_id, String user_pw,
                          HttpServletRequest request, HttpServletResponse response) throws IOException {
         Member member = memberRepository.findMember(user_id, user_pw);
+        log.info("로그인 들어왔음");
+        log.info("방금 로그인 한 pk는=" + member.getId());
+
+        Long id = member.getId();
+
+        // id
+        if (member.getUser_role().equals("user")) {
+            PTUser myTrainer = ptUserRepository.loginCheckState(id);
+            if (myTrainer != null) {
+                HttpSession session = (HttpSession) request.getSession();
+                session.setAttribute("PTState", myTrainer.getAccept_condition());
+            }
+        }
+
+
+
 
         // pt 기간 만료
 //        ptUserService.endDate(member);
-
         try {
             HttpSession session = (HttpSession) request.getSession();
-            session.setAttribute("loginUser", member.getId());
+            session.setAttribute("loginUser", id);
             session.setAttribute("loginName", member.getUser_name());
             session.setAttribute("loginId", member.getUser_id());
             session.setAttribute("loginRole", member.getUser_role());
+
         } catch (NullPointerException n) {
             System.out.println(n);
             return "redirect:/member/login";
         }
+
         return "redirect:/";
     }
 
@@ -95,6 +116,7 @@ public class MemberController {
         session.removeAttribute("loginName");
         session.removeAttribute("loginRole");
         session.removeAttribute("social");
+        session.removeAttribute("PTState");
 
         session.invalidate();
         return "redirect:/";
@@ -138,7 +160,7 @@ public class MemberController {
         session.setAttribute("loginRole", user_role);
 
         if (user_role.equals("trainer")) {
-            return "redirect:/trainer/trainerJoin?id="+user_id;
+            return "redirect:/trainer/trainerJoin?id=" + user_id;
         }
 
         return "redirect:/";
@@ -167,12 +189,13 @@ public class MemberController {
         model.addAttribute("member", byId);
         return "mypage/mypageSocialView";
     }
+
     // 소셜 마이페이지 추가 - 업데이트 / 구상한거는 끝남.(비번이나 이메일, 이름, 전화번호 등의
     // 정보 입력은 추후에 바뀔 가능성 있음.
     @PostMapping("/mypage/social")
     public String socialUpdate(Long member_id, MemberFindIdDto memberFindIdDto, HttpServletRequest request) {
         System.out.println(member_id);
-        log.info(memberFindIdDto.toString()+"memberFindIdDTo");
+        log.info(memberFindIdDto.toString() + "memberFindIdDTo");
 
         log.info("social Controller. phonenum = " + memberFindIdDto.getUser_pn());
         memberService.update(member_id, memberFindIdDto);
@@ -182,7 +205,7 @@ public class MemberController {
         session.setAttribute("loginName", memberFindIdDto.getUser_name());
 
         if (memberFindIdDto.getUser_role().equals("trainer")) {
-            return "redirect:/trainer/trainerJoin?id="+memberFindIdDto.getUser_id();
+            return "redirect:/trainer/trainerJoin?id=" + memberFindIdDto.getUser_id();
         }
 
         return "redirect:/";
@@ -190,7 +213,7 @@ public class MemberController {
 
     // ID PW 체크
     @GetMapping("/IdPwCheck")
-    public String IdPwCheck(){
+    public String IdPwCheck() {
         return "login/IdPwCheck";
     }
 

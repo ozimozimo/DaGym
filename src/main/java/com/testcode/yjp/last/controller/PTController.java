@@ -55,6 +55,19 @@ public class PTController {
     }
 
 
+    // 매칭 되고 나서 회원은 한명의 트레이너를 볼수있다
+    ///ptUser/mytrainer/(id=${session.loginUser})
+    @GetMapping("/mytrainer")
+    public String myTrainer(Long id, Model model) {
+
+        System.out.println("myTrainer search get Controller");
+        PTUser myTrainer = ptUserRepository.findMYTrainer(id);
+        model.addAttribute("myTrainer",myTrainer);
+
+        return "ptUser/myTrainer";
+    }
+
+
 //     해당 트레이너가 관리하는 회원들 목록 보여주는 뷰
     @GetMapping("/manage")
     public String acceptList(Model model, Long id) {

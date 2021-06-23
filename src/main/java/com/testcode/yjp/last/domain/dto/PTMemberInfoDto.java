@@ -22,8 +22,11 @@ public class PTMemberInfoDto {
     private String member_height;
     private String member_weight;
     private String pt_purpose;
+    // 시작날짜 정하는거
     private String pt_count;
+    //가능한 요일
     private String pt_positiveDate;
+    //원하는 시간
     private String pt_wantTime;
     private Member member;
     private TrainerInfo trainer;

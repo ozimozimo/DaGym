@@ -42,7 +42,7 @@ public class PTUser extends BaseEntity{
     private Member member_id;
 
     // pt 받게 될 트레이너 정보
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "trainer_id")
     private TrainerInfo trainer_id;
 

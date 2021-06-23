@@ -1,8 +1,10 @@
 package com.testcode.yjp.last.controller;
 
 import com.testcode.yjp.last.domain.Member;
+import com.testcode.yjp.last.domain.PTUser;
 import com.testcode.yjp.last.domain.dto.MemberSoDto;
 import com.testcode.yjp.last.repository.MemberRepository;
+import com.testcode.yjp.last.repository.PTUserRepository;
 import com.testcode.yjp.last.service.MemberService;
 import com.testcode.yjp.last.service.PTUserService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ public class KakaoController {
     private final MemberService MemberService;
     private final MemberRepository memberRepository;
     private final PTUserService ptUserService;
+    private final PTUserRepository ptUserRepository;
 
     @RequestMapping(value = "/login/kakao")
     public String kakao(@RequestParam("userId") String user_id, @RequestParam("userEmail") String user_email,
@@ -44,6 +47,13 @@ public class KakaoController {
         }
         ckUserId = memberRepository.findByUser_id(user_id);
 
+        if (ckUserId.getUser_role().equals("user")) {
+            PTUser myTrainer = ptUserRepository.loginCheckState(ckUserId.getId());
+            if (myTrainer != null) {
+                HttpSession session = (HttpSession) request.getSession();
+                session.setAttribute("PTState", myTrainer.getAccept_condition());
+            }
+        }
         // pt 기간 만료
 //        ptUserService.endDate(ckUserId);
 

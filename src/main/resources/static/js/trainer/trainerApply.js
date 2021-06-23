@@ -175,13 +175,16 @@ function trainerApplySumbit() {
     });
 
 
+    // 시작날짜 정하는거
     let pt_count = $('#pt_count').val();
+    // 가능한 요일
     let pt_positiveDate='';
     $('input[name="pt_positiveDate"]:checked').each(function () {
         var chk = $(this).val();
         pt_positiveDate += chk + ",";
     });
 
+    // 원하는 시간
     let pt_wantTime='';
     $('input[name="pt_wantTime"]:checked').each(function () {
         var chk = $(this).val();
@@ -207,7 +210,6 @@ function trainerApplySumbit() {
         alert("PT 신청 하셨습니다");
 
         console.log(data);
-
 
     }).fail(function (error) {
         alert("PT 신청에 실패하였습니다");
