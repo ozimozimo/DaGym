@@ -13,12 +13,17 @@
             border: 0;
             vertical-align: middle;
         }
-        .trainer_image{
+
+        .trainer_image {
             width: 200px;
             height: 200px;
         }
+
         .hidden {
             display: none;
+        }
+        #trainer_content{
+          display: none;
         }
 
     </style>
@@ -116,6 +121,9 @@
         <div>
             <label for="trainer_content">트레이너 경력사항</label><br/>
             <textarea name="trainer_content" id="trainer_content" cols="30" rows="5"></textarea>
+            <div class="showContent"></div>
+            <input type="text" name="trainer_contents" id="trainer_contents">
+            <button class="addBtn" type="button">추가</button>
         </div>
 
         <button type="button" class="joinBtn">가입하기</button>

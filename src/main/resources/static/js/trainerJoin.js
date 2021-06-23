@@ -21,11 +21,11 @@ $(function () {
             }
         })
     });
-
+    addBtn();
+    delBtn();
     zip.on("click", GymPostCode);
     uploadBtn.on("click", Upload);
     joinBtn.on("click", trainerJoin);
-
 
 
 });
@@ -125,8 +125,8 @@ function showUploadedImages(arr) {
         str += "<img src='/display?fileName=" + arr[i].thumbnailURL + "'>";
         str += "<button type='button' class='removeBtn' data-name='" + arr[i].imageURL + "'>삭제</button>";
         str += "</div>"
-        str += "<input type='hidden' id='uuid' name='uuid' value='"+ uuid+"'>"
-        str += "<input type='hidden' id='imgName' name='imgName' value='"+ imgName+"'>"
+        str += "<input type='hidden' id='uuid' name='uuid' value='" + uuid + "'>"
+        str += "<input type='hidden' id='imgName' name='imgName' value='" + imgName + "'>"
     }
     divArea.append(str);
 }
@@ -242,7 +242,7 @@ function checkData() {
         trainer_kakao,
         trainer_content
     } = data;
-    if (trainer_time1==0 || trainer_time2==0) {
+    if (trainer_time1 == 0 || trainer_time2 == 0) {
         alert('시간을 입력하세요');
     } else if (trainer_address_normal == 0) {
         alert('주소를 입력하세요');
@@ -260,3 +260,55 @@ function checkData() {
     return false;
 
 }
+
+
+function addBtn() {
+    if ($('#trainer_content').val() != '') {
+        let content = $('#trainer_content').val().split('!');
+        console.log(content);
+        content.forEach((value, index) => {
+            if (value != '') {
+                let contents = value;
+                let htmlContents = `<div class="con"><span>${contents}</span><button type="button" class="delBtn">삭제</button></div>`
+                $('.showContent').append(htmlContents);
+                // delBtn();
+            }
+        })
+    }
+
+
+    $('.addBtn').on("click", function () {
+        if ($('#trainer_contents').val() == '') {
+            alert('입력 후 추가 버튼을 눌러주세요');
+            return false;
+        } else {
+            let contents = $('#trainer_contents').val();
+            let htmlContents = `<div class="con">${contents}<button type="button" class="delBtn">삭제</button></div>`
+
+            $('.showContent').append(htmlContents);
+
+            contents = $('#trainer_contents').val() + "!";
+
+            let content = $('#trainer_content').val() + contents;
+            $('#trainer_contents').val('');
+            $('#trainer_content').val(content);
+            delBtn();
+        }
+    });
+
+}
+
+function delBtn() {
+    $('.delBtn').on('click', function () {
+        console.log('무야호');
+        let content = $('#trainer_content').val();
+        let span = $(this).siblings('span').text() + "!";
+        console.log(span);
+        let replaceContent = content.replace(span, '');
+        console.log(replaceContent);
+        $('#trainer_content').val(replaceContent);
+        $(this).parent().remove();
+
+    })
+}
+
