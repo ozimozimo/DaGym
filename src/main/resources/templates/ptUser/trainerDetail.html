@@ -3,7 +3,7 @@
         lang="ko"
         xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        data-layout-decorate="~{layout/default}"
+        data-layout-decorate="~{layout/newPage}"
 >
 <head>
 
@@ -39,6 +39,6 @@
         </table>
         <a th:href="@{/ptUser/view(page=${pageRequestDto.page},
                                         type=${pageRequestDto.type},
-                                        keyword=${pageRequestDto.keyword})}">이전</a>
+                                        keyword=${pageRequestDto.keyword})}" style="display: none">이전</a>
 </div>
 </html>

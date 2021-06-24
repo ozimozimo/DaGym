@@ -8,6 +8,7 @@ $(function () {
     changBarPercent();
     gender();
     age();
+    // if($('#'))
 });
 
 function age() {
@@ -136,27 +137,28 @@ function preBtn() {
 }
 
 function changBarPercent(percent) {
-    const meters = document.querySelectorAll("svg[data-value] .meter");
+    $(".progress-bar").css({width: percent + "%"});
+    // const meters = document.querySelectorAll("svg[data-value] .meter");
 
-    meters.forEach((path) => {
-        // Get the length of the path
-        let length = path.getTotalLength();
+    // meters.forEach((path) => {
+    //     // Get the length of the path
+    //     let length = path.getTotalLength();
 
-        // console.log(length) and hardcode the value for both stroke-dasharray & stroke-dashoffest styles
-        // If unable to hardcode, set dynamically...
-        // path.style.strokeDashoffset = length;
-        // path.style.strokeDasharray = length;
+    //     // console.log(length) and hardcode the value for both stroke-dasharray & stroke-dashoffest styles
+    //     // If unable to hardcode, set dynamically...
+    //     // path.style.strokeDashoffset = length;
+    //     // path.style.strokeDasharray = length;
 
-        // Get the value of the meter
-        // let value = parseInt(path.parentNode.getAttribute("data-value"));
-        let value = percent || parseInt(path.parentNode.getAttribute("data-value"));
-        // Calculate the percentage of the total length
-        let to = length * ((100 - value) / 100);
+    //     // Get the value of the meter
+    //     // let value = parseInt(path.parentNode.getAttribute("data-value"));
+    //     let value = percent || parseInt(path.parentNode.getAttribute("data-value"));
+    //     // Calculate the percentage of the total length
+    //     let to = length * ((100 - value) / 100);
 
-        path.getBoundingClientRect();
-        // Set the Offset
-        path.style.strokeDashoffset = Math.max(0, to);
-    });
+    //     path.getBoundingClientRect();
+    //     // Set the Offset
+    //     path.style.strokeDashoffset = Math.max(0, to);
+    // });
 }
 
 function trainerApplySumbit() {
@@ -175,16 +177,13 @@ function trainerApplySumbit() {
     });
 
 
-    // 시작날짜 정하는거
     let pt_count = $('#pt_count').val();
-    // 가능한 요일
     let pt_positiveDate='';
     $('input[name="pt_positiveDate"]:checked').each(function () {
         var chk = $(this).val();
         pt_positiveDate += chk + ",";
     });
 
-    // 원하는 시간
     let pt_wantTime='';
     $('input[name="pt_wantTime"]:checked').each(function () {
         var chk = $(this).val();
@@ -210,6 +209,7 @@ function trainerApplySumbit() {
         alert("PT 신청 하셨습니다");
 
         console.log(data);
+
 
     }).fail(function (error) {
         alert("PT 신청에 실패하였습니다");

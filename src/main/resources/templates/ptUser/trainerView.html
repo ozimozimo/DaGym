@@ -7,6 +7,7 @@
 >
 <head>
     <script th:src="@{/js/trainer.js?ver=1.0}"></script>
+    <script th:src="@{/js/trainerView.js?ver=1.0}"></script>
     <link rel="stylesheet" th:href="@{/css/userView.css}"/>
 </head>
 <body>
@@ -111,16 +112,15 @@
                         </div>
                     </td>
                     <td>
-                        <a
-                                th:href="@{~/ptUser/detail(id=${trainer.id},
-                                        page = ${pageRequestDto.page},
-                                        type=${pageRequestDto.type},
-                                        keyword=${pageRequestDto.keyword})}"
-                                th:text="상세보기"
-                        >상세보기</a>
-                        <div>
-
-                        </div>
+<!--                                <a th:href="@{~/ptUser/detail(id=${trainer.id},-->
+<!--                                        page = ${pageRequestDto.page},-->
+<!--                                        type=${pageRequestDto.type},-->
+<!--                                        keyword=${pageRequestDto.keyword})}"-->
+<!--                                th:text="상세보기">상세보기</a>-->
+                        <button type="button" onclick="detailView()">상세보기</button>
+                        <input type="hidden" id="pageValue" th:value="${pageRequestDto.page}">
+                        <input type="hidden" id="typeValue" th:value="${pageRequestDto.type}">
+                        <input type="hidden" id="keywordValue" th:value="${pageRequestDto.keyword}">
                     </td>
                 </tr>
                 </tbody>

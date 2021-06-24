@@ -33,8 +33,8 @@ public class PTApiController {
     @PostMapping(value = {"/apply/success/{member_id}/{trainer_id}"})
     public PTMemberInfoDto trainerApply(@PathVariable("member_id") Long member_id, @PathVariable("trainer_id") Long trainer_id, @RequestBody PTMemberInfoDto ptMemberInfoDto,
                                         HttpServletRequest request) {
-        log.info("pt 신청하는 member_id" + member_id);
-        log.info("pt 신청받는 trainer_id" + trainer_id);
+        log.info("pt 신청하는 member_id : " + member_id);
+        log.info("pt 신청받는 trainer_id : " + trainer_id);
         log.info("postMapping post info 정보들 =" + ptMemberInfoDto);
         // 멤버 정보
         Optional<Member> memberId = memberRepository.findById(member_id);

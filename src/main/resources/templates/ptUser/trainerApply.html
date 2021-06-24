@@ -8,167 +8,332 @@
 <head>
     <title>PT 신청</title>
     <link rel="stylesheet" th:href="@{~/css/trainerApply.css}">
-<!--    <script th:src="@{/js/trainer.js}"></script>-->
+    <!--    <script th:src="@{/js/trainer.js}"></script>-->
     <script th:src="@{~/js/trainer/trainerApply.js}"></script>
 </head>
 <div layout:fragment="content">
     <div class="container">
-        <h2 class="title">PT 신청</h2>
-
-        <svg class="bar" width="200" height="20" data-value="0">
-            <path class="bg" stroke="#ccc" d="M0 10, 200 10"></path>
-            <path
+        <div class="form">
+            <h2 class="title">PT 신청</h2>
+            <div class="survey">
+                <!-- <svg class="bar" width="200" height="20" data-value="100">
+                  <path class="bg" stroke="#ccc" d="M0 10, 200 10"></path>
+                  <path
                     class="meter"
                     stroke="#09c"
                     d="M0 10, 200 10"
                     style="stroke-dasharray: 200; stroke-dashoffset: 200"
-            ></path>
-        </svg>
-        <h2 class="percent">0%</h2>
-        <div class="card">
-            <form>
-                <input type="hidden" id="member_id" name="member_id" th:value="${session.loginUser}"/>
-                <input type="hidden" id="trainer_id" name="trainer_id" th:value="${trainer_id}"/>
-                <!--            member 이름, 전화번호, pt 추가정보 나이,성별 ,키, 몸무게, pt목적, pt 횟수, pt신청 날짜-->
-                <!-- first 시작 -->
-                <div class="first contents">
-                    <div class="title">틀린 정보가 있으시면 밑에 있는 마이페이지 버튼을 눌러서 정보를 변경해주세요</div>
-
-                    <div class="item">
-                        이름 : <input type="text" id="user_name" name="user_name" th:value="${member.user_name}"
-                                    readonly/>
-                    </div>
-                    <div class="item">
-                        전화번호 : <input type="text" id="user_pn" name="user_pn" th:value="${member.user_pn}" readonly/>
-                    </div>
-                    <div class="item">
-                        나이 : <input type="text" name="user_age" id="user_age"/>
-                              <input hidden="hidden" name="user_rrn" id="user_rrn" th:value="${member.user_rrn}"/>
-                    </div>
-                    <div class="item">
-                        성별 :
-                        <input type="hidden" name="user_gender" id="user_gender" th:value="${member.user_gender}">
-                        <input type="radio" name="user_gender1" id="user_gender1" value="남"/>남
-                        <input type="radio" name="user_gender2" id="user_gender2" value="여"/>여
-                    </div>
-                    <a th:href="@{/member/mypage(member_id = ${session.loginUser})}">마이페이지</a>
-                </div>
-                <!-- first  끝 -->
-                <div class="contents">
-                    <div class="title">
-                        <h2>현재 몸 상태를 입력하세요</h2>
-                    </div>
-                    <div class="item">
-                        키 :  <input type="text" id="member_height" name="member_height" maxlength="3"/>cm
-                    </div>
-                    <div class="item">
-                        몸무게 :  <input type="text" id="member_weight" name="member_weight" maxlength="3"/>kg
-                    </div>
-                </div>
-                <!-- second  끝 -->
-                <div class="contents">
-                    <div class="title">
-                        <h2>운동 목적</h2>
-                    </div>
-
-                    <div class="item">
-                        <input type="checkbox" name="pt_purpose" value="근력 강화"/>근력 강화
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="pt_purpose" value="체중 증가"/>체중 증가
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="pt_purpose" value="체력 증진"/>체력 증진
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="pt_purpose" value="체형 교정"/>체형 교정
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="pt_purpose" value="재활/통증 케어"/>재활/통증 케어
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="pt_purpose" value="바디 프로필"/>바디 프로필
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="pt_purpose" id="pt_puerpose_etc_btn" value="기타"/>기타
-                        <input type="text" name="pt_purpose" id="pt_puerpose_etc" value="">
-                    </div>
-                </div>
-                <!-- 3  끝 -->
-                <div class="contents">
-                    <div class="title">
-                        <h2>PT 시작 날짜를 선택하세요</h2>
-                    </div>
-                    <div class="item">
-                        <input type="date" id="pt_count" name="pt_count"/>PT 카운트
-                    </div>
-                </div>
-                <!-- 4  끝 -->
-                <div class="contents">
-
-                    <div class="title">
-                        <h2>PT 가능 요일을 모두 선택해주세요</h2>
-                    </div>
-
-                    <div class="item">
-                        <input type="checkbox" name="pt_positiveDate" value="월요일"/>월요일
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="pt_positiveDate" value="화요일"/>화요일
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="pt_positiveDate" value="수요일"/>수요일
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="pt_positiveDate" value="목요일"/>목요일
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="pt_positiveDate" value="금요일"/>금요일
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="pt_positiveDate" value="토요일"/>토요일
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="pt_positiveDate" value="일요일"/>일요일
+                  ></path>
+                </svg> -->
+                <div class="progress">
+                    <div class="progress-bar"></div>
+                    <div class="progress-desc">
+                        <!--                        <p class="percent">0%</p>-->
                     </div>
 
                 </div>
-                <!-- 5  끝 -->
-                <div class="contents">
-                    <div class="title">
-                        <h2>희망하는 PT 시간대는 언제인가요?</h2>
-                    </div>
+                <p class="percent">0%</p>
+                <div class="card">
+                    <form>
+                        <input
+                                type="hidden"
+                                id="member_id"
+                                name="member_id"
+                                th:value="${session.loginUser}"
+                        />
+                        <input
+                                type="hidden"
+                                id="trainer_id"
+                                name="trainer_id"
+                                th:value="${trainer_id}"
+                        />
+                        <!--            member 이름, 전화번호, pt 추가정보 나이,성별 ,키, 몸무게, pt목적, pt 횟수, pt신청 날짜-->
+                        <!-- first 시작 -->
+                        <div class="first contents">
+                            <div class="question">
+                                <h2>
+                                    틀린 정보가 있으시면 밑에 있는 마이페이지 버튼을 눌러서 정보를 변경해주세요
+                                </h2>
+                            </div>
 
-                    <div class="item">
-                        <input type="checkbox" name="pt_wantTime" value="월요일"/>이른 오전 (9시 이전)
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="pt_wantTime" value="화요일"/>오전(9~12시)
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="pt_wantTime" value="수요일"/>오후(12~3시)                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="pt_wantTime" value="목요일"/>늦은 오후(3~6시)
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="pt_wantTime" value="금요일"/>저녁(6~9시)
-                    </div>
-                    <div class="item">
-                        <input type="checkbox" name="pt_wantTime" value="토요일"/>늦은 저녁(9시 이후)
-                    </div>
+                            <div class="item">
+                                이름 :
+                                <input
+                                        type="text"
+                                        id="user_name"
+                                        name="user_name"
+                                        th:value="${member.user_name}"
+                                        readonly
+                                />
+                            </div>
+                            <div class="item">
+                                전화번호 :
+                                <input
+                                        type="text"
+                                        id="user_pn"
+                                        name="user_pn"
+                                        th:value="${member.user_pn}"
+                                        readonly
+                                />
+                            </div>
+                            <div class="item">
+                                나이 : <input type="text" name="user_age" id="user_age" readonly/>
+                                <input
+                                        hidden="hidden"
+                                        name="user_rrn"
+                                        id="user_rrn"
+                                        th:value="${member.user_rrn}"
 
+                                />
+                            </div>
+                            <div class="item">
+                                성별 :
+                                <input
+                                        type="hidden"
+                                        name="user_gender"
+                                        id="user_gender"
+                                        th:value="${member.user_gender}"
+                                />
+                                <input
+                                        type="radio"
+                                        name="user_gender1"
+                                        id="user_gender1"
+                                        value="남"
+                                        onclick="return(false);"
+                                />남
+                                <input
+                                        type="radio"
+                                        name="user_gender2"
+                                        id="user_gender2"
+                                        value="여"
+                                        onclick="return(false);"
+                                />여
+                            </div>
+                            <a th:href="@{/member/mypage(member_id = ${session.loginUser})}"
+                            >마이페이지</a
+                            >
+                        </div>
+                        <!-- first  끝 -->
+                        <div class="contents">
+                            <div class="question">
+                                <h2>현재 몸 상태를 입력하세요</h2>
+                            </div>
+                            <div class="item">
+                                키 :
+                                <input
+                                        type="text"
+                                        id="member_height"
+                                        name="member_height"
+                                        maxlength="3"
+                                />cm
+                            </div>
+                            <div class="item">
+                                몸무게 :
+                                <input
+                                        type="text"
+                                        id="member_weight"
+                                        name="member_weight"
+                                        maxlength="3"
+                                />kg
+                            </div>
+                        </div>
+                        <!-- second  끝 -->
+                        <div class="contents text-center">
+                            <div class="question">
+                                <h2>운동 목적</h2>
+                            </div>
+
+                            <div class="item">
+                                <input
+                                        type="checkbox"
+                                        name="pt_purpose"
+                                        value="근력 강화"
+                                        id="1"
+                                />
+                                <label for="1">근력 강화</label>
+                            </div>
+                            <div class="item">
+                                <input
+                                        type="checkbox"
+                                        name="pt_purpose"
+                                        value="체중 증가"
+                                        id="2"
+                                /><label for="2">체중 증가</label>
+                            </div>
+                            <div class="item">
+                                <input
+                                        type="checkbox"
+                                        name="pt_purpose"
+                                        value="체력 증진"
+                                        id="3"
+                                /><label for="3">체력 증진</label>
+                            </div>
+                            <div class="item">
+                                <input
+                                        type="checkbox"
+                                        name="pt_purpose"
+                                        value="체형 교정"
+                                        id="4"
+                                /><label for="4">체형 교정</label>
+                            </div>
+                            <div class="item">
+                                <input
+                                        type="checkbox"
+                                        name="pt_purpose"
+                                        value="재활/통증 케어"
+                                        id="5"
+                                /><label for="5">재활/통증 케어</label>
+                            </div>
+                            <div class="item">
+                                <input
+                                        type="checkbox"
+                                        name="pt_purpose"
+                                        value="바디 프로필"
+                                        id="6"
+                                /><label for="6">바디 프로필</label>
+                            </div>
+                            <div class="item">
+                                <div>
+                                <input
+                                        type="checkbox"
+                                        name="pt_purpose"
+                                        value="기타"
+                                        id="pt_puerpose_etc_btn"
+                                />
+                                    <label for="pt_puerpose_etc_btn">기타</label>
+                                </div>
+
+                                <input
+                                        type="text"
+                                        name="pt_purpose"
+                                        id="pt_puerpose_etc"
+                                        value=""
+                                />
+                            </div>
+                        </div>
+                        <!-- 3  끝 -->
+                        <div class="contents">
+                            <div class="question">
+                                <h2>PT 시작 날짜를 선택하세요</h2>
+                            </div>
+                            <div class="item">
+                                <input type="date" id="pt_count" name="pt_count"/>
+<!--                                <--PT 카운트-->
+                            </div>
+                        </div>
+                        <!-- 4  끝 -->
+                        <div class="contents">
+                            <div class="question">
+                                <h2>PT 가능 요일을 모두 선택해주세요</h2>
+                            </div>
+
+                            <div class="item">
+                                <input
+                                        type="checkbox"
+                                        name="pt_positiveDate"
+                                        value="월요일"
+                                />월요일
+                            </div>
+                            <div class="item">
+                                <input
+                                        type="checkbox"
+                                        name="pt_positiveDate"
+                                        value="화요일"
+                                />화요일
+                            </div>
+                            <div class="item">
+                                <input
+                                        type="checkbox"
+                                        name="pt_positiveDate"
+                                        value="수요일"
+                                />수요일
+                            </div>
+                            <div class="item">
+                                <input
+                                        type="checkbox"
+                                        name="pt_positiveDate"
+                                        value="목요일"
+                                />목요일
+                            </div>
+                            <div class="item">
+                                <input
+                                        type="checkbox"
+                                        name="pt_positiveDate"
+                                        value="금요일"
+                                />금요일
+                            </div>
+                            <div class="item">
+                                <input
+                                        type="checkbox"
+                                        name="pt_positiveDate"
+                                        value="토요일"
+                                />토요일
+                            </div>
+                            <div class="item">
+                                <input
+                                        type="checkbox"
+                                        name="pt_positiveDate"
+                                        value="일요일"
+                                />일요일
+                            </div>
+                        </div>
+                        <!-- 5  끝 -->
+                        <div class="contents text-center">
+                            <div class="question">
+                                <h2>희망하는 PT 시간대는 언제인가요?</h2>
+                            </div>
+
+                            <div class="item">
+                                <input type="checkbox" name="pt_wantTime" value="이른 오전(9시 이전)"/>이른
+                                오전 (9시 이전)
+                            </div>
+                            <div class="item">
+                                <input
+                                        type="checkbox"
+                                        name="pt_wantTime"
+                                        value="오전(9~12시)"
+                                />오전(9~12시)
+                            </div>
+                            <div class="item">
+                                <input
+                                        type="checkbox"
+                                        name="pt_wantTime"
+                                        value="오후(12~3시)"
+                                />오후(12~3시)
+                            </div>
+                            <div class="item">
+                                <input type="checkbox" name="pt_wantTime" value="늦은 오후(3~6시)"/>늦은
+                                오후(3~6시)
+                            </div>
+                            <div class="item">
+                                <input
+                                        type="checkbox"
+                                        name="pt_wantTime"
+                                        value="저녁(6~9시)"
+                                />저녁(6~9시)
+                            </div>
+                            <div class="item">
+                                <input type="checkbox" name="pt_wantTime" value="늦은 저녁(9시 이후)"/>늦은
+                                저녁(9시 이후)
+                            </div>
+                        </div>
+                        <!-- 6  끝 -->
+                        <div class="button-wrapper">
+                            <button type="button" class="btn pre step-btn prev">이전</button>
+                            <button type="button" class="btn next step-btn">다음</button>
+                            <button type="button" class="btn submit step-btn">전송</button>
+                        </div>
+                    </form>
                 </div>
-                <!-- 6  끝 -->
-                <div>
-                    <button type="button" class="btn pre">이전</button>
-                    <button type="button" class="btn next">다음</button>
-                    <button type="button" class="btn submit">전송</button>
-                </div>
-            </form>
+
+                <!--            <div>-->
+                <!--                <button type="button" onclick="apply()" class="step-btn">신청</button>-->
+                <!--                <button type="button" onclick="history.go(-1)" class="step-btn prev">-->
+                <!--                    이전-->
+                <!--                </button>-->
+                <!--            </div>-->
+            </div>
         </div>
-
     </div>
-
 </div>
-
 </html>

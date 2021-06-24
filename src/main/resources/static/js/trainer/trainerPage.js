@@ -12,6 +12,7 @@ $(function () {
     category_input();
     addBtn();
     delBtn();
+    $('#fileNameLabel').text($('#fileName').val());
 });
 
 function trainerUpdate() {
@@ -132,8 +133,6 @@ function UpdateUpload() {
         console.log(files[i]);
         formData.append("uploadFiles", files[i]);
     }
-
-
     // 실제 업로드 부분
     $.ajax({
         url: '/uploadFile',
@@ -256,7 +255,6 @@ function addBtn() {
 
 function delBtn(){
     $('.delBtn').on('click', function () {
-        console.log('무야호');
         let content = $('#trainer_content').val();
         let span = $(this).siblings('span').text()+"!";
         console.log(span);

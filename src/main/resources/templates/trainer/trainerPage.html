@@ -38,15 +38,17 @@
     <form id="trainerInfo">
         <h2>트레이너 대표 이미지</h2>
         <input type="hidden" id="id" name="id" th:value="${trainerInfo.id}">
-        <input name="uploadFiles" type="file" multiple>
-        <button type="button" id="updateLoadBtn">업로드</button>
-
-
         <div class="updateResult">
             <img class="trainer_image" th:src="@{/display(fileName=${trainerInfo.imgName})}">
         </div>
         <div class="updateResult2">
         </div>
+
+        <input name="uploadFiles" type="file" id="chooseFile" multiple style="display:none;">
+        <button for="chooseFile"><label for="chooseFile">파일선택</label></button>
+        <label for="chooseFile" id="fileNameLabel"></label>
+        <button type="button" id="updateLoadBtn">업로드</button>
+
         <div>
             <label for="trainer_category">트레이너 분야</label>
             <select name="trainer_category" id="trainer_category" class="category">

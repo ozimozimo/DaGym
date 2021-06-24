@@ -6,6 +6,7 @@
         data-layout-decorate="~{layout/default}"
 >
 <head>
+    <script th:src="@{~/js/trainer/myTrainer.js}"></script>
 </head>
 <div layout:fragment="content">
     <table class="table table-striped">
@@ -34,7 +35,7 @@
             <td th:text="${myTrainer.trainer_id.trainer_kakao}">카카오톡</td>
             <td th:text="${myTrainer.trainer_id.trainer_instagram}">Instagram</td>
             <td><a href="#">채팅하기</a></td>
-            <td><a href="#">상세보기</a></td>
+            <td><button type="button" onclick="myTrainerDetailView()">상세 보기</button></td>
         </tr>
         </tbody>
 
