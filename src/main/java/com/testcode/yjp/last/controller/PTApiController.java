@@ -6,10 +6,12 @@ import com.testcode.yjp.last.domain.TrainerInfo;
 import com.testcode.yjp.last.domain.dto.PTMemberInfoDto;
 import com.testcode.yjp.last.domain.dto.PTUserApplyConDto;
 import com.testcode.yjp.last.domain.dto.PTUserApplyMemberDto;
+import com.testcode.yjp.last.domain.dto.TrainerInfoDto;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.PTUserRepository;
 import com.testcode.yjp.last.repository.TrainerRepository;
 import com.testcode.yjp.last.service.PTUserService;
+import com.testcode.yjp.last.service.TrainerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +30,7 @@ public class PTApiController {
     private final PTUserRepository ptUserRepository;
     private final PTUserService ptUserService;
     private final TrainerRepository trainerRepository;
+    private final TrainerService trainerService;
 
     //신청 버튼 누르면 db에 ptUser 저장하는 컨트롤러
     @PostMapping(value = {"/apply/success/{member_id}/{trainer_id}"})
@@ -64,7 +67,7 @@ public class PTApiController {
         return checkList;
     }
 
-//     신청 내역 확인
+    //     신청 내역 확인
     @GetMapping("/apply/findMember")
     public List<PTMemberInfoDto> findMember(@RequestParam Long member_id) {
         log.info("ptUser findMember Get Controller");
@@ -82,7 +85,7 @@ public class PTApiController {
     public PTUserApplyConDto update(@PathVariable Long pt_user_id, @RequestBody PTUserApplyConDto ptUserApplyConDto) {
         System.out.println("ptUserApply.getApply_if() = " + ptUserApplyConDto.getApply_if());
         String data = ptUserApplyConDto.getApply_if();
-        System.out.println("data = "+data );
+        System.out.println("data = " + data);
         if (data.equals("1")) {
             ptUserService.update(pt_user_id, ptUserApplyConDto);
         } else if (data.equals("2")) {
@@ -99,5 +102,13 @@ public class PTApiController {
         System.out.println("ptUser delete 삭제" + pt_user_id);
         ptUserService.delete(pt_user_id);
         return pt_user_id;
+    }
+
+    @GetMapping("/map/trainers")
+    public List<TrainerInfoDto> trainer() {
+        List<TrainerInfoDto> trainerLists = trainerService.findAll();
+        System.out.println(trainerLists);
+
+        return trainerLists;
     }
 }

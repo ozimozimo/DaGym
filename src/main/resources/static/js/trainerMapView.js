@@ -1,3 +1,40 @@
+$(function () {
+    onLoad();
+});
+
+function onLoad() {
+
+    $.ajax({
+        url: "/ptUser/map/trainers",
+        method: "get",
+        contentType: 'application/json; charset=utf-8',
+    }).done(function (data) {
+        console.log(data);
+    }).fail(function (error) {
+        console.log(error);
+    });
+
+    // function showList() {
+    //
+    //     var member_id = $('#member_id').val();
+    //     console.log(member_id);
+    //     var data = {
+    //         member_id: member_id,
+    //     }
+    //     $.ajax({
+    //         type: 'get',
+    //         url: '/ptUser/apply/findMember',
+    //         data: data,
+    //         contentType: 'application/json; charset=utf-8',
+    //     }).done(function (data) {
+    //         console.log(data);
+    //         mkApply(data);
+    //     }).fail(function (error) {
+    //         console.log(error);
+    //     })
+    // }
+}
+
 let mapContainer = document.getElementById("map"), // 지도를 표시할 div
     mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -179,6 +216,6 @@ function removeInfowindows() {
 }
 
 //
-function viewTrainer(){
+function viewTrainer() {
 
 }

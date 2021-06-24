@@ -1,11 +1,15 @@
 package com.testcode.yjp.last.service;
 
 import com.testcode.yjp.last.domain.TrainerInfo;
+import com.testcode.yjp.last.domain.dto.PTUserApplyMemberDto;
 import com.testcode.yjp.last.domain.dto.TrainerInfoDto;
 import com.testcode.yjp.last.repository.TrainerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -48,5 +52,11 @@ public class TrainerService {
         trainerInfo.update(trainerInfoDto);
 
         return trainerRepository.save(trainerInfo);
+    }
+
+    public List<TrainerInfoDto> findAll() {
+        return trainerRepository.findAll().stream()
+                .map(TrainerInfoDto::new)
+                .collect(Collectors.toList());
     }
 }
