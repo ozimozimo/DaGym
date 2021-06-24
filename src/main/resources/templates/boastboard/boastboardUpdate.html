@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <title>boardUpdate</title>
+    <script th:src="@{~/js/main/jquery.min.js}"></script>
+    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
+    <script th:src="@{~/js/boastboard/boastboard.js}"></script>
+</head>
+<div layout:fragment="content" class="">
+    <div class="">
+        <h3>글 수정</h3>
+
+        <form id="actionForm">
+            <input type="hidden" name="page" id="page" th:value="${PageRequestDto.page}">
+            <input type="hidden" name="type" id="type" th:value="${PageRequestDto.type}">
+            <input type="hidden" name="keyword" id="keyword" th:value="${PageRequestDto.keyword}">
+
+            <div  class="" >
+                <label for="bb_num">글 번호</label>
+                <input type="text" class="" id="bb_num" th:value="${bb.id}" readonly>
+            </div>
+            <div class="">
+                <label for="title">제목</label>
+                <input type="text" class="" id="title" th:value="${bb.title}">
+            </div>
+            <div class="">
+                <label for="user_id">작성자</label>
+                <input type="text" class="" id="user_id" th:value="${bb.user_id}" readonly>
+            </div>
+            <div class="">
+                <label for="bb_content">내용</label>
+                <textarea style="resize: none" cols="25" rows="15"  class="" id="bb_content" th:text="${bb.content}"></textarea>
+            </div>
+        </form>
+        <button type="button" class="">이전</button>
+        <button type="button" class="" id="btn-update">수정</button>
+        <button type="button" class="" id="btn-delete">삭제</button>
+
+    </div>
+</div>
+</div>
+
+
+</html>
