@@ -33,40 +33,8 @@
             <th>상세보기</th>
         </tr>
         </thead>
-        <tbody>
-        <tr th:each="trainer : ${result.dtoList}">
-            <input type="hidden" id="trainer_id" th:value="${trainer.id}">
-            <td><img class="trainer_image" width="200px" height="200px"
-                     th:src="@{/display(fileName=${trainer.imgName})}"></td>
-            <td th:text="${trainer.user_id}">아이디</td>
-            <td th:text="${trainer.user_name}">이름</td>
-            <td th:text="${trainer.user_pn}">폰번호</td>
-            <td th:text="${trainer.trainer_gymName}">헬스장이름</td>
-            <td th:text="${trainer.trainer_kakao}">카카오톡</td>
-            <td th:text="${trainer.trainer_instagram}">Instagram</td>
-            <!--                            <td th:text="${member.address_normal}+'('+${member.address_detail}+')'"></td>-->
-            <td>
-                <!--                        a th:href="@{~/ptUser/apply(member_id = ${session.loginUser},-->
-                <!--                        trainer_id = ${trainer.id})}">PT신청</a>-->
-                <div>
-                    <button type="button"
-                            th:text="PT신청"
-                            onclick="check()"
-                    ><</button>
-                </div>
-            </td>
-            <td>
-                <!--                                <a th:href="@{~/ptUser/detail(id=${trainer.id},-->
-                <!--                                        page = ${pageRequestDto.page},-->
-                <!--                                        type=${pageRequestDto.type},-->
-                <!--                                        keyword=${pageRequestDto.keyword})}"-->
-                <!--                                th:text="상세보기">상세보기</a>-->
-                <button type="button" onclick="detailView()">상세보기</button>
-                <input type="hidden" id="pageValue" th:value="${pageRequestDto.page}">
-                <input type="hidden" id="typeValue" th:value="${pageRequestDto.type}">
-                <input type="hidden" id="keywordValue" th:value="${pageRequestDto.keyword}">
-            </td>
-        </tr>
+        <tbody class="tbody">
+
         </tbody>
     </table>
 </div>

@@ -1,6 +1,7 @@
 $(function () {
-    onLoad();
 });
+
+var AllMemberArr = [];
 
 function onLoad() {
 
@@ -10,9 +11,30 @@ function onLoad() {
         contentType: 'application/json; charset=utf-8',
     }).done(function (data) {
         console.log(data);
+        data.forEach(function (item, index) {
+            var addr = item.member.address_normal;
+            addr = addr.substring(5, addr.length);
+            console.log(addr);
+            AllMemberArr.push({
+                id: item.member.id,
+                trainer_id: item.member.user_id,
+                address: addr + " " + item.member.address_detail,
+                trainer_name: item.member.user_name,
+                trainer_pn : item.member.user_pn,
+                trainer_gymName: item.trainer_gymName,
+                trainer_kakao: item.trainer_kakao,
+                trainer_instagram: item.trainer_instagram,
+                imgName: item.imgName
+            });
+        })
+        // 프로필이미지  이름 휴대폰 번호 헬스장 이름	카카오톡 아이디	인스타그램 아이디	신청	상세보기
+
+
     }).fail(function (error) {
         console.log(error);
     });
+
+    console.log(AllMemberArr);
 
     // function showList() {
     //
@@ -53,6 +75,10 @@ let geocoder = new kakao.maps.services.Geocoder();
 let centerX;
 let centerY;
 let userAddr = "대구광역시 수성구 범어로 18길 22";
+var markers = [];
+var infowindows = [];
+var nowMarkers;
+
 // 유저 주소 좌표 변환후
 geocoder.addressSearch(userAddr, function (result, status) {
     // 정상적으로 검색이 완료됐으면
@@ -63,26 +89,22 @@ geocoder.addressSearch(userAddr, function (result, status) {
         centerX = coords.Ma;
         centerY = coords.La;
         // console.log(centerX, centerY);
+        nowMarkers = new kakao.maps.Marker({
+            map: map,
+            position: coords,
+        });
+
         map.setCenter(coords);
         drawMarker(centerX, centerY);
     }
 });
-var positions = [
-    {trainer: "김소희", lating: "대구광역시 수성구 범어로 19길 23"},
-    {trainer: "박진성", lating: "대구광역시 복현로 71"},
-    {trainer: "이동기", lating: "서울 특별시 강남구 영동대로 517"},
-    {trainer: "조수현", lating: "대전광역시 서구 청사로 189"},
-    {trainer: "장주경", lating: "대구광역시 달성군 다사읍 대실역남로 93"},
-    {trainer: "김도현", lating: "대구광역시 북구 산격로 2-2"},
-];
-var markers = [];
-var infowindows = [];
 
 function drawMarker(x, y) {
-    positions.forEach(function (item, index) {
+    onLoad();
+    AllMemberArr.forEach(function (item, index) {
         // 주소로 좌표를 검색합니다
         geocoder.addressSearch(
-            positions[index].lating,
+            AllMemberArr[index].address,
             function (result, status) {
                 // 정상적으로 검색이 완료됐으면
                 if (status === kakao.maps.services.Status.OK) {
@@ -90,7 +112,8 @@ function drawMarker(x, y) {
                     // console.log("gg", coords.Ma, coords.La);
                     let length = calDistence(x, y, coords.Ma, coords.La);
                     // km
-                    let km = 5;
+                    let km = 20000;
+
 
                     if (length < km) {
                         // console.log(length + "km");
@@ -98,15 +121,15 @@ function drawMarker(x, y) {
                         var marker = new kakao.maps.Marker({
                             map: map,
                             position: coords,
-                            title: positions[index].trainer,
-
+                            title: AllMemberArr[index].trainer_name,
                             // image: markerImage,
                         });
                         // 인포윈도우로 장소에 대한 설명을 표시합니다
                         var infowindow = new kakao.maps.InfoWindow({
                             disableAutoPan: true,
-                            content: `<div style="width:150px;text-align:center;padding:6px 0;">${positions[index].trainer}</div>`,
+                            content: `<div style="width:150px;text-align:center;padding:6px 0;">${AllMemberArr[index].trainer_name}</div>`,
                         });
+
                         infowindow.open(map, marker);
 
                         markers.push(marker);
@@ -122,6 +145,21 @@ function drawMarker(x, y) {
                             "mouseout",
                             makeOutListener(infowindow)
                         );
+
+                        var content = "";
+                        console.log('1');
+                        content += `<tr><input type="hidden" class="trainer_id" value="${item.trainer_id}">`
+                        content += `<td><img className="trainer_image" width="200px" height="200px" src="@{/display(fileName=${item.imgName})}"></td>`
+                        content += `<td>${item.trainer_id}</td>`
+                        content += `<td>${item.trainer_name}</td>`
+                        content += `<td>${item.trainer_pn}</td>`
+                        content += `<td>${item.trainer_gymName}</td>`
+                        content += `<td>${item.trainer_kakao}</td>`
+                        content += `<td>${item.trainer_instagram}</td>`
+                        content += `<td> <div><button type="button" onClick="check()">PT신청</button></div></td>`
+                        content += `<td><button type="button" onClick="detailView()">상세보기</button></td></tr>`
+                        $('.tbody').append(content);
+
                     }
 
                     // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
@@ -153,14 +191,25 @@ function makeOutListener(infowindow) {
 // });
 
 kakao.maps.event.addListener(map, "dragend", function () {
+    nowMarkers.setMap(null);
     removeMarkers();
     removeInfowindows();
+    $('.tbody').empty();
+    AllMemberArr = [];
     markers = [];
     infowindows = [];
+
     // 지도 중심좌표를 얻어옵니다
     var latlng = map.getCenter();
     // console.log(centerX);
     // console.log(centerY);
+    nowMarkers = new kakao.maps.Marker({
+        map: map,
+        position: latlng,
+    });
+
+
+    // nowMarkers.setMap(map);
 
     centerX = latlng.getLat();
     centerY = latlng.getLng();
@@ -213,9 +262,4 @@ function removeInfowindows() {
     for (var i = 0; i < infowindows.length; i++) {
         infowindows[i].close();
     }
-}
-
-//
-function viewTrainer() {
-
 }
