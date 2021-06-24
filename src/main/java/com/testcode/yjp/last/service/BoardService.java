@@ -29,11 +29,6 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
-    private final LikeRepository likeRepository;
-    private final CommentsRepository commentsRepository;
-    private final ReCommentsRepository reCommentsRepository;
-
-
 
     // Board save 연관관계 매핑 처리부분
     public Long save(Long member_id,BoardSaveRequestDto boardSaveRequestDto){

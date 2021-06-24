@@ -2,7 +2,7 @@ function save() {
     if($('#title').val().length==0){
         alert('제목을 입력하세요');
         return false;
-    } else if($('#board_content').val().length==0){
+    } else if($('#boa rd_content').val().length==0){
         alert('내용을 입력하세요');
         return false;
     }
@@ -126,9 +126,10 @@ function isData(){
 }
 
 $(function (){
-    $('#btn-update').on('click',update);
     $('#btn-delete').on('click',Bdelete);
+    $('#btn-update').on('click',update);
     $(".listBtn").on('click',isData);
     $("#btn-save").on('click',save);
+
 })
 

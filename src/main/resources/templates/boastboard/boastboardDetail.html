@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{~/js/main/jquery.min.js}"></script>
+    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
+    <script th:src="@{~/js/bostboard/boastboard.js}"></script>
+
+
+</head>
+<body>
+<div layout:fragment="content" class="content">
+
+    <div class="">
+        <input type="hidden" th:value="${bb.id}" id="bb_num" name="bb_num">
+        <div th:text="${bb.title}" class=""></div>
+        <div class="">
+            <div class="">
+                <div th:text="${bb.user_id}" class=""></div>
+            </div>
+            <div class="">
+                <div class="">
+                    <span>수정날짜:</span>
+                    <span th:text="${#temporals.format(bb.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
+
+                    </span>
+                </div>
+                <div class="">
+                    <span>조회수:</span>
+                    <span th:text="${bb.hit}" class=""></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="">
+        <ul>
+            <li>
+
+            </li>
+        </ul>
+    </div>
+
+    <div class="" th:text="${bb.content}"></div>
+
+    <div class="">
+        <a th:href="@{/boastboard/bbUpdate(bb_num = ${bb.id},
+                                        page=${PageRequestDto.page},
+                                        type=${PageRequestDto.type},
+                                        keyword=${PageRequestDto.keyword})}"
+           th:if="${session.loginId == bb.user_id}"
+           class="">글수정</a>
+        <a th:href="@{/boastboard/bb(page=${PageRequestDto.page},
+                                        page=${PageRequestDto.page},
+                                        type=${PageRequestDto.type},
+                                        keyword=${PageRequestDto.keyword})}" class="">이전
+        </a>
+    </div>
+
+    <!-- 추천 -->
+    <div>
+<!--        <button id="l">좋아요</button>-->
+<!--        <button id="m">훈훈해요</button>-->
+<!--        <button id="s">슬퍼요</button>-->
+<!--        <button id="a">화나요</button>-->
+<!--        <button id="w">추가 후기 원해요</button>-->
+        <table>
+            <thead>
+            <tr>
+                <th><button id="l">좋아요</button></th>
+                <th><button id="m">훈훈해요</button></th>
+                <th><button id="s">슬퍼요</button></th>
+                <th><button id="a">화나요</button></th>
+                <th><button id="w">추가 후기 원해요</button></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td id="l_num">0</td>
+                <td id="m_num">0</td>
+                <td id="s_num">0</td>
+                <td id="a_num">0</td>
+                <td id="w_num">0</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+    </script>
+
+</div>
+</body>
+</html>

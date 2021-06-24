@@ -1,6 +1,7 @@
 package com.testcode.yjp.last.domain.dto;
 
 import com.testcode.yjp.last.domain.Board;
+import com.testcode.yjp.last.domain.Boastboard;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -35,5 +36,9 @@ public class BoardListResponseDto {
         this.user_id = user_id;
         this.content = content;
         this.modifiedDate = modifiedDate;
+    }
+
+    public BoardListResponseDto(Boastboard boastboard) {
+
     }
 }
