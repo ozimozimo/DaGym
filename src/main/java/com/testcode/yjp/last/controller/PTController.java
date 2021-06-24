@@ -47,6 +47,20 @@ public class PTController {
         return "ptUser/trainerView";
     }
 
+    @GetMapping("/view/map")
+    public String mapView(Model model,PageRequestDto pageRequestDto){
+        List<MemberList> memberLists = ptUserService.getMemberList();
+//        List<Object[]> trainerLists = trainerRepository.getTrainerList();
+        List<TrainerInfo> trainerLists = trainerRepository.findAll();
+
+        model.addAttribute("pageRequestDto", pageRequestDto);
+        model.addAttribute("result", ptUserService.getList(pageRequestDto));
+        model.addAttribute("memberList", memberLists);
+        model.addAttribute("trainerList", trainerLists);
+        return "ptUser/trainerMapView";
+
+    }
+
     @GetMapping("/view/detail/{id}")
     public String userDetail(@PathVariable Long id, Model model) {
         PTUser ptUser = ptUserRepository.findById(id).get();

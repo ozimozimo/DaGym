@@ -47,6 +47,8 @@
     <!-- 로그인한 유저롤이 유저일 때-->
     <div th:if="${session.loginRole == 'user'} ">
         <h2>트레이너 찾기</h2>
+        <a th:href="@{/ptUser/view}">검색으로 찾기</a>
+        <a th:href="@{/ptUser/view/map}">맵으로 찾기</a>
         <h1 th:text="${session.loginId}" class="loginId" style="display: none"></h1>
         <input type="hidden" th:value="${session.loginUser}" name="member_id"/>
         <!--트레이너 검색-->
