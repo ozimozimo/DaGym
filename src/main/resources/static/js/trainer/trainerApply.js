@@ -4,12 +4,50 @@ $(function () {
     $('#pt_puerpose_etc_btn').on("click", function () {
         $('#pt_puerpose_etc').toggle();
     });
-    $('.submit').on("click",trainerApplySumbit);
+    $('.submit').on("click", trainerApplySumbit);
     changBarPercent();
     gender();
     age();
-    // if($('#'))
+    changePt();
+
+    var sub = $('#final_data').val();
+    var count = sub.substring(0, 2);
+    var price = sub.substring(6, 15);
+    var a = parseInt(price);
+    var b = parseInt(count);
+    console.log(sub);
+    console.log("가격" + a);
+    console.log("수는=" + b);
+    $('#a1').text(count + "회 / " + price);
+    $('#a2').text(count * 2 + "회 / " + price * 2);
+    $('#a3').text(count * 3 + "회 / " + price * 3);
+
+    $('#price').val(price);
 });
+
+function changePt() {
+    var sub = $('#final_data').val();
+    var count = sub.substring(0, 2);
+    var price = sub.substring(6, 15);
+
+    var a = parseInt(price);
+    var b = parseInt(count);
+    console.log(sub);
+    console.log("수는" + count);
+    console.log("가격=" + price);
+
+
+    $('#selectPrice').change(function () {
+        $('#selectPrice option:selected').each(function () {
+            var data = $('#selectPrice').val();
+            $('#final_data').val($(this).text());
+            var da = $('#final_data').val();
+
+            $('#final_info').val(da);
+        })
+    });
+
+}
 
 function age() {
     var today = new Date();
@@ -27,6 +65,7 @@ function age() {
         let age = year - getUserYear + 1;
         // console.log(age);
         $("#user_age").attr("value", age);
+        $('#final_age').attr("value", age);
 
     } else {
         // console.log("현재 년도 : ", year);
@@ -35,7 +74,11 @@ function age() {
         let age = year - getUserYear + 101;
         // console.log(age);
         $("#user_age").attr("value", age);
+        $('#final_age').attr("value", age);
+
     }
+
+
 }
 
 
@@ -49,17 +92,19 @@ function gender() {
 
     if (gender % 2 == 1) {
         $("input:radio[name='user_gender1']:radio[value='남']").prop("checked", true);
+        $("input:radio[name='final_gender1']:radio[value='남']").prop("checked", true);
     } else {
         $("input:radio[name='user_gender2']:radio[value='여']").prop("checked", true);
+        $("input:radio[name='final_gender2']:radio[value='여']").prop("checked", true);
     }
 }
 
 //페이지 추가 될때마다 false 값 뒤에 추가 하면됨
-let page = [true, false, false, false, false, false];
+let page = [true, false, false, false, false, false, false];
 // 퍼센트 시작점
 let percentValue = 0;
 // 퍼센트 올라가는 비율
-let updatePercentValue = 20;
+let updatePercentValue = 15;
 
 function nextBtn() {
     percentValue += updatePercentValue;
@@ -67,6 +112,51 @@ function nextBtn() {
     changBarPercent(percentValue);
     let showPage;
     let hidePage;
+    let member_height = $('#member_height').val();
+    let member_weight = $('#member_weight').val();
+
+    let pt_purpose = '';
+    $('input[name="pt_purpose"]:checked').each(function () {
+        var chk = $(this).val();
+        if (chk == "기타") {
+            chk = $('#pt_puerpose_etc').val();
+            console.log(chk);
+        }
+        pt_purpose += chk + ",";
+    });
+    let pt_count = $('#pt_count').val();
+    let pt_positiveDate = '';
+    $('input[name="pt_positiveDate"]:checked').each(function () {
+        var chk = $(this).val();
+        pt_positiveDate += chk + ",";
+    });
+
+    let pt_wantTime = '';
+    $('input[name="pt_wantTime"]:checked').each(function () {
+        var chk = $(this).val();
+        pt_wantTime += chk + ",";
+    });
+    var sub = $('#final_data').val();
+    var count = sub.substring(0, 2);
+    var price = sub.substring(6, 15);
+    var a = parseInt(price);
+    var b = parseInt(count);
+    console.log(sub);
+    console.log("가격" + a);
+    console.log("수는=" + b);
+    $('#a1').text(count + "회 / " + price);
+    $('#a2').text(count * 2 + "회 / " + price * 2);
+    $('#a3').text(count * 3 + "회 / " + price * 3);
+
+
+    $('#count').val(count);
+    $('#final_price').val(price);
+    $('#final_pt_purpose').val(pt_purpose);
+    $('#final_height').val(member_height);
+    $('#final_weight').val(member_weight);
+    $('#final_count').val(pt_count);
+    $('#final_positiveDate').val(pt_positiveDate);
+    $('#final_wantTime').val(pt_wantTime);
 
     for (let i = 0; i < page.length; i++) {
         if (page[i]) {
@@ -166,53 +256,104 @@ function trainerApplySumbit() {
     let trainer_id = $('#trainer_id').val();
     let member_height = $('#member_height').val();
     let member_weight = $('#member_weight').val();
-    let pt_purpose='';
+    let pt_purpose = '';
     $('input[name="pt_purpose"]:checked').each(function () {
         var chk = $(this).val();
-        if(chk=="기타"){
+        if (chk == "기타") {
             chk = $('#pt_puerpose_etc').val();
             console.log(chk);
         }
         pt_purpose += chk + ",";
     });
 
-
     let pt_count = $('#pt_count').val();
-    let pt_positiveDate='';
+    let pt_positiveDate = '';
     $('input[name="pt_positiveDate"]:checked').each(function () {
         var chk = $(this).val();
         pt_positiveDate += chk + ",";
     });
-
-    let pt_wantTime='';
+    let pt_wantTime = '';
     $('input[name="pt_wantTime"]:checked').each(function () {
         var chk = $(this).val();
         pt_wantTime += chk + ",";
     });
 
-    let data = {
-        member_height,
-        member_weight,
-        pt_purpose,
-        pt_count,
-        pt_positiveDate,
-        pt_wantTime
-    }
+    let pt_times = $('#count').val();
+    let final_price = $('#final_price').val();
 
-    console.log(data);
-    $.ajax({
-        type: 'post',
-        url: '/ptUser/apply/success/' + member_id + "/" + trainer_id,
-        data: JSON.stringify(data),
-        contentType: 'application/json; charset=utf-8',
-    }).done(function (data) {
-        alert("PT 신청 하셨습니다");
-
-        console.log(data);
+    let name = $('#user_name').val();
+    let pn = $('#user_pn').val();
 
 
-    }).fail(function (error) {
-        alert("PT 신청에 실패하였습니다");
-        console.log(error);
-    })
+
+    console.log("pt횟수는 =" + pt_times);
+    console.log("최종 가격은 =" + final_price);
+
+
+
+    var IMP = window.IMP;
+    IMP.init('imp07054769');
+    // 원래는 amount 에 실제 결제금액 final_price를 넣어야 된다
+    IMP.request_pay({
+            pg: 'inicis', // version 1.1.0부터 지원.
+            pay_method: 'card',
+            merchant_uid: 'merchant_' + new Date().getTime(),
+            name: '주문명:PT결제테스트',
+            amount: 100,
+            buyer_name: name,
+            buyer_tel: pn,
+            m_redirect_url: 'https://www.yourdomain.com/payments/complete'
+        },
+        function (rsp) {
+            if (rsp.success) {
+                console.log(rsp);
+                let payment = {
+                    imp_uid : rsp.imp_uid,
+                    merchant_uid : rsp.merchant_uid,
+                    pay_method : rsp.pay_method,
+                    pt_amount : rsp.amount,
+                };
+                $.ajax({
+                    url: "/ptUser/payment/" + member_id + "/" + trainer_id,
+                    method: "post",
+                    data: JSON.stringify(payment),
+                    contentType: 'application/json; charset=utf-8',
+                }).done(function (data) {
+                    console.log(data);
+                    alert("결제 완료에 성공하셨습니다");
+                    let date = {
+                        member_height,
+                        member_weight,
+                        pt_purpose,
+                        pt_times,
+                        pt_count,
+                        pt_positiveDate,
+                        pt_wantTime
+                    }
+                    console.log(date);
+                    $.ajax({
+                        type: 'post',
+                        url: '/ptUser/apply/success/' + member_id + "/" + trainer_id,
+                        data: JSON.stringify(date),
+                        contentType: 'application/json; charset=utf-8',
+                    }).done(function (data) {
+                        alert("PT 신청 하셨습니다");
+                        location.href = "/ptUser/view";
+                        console.log(data);
+                    }).fail(function (error) {
+                        alert("PT 신청에 실패하였습니다");
+                        console.log(error);
+                    })
+                }).error(function (error) {
+                    alert("실패하였습니다");
+                });
+            } else {
+                var msg = '결제에 실패하였습니다.';
+                msg += '에러내용 : ' + rsp.error_msg;
+            }
+            alert(msg);
+        });
+
+
+
 }

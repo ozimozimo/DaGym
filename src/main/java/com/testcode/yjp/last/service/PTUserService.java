@@ -4,6 +4,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.testcode.yjp.last.domain.*;
 import com.testcode.yjp.last.domain.dto.*;
+import com.testcode.yjp.last.repository.BuyerPTRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.PTUserRepository;
 import com.testcode.yjp.last.repository.TrainerRepository;
@@ -32,6 +33,7 @@ public class PTUserService {
     private final PTUserRepository ptUserRepository;
     private final MemberRepository memberRepository;
     private final TrainerRepository trainerRepository;
+    private final BuyerPTRepository buyerPTRepository;
 
     public List<MemberList> getMemberList() {
         List<Member> members = ptUserRepository.selectTrainer();
@@ -300,6 +302,7 @@ public class PTUserService {
         PTUser ptUser = PTUser.builder()
                 .member_height(ptMemberInfoDto.getMember_height())
                 .member_weight(ptMemberInfoDto.getMember_weight())
+                .pt_times(ptMemberInfoDto.getPt_times())
                 .pt_purpose(ptMemberInfoDto.getPt_purpose())
                 .pt_count(ptMemberInfoDto.getPt_count())
                 .pt_positiveDate(ptMemberInfoDto.getPt_positiveDate())
@@ -315,4 +318,22 @@ public class PTUserService {
         PTUser ptUser = ptUserRepository.findById(pt_user_id).get();
         ptUserRepository.delete(ptUser);
     }
+
+    public void payment(Long member_id,Long trainer_id, BuyerPTDto buyerPTDto) {
+
+        Optional<Member> member = memberRepository.findById(member_id);
+        Optional<TrainerInfo> trainer = trainerRepository.findById(trainer_id);
+
+        BuyerPt buyerPt = BuyerPt.builder()
+                .imp_uid(buyerPTDto.getImp_uid())
+                .merchant_uid(buyerPTDto.getMerchant_uid())
+                .pay_method(buyerPTDto.getPay_method())
+                .pt_amount(buyerPTDto.getPt_amount())
+                .apply_num(buyerPTDto.getApply_num())
+                .member(member.get())
+                .trainerInfo(trainer.get())
+                .build();
+        buyerPTRepository.save(buyerPt);
+    }
+
 }

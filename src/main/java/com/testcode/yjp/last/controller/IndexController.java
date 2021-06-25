@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
 
 
+    @GetMapping("/payTest")
+    public String payTest() {
+        return "payTest";
+    }
+
     @GetMapping("/")
     public String index(){
         return "index";

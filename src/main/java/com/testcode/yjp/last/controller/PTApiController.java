@@ -3,10 +3,7 @@ package com.testcode.yjp.last.controller;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.PTUser;
 import com.testcode.yjp.last.domain.TrainerInfo;
-import com.testcode.yjp.last.domain.dto.PTMemberInfoDto;
-import com.testcode.yjp.last.domain.dto.PTUserApplyConDto;
-import com.testcode.yjp.last.domain.dto.PTUserApplyMemberDto;
-import com.testcode.yjp.last.domain.dto.TrainerInfoDto;
+import com.testcode.yjp.last.domain.dto.*;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.PTUserRepository;
 import com.testcode.yjp.last.repository.TrainerRepository;
@@ -110,5 +107,13 @@ public class PTApiController {
         System.out.println(trainerLists);
 
         return trainerLists;
+    }
+
+    @PostMapping("payment/{member_id}/{trainer_id}")
+    public BuyerPTDto payResult(@PathVariable Long member_id,@PathVariable Long trainer_id, @RequestBody BuyerPTDto buyerPTDto) {
+
+        log.info("결제 PK 아이디는 = " + member_id);
+        ptUserService.payment(member_id,trainer_id,buyerPTDto);
+        return buyerPTDto;
     }
 }

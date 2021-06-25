@@ -10,6 +10,13 @@
     <link rel="stylesheet" th:href="@{~/css/trainerApply.css}">
     <!--    <script th:src="@{/js/trainer.js}"></script>-->
     <script th:src="@{~/js/trainer/trainerApply.js}"></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+    <style>
+        .final_group{
+            text-align: left;
+        }
+    </style>
 </head>
 <div layout:fragment="content">
     <div class="container">
@@ -187,7 +194,7 @@
                             <div class="item">
                                 <input
                                         type="checkbox"
-                                        name="pt_purpose"
+                                        pt_purpose
                                         value="바디 프로필"
                                         id="6"
                                 /><label for="6">바디 프로필</label>
@@ -213,16 +220,18 @@
                         </div>
                         <!-- PT횟수 추가하는 부분                        -->
                         <div class="contents">
-                            <h2>트레이너 PT 가격 및 횟수</h2>
-                            <h3>김도현 트레이너</h3>
-                            <input type="text" id="final_data" th:value="${trainer.trainer_pt_total}" readonly/>
-                            <input type="hidden" id="count" name="count">
-                            <input type="hidden" id="price" name="price">
-                            <select name="selectPrice" id="selectPrice">
-                                <option id="a1"></option>
-                                <option id="a2"></option>
-                                <option id="a3"></option>
-                            </select>
+                            <div class="item">
+                                <h2>트레이너 PT 가격 및 횟수</h2>
+                                <h3>김도현 트레이너</h3>
+                                <input type="text" id="final_data" th:value="${trainer.trainer_pt_total}" readonly/>
+                                <input type="hidden" id="count" name="count">
+                                <input type="hidden" id="final_price" name="final_price">
+                                <select name="selectPrice" id="selectPrice">
+                                    <option id="a1"></option>
+                                    <option id="a2"></option>
+                                    <option id="a3"></option>
+                                </select>
+                            </div>
                         </div>
                         <!-- PT횟수 추가끝나는 부분                        -->
 
@@ -332,6 +341,116 @@
                                 저녁(9시 이후)
                             </div>
                         </div>
+                        <div class="final_group">
+                            <div class="contents">
+                                <div class="item">
+                                    <h2>PT 신청 정보</h2>
+                                </div>
+                                <div class="item">
+                                    이름 : <input type="text" th:value="${member.user_name}" readonly><br>
+                                </div>
+                                <div class="item">
+                                    전화번호 : <input type="text" th:value="${member.user_pn}" readonly><br>
+                                </div>
+                                <div class="item">
+                                    나이 : <input type="text" id="final_age" th:value="${member.user_rrn}" readonly><br>
+                                </div>
+                                <div class="item">
+                                    성별 :
+                                    <input
+                                            type="hidden"
+                                            th:value="${member.user_gender}"
+                                            id="final_gender"
+                                            name="final_gender"
+                                    />
+                                    <input
+                                            type="radio"
+                                            id="final_gender1"
+                                            name="final_gender1"
+                                            value="남"
+                                    />남
+                                    <input
+                                            type="radio"
+                                            id="final_gender2"
+                                            name="final_gender2"
+                                            value="여"
+                                    />여
+                                </div>
+                                <div class="item">
+                                    키 :
+                                    <input
+                                            type="text"
+                                            id="final_height"
+                                            name="final_height"
+                                            maxlength="3"
+                                            readonly
+                                    />cm
+                                </div>
+                                <div class="item">
+                                    몸무게 :
+                                    <input
+                                            type="text"
+                                            id="final_weight"
+                                            name="final_weight"
+                                            maxlength="3"
+                                            readonly
+                                    />kg
+                                </div>
+                                <div class="item">
+                                    PT 목적 :
+                                    <textarea
+                                            style="border: none"
+                                            cols="30"
+                                            rows="3"
+                                            id="final_pt_purpose"
+                                            name="final_pt_purpose"
+                                            readonly
+                                    ></textarea>
+                                </div>
+                                <div class="item">
+                                    PT 가격 및 횟수 :
+                                    <input
+                                            type="text"
+                                            id="final_info"
+                                            name="final_info"
+                                            maxlength="6"
+                                            readonly
+                                    />
+                                </div>
+                                <div class="item">
+                                    PT 시작날짜 :
+                                    <input
+                                            type="text"
+                                            id="final_count"
+                                            name="final_count"
+                                            maxlength="6"
+                                            readonly
+                                    />
+                                </div>
+                                <div class="item">
+                                    PT 가능한 요일 :
+                                    <textarea
+                                            style="border: none"
+                                            cols="30"
+                                            rows="3"
+                                            id="final_positiveDate"
+                                            name="final_positiveDate"
+                                            readonly
+                                    ></textarea>
+                                </div>
+                                <div class="item">
+                                    희망하는 PT 시간대 :
+                                    <textarea
+                                            style="border: none"
+                                            cols="30"
+                                            rows="3"
+                                            id="final_wantTime"
+                                            name="final_wantTime"
+                                            readonly
+                                    ></textarea>
+                                </div>
+                            </div>
+                        </div>
                         <!-- 6  끝 -->
                         <div class="button-wrapper">
                             <button type="button" class="btn pre step-btn prev">이전</button>
@@ -347,49 +466,9 @@
                 <!--                    이전-->
                 <!--                </button>-->
                 <!--            </div>-->
+
             </div>
         </div>
     </div>
-
-    <script>
-        $(document).ready(function () {
-            var sub = $('#final_data').val();
-            var count = sub.substring(0, 2);
-            var price = sub.substring(6, 15);
-            var a = parseInt(price);
-            var b = parseInt(count);
-            console.log(sub);
-            console.log("가격" + a);
-            console.log("수는=" + b);
-            $('#a1').text(count + "회 / " + price);
-            $('#a2').text(count * 2 + "회 / " + price * 2);
-            $('#a3').text(count * 3 + "회 / " + price * 3);
-
-            changePt();
-
-
-            function changePt() {
-                var sub = $('#final_data').val();
-                var count = sub.substring(0, 2);
-                var price = sub.substring(6, 15);
-
-                var a = parseInt(price);
-                var b = parseInt(count);
-                console.log(sub);
-                console.log("수는" + count);
-                console.log("가격=" + price);
-
-
-                $('#selectPrice').change(function () {
-                    $('#selectPrice option:selected').each(function () {
-                        var data = $('#selectPrice').val();
-                        $('#final_data').val($(this).text());
-                    })
-                });
-
-            }
-        });
-    </script>
-
 </div>
 </html>

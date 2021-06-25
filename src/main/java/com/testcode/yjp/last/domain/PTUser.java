@@ -24,6 +24,9 @@ public class PTUser extends BaseEntity{
     // 몸무게
     private String member_weight;
 
+    // pt 받는 횟수
+    private String pt_times;
+
     // pt 목적
     private String pt_purpose;
 
@@ -33,7 +36,7 @@ public class PTUser extends BaseEntity{
     // 원하는 pt 시간대
     private String pt_wantTime;
 
-    // 횟수
+    // PT 시작 날짜
     private String pt_count;
     
     // member_id 기본정보에 + pt 추가 정보기입
