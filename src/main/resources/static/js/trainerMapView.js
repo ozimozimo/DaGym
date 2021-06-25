@@ -1,20 +1,72 @@
-$(function () {
-});
-
 var AllMemberArr = [];
 
-function onLoad() {
+var userNormalAddr = $('#userNormalAddr').val();
+var userDetailAddr = $('#userDetailAddr').val();
+var userAddr = userNormalAddr.substring(5, userNormalAddr.length) + " " + userDetailAddr;
 
+let mapContainer = document.getElementById("map"), // 지도를 표시할 div
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 5, // 지도의 확대 레벨
+    };
+// 지도를 생성합니다
+let map = new kakao.maps.Map(mapContainer, mapOption);
+
+// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+var zoomControl = new kakao.maps.ZoomControl();
+map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+// 주소-좌표 변환 객체를 생성합니다
+let geocoder = new kakao.maps.services.Geocoder();
+
+let centerX;
+let centerY;
+var markers = [];
+var infowindows = [];
+var nowMarkers;
+
+userToLocation();
+onLoad();
+
+//유저 주소를 좌표로 변환 후 마커 생성
+function userToLocation(){
+// 유저 주소 좌표 변환후
+    geocoder.addressSearch(userAddr, function (result, status) {
+        // 정상적으로 검색이 완료됐으면
+        if (status === kakao.maps.services.Status.OK) {
+            let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+            centerX = coords.Ma;
+            centerY = coords.La;
+
+            // 유저 집
+            var marker =  new kakao.maps.Marker({
+                map: map,
+                position: coords,
+            });
+
+            // // console.log(centerX, centerY);
+            nowMarkers = new kakao.maps.Marker({
+                map: map,
+                position: coords,
+            });
+
+            map.setCenter(coords);
+            drawMarker(centerX, centerY);
+        }
+    });
+}
+
+function onLoad() {
     $.ajax({
         url: "/ptUser/map/trainers",
         method: "get",
         contentType: 'application/json; charset=utf-8',
     }).done(function (data) {
-        console.log(data);
+        // console.log(data);
         data.forEach(function (item, index) {
             var addr = item.member.address_normal;
             addr = addr.substring(5, addr.length);
-            console.log(addr);
             AllMemberArr.push({
                 id: item.member.id,
                 trainer_id: item.member.user_id,
@@ -28,13 +80,9 @@ function onLoad() {
             });
         })
         // 프로필이미지  이름 휴대폰 번호 헬스장 이름	카카오톡 아이디	인스타그램 아이디	신청	상세보기
-
-
     }).fail(function (error) {
         console.log(error);
     });
-
-    console.log(AllMemberArr);
 
     // function showList() {
     //
@@ -57,50 +105,7 @@ function onLoad() {
     // }
 }
 
-let mapContainer = document.getElementById("map"), // 지도를 표시할 div
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 5, // 지도의 확대 레벨
-    };
-// 지도를 생성합니다
-let map = new kakao.maps.Map(mapContainer, mapOption);
-
-// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
-var zoomControl = new kakao.maps.ZoomControl();
-map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-
-// 주소-좌표 변환 객체를 생성합니다
-let geocoder = new kakao.maps.services.Geocoder();
-
-let centerX;
-let centerY;
-let userAddr = "대구광역시 수성구 범어로 18길 22";
-var markers = [];
-var infowindows = [];
-var nowMarkers;
-
-// 유저 주소 좌표 변환후
-geocoder.addressSearch(userAddr, function (result, status) {
-    // 정상적으로 검색이 완료됐으면
-    if (status === kakao.maps.services.Status.OK) {
-        let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-        // console.log("중심좌표 : " + coords);
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        centerX = coords.Ma;
-        centerY = coords.La;
-        // console.log(centerX, centerY);
-        nowMarkers = new kakao.maps.Marker({
-            map: map,
-            position: coords,
-        });
-
-        map.setCenter(coords);
-        drawMarker(centerX, centerY);
-    }
-});
-
 function drawMarker(x, y) {
-    onLoad();
     AllMemberArr.forEach(function (item, index) {
         // 주소로 좌표를 검색합니다
         geocoder.addressSearch(
@@ -112,7 +117,7 @@ function drawMarker(x, y) {
                     // console.log("gg", coords.Ma, coords.La);
                     let length = calDistence(x, y, coords.Ma, coords.La);
                     // km
-                    let km = 20000;
+                    let km = 20;
 
 
                     if (length < km) {
@@ -147,8 +152,8 @@ function drawMarker(x, y) {
                         );
 
                         var content = "";
-                        console.log('1');
-                        content += `<tr><input type="hidden" class="trainer_id" value="${item.trainer_id}">`
+
+                        content += `<tr>`
                         content += `<td><img className="trainer_image" width="200px" height="200px" src="@{/display(fileName=${item.imgName})}"></td>`
                         content += `<td>${item.trainer_id}</td>`
                         content += `<td>${item.trainer_name}</td>`
@@ -156,7 +161,7 @@ function drawMarker(x, y) {
                         content += `<td>${item.trainer_gymName}</td>`
                         content += `<td>${item.trainer_kakao}</td>`
                         content += `<td>${item.trainer_instagram}</td>`
-                        content += `<td> <div><button type="button" onClick="check()">PT신청</button></div></td>`
+                        content += `<td><input type="hidden" class="id" value="${item.id}"><button type="button" onclick="check()">PT신청</button></td>`
                         content += `<td><button type="button" onClick="detailView()">상세보기</button></td></tr>`
                         $('.tbody').append(content);
 
@@ -184,18 +189,12 @@ function makeOutListener(infowindow) {
     };
 }
 
-// kakao.maps.event.addListener(map, "dragend", function () {
-//   // 지도 중심좌표를 얻어옵니다
-//   var latlng = map.getCenter();
-//   drawMarker(latlng.getLng(), latlng.getLat());
-// });
-
 kakao.maps.event.addListener(map, "dragend", function () {
     nowMarkers.setMap(null);
     removeMarkers();
     removeInfowindows();
     $('.tbody').empty();
-    AllMemberArr = [];
+
     markers = [];
     infowindows = [];
 
@@ -207,14 +206,12 @@ kakao.maps.event.addListener(map, "dragend", function () {
         map: map,
         position: latlng,
     });
-
-
     // nowMarkers.setMap(map);
-
     centerX = latlng.getLat();
     centerY = latlng.getLng();
     drawMarker(centerX, centerY);
 });
+
 
 // var imageSrc =
 //     "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png", // 마커이미지의 주소입니다
@@ -263,3 +260,33 @@ function removeInfowindows() {
         infowindows[i].close();
     }
 }
+
+function check() {
+    var member_id = $('input[name=member_id]').val();
+    var trainer_id = pre.val();
+    console.log("member 값은"+member_id);
+    console.log("trainer 값은" + trainer_id);
+    console.log(trainer_id);
+    $.ajax({
+        type: 'get',
+        url: '/ptUser/apply/check?',
+        data: 'member_id='+member_id,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+    }).done(function (data) {
+        console.log(data);
+        if (data.accept_condition == 0) {
+            alert('PT 수락 대기 중입니다.');
+            window.location.href = '/ptUser/view';
+        } else if (data.accept_condition == 1) {
+            alert('PT가 진행 중입니다.');
+            window.location.href = '/ptUser/view';
+        } else if(data.accept_condition == null || data.accept_condition == 2){
+            console.log(data);
+        }
+    }).fail(function () {
+        alert('PT신청 페이지로 이동하겠습니다');
+        window.location.href = '/ptUser/apply?member_id='+member_id+"&trainer_id="+trainer_id;
+    })
+}
+
