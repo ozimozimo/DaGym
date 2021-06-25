@@ -22,8 +22,9 @@
         .hidden {
             display: none;
         }
-        #trainer_content{
-          display: none;
+
+        #trainer_content {
+            display: none;
         }
 
     </style>
@@ -62,6 +63,37 @@
 
         </div>
 
+        <div>
+            PT 실제 가격(10회 기준) : <input type="text" name="pt_price" id="pt_price"/>
+
+            <br/>
+            <label for="discount_price">할인 가격(%)</label>
+            <select name="discount_price" id="discount_price">
+                <option value="0">0</option>
+                <option value="5">5%</option>
+                <option value="10">10%</option>
+                <option value="15">15%</option>
+                <option value="20">20%</option>
+            </select>
+
+            <br/>
+            <label for="discount_pt_count">횟수추가(회)</label>
+            <select name="discount_pt_count" id="discount_pt_count">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <button type="button" id="discount">할인적용</button>
+
+            <br/>
+
+            최종 PT 가격 및 횟수 : <input type="text" id="final_price" name="final_price" value=""/>
+            <br/>
+            <input type="hidden" id="trainer_pt_total" name="trainer_pt_total">
+        </div>
         <!-- 주소 -->
         <ul>
             <li class="th">
@@ -129,6 +161,48 @@
         <button type="button" class="joinBtn">가입하기</button>
     </form>
 
+    <script>
+        $(document).ready(function () {
 
+            let count = 10;
+
+            let pt_price = $('#pt_price').val();
+            let pt_discount = $('#discount_price').val();
+            let pt_count = $('#discount_pt_count').val();
+            let final_price = $('#final_price').val();
+
+            pt_price = parseInt(pt_price);
+            pt_discount = parseInt(pt_discount);
+            pt_count = parseInt(pt_count);
+            final_price = parseInt(final_price);
+
+            $("#discount").click(function () {
+                let pt_price = $('#pt_price').val();
+                let pt_discount = $('#discount_price').val();
+                let pt_count = $('#discount_pt_count').val();
+
+
+                // 형변환
+                pt_price = parseInt(pt_price);
+                pt_discount = parseInt(pt_discount);
+                pt_count = parseInt(pt_count);
+
+                // 할인금액
+                let dis = pt_price - pt_discount * 0.01 * pt_price;
+                // 추가 카운트
+                let final_count = pt_count + count;
+
+                // 최종값
+                $('#final_price').val(final_count + "회 / " + dis);
+                var trainer_pt_total = $('#final_price').val();
+
+                $('#trainer_pt_total').val(trainer_pt_total);
+
+            })
+
+
+        });
+
+    </script>
 </div>
 </html>

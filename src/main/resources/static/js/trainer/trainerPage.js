@@ -31,6 +31,7 @@ function trainerUpdate() {
         uuid: $('#uuid').val(),
         imgName: $('#imgName').val(),
         fileName: $('#fileName').val(),
+        trainer_pt_total :$('#trainer_pt_total').val(),
         trainer_address_normal,
         trainer_address_detail: $('#trainer_address_detail').val(),
         trainer_instagram: $('#trainer_instagram').val(),
@@ -56,6 +57,12 @@ function trainerUpdate() {
         }
     })
 
+}
+
+function priceCode() {
+    let fp = $('#final_price').val();
+    let count = fp.substring(0, 1);
+    let price = fp.substring()
 }
 
 function findTimeCode() {

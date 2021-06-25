@@ -2,6 +2,8 @@ function check() {
     var member_id = $('input[name=member_id]').val();
     var trainer_id = $('#trainer_id').val();
     console.log("member 값은"+member_id);
+
+
     console.log("trainer 값은" + trainer_id);
 
     $.ajax({
@@ -117,6 +119,8 @@ function updateAccept(a) {
     let id = $('#member_id').val();
 
     let pt_user_id = $('#pt_user_id').val();
+
+
     console.log("pt_user_id="+pt_user_id)
 
     console.log("매개변수 a는" + a);

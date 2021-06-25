@@ -179,6 +179,7 @@ function trainerJoin() {
         imgName: $('#imgName').val(),
         fileName: $('#fileName').val(),
         trainer_gymName: $('#trainer_gymName').val(),
+        trainer_pt_total: $('#trainer_pt_total').val(),
         trainer_address_normal,
         trainer_address_detail: $('#trainer_address_detail').val(),
         trainer_instagram: $('#trainer_instagram').val(),
@@ -198,6 +199,7 @@ function trainerJoin() {
     console.log(data.trainer_instagram + "통과");
     console.log(data.trainer_kakao + "통과");
     console.log(data.trainer_content + "통과");
+    console.log(data.trainer_pt_total + "pt금액은?");
     addr_concat();
     $.ajax({
         url: '/trainer/trInfo/' + id,

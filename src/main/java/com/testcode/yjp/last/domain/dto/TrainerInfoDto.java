@@ -50,6 +50,9 @@ public class TrainerInfoDto {
     // 트레이너 상세정보
     private String trainer_content;
 
+    // 트레이너 PT 횟수/가격
+    private String trainer_pt_total;
+
     private Member member;
 
 
@@ -66,6 +69,7 @@ public class TrainerInfoDto {
         this.trainer_instagram = entity.getTrainer_instagram();
         this.trainer_kakao = entity.getTrainer_kakao();
         this.trainer_content = entity.getTrainer_content();
+        this.trainer_pt_total = entity.getTrainer_pt_total();
         this.member = entity.getMember();
     }
 

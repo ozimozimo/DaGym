@@ -194,12 +194,12 @@
                             </div>
                             <div class="item">
                                 <div>
-                                <input
-                                        type="checkbox"
-                                        name="pt_purpose"
-                                        value="기타"
-                                        id="pt_puerpose_etc_btn"
-                                />
+                                    <input
+                                            type="checkbox"
+                                            name="pt_purpose"
+                                            value="기타"
+                                            id="pt_puerpose_etc_btn"
+                                    />
                                     <label for="pt_puerpose_etc_btn">기타</label>
                                 </div>
 
@@ -211,6 +211,21 @@
                                 />
                             </div>
                         </div>
+                        <!-- PT횟수 추가하는 부분                        -->
+                        <div class="contents">
+                            <h2>트레이너 PT 가격 및 횟수</h2>
+                            <h3>김도현 트레이너</h3>
+                            <input type="text" id="final_data" th:value="${trainer.trainer_pt_total}" readonly/>
+                            <input type="hidden" id="count" name="count">
+                            <input type="hidden" id="price" name="price">
+                            <select name="selectPrice" id="selectPrice">
+                                <option id="a1"></option>
+                                <option id="a2"></option>
+                                <option id="a3"></option>
+                            </select>
+                        </div>
+                        <!-- PT횟수 추가끝나는 부분                        -->
+
                         <!-- 3  끝 -->
                         <div class="contents">
                             <div class="question">
@@ -218,7 +233,7 @@
                             </div>
                             <div class="item">
                                 <input type="date" id="pt_count" name="pt_count"/>
-<!--                                <--PT 카운트-->
+                                <!--                                <--PT 카운트-->
                             </div>
                         </div>
                         <!-- 4  끝 -->
@@ -335,5 +350,46 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            var sub = $('#final_data').val();
+            var count = sub.substring(0, 2);
+            var price = sub.substring(6, 15);
+            var a = parseInt(price);
+            var b = parseInt(count);
+            console.log(sub);
+            console.log("가격" + a);
+            console.log("수는=" + b);
+            $('#a1').text(count + "회 / " + price);
+            $('#a2').text(count * 2 + "회 / " + price * 2);
+            $('#a3').text(count * 3 + "회 / " + price * 3);
+
+            changePt();
+
+
+            function changePt() {
+                var sub = $('#final_data').val();
+                var count = sub.substring(0, 2);
+                var price = sub.substring(6, 15);
+
+                var a = parseInt(price);
+                var b = parseInt(count);
+                console.log(sub);
+                console.log("수는" + count);
+                console.log("가격=" + price);
+
+
+                $('#selectPrice').change(function () {
+                    $('#selectPrice option:selected').each(function () {
+                        var data = $('#selectPrice').val();
+                        $('#final_data').val($(this).text());
+                    })
+                });
+
+            }
+        });
+    </script>
+
 </div>
 </html>
