@@ -64,7 +64,6 @@ public class SocketHandler extends TextWebSocketHandler {
         }
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         //소켓 연결

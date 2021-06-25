@@ -2,7 +2,7 @@ function save() {
     if($('#title').val().length==0){
         alert('제목을 입력하세요');
         return false;
-    } else if($('#boa rd_content').val().length==0){
+    } else if($('#board_content').val().length==0){
         alert('내용을 입력하세요');
         return false;
     }

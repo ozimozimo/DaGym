@@ -90,6 +90,8 @@ public class GoogleController {
             session.setAttribute("loginRole", ckUserId.getUser_role());
             session.setAttribute("loginId", ckUserId.getUser_id());
             session.setAttribute("social","social");
+            session.setAttribute("userNormal", ckUserId.getAddress_normal());
+            session.setAttribute("userDetail", ckUserId.getAddress_detail());
 
             log.info("sendRedirect succ");
 //            return "redirect:/"; // redirect: 는 restMapping 안의 경로에서 시작, redirect:/는 도메인 절대경로

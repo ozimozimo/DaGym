@@ -98,6 +98,9 @@ public class MemberController {
             session.setAttribute("loginName", member.getUser_name());
             session.setAttribute("loginId", member.getUser_id());
             session.setAttribute("loginRole", member.getUser_role());
+            session.setAttribute("userNormal", member.getAddress_normal());
+            session.setAttribute("userDetail", member.getAddress_detail());
+
 
         } catch (NullPointerException n) {
             System.out.println(n);
@@ -117,6 +120,8 @@ public class MemberController {
         session.removeAttribute("loginRole");
         session.removeAttribute("social");
         session.removeAttribute("PTState");
+        session.removeAttribute("userNormal");
+        session.removeAttribute("userDetail");
 
         session.invalidate();
         return "redirect:/";
