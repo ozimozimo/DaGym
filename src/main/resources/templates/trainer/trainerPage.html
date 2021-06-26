@@ -7,28 +7,27 @@
 >
 <head>
     <title>Main</title>
-    <!--    <link rel="stylesheet" th:href="@{/css/index.css}"/>-->
+<!--    <link rel="stylesheet" th:href="@{/css/index.css}"/>-->
 
-    <style>
-        img {
-            border: 0;
-            vertical-align: middle;
-        }
+<!--    <style>-->
+<!--        img {-->
+<!--            border: 0;-->
+<!--            vertical-align: middle;-->
+<!--        }-->
 
-        .trainer_image {
-            width: 200px;
-            height: 200px;
-        }
+<!--        .trainer_image {-->
+<!--            width: 200px;-->
+<!--            height: 200px;-->
+<!--        }-->
 
-        .hidden {
-            display: none;
-        }
+<!--        .hidden {-->
+<!--            display: none;-->
+<!--        }-->
+<!--        #trainer_content{-->
+<!--            display: none;-->
+<!--        }-->
 
-        #trainer_content {
-            display: none;
-        }
-
-    </style>
+<!--    </style>-->
     <script th:src="@{http://dmaps.daum.net/map_js_init/postcode.v2.js}"></script>
     <script th:src="@{/js/trainer/trainerPage.js?ver=1.0}"></script>
 
@@ -45,9 +44,12 @@
         <div class="updateResult2">
         </div>
 
-        <input name="uploadFiles" type="file" id="chooseFile" multiple style="display:none;">
-        <button type="button"><label for="chooseFile">파일선택</label></button>
-        <label for="chooseFile" id="fileNameLabel"></label>
+<!--        <input name="uploadFiles" type="file" id="chooseFile" multiple style="display:none;">-->
+<!--        <button for="chooseFile"><label for="chooseFile">파일선택</label></button>-->
+<!--        <label for="chooseFile" id="fileNameLabel"></label>-->
+<!--        <button type="button" id="updateLoadBtn">업로드</button>-->
+
+        <input name="uploadFiles" type="file" multiple>
         <button type="button" id="updateLoadBtn">업로드</button>
 
         <div>
@@ -168,10 +170,10 @@
 
         <div>
             <label for="trainer_content">트레이너 경력사항</label><br/>
-            <!--            <div style="display: none">-->
+<!--            <div style="display: none">-->
             <textarea style="resize: none" name="trainer_content" th:text="${trainerInfo.trainer_content}"
                       id="trainer_content" cols="25" rows="15"></textarea>
-            <!--            </div>-->
+<!--            </div>-->
             <div class="showContent">
 
             </div>
