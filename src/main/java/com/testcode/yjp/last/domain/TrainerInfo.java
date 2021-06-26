@@ -17,7 +17,6 @@ public class TrainerInfo {
     @Column(name = "trainer_id")
     private Long id;
 
-
     // 트레이너 이미지 변환
     private String uuid;
 

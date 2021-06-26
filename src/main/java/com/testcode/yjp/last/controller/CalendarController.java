@@ -23,6 +23,16 @@ public class CalendarController {
         return "calendar/calendar";
     }
 
+    @GetMapping("/trMemo")
+    public String trMemo(Long member_id, Long trainer_id, Model model) {
+        log.info("member_id =" + member_id);
+        log.info("trainer_id= " + trainer_id);
+        model.addAttribute("member_id", member_id);
+        model.addAttribute("trainer_id", trainer_id);
+
+        return "calendar/ptCalendar";
+    }
+
     @GetMapping("/memoPop")
     public String memoPop() {
 

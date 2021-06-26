@@ -59,12 +59,13 @@
                 <td><a class="btn btn-primary" href="#">채팅</a></td>
                 <td><a class="btn btn-primary" th:href="@{~/ptUser/view/detail/{id}(id=${acceptLists.id})}">상세보기</a>
                 </td>
-                <td><a class="btn btn-primary" href="#">PT일정</a></td>
+                <td><a class="btn btn-primary" th:href="@{~/calendar/trMemo(member_id=${acceptLists.member.id},
+                                                            trainer_id=${session.loginUser})}">PT일정</a></td>
             </tr>
             </tbody>
         </table>
     </div>
-
+<!--    /ptUser/apply?member_id='+member_id+"&trainer_id="+trainer_id;-->
 </div>
 </body>
 </html>
