@@ -104,19 +104,20 @@
             <br/>
 
             최종 PT 가격 및 횟수 : <input type="text" id="final_price" name="final_price"
-                                   th:value="${trainerInfo.trainer_pt_total}"/>
+                                   th:value="${trainerInfo.trainer_pt_total}" readonly/>
             <br/>
             <input type="hidden" id="trainer_pt_total" name="trainer_pt_total">
         </div>
         <!-- 주소 -->
         <ul>
-            <li class="th">
-                <p>헬스장 주소</p>
-            </li>
+
             <li>
                 <label for="trainer_gymName">헬스장 이름</label>
                 <input type="text" th:value="${trainerInfo.trainer_gymName}" id="trainer_gymName"
                        name="trainer_gymName">
+            </li>
+            <li class="th">
+                <p>헬스장 주소</p>
             </li>
             <li class="td">
                 <input
@@ -171,7 +172,7 @@
         <div>
             <label for="trainer_content">트레이너 경력사항</label><br/>
 <!--            <div style="display: none">-->
-            <textarea style="resize: none" name="trainer_content" th:text="${trainerInfo.trainer_content}"
+            <textarea style="resize: none; display: none" name="trainer_content" th:text="${trainerInfo.trainer_content}"
                       id="trainer_content" cols="25" rows="15"></textarea>
 <!--            </div>-->
             <div class="showContent">

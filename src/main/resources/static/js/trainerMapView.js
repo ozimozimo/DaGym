@@ -6,14 +6,14 @@ var userAddr = userNormalAddr.substring(5, userNormalAddr.length) + " " + userDe
 
 let mapContainer = document.getElementById("map"), // 지도를 표시할 div
     mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(35.896674400210856, 128.62065154054142), // 지도의 중심좌표
         level: 5, // 지도의 확대 레벨
     };
 // 지도를 생성합니다
 let map = new kakao.maps.Map(mapContainer, mapOption);
 
 // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
-var zoomControl = new kakao.maps.ZoomControl();
+let zoomControl = new kakao.maps.ZoomControl();
 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
 // 주소-좌표 변환 객체를 생성합니다
@@ -21,41 +21,41 @@ let geocoder = new kakao.maps.services.Geocoder();
 
 let centerX;
 let centerY;
-var markers = [];
-var infowindows = [];
-var nowMarkers;
+let markers = [];
+let infowindows = [];
+let nowMarkers;
 
-userToLocation();
+
 onLoad();
 
 //유저 주소를 좌표로 변환 후 마커 생성
-function userToLocation(){
+
 // 유저 주소 좌표 변환후
-    geocoder.addressSearch(userAddr, function (result, status) {
-        // 정상적으로 검색이 완료됐으면
-        if (status === kakao.maps.services.Status.OK) {
-            let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+geocoder.addressSearch(userAddr, function (result, status) {
+    // 정상적으로 검색이 완료됐으면
+    if (status === kakao.maps.services.Status.OK) {
+        let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-            centerX = coords.Ma;
-            centerY = coords.La;
+        centerX = coords.Ma;
+        centerY = coords.La;
 
-            // 유저 집
-            var marker =  new kakao.maps.Marker({
-                map: map,
-                position: coords,
-            });
+        // 유저 집
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords,
+        });
 
-            // // console.log(centerX, centerY);
-            nowMarkers = new kakao.maps.Marker({
-                map: map,
-                position: coords,
-            });
+        // // console.log(centerX, centerY);
+        nowMarkers = new kakao.maps.Marker({
+            map: map,
+            position: coords,
+        });
 
-            map.setCenter(coords);
-            drawMarker(centerX, centerY);
-        }
-    });
-}
+        map.setCenter(coords);
+        drawMarker(centerX, centerY);
+    }
+});
+
 
 function onLoad() {
     $.ajax({
@@ -72,7 +72,7 @@ function onLoad() {
                 trainer_id: item.member.user_id,
                 address: addr + " " + item.member.address_detail,
                 trainer_name: item.member.user_name,
-                trainer_pn : item.member.user_pn,
+                trainer_pn: item.member.user_pn,
                 trainer_gymName: item.trainer_gymName,
                 trainer_kakao: item.trainer_kakao,
                 trainer_instagram: item.trainer_instagram,
@@ -261,32 +261,32 @@ function removeInfowindows() {
     }
 }
 
-function check() {
-    var member_id = $('input[name=member_id]').val();
-    var trainer_id = pre.val();
-    console.log("member 값은"+member_id);
-    console.log("trainer 값은" + trainer_id);
-    console.log(trainer_id);
-    $.ajax({
-        type: 'get',
-        url: '/ptUser/apply/check?',
-        data: 'member_id='+member_id,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-    }).done(function (data) {
-        console.log(data);
-        if (data.accept_condition == 0) {
-            alert('PT 수락 대기 중입니다.');
-            window.location.href = '/ptUser/view';
-        } else if (data.accept_condition == 1) {
-            alert('PT가 진행 중입니다.');
-            window.location.href = '/ptUser/view';
-        } else if(data.accept_condition == null || data.accept_condition == 2){
-            console.log(data);
-        }
-    }).fail(function () {
-        alert('PT신청 페이지로 이동하겠습니다');
-        window.location.href = '/ptUser/apply?member_id='+member_id+"&trainer_id="+trainer_id;
-    })
-}
+// function check() {
+//     var member_id = $('input[name=member_id]').val();
+//     var trainer_id = pre.val();
+//     console.log("member 값은"+member_id);
+//     console.log("trainer 값은" + trainer_id);
+//     console.log(trainer_id);
+//     $.ajax({
+//         type: 'get',
+//         url: '/ptUser/apply/check?',
+//         data: 'member_id='+member_id,
+//         dataType: 'json',
+//         contentType: 'application/json; charset=utf-8',
+//     }).done(function (data) {
+//         console.log(data);
+//         if (data.accept_condition == 0) {
+//             alert('PT 수락 대기 중입니다.');
+//             window.location.href = '/ptUser/view';
+//         } else if (data.accept_condition == 1) {
+//             alert('PT가 진행 중입니다.');
+//             window.location.href = '/ptUser/view';
+//         } else if(data.accept_condition == null || data.accept_condition == 2){
+//             console.log(data);
+//         }
+//     }).fail(function () {
+//         alert('PT신청 페이지로 이동하겠습니다');
+//         window.location.href = '/ptUser/apply?member_id='+member_id+"&trainer_id="+trainer_id;
+//     })
+// }
 
