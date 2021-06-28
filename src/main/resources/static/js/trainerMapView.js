@@ -46,6 +46,24 @@ function userToLocation() {
             // });
 
             // // console.log(centerX, centerY);
+            var imageSrc =
+                    "../../image/home.png", // 마커이미지의 주소입니다
+                imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+                imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+            // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+            var markerImage = new kakao.maps.MarkerImage(
+                imageSrc,
+                imageSize,
+                imageOption
+                ),
+                markerPosition = new kakao.maps.LatLng(centerX, centerY); // 마커가 표시될 위치입니다
+
+            var marker = new kakao.maps.Marker({
+                position: markerPosition,
+                image: markerImage // 마커이미지 설정
+            });
+            marker.setMap(map);
+
             nowMarkers = new kakao.maps.Marker({
                 map: map,
                 position: coords,
@@ -117,7 +135,7 @@ function drawMarker(x, y) {
                     // console.log("gg", coords.Ma, coords.La);
                     let length = calDistence(x, y, coords.Ma, coords.La);
                     // km
-                    let km = 20;
+                    let km = 2000;
 
 
                     if (length < km) {
@@ -198,6 +216,7 @@ function makeOutListener(infowindow) {
 }
 
 kakao.maps.event.addListener(map, "dragend", function () {
+
     nowMarkers.setMap(null);
     removeMarkers();
     removeInfowindows();
@@ -220,18 +239,6 @@ kakao.maps.event.addListener(map, "dragend", function () {
     drawMarker(centerX, centerY);
 });
 
-
-// var imageSrc =
-//     "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png", // 마커이미지의 주소입니다
-//   imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
-//   imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-// // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-// var markerImage = new kakao.maps.MarkerImage(
-//     imageSrc,
-//     imageSize,
-//     imageOption
-//   ),
-//   markerPosition = new kakao.maps.LatLng(37.54699, 127.09598); // 마커가 표시될 위치입니다
 
 // function clickMarker() {
 // // 마커에 클릭이벤트를 등록합니다
