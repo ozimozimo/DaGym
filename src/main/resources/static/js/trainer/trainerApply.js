@@ -100,7 +100,7 @@ function gender() {
 }
 
 //페이지 추가 될때마다 false 값 뒤에 추가 하면됨
-let page = [true, false, false, false, false, false, false];
+let page = [true, false, false, false, false, false, false, false];
 // 퍼센트 시작점
 let percentValue = 0;
 // 퍼센트 올라가는 비율

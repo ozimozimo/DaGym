@@ -4,9 +4,11 @@ import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.PTUser;
 import com.testcode.yjp.last.domain.TrainerInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +71,22 @@ public interface PTUserRepository extends JpaRepository<PTUser, Long> {
 
     @Query("select p from PTUser p where p.member_id.id=:id and p.accept_condition='1' and p.member_id.user_role='user'")
     PTUser loginCheckState(Long id);
+
+    @Transactional
+    @Modifying
+    @Query("update PTUser p set p.pt_times = p.pt_times - 1 where p.member_id.id=:member_id and p.trainer_id.id=:trainer_id")
+    void update(Long member_id, Long trainer_id);
+
+    @Query("select p from PTUser p where p.member_id.id=:member_id and p.trainer_id.id=:trainer_id")
+    PTUser findByInfo(Long member_id, Long trainer_id);
+
+    @Query("select p from PTUser p where p.member_id.id=:member_id")
+    PTUser findMemberAPPly(Long member_id);
+
+    @Transactional
+    @Modifying
+    @Query("delete from PTUser p where p.id=:pt_id and p.pt_times=0")
+    void deletePT(Long pt_id);
 
     // pt신청 endDate와 오늘 날짜 비교해서 endDate지나면 수락상태 3으로 변경
 //    @Query("select m from PTUser m " +

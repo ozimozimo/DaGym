@@ -7,12 +7,9 @@
 <head>
     <title>PT회원 목록</title>
     <link rel="stylesheet" th:href="@{/css/userView.css}"/>
-    <script th:src="@{/js/trainer.js?ver=1.0}"></script>
 </head>
 <body>
 <div layout:fragment="content">
-
-
 
 
     <div th:if="${session.loginRole == 'trainer'}">
@@ -37,7 +34,7 @@
             </thead>
             <tbody>
             <tr th:each="acceptLists: ${acceptList}">
-                <input type="hidden" th:value="${acceptLists.id}" id="id" name="id">
+                <input type="hidden" th:value="${acceptLists.id}" id="pt_id" name="pt_id">
                 <td><span th:text="${acceptLists.member.user_id}"></span></td>
                 <td><span th:text="${acceptLists.member.user_name}"></span></td>
                 <td><span th:text="${acceptLists.member.user_pn}"></span></td>
@@ -59,13 +56,34 @@
                 <td><a class="btn btn-primary" href="#">채팅</a></td>
                 <td><a class="btn btn-primary" th:href="@{~/ptUser/view/detail/{id}(id=${acceptLists.id})}">상세보기</a>
                 </td>
-                <td><a class="btn btn-primary" th:href="@{~/calendar/trMemo(member_id=${acceptLists.member.id},
+                <td><a class="btn btn-primary" th:href="@{~/calendar/memo(member_id=${acceptLists.member.id},
                                                             trainer_id=${session.loginUser})}">PT일정</a></td>
+                <td th:if="${acceptLists.pt_times == 0}">
+                    <button type="button" class="btn btn-primary" onclick="PTFinish()">PT 종료</button>
+                </td>
+
             </tr>
             </tbody>
         </table>
+        <script>
+            function PTFinish() {
+                var pt_id = $('#pt_id').val();
+                console.log(pt_id);
+
+                $.ajax({
+                    type: 'post',
+                    url: '/ptUser/delete/' + pt_id,
+                    contentType: 'application/json; charset=utf-8',
+                }).done(function () {
+                    alert('PT가 종료되었습니다.');
+                    alert('재접속 부탁드립니다.');
+                    location.href = '/member/logout';
+                }).fail(function () {
+                    alert('PT 잔여 횟수가 아직 남았습니다');
+                });
+            }
+        </script>
     </div>
-<!--    /ptUser/apply?member_id='+member_id+"&trainer_id="+trainer_id;-->
 </div>
 </body>
 </html>

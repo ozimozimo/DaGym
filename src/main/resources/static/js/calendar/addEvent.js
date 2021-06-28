@@ -42,6 +42,8 @@ var newEvent = function (start, end, eventType) {
     $('#save-event').unbind();
     $('#save-event').on('click', function () {
 
+        var trainer_id = $('#trainer_id').val();
+        var member_id = $('#member_id').val();
         var eventData = {
             // _id: eventId,
             title: editTitle.val(),
@@ -50,6 +52,8 @@ var newEvent = function (start, end, eventType) {
             description: editDesc.val(),
             type: editType.val(),
             // username: '사나',
+            trainer_id,
+            member_id,
             backgroundColor: editColor.val(),
             textColor: '#ffffff',
             allDay: false
@@ -86,7 +90,7 @@ var newEvent = function (start, end, eventType) {
         //새로운 일정 저장
         $.ajax({
             type: 'post',
-            url: '/calendar/save/' + calendar_user,
+            url: '/calendar/save/' + member_id + '/' + trainer_id,
             data: JSON.stringify(eventData),
             dataType: "json",
             contentType: 'application/json; charset=utf-8',

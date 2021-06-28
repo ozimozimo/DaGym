@@ -336,4 +336,11 @@ public class PTUserService {
         buyerPTRepository.save(buyerPt);
     }
 
+    public PTUser getMemberApply(Long member_id) {
+        Member member = memberRepository.findById(member_id).get();
+        log.info("member_id = " + member);
+        PTUser checkApply = ptUserRepository.findMemberAPPly(member_id);
+
+        return checkApply;
+    }
 }

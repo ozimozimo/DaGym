@@ -343,6 +343,83 @@
                     </tbody>
                 </table>
             </div>
+<<<<<<< Updated upstream
+=======
+        </form>
+
+        <div>
+            <h1>내가 신청한 트레이너</h1>
+            <table class="table table-striped applyList">
+                <thead>
+                <tr>
+                    <th>트레이너 이름</th>
+                    <th>트레이너 연락처</th>
+                    <th>트레이너 카카오</th>
+                    <th>트레이너 인스타</th>
+                    <th>트레이너 헬스장 일반주소</th>
+                    <th>트레이너 헬스장 상세주소</th>
+                    <th>PT 가격</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody class="applyInfoList">
+
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="user_view">
+            <h5>트레이너 검색 결과</h5>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>프로필 이미지</th>
+                    <th>트레이너 아이디</th>
+                    <th>이름</th>
+                    <th>휴대폰 번호</th>
+                    <th>헬스장 이름</th>
+                    <th>카카오톡 아이디</th>
+                    <th>인스타그램 아이디</th>
+                    <th>신청</th>
+                    <th>상세보기</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="trainer : ${result.dtoList}">
+                    <input type="hidden" class="trainerId" id="trainer_id" th:value="${trainer.id}">
+                    <td><img class="trainer_image" width="200px" height="200px"
+                             th:src="@{/display(fileName=${trainer.imgName})}"></td>
+                    <td th:text="${trainer.user_id}">아이디</td>
+                    <td th:text="${trainer.user_name}">이름</td>
+                    <td th:text="${trainer.user_pn}">폰번호</td>
+                    <td th:text="${trainer.trainer_gymName}">헬스장이름</td>
+                    <td th:text="${trainer.trainer_kakao}">카카오톡</td>
+                    <td th:text="${trainer.trainer_instagram}">Instagram</td>
+                    <!--                            <td th:text="${member.address_normal}+'('+${member.address_detail}+')'"></td>-->
+                    <td>
+                        <!--                        a th:href="@{~/ptUser/apply(member_id = ${session.loginUser},-->
+                        <!--                        trainer_id = ${trainer.id})}">PT신청</a>-->
+                        <button type="button"
+                                th:text="PT신청"
+                                class="checkBtn"
+                        ></button>
+                    </td>
+                    <td>
+                        <!--                                <a th:href="@{~/ptUser/detail(id=${trainer.id},-->
+                        <!--                                        page = ${pageRequestDto.page},-->
+                        <!--                                        type=${pageRequestDto.type},-->
+                        <!--                                        keyword=${pageRequestDto.keyword})}"-->
+                        <!--                                th:text="상세보기">상세보기</a>-->
+                        <button type="button" class="detailBtn">상세보기</button>
+                        <input type="hidden" id="pageValue" th:value="${pageRequestDto.page}">
+                        <input type="hidden" id="typeValue" th:value="${pageRequestDto.type}">
+                        <input type="hidden" id="keywordValue" th:value="${pageRequestDto.keyword}">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+>>>>>>> Stashed changes
         </div>
     </div>
 

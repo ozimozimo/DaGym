@@ -107,9 +107,11 @@ var calendar = $('#calendar').fullCalendar({
      * ************** */
     events: function (start, end, timezone, callback) {
         var calendar_user = $('#calendar_user').val();
+        var member_id = $('#member_id').val();
+        var trainer_id = $('#trainer_id').val();
         $.ajax({
             type: "get",
-            url: '/calendar/findAll',
+            url: '/calendar/findPT/' + member_id + '/' + trainer_id,
             data: {
                 id: calendar_user
                 // 화면이 바뀌면 Date 객체인 start, end 가 들어옴
@@ -142,7 +144,7 @@ var calendar = $('#calendar').fullCalendar({
         var newDates = calDateWhenResize(event);
 
         var start = newDates.start;
-        var end  = newDates.end;
+        var end = newDates.end;
         var id = event.id;
         //리사이즈한 일정 업데이트
         $.ajax({
@@ -156,7 +158,7 @@ var calendar = $('#calendar').fullCalendar({
             success: function (response) {
                 alert('수정: ' + newDates.start + ' ~ ' + newDates.end);
             },
-            error:function (jqXHR) {
+            error: function (jqXHR) {
                 alert("에러")
             }
         });
@@ -194,8 +196,8 @@ var calendar = $('#calendar').fullCalendar({
             type: "post",
             url: "/calendar/timeUpdate",
             data: {
-                start : start,
-                end : end,
+                start: start,
+                end: end,
                 id: id
             },
             success: function (response) {

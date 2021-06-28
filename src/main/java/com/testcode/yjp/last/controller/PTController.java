@@ -60,6 +60,7 @@ public class PTController {
 
     }
 
+
     @GetMapping("/view/detail/{id}")
     public String userDetail(@PathVariable Long id, Model model) {
         PTUser ptUser = ptUserRepository.findById(id).get();

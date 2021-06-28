@@ -21,8 +21,8 @@ public class CalendarService {
     private final CalendarRepository calendarRepository;
 
     @Transactional(readOnly = true)
-    public List<CalendarListDto> findAll(Long id) {
-        return calendarRepository.findAll(id).stream()
+    public List<CalendarListDto> findAll(Long member_id, Long trainer_id) {
+        return calendarRepository.findAllDesc(member_id, trainer_id).stream()
                 .map(CalendarListDto::new)
                 .collect(Collectors.toList());
     }

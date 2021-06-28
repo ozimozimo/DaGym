@@ -54,7 +54,9 @@ function check(trainer_id) {
 }
 
 
+
 $(function (){
+
 
     $('.search_btn').on("click",search);
     $('.sclear_btn').on("click",Sclear);

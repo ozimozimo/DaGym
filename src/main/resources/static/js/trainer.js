@@ -1,7 +1,39 @@
+
+
+function memberCheck() {
+    var member_id = $('input[name=member_id]').val();
+    console.log("member 값은" + member_id);
+    $.ajax({
+        type: 'get',
+        url: '/ptUser/apply/memcheck?',
+        data: 'member_id=' + member_id,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+    }).done(function (data) {
+        console.log(data);
+        if (data.accept_condition == 0) {
+            alert('PT 수락 대기 중입니다.');
+            applyInfo(data);
+        } else if (data.accept_condition == 1) {
+            alert(data.trainer_id.member.user_name +' 트레이너와 매칭 되었습니다');
+
+
+            // 로그아웃 보내고 / 나의 트레이너 확인
+            // 매칭중인 상태에선 회원은 다른 트레이너와 PT를 진행할수 없음
+        } else if (data.accept_condition == 2) {
+            alert('PT 신청이 거절 되었습니다');
+        } else {
+
+        }
+    }).fail(function () {
+
+    })
+}
+
 function check() {
     var member_id = $('input[name=member_id]').val();
     var trainer_id = $('#trainer_id').val();
-    console.log("member 값은"+member_id);
+    console.log("member 값은" + member_id);
 
 
     console.log("trainer 값은" + trainer_id);
@@ -9,7 +41,7 @@ function check() {
     $.ajax({
         type: 'get',
         url: '/ptUser/apply/check?',
-        data: 'member_id='+member_id,
+        data: 'member_id=' + member_id,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
     }).done(function (data) {
@@ -20,19 +52,45 @@ function check() {
         } else if (data.accept_condition == 1) {
             alert('PT가 진행 중입니다.');
             window.location.href = '/ptUser/view';
-        } else if(data.accept_condition == null || data.accept_condition == 2){
+        } else if (data.accept_condition == null || data.accept_condition == 2) {
             console.log(data);
         }
     }).fail(function () {
         alert('PT신청 페이지로 이동하겠습니다');
-        window.location.href = '/ptUser/apply?member_id='+member_id+"&trainer_id="+trainer_id;
+        window.location.href = '/ptUser/apply?member_id=' + member_id + "&trainer_id=" + trainer_id;
     })
+}
+
+function applyInfo(data) {
+
+    var trName = data.trainer_id.member.user_name;
+    var trImg = data.trainer_id.imgName;
+    var trPn = data.trainer_id.member.user_pn;
+    var trKa = data.trainer_id.trainer_kakao;
+    var trInsta = data.trainer_id.trainer_instagram;
+    var trGymNomal = data.trainer_id.trainer_address_normal;
+    var trGymDetail = data.trainer_id.trainer_address_detail;
+    var trPrice = data.trainer_id.trainer_pt_total;
+
+
+    let content = "<tr>"
+    content += "<td>" + trName + "</td>"
+    content += "<td>" + trPn + "</td>"
+    content += "<td>" + trKa + "</td>"
+    content += "<td>" + trInsta + "</td>"
+    content += "<td>" + trGymNomal + "</td>"
+    content += "<td>" + trGymDetail + "</td>"
+    content += "<td'>" + trPrice + "</td>"
+    content += "<td><button type='button' class='btn-primary Deny'>신청취소</button></td></tr>"
+
+    console.log(content);
+    $('.applyInfoList').append(content);
 }
 
 // 수락한거 조회하기
 function acceptList() {
     var id = $('#member_id').val();
-    console.log(id+"login 한 id는");
+    console.log(id + "login 한 id는");
 
     var data = {
         id: id // 앞에 trainer_id -> id
@@ -63,8 +121,11 @@ function showList() {
         data: data,
         contentType: 'application/json; charset=utf-8',
     }).done(function (data) {
-        console.log(data);
-        mkApply(data);
+        var count = data;
+        if (count.length != 0) {
+            alert(count.length + "건의 PT 신청이 있습니다");
+            mkApply(data);
+        }
     }).fail(function (error) {
         console.log(error);
     })
@@ -89,8 +150,7 @@ function mkApply(data) {
 
         // hidden 값 넣기
         var p = data[i].id;
-        console.log("ptUser pk는"+p);
-
+        console.log("ptUser pk는" + p);
 
 
         let content = "<tr>"
@@ -121,7 +181,7 @@ function updateAccept(a) {
     let pt_user_id = $('#pt_user_id').val();
 
 
-    console.log("pt_user_id="+pt_user_id)
+    console.log("pt_user_id=" + pt_user_id)
 
     console.log("매개변수 a는" + a);
     console.log("id=" + id);
@@ -166,8 +226,8 @@ $(function () {
     if (role == 'trainer') {
         acceptList();
         showList();
-    }else{
-
+    } else {
+        memberCheck();
     }
 
 })

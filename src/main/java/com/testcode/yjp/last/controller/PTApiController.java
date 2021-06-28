@@ -12,6 +12,7 @@ import com.testcode.yjp.last.service.TrainerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import retrofit2.http.POST;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -52,6 +53,22 @@ public class PTApiController {
         ptUserService.save(ptMemberInfoDto);
 
         return ptMemberInfoDto;
+    }
+
+    // pt 종료하기
+    @PostMapping("/delete/{pt_id}")
+    public void PTFinish(@PathVariable Long pt_id) {
+        log.info("pt 종료 PK는 =" + pt_id);
+        ptUserRepository.deletePT(pt_id);
+    }
+
+    // 회원이 신청한 목록 보기
+    @GetMapping("/apply/memcheck")
+    @ResponseBody
+    public PTUser checkMemApply(@RequestParam Long member_id) {
+        log.info("회원이 신청한 트레이너 조회 ");
+        PTUser ptUser = ptUserService.getMemberApply(member_id);
+        return ptUser;
     }
 
     // 이미 신청했는지 확인하기
