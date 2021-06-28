@@ -1,6 +1,5 @@
 package com.testcode.yjp.last.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.PTUser;
 import com.testcode.yjp.last.domain.dto.MemberFindIdDto;
@@ -29,7 +28,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Controller
 @Slf4j
-@Log4j2
 @RequestMapping("/member")
 public class MemberController {
 

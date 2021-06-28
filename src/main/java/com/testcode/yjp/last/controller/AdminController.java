@@ -1,6 +1,5 @@
 package com.testcode.yjp.last.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.Notice;
@@ -18,9 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import sun.awt.ModalityListener;
 
 import java.util.ArrayList;
 import java.util.List;

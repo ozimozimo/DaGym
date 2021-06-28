@@ -24,7 +24,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Controller
 @Slf4j
-@Log4j2
 @RequestMapping("/ptUser")
 public class PTController {
     private final PTUserService ptUserService;
