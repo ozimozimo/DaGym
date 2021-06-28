@@ -43,7 +43,7 @@ function acceptList() {
         data: data,
         contentType: 'application/json; charset=utf-8'
     }).done(function (data) {
-        console.log(data);
+        // console.log(data);
     }).fail(function (error) {
         console.log(error);
     });

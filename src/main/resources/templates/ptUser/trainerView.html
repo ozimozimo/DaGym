@@ -68,8 +68,8 @@
                 </div>
                 <input class="form-control" name="keyword" th:value="${pageRequestDto.keyword}">
                 <div class="input-group-append" id="button-addon4">
-                    <button class="btn btn-outline-secondary" onclick="search()" type="button">검색</button>
-                    <button class="btn btn-outline-secondary" onclick="Sclear()" type="button">Clear</button>
+                    <button class="btn btn-outline-secondary search_btn" type="button">검색</button>
+                    <button class="btn btn-outline-secondary sclear_btn" type="button">Clear</button>
                 </div>
             </div>
         </form>
@@ -93,7 +93,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="trainer : ${result.dtoList}">
-                    <input type="hidden" id="trainer_id" th:value="${trainer.id}">
+                    <input type="hidden" class="trainerId" id="trainer_id" th:value="${trainer.id}">
                     <td><img class="trainer_image" width="200px" height="200px"
                              th:src="@{/display(fileName=${trainer.imgName})}"></td>
                     <td th:text="${trainer.user_id}">아이디</td>
@@ -106,12 +106,10 @@
                     <td>
 <!--                        a th:href="@{~/ptUser/apply(member_id = ${session.loginUser},-->
 <!--                        trainer_id = ${trainer.id})}">PT신청</a>-->
-                        <div>
                             <button type="button"
                                     th:text="PT신청"
-                                    onclick="check()"
-                            ><</button>
-                        </div>
+                                    class="checkBtn"
+                            ></button>
                     </td>
                     <td>
 <!--                                <a th:href="@{~/ptUser/detail(id=${trainer.id},-->
@@ -119,7 +117,7 @@
 <!--                                        type=${pageRequestDto.type},-->
 <!--                                        keyword=${pageRequestDto.keyword})}"-->
 <!--                                th:text="상세보기">상세보기</a>-->
-                        <button type="button" onclick="detailView()">상세보기</button>
+                        <button type="button" class="detailBtn">상세보기</button>
                         <input type="hidden" id="pageValue" th:value="${pageRequestDto.page}">
                         <input type="hidden" id="typeValue" th:value="${pageRequestDto.type}">
                         <input type="hidden" id="keywordValue" th:value="${pageRequestDto.keyword}">
@@ -152,16 +150,15 @@
 
     <script th:inline="javascript">
 
-        var searchForm = $('#searchForm');
-
-        function search() {
-            searchForm.submit();
-        }
-
-        function Sclear() {
-            searchForm.empty().submit();
-
-        }
+        // var searchForm = $('#searchForm');
+        //
+        // function search() {
+        //     searchForm.submit();
+        // }
+        //
+        // function Sclear() {
+        //     searchForm.empty().submit();
+        // }
     </script>
 </div>
 </body>
