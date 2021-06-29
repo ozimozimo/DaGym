@@ -31,6 +31,7 @@ onLoad();
 //유저 주소를 좌표로 변환 후 마커 생성
 function userToLocation() {
 // 유저 주소 좌표 변환후
+
     geocoder.addressSearch(userAddr, function (result, status) {
         // 정상적으로 검색이 완료됐으면
         if (status === kakao.maps.services.Status.OK) {
@@ -71,6 +72,13 @@ function userToLocation() {
 
             map.setCenter(coords);
             drawMarker(centerX, centerY);
+        } else {
+            alert('오류로 회원님의 주소를 나타낼 수 없습니다.');
+            let coords = new kakao.maps.LatLng(33.450701, 126.570667);
+            nowMarkers = new kakao.maps.Marker({
+                map: map,
+                position: coords,
+            });
         }
     });
 }
