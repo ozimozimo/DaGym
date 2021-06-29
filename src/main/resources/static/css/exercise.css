@@ -60,3 +60,21 @@
     width: 1000px;
     height: 50px;
 }
+.all {
+    display: flex;
+    width: 1600px;
+    /*margin: 0 10px 0 10px;*/
+    /*background-color: #5c91fe;*/
+    justify-content: center;
+    /*flex-wrap: wrap;*/
+}
+.calendar_area{
+    /*width:300px;*/
+    margin-right: 30px;
+}
+.content {
+text-align: center;
+}
+.record_area {
+    text-align: left;
+}

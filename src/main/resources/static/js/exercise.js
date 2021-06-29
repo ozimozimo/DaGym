@@ -67,8 +67,7 @@ function addExBtnClick() {
             exercise_id: exercise_id,
             ex_category: ex_category
         });
-    }
-    else if (category == '기타(유산소)') {
+    } else if (category == '기타(유산소)') {
         data = JSON.stringify({
             ex_time: ex_time,
             ex_meter: ex_meter,
@@ -78,8 +77,7 @@ function addExBtnClick() {
             kcal: ex_kcal,
             ex_category: category
         });
-    }
-    else {
+    } else {
         data = JSON.stringify({
             ex_set: ex_set,
             ex_count: ex_count,
@@ -120,9 +118,13 @@ function delExBtnClick(a) {
 }
 
 function mkExr(result) {
-    console.log("mkExr in + " + result[0].ex_name);
+    // console.log("mkExr in + " + result[0].ex_name);
     let id = $('.loginUser').val();
     let allKcal = 0;
+
+    result.sort(function (a, b) {
+        return a.ex_name < b.ex_name ? -1 : a.ex_name > b.name ? 1 : 0;
+    })
 
     for (let i = 0; i < result.length; i++) {
         console.log("id  " + id);
@@ -148,7 +150,7 @@ function mkExr(result) {
             let content = "<tr>";
             content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>"
             content += "<td class='res_ex_category'>" + exCategory + "</td>"
-            content += "<td class='res_ex_name'>" + exName +'(' + exParts + ')' + "</td>"
+            content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
             content += "<td class='res_ex_set'>" + exSet + "세트</td>"
             content += "<td class='res_ex_count'>" + exCount + "개</td>"
             content += "<td>" + "</td>";
@@ -164,7 +166,7 @@ function mkExr(result) {
             let content = "<tr>";
             content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>"
             content += "<td class='res_ex_category'>" + exCategory + "</td>"
-            content += "<td class='res_ex_name'>" + exName +'(' + exParts + ')' + "</td>"
+            content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
             content += "<td class='res_ex_time'>" + exTime + "분</td>"
             content += "<td class='res_ex_meter'>" + exMeter + "KM</td>"
             content += "<td class='res_ex_kcal'>" + exKcal + "Kcal</td>"
@@ -180,7 +182,7 @@ function mkExr(result) {
             let content = "<tr>";
             content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>";
             content += "<td class='res_ex_category'>" + exCategory + "</td>"
-            content += "<td class='res_ex_name'>" + exName +'(' + exParts + ')' + "</td>"
+            content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
             content += "<td class='res_ex_set'>" + exSet + "세트</td>";
             content += "<td class='res_ex_time'>" + exTime + "분</td>";
             content += "<td>" + "</td>";
@@ -196,7 +198,7 @@ function mkExr(result) {
             let content = "<tr>";
             content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>"
             content += "<td class='res_ex_category'>" + exCategory + "</td>"
-            content += "<td class='res_ex_name'>" + exName +'(' + exParts + ')' + "</td>"
+            content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
             content += "<td class='res_ex_set'>" + exSet + "세트</td>"
             content += "<td class='res_ex_count'>" + exCount + "개</td>"
             content += "<td class='res_ex_weight'>" + exWeight + "KG</td>"
@@ -384,4 +386,37 @@ $(function () {
     if ($('.loginId').text() != $('.member').val()) {
         $('.add_area').hide();
     }
+    $('.setAddBtn').on("click", addBtn);
 });
+
+function addBtn() {
+    let category = $('.category').val();
+    let content = `<tr class="addInput">
+<td>
+</td>
+<td>
+</td>
+<td class="ex_name">
+</td>
+<td class="ex_set">
+<input type="text" class="ex_set" name="ex_set"/>
+</td>
+ <td class="ex_count">
+<input type="text" class="ex_count" name="ex_count"/>
+</td>
+<td class="ex_weight">
+<input type="text" class="ex_weight" name="ex_weight"/>
+</td>
+<td class="ex_time">
+<input type="text" class="ex_time" name="ex_set"/>
+</td>
+<td class="ex_meter">
+<input type="text" class="ex_meter" name="ex_meter"/>
+</td>
+<td class="ex_kcal">
+    <input type="text" class="ex_kcal" name="ex_kcal"/>
+    </td>
+</tr>`
+    $('.addEx').append(content);
+    changeInsertBox(category);
+}

@@ -176,17 +176,23 @@ public class ExcerciseRecordApiController {
         log.info("selectbox list if문 시작");
 
         if (!category.isEmpty() && !parts.isEmpty()) {
+            log.info("exercise in1");
             bySelectBox = exerciseRecordRepository.findBySelectAll(category, parts);
         } else if (category.isEmpty() && !parts.isEmpty()) {
+            log.info("exercise in2");
             bySelectBox = exerciseRecordRepository.findBySelectParts(parts);
         } else if (!category.isEmpty() && parts.isEmpty()) {
+            log.info("exercise in3");
             bySelectBox = exerciseRecordRepository.findBySelectCategory(category);
+            log.info(bySelectBox.get(0).getEx_name());
         } else {
+            log.info("exercise in4");
             bySelectBox = exerciseRepository.findAll();
         }
 
         List<ExCategoryDto> exCategoryDtos = new ArrayList<>();
         for (Exercise exercise : bySelectBox) {
+
             ExCategoryDto e = ExCategoryDto.builder()
                     .ex_id(exercise.getEx_id())
                     .ex_category(exercise.getEx_category())
@@ -196,7 +202,7 @@ public class ExcerciseRecordApiController {
             exCategoryDtos.add(e);
         }
 
-        log.info("if문 끝" + bySelectBox.get(0).getEx_name());
+//        log.info("if문 끝" + bySelectBox.get(0).getEx_name());
         return exCategoryDtos;
     }
 
