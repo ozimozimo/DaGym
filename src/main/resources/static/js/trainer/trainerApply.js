@@ -311,7 +311,8 @@ function trainerApplySumbit() {
                     imp_uid : rsp.imp_uid,
                     merchant_uid : rsp.merchant_uid,
                     pay_method : rsp.pay_method,
-                    pt_amount : rsp.amount,
+                    pt_amount : 100,
+                    apply_num : rsp.apply_num,
                 };
                 $.ajax({
                     url: "/ptUser/payment/" + member_id + "/" + trainer_id,

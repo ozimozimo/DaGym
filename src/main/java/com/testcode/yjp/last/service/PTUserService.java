@@ -343,4 +343,13 @@ public class PTUserService {
 
         return checkApply;
     }
+
+    public BuyerPt refund(Long member_id, Long trainer_id) {
+        return buyerPTRepository.findPayInfo(member_id, trainer_id);
+    }
+
+    public void refundDel(Long member_id, Long trainer_id) {
+        buyerPTRepository.deleteInfo(member_id, trainer_id);
+        ptUserRepository.deleteByInfo(member_id, trainer_id);
+    }
 }
