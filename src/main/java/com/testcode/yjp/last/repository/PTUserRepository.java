@@ -88,6 +88,13 @@ public interface PTUserRepository extends JpaRepository<PTUser, Long> {
     @Query("delete from PTUser p where p.id=:pt_id and p.pt_times=0")
     void deletePT(Long pt_id);
 
+    @Transactional
+    @Modifying
+    @Query("delete from PTUser p where p.member_id.id=:member_id and p.trainer_id.id=:trainer_id")
+    void deleteByInfo(Long member_id, Long trainer_id);
+
+
+
     // pt신청 endDate와 오늘 날짜 비교해서 endDate지나면 수락상태 3으로 변경
 //    @Query("select m from PTUser m " +
 //            "where (m.member_id = :member " +
