@@ -197,6 +197,7 @@ public class AdminController {
 
     @GetMapping("/1on1Detail")
     public String oneOnOneDetail(Model model, Long id, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
+        log.info("oneOnOneDetail in");
         Notice notice = noticeRepository.findById(id).get();
         model.addAttribute("ooo", notice);
         return "admin/oneOnOne/oneOnOneDetail";

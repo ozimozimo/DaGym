@@ -31,10 +31,10 @@ public class AndroidExcerciseRecordController {
     }
 
     // 운동기록 조회
-    @PostMapping("/selectExRecord")
-    public ArrayList<AndExerciseRecordDto> selectExRecord(@RequestBody AndExerciseRecordDto exerciseRecordDto) {
-        return andExRecordService.select(exerciseRecordDto);
-    }
+//    @PostMapping("/selectExRecord")
+//    public ArrayList<AndExerciseRecordDto> selectExRecord(@RequestBody AndExerciseRecordDto exerciseRecordDto) {
+//        return andExRecordService.select(exerciseRecordDto);
+//    }
 
     // 운동기록 하나만 뽑기
     @PostMapping("/detailExRecord/{id}")
