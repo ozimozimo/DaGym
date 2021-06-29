@@ -39,6 +39,10 @@ public class Calendar {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @ManyToOne
+    @JoinColumn(name = "trainer_id")
+    private TrainerInfo trainerInfo;
+
     public void ChangeTime(String start, String end) {
         this.start =start;
         this.end = end;

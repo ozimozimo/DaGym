@@ -2,12 +2,11 @@ package com.testcode.yjp.last.service;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.testcode.yjp.last.domain.Board;
-import com.testcode.yjp.last.domain.Boastboard;
-import com.testcode.yjp.last.domain.QBoard;
-import com.testcode.yjp.last.domain.QBoastboard;
+import com.testcode.yjp.last.domain.*;
 import com.testcode.yjp.last.domain.dto.*;
 import com.testcode.yjp.last.repository.BoastboardRepository;
+import com.testcode.yjp.last.repository.EmotionRepository;
+import com.testcode.yjp.last.repository.MemberRepository;
 import groovy.util.logging.Log4j2;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -28,6 +27,8 @@ import java.util.stream.Collectors;
 public class BoastboardService {
 
     private final BoastboardRepository boastboardRepository;
+    private final MemberRepository memberRepository;
+    private final EmotionRepository emotionRepository;
 
     public List<BoardListResponseDto> findAllDesc() {
         return boastboardRepository.findAllDesc()
@@ -95,8 +96,6 @@ public class BoastboardService {
         Boastboard boastboard = boastboardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
         boastboard.update(boardUpdateRequestDto.getTitle(), boardUpdateRequestDto.getContent());
-        System.out.println(boardUpdateRequestDto.getTitle());
-        System.out.println(boardUpdateRequestDto.getContent());
         boastboardRepository.save(boastboard);
         return id;
     }
@@ -104,4 +103,31 @@ public class BoastboardService {
     public void delete(Long id) {
         boastboardRepository.deleteById(id);
     }
+
+    public String saveEmo(Long member_id, Long bb_num, Emotion emotion) {
+        Member member = memberRepository.findById(member_id).get();
+        Boastboard boastboard = boastboardRepository.findById(bb_num).get();
+        Emotion findAll = emotionRepository.findByAll(member, emotion.getEmotion(), boastboard);
+        Emotion notEmo = emotionRepository.findNotEmo(member, emotion.getEmotion(), boastboard);
+        if(findAll != null) {
+            emotionRepository.delete(findAll);
+            return null;
+        } else if (notEmo != null) {
+//            emotionRepository.delete(notEmo);
+//            emotion.setMember(member);
+//            emotion.setBoastboard(boastboard);
+            notEmo.setEmotion(emotion.getEmotion());
+            emotionRepository.save(notEmo);
+            return notEmo.getEmotion();
+        } else {
+            emotion.setMember(member);
+            emotion.setBoastboard(boastboard);
+            emotionRepository.save(emotion);
+            return emotion.getEmotion();
+        }
+
+    }
+
+
 }
+

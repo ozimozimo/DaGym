@@ -6,14 +6,14 @@ var userAddr = userNormalAddr.substring(5, userNormalAddr.length) + " " + userDe
 
 let mapContainer = document.getElementById("map"), // 지도를 표시할 div
     mapOption = {
-        center: new kakao.maps.LatLng(35.896674400210856, 128.62065154054142), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
         level: 5, // 지도의 확대 레벨
     };
 // 지도를 생성합니다
 let map = new kakao.maps.Map(mapContainer, mapOption);
 
 // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
-let zoomControl = new kakao.maps.ZoomControl();
+var zoomControl = new kakao.maps.ZoomControl();
 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
 // 주소-좌표 변환 객체를 생성합니다
@@ -21,41 +21,67 @@ let geocoder = new kakao.maps.services.Geocoder();
 
 let centerX;
 let centerY;
-let markers = [];
-let infowindows = [];
-let nowMarkers;
+var markers = [];
+var infowindows = [];
+var nowMarkers;
 
-
+userToLocation();
 onLoad();
 
 //유저 주소를 좌표로 변환 후 마커 생성
-
+function userToLocation() {
 // 유저 주소 좌표 변환후
-geocoder.addressSearch(userAddr, function (result, status) {
-    // 정상적으로 검색이 완료됐으면
-    if (status === kakao.maps.services.Status.OK) {
-        let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-        centerX = coords.Ma;
-        centerY = coords.La;
+    geocoder.addressSearch(userAddr, function (result, status) {
+        // 정상적으로 검색이 완료됐으면
+        if (status === kakao.maps.services.Status.OK) {
+            let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-        // 유저 집
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords,
-        });
+            centerX = coords.Ma;
+            centerY = coords.La;
 
-        // // console.log(centerX, centerY);
-        nowMarkers = new kakao.maps.Marker({
-            map: map,
-            position: coords,
-        });
+            // 유저 집
+            // var marker = new kakao.maps.Marker({
+            //     map: map,
+            //     position: coords,
+            // });
 
-        map.setCenter(coords);
-        drawMarker(centerX, centerY);
-    }
-});
+            // // console.log(centerX, centerY);
+            var imageSrc =
+                    "../../image/home.png", // 마커이미지의 주소입니다
+                imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+                imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+            // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+            var markerImage = new kakao.maps.MarkerImage(
+                imageSrc,
+                imageSize,
+                imageOption
+                ),
+                markerPosition = new kakao.maps.LatLng(centerX, centerY); // 마커가 표시될 위치입니다
 
+            var marker = new kakao.maps.Marker({
+                position: markerPosition,
+                image: markerImage // 마커이미지 설정
+            });
+            marker.setMap(map);
+
+            nowMarkers = new kakao.maps.Marker({
+                map: map,
+                position: coords,
+            });
+
+            map.setCenter(coords);
+            drawMarker(centerX, centerY);
+        } else {
+            alert('오류로 회원님의 주소를 나타낼 수 없습니다.');
+            let coords = new kakao.maps.LatLng(33.450701, 126.570667);
+            nowMarkers = new kakao.maps.Marker({
+                map: map,
+                position: coords,
+            });
+        }
+    });
+}
 
 function onLoad() {
     $.ajax({
@@ -117,7 +143,7 @@ function drawMarker(x, y) {
                     // console.log("gg", coords.Ma, coords.La);
                     let length = calDistence(x, y, coords.Ma, coords.La);
                     // km
-                    let km = 20;
+                    let km = 2000;
 
 
                     if (length < km) {
@@ -161,15 +187,23 @@ function drawMarker(x, y) {
                         content += `<td>${item.trainer_gymName}</td>`
                         content += `<td>${item.trainer_kakao}</td>`
                         content += `<td>${item.trainer_instagram}</td>`
-                        content += `<td><input type="hidden" class="id" value="${item.id}"><button type="button" onclick="check()">PT신청</button></td>`
-                        content += `<td><button type="button" onClick="detailView()">상세보기</button></td></tr>`
+                        content += `<td class="checkArea"><input type="hidden" class="id" value="${item.id}"><button type="button" class="checkBtn">PT신청</button></td>`
+                        content += `<td><button type="button" class="detailBtn">상세보기</button></td></tr>`
                         $('.tbody').append(content);
 
                     }
+                    $('.checkBtn').unbind('click');
+                    $('.checkBtn').on("click", function () {
 
+                        check($(this).prev('.id').val());
+                    });
+                    $('.detailBtn').on("click", function () {
+                        detailView($(this).parent('td').prev('td').find('.id').val());
+                    });
                     // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
                     // map.setCenter(coords);
                 }
+
             }
         );
     });
@@ -190,6 +224,7 @@ function makeOutListener(infowindow) {
 }
 
 kakao.maps.event.addListener(map, "dragend", function () {
+
     nowMarkers.setMap(null);
     removeMarkers();
     removeInfowindows();
@@ -213,23 +248,13 @@ kakao.maps.event.addListener(map, "dragend", function () {
 });
 
 
-// var imageSrc =
-//     "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png", // 마커이미지의 주소입니다
-//   imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
-//   imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-// // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-// var markerImage = new kakao.maps.MarkerImage(
-//     imageSrc,
-//     imageSize,
-//     imageOption
-//   ),
-//   markerPosition = new kakao.maps.LatLng(37.54699, 127.09598); // 마커가 표시될 위치입니다
-
+// function clickMarker() {
 // // 마커에 클릭이벤트를 등록합니다
-// kakao.maps.event.addListener(marker, "click", function () {
-//   // 마커 위에 인포윈도우를 표시합니다
-//   infowindow.open(map, marker);
-// });
+//     kakao.maps.event.addListener(marker, "click", function () {
+//         // 마커 위에 인포윈도우를 표시합니다
+//         infowindow.open(map, marker);
+//     });
+// }
 
 // 거리 계산 함수
 function calDistence(x, y, ax, ay) {
@@ -261,32 +286,46 @@ function removeInfowindows() {
     }
 }
 
-// function check() {
-//     var member_id = $('input[name=member_id]').val();
-//     var trainer_id = pre.val();
-//     console.log("member 값은"+member_id);
-//     console.log("trainer 값은" + trainer_id);
-//     console.log(trainer_id);
-//     $.ajax({
-//         type: 'get',
-//         url: '/ptUser/apply/check?',
-//         data: 'member_id='+member_id,
-//         dataType: 'json',
-//         contentType: 'application/json; charset=utf-8',
-//     }).done(function (data) {
-//         console.log(data);
-//         if (data.accept_condition == 0) {
-//             alert('PT 수락 대기 중입니다.');
-//             window.location.href = '/ptUser/view';
-//         } else if (data.accept_condition == 1) {
-//             alert('PT가 진행 중입니다.');
-//             window.location.href = '/ptUser/view';
-//         } else if(data.accept_condition == null || data.accept_condition == 2){
-//             console.log(data);
-//         }
-//     }).fail(function () {
-//         alert('PT신청 페이지로 이동하겠습니다');
-//         window.location.href = '/ptUser/apply?member_id='+member_id+"&trainer_id="+trainer_id;
-//     })
-// }
+function check(trainer_id) {
+    var member_id = $('input[name=member_id]').val();
+    console.log("member 값은" + member_id);
+    console.log("trainer 값은" + trainer_id);
+    console.log(trainer_id);
+    $.ajax({
+        type: 'get',
+        url: '/ptUser/apply/check?',
+        data: 'member_id=' + member_id,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+    }).done(function (data) {
+        console.log(data);
+        if (data.accept_condition == 0) {
+            alert('PT 수락 대기 중입니다.');
+            window.location.href = '/ptUser/view';
+        } else if (data.accept_condition == 1) {
+            alert('PT가 진행 중입니다.');
+            window.location.href = '/ptUser/view';
+        } else if (data.accept_condition == null || data.accept_condition == 2) {
+            console.log(data);
+        }
+    }).fail(function () {
+        alert('PT신청 페이지로 이동하겠습니다');
+        window.location.href = '/ptUser/apply?member_id=' + member_id + "&trainer_id=" + trainer_id;
+    })
+}
+
+function detailView(trainer_id) {
+    var popupX = (window.screen.width / 2) - (800 / 2);
+    var popupY = (window.screen.height / 2) - (700 / 2);
+
+    var option = 'status=no, height=600, width=800, left=' + popupX + ', top=' + popupY + ', screenX=' + popupX + ', screenY= ' + popupY;
+    // var pageValue = $('#pageValue').val() || "";
+    // var typeValue = $('#typeValue').val() || "";
+    // var keywordValue = $('#keywordValue').val() || "";
+    // var url = `/ptUser/detail?id=${trainer_id}&page=${pageValue}&type=${typeValue}&keyword=${keywordValue}`
+    var url = `/ptUser/detail?id=${trainer_id}`;
+
+    window.open(url, 'detailView', option);
+
+}
 

@@ -24,7 +24,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Controller
 @Slf4j
-@Log4j2
 @RequestMapping("/ptUser")
 public class PTController {
     private final PTUserService ptUserService;
@@ -60,6 +59,7 @@ public class PTController {
         return "ptUser/trainerMapView";
 
     }
+
 
     @GetMapping("/view/detail/{id}")
     public String userDetail(@PathVariable Long id, Model model) {

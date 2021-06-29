@@ -5,7 +5,7 @@
     <title>Title</title>
     <script th:src="@{~/js/main/jquery.min.js}"></script>
     <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
-    <script th:src="@{~/js/bostboard/boastboard.js}"></script>
+    <script th:src="@{~/js/boastboard/boastboard.js}"></script>
 
 
 </head>
@@ -14,6 +14,7 @@
 
     <div class="">
         <input type="hidden" th:value="${bb.id}" id="bb_num" name="bb_num">
+        <input type="hidden" th:value="${session.loginUser}" id="member_id" name="member_id">
         <div th:text="${bb.title}" class=""></div>
         <div class="">
             <div class="">
@@ -60,28 +61,23 @@
 
     <!-- 추천 -->
     <div>
-<!--        <button id="l">좋아요</button>-->
-<!--        <button id="m">훈훈해요</button>-->
-<!--        <button id="s">슬퍼요</button>-->
-<!--        <button id="a">화나요</button>-->
-<!--        <button id="w">추가 후기 원해요</button>-->
-        <table>
+        <table style="text-align: center">
             <thead>
             <tr>
-                <th><button id="l">좋아요</button></th>
-                <th><button id="m">훈훈해요</button></th>
-                <th><button id="s">슬퍼요</button></th>
-                <th><button id="a">화나요</button></th>
-                <th><button id="w">추가 후기 원해요</button></th>
+                <th><button id="l" onclick="EmoInsert('l')" style="border: none"><img th:src="@{~/image/like.png}" width="25" height="25" ><p style="margin-top: 0px; margin-bottom: 0px" class="like">좋아요</p></button></th>
+                <th><button id="m" onclick="EmoInsert('m')" style="border: none"><img th:src="@{~/image/mlike.png}" width="25" height="25" ><p style="margin-top: 0px; margin-bottom: 0px">훈훈해요</p></button></th>
+                <th><button id="s" onclick="EmoInsert('s')" style="border: none"><img th:src="@{~/image/sad.png}" width="25" height="25" ><p style="margin-top: 0px; margin-bottom: 0px">슬퍼요</p></button></th>
+                <th><button id="a" onclick="EmoInsert('a')" style="border: none"><img th:src="@{~/image/angry.png}" width="25" height="25" ><p style="margin-top: 0px; margin-bottom: 0px">화나요</p></button></th>
+                <th><button id="w" onclick="EmoInsert('w')" style="border: none"><img th:src="@{~/image/want.png}" width="25" height="25" ><p style="margin-top: 0px; margin-bottom: 0px">추가 후기 원해요</p></button></th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td id="l_num">0</td>
-                <td id="m_num">0</td>
-                <td id="s_num">0</td>
-                <td id="a_num">0</td>
-                <td id="w_num">0</td>
+                <td id="l_num"></td>
+                <td id="m_num"></td>
+                <td id="s_num"></td>
+                <td id="a_num"></td>
+                <td id="w_num"></td>
             </tr>
             </tbody>
         </table>

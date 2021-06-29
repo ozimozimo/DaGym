@@ -30,7 +30,7 @@ public class PTMemberInfoDto {
     private String pt_wantTime;
 
     // PT 횟수
-    private String pt_times;
+    private int pt_times;
     private Member member;
     private TrainerInfo trainer;
     private String accept_condition; // {0 신청(보류), 1 신청(수락), 2 신청(거절)}로 생각

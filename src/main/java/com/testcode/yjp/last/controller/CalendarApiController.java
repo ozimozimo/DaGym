@@ -2,12 +2,17 @@ package com.testcode.yjp.last.controller;
 
 import com.testcode.yjp.last.domain.Calendar;
 import com.testcode.yjp.last.domain.Member;
+import com.testcode.yjp.last.domain.PTUser;
+import com.testcode.yjp.last.domain.TrainerInfo;
 import com.testcode.yjp.last.domain.dto.CalendarListDto;
 import com.testcode.yjp.last.repository.CalendarRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
+import com.testcode.yjp.last.repository.PTUserRepository;
+import com.testcode.yjp.last.repository.TrainerRepository;
 import com.testcode.yjp.last.service.CalendarService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,16 +27,22 @@ public class CalendarApiController {
     private final MemberRepository memberRepository;
     private final CalendarRepository calendarRepository;
     private final CalendarService calendarService;
+    private final TrainerRepository trainerRepository;
+    private final PTUserRepository ptUserRepository;
 
-    @PostMapping("/save/{id}")
-    public Calendar save(@PathVariable Long id, @RequestBody Calendar calendar) {
-        log.info("id는 " + id);
+    @PostMapping("/save/{member_id}/{trainer_id}")
+    public Calendar save(@PathVariable Long member_id, @PathVariable Long trainer_id, @RequestBody Calendar calendar, Model model) {
         log.info("Calendar controller Post");
-        Optional<Member> result = memberRepository.findById(id);
-
+        Optional<Member> member = memberRepository.findById(member_id);
+        Optional<TrainerInfo> trainer = trainerRepository.findById(trainer_id);
         System.out.println(calendar.isAllDay());
-        calendar.setMember(result.get());
+        calendar.setMember(member.get());
+        calendar.setTrainerInfo(trainer.get());
+        if (calendar.getType().equals("PT일정")) {
+            ptUserRepository.update(member_id,trainer_id);
+        }
         calendarRepository.save(calendar);
+
         return calendar;
     }
 
@@ -41,6 +52,15 @@ public class CalendarApiController {
         log.info("id=" + id);
 
         List<Calendar> all = calendarRepository.findAll(id);
+
+
+        return all;
+    }
+
+    @GetMapping("/findPT/{member_id}/{trainer_id}")
+    public List<Calendar> findPT(@PathVariable Long member_id, @PathVariable Long trainer_id) {
+
+        List<Calendar> all = calendarRepository.findPT(member_id,trainer_id);
         return all;
     }
 

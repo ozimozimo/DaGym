@@ -27,15 +27,15 @@ public class ExerciseRecordService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional
-    public List<ExerciseRecordDto> findByIdWithExDate(String id, String ex_date) {
-        log.info("service id, ex_date get");
-        System.out.println("id = " + id);
-        System.out.println("ex_date = " + ex_date);
-        return exerciseRecordRepository.findByIdWithExDate(id, ex_date).stream()
-                .map(ExerciseRecordDto::new)
-                .collect(Collectors.toList());
-    }
+//    @Transactional
+//    public List<ExerciseRecordDto> findByIdWithExDate(String id, String ex_date) {
+//        log.info("service id, ex_date get");
+//        System.out.println("id = " + id);
+//        System.out.println("ex_date = " + ex_date);
+//        return exerciseRecordRepository.findByIdWithExDate(id, ex_date).stream()
+//                .map(ExerciseRecordDto::new)
+//                .collect(Collectors.toList());
+//    }
 
     // 데이터 추가
     @Transactional

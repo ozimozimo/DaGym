@@ -336,4 +336,20 @@ public class PTUserService {
         buyerPTRepository.save(buyerPt);
     }
 
+    public PTUser getMemberApply(Long member_id) {
+        Member member = memberRepository.findById(member_id).get();
+        log.info("member_id = " + member);
+        PTUser checkApply = ptUserRepository.findMemberAPPly(member_id);
+
+        return checkApply;
+    }
+
+    public BuyerPt refund(Long member_id, Long trainer_id) {
+        return buyerPTRepository.findPayInfo(member_id, trainer_id);
+    }
+
+    public void refundDel(Long member_id, Long trainer_id) {
+        buyerPTRepository.deleteInfo(member_id, trainer_id);
+        ptUserRepository.deleteByInfo(member_id, trainer_id);
+    }
 }

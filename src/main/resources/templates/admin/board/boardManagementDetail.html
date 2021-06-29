@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,519 +10,833 @@
     <script th:src="@{~/js/admin/admin.js}"></script>
     <script th:src="@{~/js/board/board.js}"></script>
     <script th:src="@{~/js/board/comments.js}"></script>
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            position: relative;
+        }
 
+        .content .board_search {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
 
+        .content .board_search>* {
+            margin-left: 5px;
+        }
+
+        .content .board_search select {
+            padding: 8px 8px;
+            margin-right: 0.5px;
+            border: 1px solid #ddd;
+        }
+
+        .content .board_search input {
+            padding: 8px 8px;
+            border: 1px solid #ddd;
+        }
+
+        .content .board_search button {
+            color: #0d6efd;
+        }
+
+        .custom_btn {
+            padding: 8px 8px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        .recommenId {
+            border: 1px solid #ddd;
+            background-color: #0d6efd;
+        }
+
+        .content .board {
+            width: 100%;
+            margin-top: 20px;
+            border-top: 2px solid #dbdbdb;
+            border-collapse: collapse;
+        }
+
+        .content .board thead td,
+        .content .board thead th {
+            color: #7a7a7a;
+            font-weight: bold;
+        }
+
+        .content .board td,
+        .content .board th {
+            border-bottom: 1px solid #dbdbdb;
+            padding: 0.7em 0.75em;
+            vertical-align: center;
+            font-size: 15px;
+            text-align: center;
+        }
+
+        .pagination_area {
+            margin-top: 20px;
+            margin-left: 50%;
+        }
+
+        .pagination_area li {
+            margin-right: 10px;
+        }
+
+        .post_write_btn_area {
+            margin-top: 15px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        a.custom_btn {
+            font-size: 14px;
+        }
+
+        .post_header {
+            padding: 10px;
+            /*border-bottom: 2px solid #eee;*/
+            background-color: #ffffff;
+        }
+
+        .post_title {
+            font-size: 28px;
+            font-weight: 400;
+        }
+
+        .post_info {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .post_info .left {
+            display: flex;
+        }
+
+        .post_author {
+            color: #4458c8;
+            margin-left: 5px;
+        }
+
+        .post_info .right {
+            display: flex;
+        }
+
+        .post_info .right .updated_at {
+            margin-right: 15px;
+        }
+
+        .hits {
+            margin-right: 5px;
+        }
+
+        .post_content {
+            margin-top: 20px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            padding-left: 15px;
+            border-top: 2px solid #eee;
+        }
+
+        .post_control_btn_area {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .post_control_btn_area .custom_btn:nth-child(1) {
+            margin-right: 10px;
+        }
+
+        /* .post_control_btn_area .custom_btn {
+            padding: 5px 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #098efe;
+            border: 2px solid #098efe;
+            cursor: pointer;
+            background-color: transparent;
+        } */
+
+        .comments_area {
+            margin-top: 20px;
+            border-top: 2px solid #ddd;
+        }
+
+        .comments .comment {
+            padding-top: 20px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .comments .comment .comment_info {
+            display: flex;
+            align-items: center;
+        }
+
+        .comments .comment .comment_info .writer {
+            color: #4458c8;
+            font-weight: bold;
+        }
+
+        .comments .comment .comment_info .created_at {
+            font-size: 15px;
+            margin-left: 10px;
+            color: #aaa;
+        }
+
+        .comments .comment .comment_content {
+            margin: 10px 0px;
+        }
+
+        .comments .comment .comment_control_btn_area {
+            display: flex;
+        }
+
+        .comments .comment .comment_control_btn_area>button {
+            padding: 4px 12px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .comments .comment .comment_control_btn_area>button.custom_btn:nth-child(1) {
+            margin-right: 10px;
+        }
+
+        .comment_fm {
+            height: 80px;
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .comment_fm .comment_write_area {
+            width: 90%;
+            height: 100%;
+            position: relative;
+            display: flex;
+        }
+
+        .comment_fm .comment_write_area textarea {
+            width: 100%;
+            height: 100%;
+            border: 2px solid #ddd;
+            resize: none;
+        }
+
+        .comment_save_btn {
+            width: 10%;
+            height: 100%;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            color: #ffffff;
+            background-color: #1e2632;
+            outline: none;
+            border: none;
+        }
+
+        #hb_num {
+            display: none;
+        }
+
+        .like_area {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            margin-top: 30px;
+        }
+
+        .like_area button {
+            margin-right: 10px;
+        }
+
+        .icon_area i {
+            margin: 0 5px;
+            font-size: 17px;
+        }
+
+        i.far.fa-thumbs-up {
+            color: #4cacfb;
+        }
+
+        i.far.fa-thumbs-down {
+            color: #ff5252;
+        }
+
+        .reply {
+            padding: 20px;
+            padding-top: 0;
+            background-color: #FBFCFD;
+        }
+
+        .reply_input input {
+            width: 90%;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 15px 20px;
+        }
+
+        .on {
+            display: block;
+        }
+
+        .off {
+            display: none;
+        }
+
+        .reply .recomment {
+            padding: 20px 0px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .reply .recomment:last-child {
+            border-bottom: initial;
+        }
+
+        ul {
+            list-style: none;
+        }
+    </style>
 </head>
+
 <body>
 <div layout:fragment="content" class="content">
-
-    <div class="post_header">
-        <input type="hidden" th:value="${boards.id}" id="hb_num" name="hb_num">
-        <div th:text="${boards.title}" class="post_title"></div>
-        <div class="post_info">
-            <div class="left">
-                <div th:text="${boards.user_id}" class="post_author"></div>
-            </div>
-            <div class="right">
-                <div class="updated_at">
-                    <span>수정날짜:</span>
-                    <span th:text="${#temporals.format(boards.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
-
-                    </span>
+    <div class="container">
+        <div class="post_header">
+            <input type="hidden" th:value="${boards.id}" id="hb_num" name="hb_num">
+            <div th:text="${boards.title}" class="post_title">글 제목입니다.</div>
+            <div class="post_info">
+                <div class="left">
+                    <div th:text="${boards.user_id}" class="post_author">글 저자입니다.</div>
                 </div>
-                <div class="hits">
-                    <span>조회수:</span>
-                    <span th:text="${boards.hit}" class="hit"></span>
-                </div>
-                <div class="recommends">
-                    <span>추천:</span>
-                    <span th:text="${boards.recommends}"></span>
+                <div class="right">
+                    <div class="updated_at">
+                        <span>수정날짜:</span>
+                        <span th:text="${#temporals.format(boards.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
+                                2021.06.28
+                            </span>
+                    </div>
+                    <div class="hits">
+                        <span>조회수:</span>
+                        <span th:text="${boards.hit}" class="hit">50</span>
+                    </div>
+                    <div class="recommends">
+                        <span>추천:</span>
+                        <span th:text="${boards.recommends}">3</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="uploadResult">
-        <ul>
-            <li>
+        <div class="uploadResult">
+            <ul>
+                <li>
+                </li>
+            </ul>
+        </div>
 
-            </li>
-        </ul>
-    </div>
+        <div class="post_content" th:text="${boards.content}">글내용입니다.</div>
+        <!--    // 추천 기능-->
+        <div style="text-align: center">
+            <input type="hidden" th:value="${session.loginId}" id="recommendId">
+            <input type="hidden" th:value="${boards.id}" id="boards_id">
+            <button type="button" class="custom_btn recommendButton">추천</button>
+        </div>
 
-    <div class="post_content" th:text="${boards.content}"></div>
-    <!--    // 추천 기능-->
-    <div style="text-align: center">
-        <input type="hidden" th:value="${session.loginId}" id="recommendId">
-        <input type="hidden" th:value="${boards.id}" id="boards_id">
-        <button type="button" class="recommendButton">추천</button>
-    </div>
-
-    <div class="post_control_btn_area">
-        <a class="board_delete">글삭제</a>
-        <a th:href="@{/admin/boardManagement(page=${PageRequestDto.page},
+        <div class="post_control_btn_area">
+            <a class="board_delete custom_btn">글삭제</a>
+            <a th:href="@{/admin/boardManagement(page=${PageRequestDto.page},
                                         page=${PageRequestDto.page},
                                         type=${PageRequestDto.type},
                                         keyword=${PageRequestDto.keyword})}" class="custom_btn post_delete">이전
-        </a>
-    </div>
-
-    <div class="comments_count">
-        <h3>댓글 <span th:text="${count}" id="countComment"></span>개</h3>
-    </div>
-
-    <div class="comments_area">
-        <ul id="likeButtons">
-            <li>
-                <button id="findCountAll" class="commentCountAll buttons">답글순</button>
-            </li>
-            <li>
-                <button id="findLatestAll" class="commentLikeLatestAll buttons active">최신순</button>
-            </li>
-            <li>
-                <button id="findPastAll" class="commentLikePastAll buttons">오래된순</button>
-            </li>
-            <li>
-                <button id="findLikeAll" class="commentLike buttons" style="display: block">좋아요순</button>
-            </li>
-            <li>
-                <button id="findDisLikeAll" class="commentDisLikeAll buttons">싫어요순</button>
-            </li>
-        </ul>
-        <br/>
-
-        <div class="comments">
-            <input type="hidden" th:value="${count}" id="count">
-
-            <div id="commentCountAll" class="">
-                <div class="commentSlice comment" th:each="comment : ${commentCountAll}" th:if="${comment.parentNum == boards.id}">
-                    <input type="hidden" th:value="${comment.id}" id="commentId" name="commentId">
-                    <div class="comment_info">
-                        <div class="writer" th:text="${comment.user_id}">닉네임</div>
-                        <div class="created_at"
-                             th:text="${#temporals.format(comment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
-                            2021/04/03 17:54:30
-                        </div>
-                    </div>
-
-                    <div class="comment_content" th:text="${comment.comments}">댓글내용</div>
-
-                    <!--                좋아요 처리하는곳-->
-                    <div class="like_area">
-                        <div>
-                            <!--                  답글 누르면 스타트지점-->
-                            <button type="button" class="recmt_button custom_btn">답글 [[${comment.reComments_count}]]</button>
-                            <!--  삭제 -->
-                            <div class="comment_control_btn_area">
-                                <button type="button" id="delete" onclick="CDelete()">삭제</button>
-                            </div>
-                        </div>
-                        <input type="hidden" th:value="${session.loginUser}" id="likeId" class="likeId">
-                        <input type="hidden" th:value="${boards.id}" id="boardLike" class="boardLike">
-                        <input type="hidden" th:value="${comment.id}" id="comId" class="comId">
-
-                        <div>
-                        <span class="like_button"><i style="cursor: pointer" class="far fa-thumbs-up"
-                                                     th:text="${comment.likes}"></i>
-                        </span>
-                            <span class="unlike_button"><i style="cursor: pointer" class="far fa-thumbs-down"
-                                                           th:text="${comment.dislike}"></i>
-                        </span>
-                        </div>
-                    </div>
-
-                    <!--                좋아요 끝나는곳-->
-
-
-                    <!--                일반 댓글 목록 끝-->
-
-                    <div id="reCmt" class="reCmt off reply">
-                        <!--                    리댓 리스트 수정하자-->
-                        <div class="comment_control_btn_area recomment" th:each="recomment: ${re_comments}"
-                             th:if="${comment.id == recomment.re_parentCoNum}">
-                            <!--                     th:if="${comment.id == recomment.re_parentCoNum}" 106 번지점 수정해야함   -->
-                            <div>
-                                <input type="hidden" th:value="${recomment.id}" id="recommentId">
-                                <div class="comment_info">
-                                    <div class="writer" th:text="${recomment.re_user_id}">닉네임</div>
-                                    <div class="created_at"
-                                         th:text="${#temporals.format(recomment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
-                                        2021/04/03 17:54:30
-                                    </div>
-                                </div>
-                                <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
-                                <div class="comment_control_btn_area">
-                                    <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--                    리댓 리스트 종료-->
-                        <!--리댓 쓰기-->
-                        <form>
-                            <div>
-                                <input type="hidden" th:value="${session.loginId}" id="re_user_id">
-                                <input type="hidden" th:value="${boards.id}" id="re_parentNum">
-                                <input type="hidden" th:value="${comment.id}" id="re_parentCoNum">
-                                <div class="comment_write_area reply_input">
-                                    <input type="text" id="re_comments" placeholder="댓글을 남겨주세요">
-                                </div>
-                                <button type="button" id="recomment_save" class="recomment_save_btn custom_btn">답글달기</button>
-                            </div>
-                        </form>
-                        <!--리댓종료-->
-                    </div>
-
-                </div>
-                <button type="button" class="load custom_btn">댓글더보기</button>
-            </div>
-            <!--            일반 댓글 목록 시작 if 게시판pk == 댓글에 board 값이 같으면  pk 보드에 맞는 댓글들을 보여준다-->
-            <div id="commentLikeLatestAll">
-                <div class="commentSlice comment" th:each="comment : ${comments}" th:if="${comment.parentNum == boards.id}">
-                    <input type="hidden" th:value="${comment.id}" id="commentId" name="commentId">
-                    <div class="comment_info">
-                        <div class="writer" th:text="${comment.user_id}">닉네임</div>
-                        <div class="created_at"
-                             th:text="${#temporals.format(comment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
-                            2021/04/03 17:54:30
-                        </div>
-                    </div>
-
-                    <div class="comment_content" th:text="${comment.comments}">댓글내용</div>
-
-                    <!--                좋아요 처리하는곳-->
-                    <div class="like_area">
-                        <div>
-                            <!--                  답글 누르면 스타트지점-->
-                            <button type="button" class="recmt_button custom_btn">답글 [[${comment.reComments_count}]]</button>
-                            <!--  삭제 -->
-                            <div class="comment_control_btn_area">
-                                <button type="button" id="delete" onclick="CDelete()">삭제</button>
-                            </div>
-                        </div>
-                        <input type="hidden" th:value="${session.loginUser}" id="likeId" class="likeId">
-                        <input type="hidden" th:value="${boards.id}" id="boardLike" class="boardLike">
-                        <input type="hidden" th:value="${comment.id}" id="comId" class="comId">
-
-                        <div>
-                        <span class="like_button"><i style="cursor: pointer" class="far fa-thumbs-up"
-                                                     th:text="${comment.likes}"></i>
-                        </span>
-                            <span class="unlike_button"><i style="cursor: pointer" class="far fa-thumbs-down"
-                                                           th:text="${comment.dislike}"></i>
-                        </span>
-                        </div>
-                    </div>
-
-                    <!--                좋아요 끝나는곳-->
-
-
-                    <!--                일반 댓글 목록 끝-->
-
-                    <div id="reCmt" class="reCmt off reply">
-                        <!--                    리댓 리스트 수정하자-->
-                        <div class="comment_control_btn_area recomment" th:each="recomment: ${re_comments}"
-                             th:if="${comment.id == recomment.re_parentCoNum}">
-                            <!--                     th:if="${comment.id == recomment.re_parentCoNum}" 106 번지점 수정해야함   -->
-                            <div>
-                                <input type="hidden" th:value="${recomment.id}" id="recommentId">
-                                <div class="comment_info">
-                                    <div class="writer" th:text="${recomment.re_user_id}">닉네임</div>
-                                    <div class="created_at"
-                                         th:text="${#temporals.format(recomment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
-                                        2021/04/03 17:54:30
-                                    </div>
-                                </div>
-                                <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
-                                <div class="comment_control_btn_area">
-                                    <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--                    리댓 리스트 종료-->
-                        <!--리댓 쓰기-->
-                        <form>
-                            <div>
-                                <input type="hidden" th:value="${session.loginId}" id="re_user_id">
-                                <input type="hidden" th:value="${boards.id}" id="re_parentNum">
-                                <input type="hidden" th:value="${comment.id}" id="re_parentCoNum">
-                                <div class="comment_write_area reply_input">
-                                    <input type="text" id="re_comments" placeholder="댓글을 남겨주세요">
-                                </div>
-                                <button type="button" id="recomment_save" class="recomment_save_btn custom_btn">답글달기</button>
-                            </div>
-                        </form>
-                        <!--리댓종료-->
-                    </div>
-
-                </div>
-                <button type="button" class="load custom_btn">댓글더보기</button>
-            </div>
-
-            <!--            좋아요 순-->
-            <div id="commentLike" class="">
-                <div class="commentSlice comment" th:each="comment : ${commentLikeAll}" th:if="${comment.parentNum == boards.id}">
-                    <input type="hidden" th:value="${comment.id}" id="commentId" name="commentId">
-                    <div class="comment_info">
-                        <div class="writer" th:text="${comment.user_id}">닉네임</div>
-                        <div class="created_at"
-                             th:text="${#temporals.format(comment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
-                            2021/04/03 17:54:30
-                        </div>
-                    </div>
-
-                    <div class="comment_content" th:text="${comment.comments}">댓글내용</div>
-
-                    <!--                좋아요 처리하는곳-->
-                    <div class="like_area">
-                        <div>
-                            <!--                  답글 누르면 스타트지점-->
-                            <button type="button" class="recmt_button custom_btn">답글 [[${comment.reComments_count}]]</button>
-                            <!--  삭제 -->
-                            <div class="comment_control_btn_area">
-                                <button type="button" id="delete" onclick="CDelete()">삭제</button>
-                            </div>
-                        </div>
-                        <input type="hidden" th:value="${session.loginUser}" id="likeId" class="likeId">
-                        <input type="hidden" th:value="${boards.id}" id="boardLike" class="boardLike">
-                        <input type="hidden" th:value="${comment.id}" id="comId" class="comId">
-
-                        <div>
-                        <span class="like_button"><i style="cursor: pointer" class="far fa-thumbs-up"
-                                                     th:text="${comment.likes}"></i>
-                        </span>
-                            <span class="unlike_button"><i style="cursor: pointer" class="far fa-thumbs-down"
-                                                           th:text="${comment.dislike}"></i>
-                        </span>
-                        </div>
-                    </div>
-
-                    <!--                좋아요 끝나는곳-->
-
-
-                    <!--                일반 댓글 목록 끝-->
-
-
-                    <div id="reCmt" class="reCmt off reply">
-                        <!--                    리댓 리스트 수정하자-->
-                        <div class="comment_control_btn_area recomment" th:each="recomment: ${re_comments}"
-                             th:if="${comment.id == recomment.re_parentCoNum}">
-                            <!--                     th:if="${comment.id == recomment.re_parentCoNum}" 106 번지점 수정해야함   -->
-                            <div>
-                                <input type="hidden" th:value="${recomment.id}" id="recommentId">
-                                <div class="comment_info">
-                                    <div class="writer" th:text="${recomment.re_user_id}">닉네임</div>
-                                    <div class="created_at"
-                                         th:text="${#temporals.format(recomment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
-                                        2021/04/03 17:54:30
-                                    </div>
-                                </div>
-                                <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
-                                <div class="comment_control_btn_area">
-                                    <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--                    리댓 리스트 종료-->
-                        <!--리댓 쓰기-->
-                        <form>
-                            <div>
-                                <input type="hidden" th:value="${session.loginId}" id="re_user_id">
-                                <input type="hidden" th:value="${boards.id}" id="re_parentNum">
-                                <input type="hidden" th:value="${comment.id}" id="re_parentCoNum">
-                                <div class="comment_write_area reply_input">
-                                    <input type="text" id="re_comments" placeholder="댓글을 남겨주세요">
-                                </div>
-                                <button type="button" id="recomment_save" class="recomment_save_btn custom_btn">답글달기</button>
-                            </div>
-                        </form>
-                        <!--리댓종료-->
-                    </div>
-
-                </div>
-                <button type="button" class="load custom_btn">댓글더보기</button>
-            </div>
-            <!--            노가다 끝-->
-            <!--            글번호와 댓글의 부모-->
-
-            <!--                  싫어요 순 -->
-            <div id="commentDisLikeAll" class="">
-                <div class="commentSlice comment" th:each="comment : ${commentDisLikeAll}" th:if="${comment.parentNum == boards.id}">
-                    <input type="hidden" th:value="${comment.id}" id="commentId" name="commentId">
-                    <div class="comment_info">
-                        <div class="writer" th:text="${comment.user_id}">닉네임</div>
-                        <div class="created_at"
-                             th:text="${#temporals.format(comment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
-                            2021/04/03 17:54:30
-                        </div>
-                    </div>
-
-                    <div class="comment_content" th:text="${comment.comments}">댓글내용</div>
-
-                    <!--                좋아요 처리하는곳-->
-                    <div class="like_area">
-                        <div>
-                            <!--                  답글 누르면 스타트지점-->
-                            <button type="button" class="recmt_button custom_btn">답글 [[${comment.reComments_count}]]</button>
-                            <!--  삭제 -->
-                            <div class="comment_control_btn_area">
-                                <button type="button" id="delete" onclick="CDelete()">삭제</button>
-                            </div>
-                        </div>
-                        <input type="hidden" th:value="${session.loginUser}" id="likeId" class="likeId">
-                        <input type="hidden" th:value="${boards.id}" id="boardLike" class="boardLike">
-                        <input type="hidden" th:value="${comment.id}" id="comId" class="comId">
-
-                        <div>
-                        <span class="like_button"><i style="cursor: pointer" class="far fa-thumbs-up"
-                                                     th:text="${comment.likes}"></i>
-                        </span>
-                            <span class="unlike_button"><i style="cursor: pointer" class="far fa-thumbs-down"
-                                                           th:text="${comment.dislike}"></i>
-                        </span>
-                        </div>
-                    </div>
-
-                    <!--                좋아요 끝나는곳-->
-
-
-                    <!--                일반 댓글 목록 끝-->
-
-                    <div id="reCmt" class="reCmt off reply">
-                        <!--                    리댓 리스트 수정하자-->
-                        <div class="comment_control_btn_area recomment" th:each="recomment: ${re_comments}"
-                             th:if="${comment.id == recomment.re_parentCoNum}">
-                            <!--                     th:if="${comment.id == recomment.re_parentCoNum}" 106 번지점 수정해야함   -->
-                            <div>
-                                <input type="hidden" th:value="${recomment.id}" id="recommentId">
-                                <div class="comment_info">
-                                    <div class="writer" th:text="${recomment.re_user_id}">닉네임</div>
-                                    <div class="created_at"
-                                         th:text="${#temporals.format(recomment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
-                                        2021/04/03 17:54:30
-                                    </div>
-                                </div>
-                                <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
-                                <div class="comment_control_btn_area">
-                                    <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--                    리댓 리스트 종료-->
-                        <!--리댓 쓰기-->
-                        <form>
-                            <div>
-                                <input type="hidden" th:value="${session.loginId}" id="re_user_id">
-                                <input type="hidden" th:value="${boards.id}" id="re_parentNum">
-                                <input type="hidden" th:value="${comment.id}" id="re_parentCoNum">
-                                <div class="comment_write_area reply_input">
-                                    <input type="text" id="re_comments" placeholder="댓글을 남겨주세요">
-                                </div>
-                                <button type="button" id="recomment_save" class="recomment_save_btn custom_btn">답글달기</button>
-                            </div>
-                        </form>
-                        <!--리댓종료-->
-                    </div>
-
-                </div>
-                <button type="button" class="load custom_btn">댓글더보기</button>
-            </div>
-            <!--          과거순 -->
-            <div id="commentLikePastAll" class="">
-                <div class="commentSlice comment" th:each="comment : ${commentLikePastAll}" th:if="${comment.parentNum == boards.id}">
-                    <input type="hidden" th:value="${comment.id}" id="commentId" name="commentId">
-                    <div class="comment_info">
-                        <div class="writer" th:text="${comment.user_id}">닉네임</div>
-                        <div class="created_at"
-                             th:text="${#temporals.format(comment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
-                            2021/04/03 17:54:30
-                        </div>
-                    </div>
-
-                    <div class="comment_content" th:text="${comment.comments}">댓글내용</div>
-
-                    <!--                좋아요 처리하는곳-->
-                    <div class="like_area">
-                        <div>
-                            <!--                  답글 누르면 스타트지점-->
-                            <button type="button" class="recmt_button custom_btn">답글 [[${comment.reComments_count}]]</button>
-                            <!--  삭제 -->
-                            <div class="comment_control_btn_area">
-                                <button type="button" id="delete" onclick="CDelete()">삭제</button>
-                            </div>
-                        </div>
-                        <input type="hidden" th:value="${session.loginUser}" id="likeId" class="likeId">
-                        <input type="hidden" th:value="${boards.id}" id="boardLike" class="boardLike">
-                        <input type="hidden" th:value="${comment.id}" id="comId" class="comId">
-
-                        <div>
-                        <span class="like_button"><i style="cursor: pointer" class="far fa-thumbs-up"
-                                                     th:text="${comment.likes}"></i>
-                        </span>
-                            <span class="unlike_button"><i style="cursor: pointer" class="far fa-thumbs-down"
-                                                           th:text="${comment.dislike}"></i>
-                        </span>
-                        </div>
-                    </div>
-
-                    <!--                좋아요 끝나는곳-->
-
-
-                    <!--                일반 댓글 목록 끝-->
-
-                    <div id="reCmt" class="reCmt off reply">
-                        <!--                    리댓 리스트 수정하자-->
-                        <div class="comment_control_btn_area recomment" th:each="recomment: ${re_comments}"
-                             th:if="${comment.id == recomment.re_parentCoNum}">
-                            <!--                     th:if="${comment.id == recomment.re_parentCoNum}" 106 번지점 수정해야함   -->
-                            <div>
-                                <input type="hidden" th:value="${recomment.id}" id="recommentId">
-                                <div class="comment_info">
-                                    <div class="writer" th:text="${recomment.re_user_id}">닉네임</div>
-                                    <div class="created_at"
-                                         th:text="${#temporals.format(recomment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
-                                        2021/04/03 17:54:30
-                                    </div>
-                                </div>
-                                <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
-                                <div class="comment_control_btn_area">
-                                    <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--                    리댓 리스트 종료-->
-                        <!--리댓 쓰기-->
-                        <form>
-                            <div>
-                                <input type="hidden" th:value="${session.loginId}" id="re_user_id">
-                                <input type="hidden" th:value="${boards.id}" id="re_parentNum">
-                                <input type="hidden" th:value="${comment.id}" id="re_parentCoNum">
-                                <div class="comment_write_area reply_input">
-                                    <input type="text" id="re_comments" placeholder="댓글을 남겨주세요">
-                                </div>
-                                <button type="button" id="recomment_save" class="recomment_save_btn custom_btn">답글달기</button>
-                            </div>
-                        </form>
-                        <!--리댓종료-->
-                    </div>
-
-                </div>
-                <button type="button" class="load custom_btn">댓글더보기</button>
-            </div>
+            </a>
         </div>
 
+        <div class="comments_count">
+            <h3>댓글 <span th:text="${count}" id="countComment">5</span>개</h3>
+        </div>
+
+        <div class="comments_area">
+            <ul id="likeButtons" class="like_area">
+                <li>
+                    <button id="findCountAll" class="custom_btn commentCountAll buttons">답글순</button>
+                </li>
+                <li>
+                    <button id="findLatestAll" class="custom_btn commentLikeLatestAll buttons active">최신순</button>
+                </li>
+                <li>
+                    <button id="findPastAll" class="custom_btn commentLikePastAll buttons">오래된순</button>
+                </li>
+                <li>
+                    <button id="findLikeAll" class="custom_btn commentLike buttons" style="display: block">좋아요순</button>
+                </li>
+                <li>
+                    <button id="findDisLikeAll" class="custom_btn commentDisLikeAll buttons">싫어요순</button>
+                </li>
+            </ul>
+            <br />
+
+            <div class="comments">
+                <input type="hidden" th:value="${count}" id="count">
+
+                <div id="commentCountAll" class="">
+                    <div class="commentSlice comment" th:each="comment : ${commentCountAll}"
+                         th:if="${comment.parentNum == boards.id}">
+                        <input type="hidden" th:value="${comment.id}" id="commentId" name="commentId">
+                        <div class="comment_info">
+                            <div class="writer" th:text="${comment.user_id}">닉네임</div>
+                            <div class="created_at"
+                                 th:text="${#temporals.format(comment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
+                                2021/04/03 17:54:30
+                            </div>
+                        </div>
+
+                        <div class="comment_content" th:text="${comment.comments}">댓글내용</div>
+
+                        <!--                좋아요 처리하는곳-->
+                        <div class="like_area">
+                            <div>
+                                <!--                  답글 누르면 스타트지점-->
+                                <button type="button" class="recmt_button custom_btn">답글
+                                    [[${comment.reComments_count}]]</button>
+                                <!--  삭제 -->
+                                <div class="comment_control_btn_area">
+                                    <button type="button" id="delete" onclick="CDelete()">삭제</button>
+                                </div>
+                            </div>
+                            <input type="hidden" th:value="${session.loginUser}" id="likeId" class="likeId">
+                            <input type="hidden" th:value="${boards.id}" id="boardLike" class="boardLike">
+                            <input type="hidden" th:value="${comment.id}" id="comId" class="comId">
+
+                            <div>
+                                    <span class="like_button"><i style="cursor: pointer" class="far fa-thumbs-up"
+                                                                 th:text="${comment.likes}"></i>
+                                    </span>
+                                <span class="unlike_button"><i style="cursor: pointer" class="far fa-thumbs-down"
+                                                               th:text="${comment.dislike}"></i>
+                                    </span>
+                            </div>
+                        </div>
+
+                        <!--                좋아요 끝나는곳-->
+
+
+                        <!--                일반 댓글 목록 끝-->
+
+                        <div id="reCmt" class="reCmt off reply">
+                            <!--                    리댓 리스트 수정하자-->
+                            <div class="comment_control_btn_area recomment" th:each="recomment: ${re_comments}"
+                                 th:if="${comment.id == recomment.re_parentCoNum}">
+                                <!--                     th:if="${comment.id == recomment.re_parentCoNum}" 106 번지점 수정해야함   -->
+                                <div>
+                                    <input type="hidden" th:value="${recomment.id}" id="recommentId">
+                                    <div class="comment_info">
+                                        <div class="writer" th:text="${recomment.re_user_id}">닉네임</div>
+                                        <div class="created_at"
+                                             th:text="${#temporals.format(recomment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
+                                            2021/04/03 17:54:30
+                                        </div>
+                                    </div>
+                                    <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
+                                    <div class="comment_control_btn_area">
+                                        <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--                    리댓 리스트 종료-->
+                            <!--리댓 쓰기-->
+                            <form>
+                                <div>
+                                    <input type="hidden" th:value="${session.loginId}" id="re_user_id">
+                                    <input type="hidden" th:value="${boards.id}" id="re_parentNum">
+                                    <input type="hidden" th:value="${comment.id}" id="re_parentCoNum">
+                                    <div class="comment_write_area reply_input">
+                                        <input type="text" id="re_comments" placeholder="댓글을 남겨주세요">
+                                    </div>
+                                    <button type="button" id="recomment_save"
+                                            class="recomment_save_btn custom_btn">답글달기</button>
+                                </div>
+                            </form>
+                            <!--리댓종료-->
+                        </div>
+
+                    </div>
+                    <button type="button" class="load custom_btn">댓글더보기</button>
+                </div>
+                <!--            일반 댓글 목록 시작 if 게시판pk == 댓글에 board 값이 같으면  pk 보드에 맞는 댓글들을 보여준다-->
+                <div id="commentLikeLatestAll">
+                    <div class="commentSlice comment" th:each="comment : ${comments}"
+                         th:if="${comment.parentNum == boards.id}">
+                        <input type="hidden" th:value="${comment.id}" id="commentId" name="commentId">
+                        <div class="comment_info">
+                            <div class="writer" th:text="${comment.user_id}">닉네임</div>
+                            <div class="created_at"
+                                 th:text="${#temporals.format(comment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
+                                2021/04/03 17:54:30
+                            </div>
+                        </div>
+
+                        <div class="comment_content" th:text="${comment.comments}">댓글내용</div>
+
+                        <!--                좋아요 처리하는곳-->
+                        <div class="like_area">
+                            <div>
+                                <!--                  답글 누르면 스타트지점-->
+                                <button type="button" class="recmt_button custom_btn">답글
+                                    [[${comment.reComments_count}]]</button>
+                                <!--  삭제 -->
+                                <div class="comment_control_btn_area">
+                                    <button type="button" id="delete" onclick="CDelete()">삭제</button>
+                                </div>
+                            </div>
+                            <input type="hidden" th:value="${session.loginUser}" id="likeId" class="likeId">
+                            <input type="hidden" th:value="${boards.id}" id="boardLike" class="boardLike">
+                            <input type="hidden" th:value="${comment.id}" id="comId" class="comId">
+
+                            <div>
+                                    <span class="like_button"><i style="cursor: pointer" class="far fa-thumbs-up"
+                                                                 th:text="${comment.likes}"></i>
+                                    </span>
+                                <span class="unlike_button"><i style="cursor: pointer" class="far fa-thumbs-down"
+                                                               th:text="${comment.dislike}"></i>
+                                    </span>
+                            </div>
+                        </div>
+
+                        <!--                좋아요 끝나는곳-->
+
+
+                        <!--                일반 댓글 목록 끝-->
+
+                        <div id="reCmt" class="reCmt off reply">
+                            <!--                    리댓 리스트 수정하자-->
+                            <div class="comment_control_btn_area recomment" th:each="recomment: ${re_comments}"
+                                 th:if="${comment.id == recomment.re_parentCoNum}">
+                                <!--                     th:if="${comment.id == recomment.re_parentCoNum}" 106 번지점 수정해야함   -->
+                                <div>
+                                    <input type="hidden" th:value="${recomment.id}" id="recommentId">
+                                    <div class="comment_info">
+                                        <div class="writer" th:text="${recomment.re_user_id}">닉네임</div>
+                                        <div class="created_at"
+                                             th:text="${#temporals.format(recomment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
+                                            2021/04/03 17:54:30
+                                        </div>
+                                    </div>
+                                    <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
+                                    <div class="comment_control_btn_area">
+                                        <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--                    리댓 리스트 종료-->
+                            <!--리댓 쓰기-->
+                            <form>
+                                <div>
+                                    <input type="hidden" th:value="${session.loginId}" id="re_user_id">
+                                    <input type="hidden" th:value="${boards.id}" id="re_parentNum">
+                                    <input type="hidden" th:value="${comment.id}" id="re_parentCoNum">
+                                    <div class="comment_write_area reply_input">
+                                        <input type="text" id="re_comments" placeholder="댓글을 남겨주세요">
+                                    </div>
+                                    <button type="button" id="recomment_save"
+                                            class="recomment_save_btn custom_btn">답글달기</button>
+                                </div>
+                            </form>
+                            <!--리댓종료-->
+                        </div>
+
+                    </div>
+                    <button type="button" class="load custom_btn">댓글더보기</button>
+                </div>
+
+                <!--            좋아요 순-->
+                <div id="commentLike" class="">
+                    <div class="commentSlice comment" th:each="comment : ${commentLikeAll}"
+                         th:if="${comment.parentNum == boards.id}">
+                        <input type="hidden" th:value="${comment.id}" id="commentId" name="commentId">
+                        <div class="comment_info">
+                            <div class="writer" th:text="${comment.user_id}">닉네임</div>
+                            <div class="created_at"
+                                 th:text="${#temporals.format(comment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
+                                2021/04/03 17:54:30
+                            </div>
+                        </div>
+
+                        <div class="comment_content" th:text="${comment.comments}">댓글내용</div>
+
+                        <!--                좋아요 처리하는곳-->
+                        <div class="like_area">
+                            <div>
+                                <!--                  답글 누르면 스타트지점-->
+                                <button type="button" class="recmt_button custom_btn">답글
+                                    [[${comment.reComments_count}]]</button>
+                                <!--  삭제 -->
+                                <div class="comment_control_btn_area">
+                                    <button type="button" id="delete" onclick="CDelete()">삭제</button>
+                                </div>
+                            </div>
+                            <input type="hidden" th:value="${session.loginUser}" id="likeId" class="likeId">
+                            <input type="hidden" th:value="${boards.id}" id="boardLike" class="boardLike">
+                            <input type="hidden" th:value="${comment.id}" id="comId" class="comId">
+
+                            <div>
+                                    <span class="like_button"><i style="cursor: pointer" class="far fa-thumbs-up"
+                                                                 th:text="${comment.likes}"></i>
+                                    </span>
+                                <span class="unlike_button"><i style="cursor: pointer" class="far fa-thumbs-down"
+                                                               th:text="${comment.dislike}"></i>
+                                    </span>
+                            </div>
+                        </div>
+
+                        <!--                좋아요 끝나는곳-->
+
+
+                        <!--                일반 댓글 목록 끝-->
+
+
+                        <div id="reCmt" class="reCmt off reply">
+                            <!--                    리댓 리스트 수정하자-->
+                            <div class="comment_control_btn_area recomment" th:each="recomment: ${re_comments}"
+                                 th:if="${comment.id == recomment.re_parentCoNum}">
+                                <!--                     th:if="${comment.id == recomment.re_parentCoNum}" 106 번지점 수정해야함   -->
+                                <div>
+                                    <input type="hidden" th:value="${recomment.id}" id="recommentId">
+                                    <div class="comment_info">
+                                        <div class="writer" th:text="${recomment.re_user_id}">닉네임</div>
+                                        <div class="created_at"
+                                             th:text="${#temporals.format(recomment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
+                                            2021/04/03 17:54:30
+                                        </div>
+                                    </div>
+                                    <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
+                                    <div class="comment_control_btn_area">
+                                        <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--                    리댓 리스트 종료-->
+                            <!--리댓 쓰기-->
+                            <form>
+                                <div>
+                                    <input type="hidden" th:value="${session.loginId}" id="re_user_id">
+                                    <input type="hidden" th:value="${boards.id}" id="re_parentNum">
+                                    <input type="hidden" th:value="${comment.id}" id="re_parentCoNum">
+                                    <div class="comment_write_area reply_input">
+                                        <input type="text" id="re_comments" placeholder="댓글을 남겨주세요">
+                                    </div>
+                                    <button type="button" id="recomment_save"
+                                            class="recomment_save_btn custom_btn">답글달기</button>
+                                </div>
+                            </form>
+                            <!--리댓종료-->
+                        </div>
+
+                    </div>
+                    <button type="button" class="load custom_btn">댓글더보기</button>
+                </div>
+                <!--            노가다 끝-->
+                <!--            글번호와 댓글의 부모-->
+
+                <!--                  싫어요 순 -->
+                <div id="commentDisLikeAll" class="">
+                    <div class="commentSlice comment" th:each="comment : ${commentDisLikeAll}"
+                         th:if="${comment.parentNum == boards.id}">
+                        <input type="hidden" th:value="${comment.id}" id="commentId" name="commentId">
+                        <div class="comment_info">
+                            <div class="writer" th:text="${comment.user_id}">닉네임</div>
+                            <div class="created_at"
+                                 th:text="${#temporals.format(comment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
+                                2021/04/03 17:54:30
+                            </div>
+                        </div>
+
+                        <div class="comment_content" th:text="${comment.comments}">댓글내용</div>
+
+                        <!--                좋아요 처리하는곳-->
+                        <div class="like_area">
+                            <div>
+                                <!--                  답글 누르면 스타트지점-->
+                                <button type="button" class="recmt_button custom_btn">답글
+                                    [[${comment.reComments_count}]]</button>
+                                <!--  삭제 -->
+                                <div class="comment_control_btn_area">
+                                    <button type="button" id="delete" onclick="CDelete()">삭제</button>
+                                </div>
+                            </div>
+                            <input type="hidden" th:value="${session.loginUser}" id="likeId" class="likeId">
+                            <input type="hidden" th:value="${boards.id}" id="boardLike" class="boardLike">
+                            <input type="hidden" th:value="${comment.id}" id="comId" class="comId">
+
+                            <div>
+                                    <span class="like_button"><i style="cursor: pointer" class="far fa-thumbs-up"
+                                                                 th:text="${comment.likes}"></i>
+                                    </span>
+                                <span class="unlike_button"><i style="cursor: pointer" class="far fa-thumbs-down"
+                                                               th:text="${comment.dislike}"></i>
+                                    </span>
+                            </div>
+                        </div>
+
+                        <!--                좋아요 끝나는곳-->
+
+
+                        <!--                일반 댓글 목록 끝-->
+
+                        <div id="reCmt" class="reCmt off reply">
+                            <!--                    리댓 리스트 수정하자-->
+                            <div class="comment_control_btn_area recomment" th:each="recomment: ${re_comments}"
+                                 th:if="${comment.id == recomment.re_parentCoNum}">
+                                <!--                     th:if="${comment.id == recomment.re_parentCoNum}" 106 번지점 수정해야함   -->
+                                <div>
+                                    <input type="hidden" th:value="${recomment.id}" id="recommentId">
+                                    <div class="comment_info">
+                                        <div class="writer" th:text="${recomment.re_user_id}">닉네임</div>
+                                        <div class="created_at"
+                                             th:text="${#temporals.format(recomment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
+                                            2021/04/03 17:54:30
+                                        </div>
+                                    </div>
+                                    <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
+                                    <div class="comment_control_btn_area">
+                                        <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--                    리댓 리스트 종료-->
+                            <!--리댓 쓰기-->
+                            <form>
+                                <div>
+                                    <input type="hidden" th:value="${session.loginId}" id="re_user_id">
+                                    <input type="hidden" th:value="${boards.id}" id="re_parentNum">
+                                    <input type="hidden" th:value="${comment.id}" id="re_parentCoNum">
+                                    <div class="comment_write_area reply_input">
+                                        <input type="text" id="re_comments" placeholder="댓글을 남겨주세요">
+                                    </div>
+                                    <button type="button" id="recomment_save"
+                                            class="recomment_save_btn custom_btn">답글달기</button>
+                                </div>
+                            </form>
+                            <!--리댓종료-->
+                        </div>
+
+                    </div>
+                    <button type="button" class="load custom_btn">댓글더보기</button>
+                </div>
+                <!--          과거순 -->
+                <div id="commentLikePastAll" class="">
+                    <div class="commentSlice comment" th:each="comment : ${commentLikePastAll}"
+                         th:if="${comment.parentNum == boards.id}">
+                        <input type="hidden" th:value="${comment.id}" id="commentId" name="commentId">
+                        <div class="comment_info">
+                            <div class="writer" th:text="${comment.user_id}">닉네임</div>
+                            <div class="created_at"
+                                 th:text="${#temporals.format(comment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
+                                2021/04/03 17:54:30
+                            </div>
+                        </div>
+
+                        <div class="comment_content" th:text="${comment.comments}">댓글내용</div>
+
+                        <!--                좋아요 처리하는곳-->
+                        <div class="like_area">
+                            <div>
+                                <!--                  답글 누르면 스타트지점-->
+                                <button type="button" class="recmt_button custom_btn">답글
+                                    [[${comment.reComments_count}]]</button>
+                                <!--  삭제 -->
+                                <div class="comment_control_btn_area">
+                                    <button type="button" id="delete" onclick="CDelete()">삭제</button>
+                                </div>
+                            </div>
+                            <input type="hidden" th:value="${session.loginUser}" id="likeId" class="likeId">
+                            <input type="hidden" th:value="${boards.id}" id="boardLike" class="boardLike">
+                            <input type="hidden" th:value="${comment.id}" id="comId" class="comId">
+
+                            <div>
+                                    <span class="like_button"><i style="cursor: pointer" class="far fa-thumbs-up"
+                                                                 th:text="${comment.likes}"></i>
+                                    </span>
+                                <span class="unlike_button"><i style="cursor: pointer" class="far fa-thumbs-down"
+                                                               th:text="${comment.dislike}"></i>
+                                    </span>
+                            </div>
+                        </div>
+
+                        <!--                좋아요 끝나는곳-->
+
+
+                        <!--                일반 댓글 목록 끝-->
+
+                        <div id="reCmt" class="reCmt off reply">
+                            <!--                    리댓 리스트 수정하자-->
+                            <div class="comment_control_btn_area recomment" th:each="recomment: ${re_comments}"
+                                 th:if="${comment.id == recomment.re_parentCoNum}">
+                                <!--                     th:if="${comment.id == recomment.re_parentCoNum}" 106 번지점 수정해야함   -->
+                                <div>
+                                    <input type="hidden" th:value="${recomment.id}" id="recommentId">
+                                    <div class="comment_info">
+                                        <div class="writer" th:text="${recomment.re_user_id}">닉네임</div>
+                                        <div class="created_at"
+                                             th:text="${#temporals.format(recomment.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
+                                            2021/04/03 17:54:30
+                                        </div>
+                                    </div>
+                                    <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
+                                    <div class="comment_control_btn_area">
+                                        <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--                    리댓 리스트 종료-->
+                            <!--리댓 쓰기-->
+                            <form>
+                                <div>
+                                    <input type="hidden" th:value="${session.loginId}" id="re_user_id">
+                                    <input type="hidden" th:value="${boards.id}" id="re_parentNum">
+                                    <input type="hidden" th:value="${comment.id}" id="re_parentCoNum">
+                                    <div class="comment_write_area reply_input">
+                                        <input type="text" id="re_comments" placeholder="댓글을 남겨주세요">
+                                    </div>
+                                    <button type="button" id="recomment_save"
+                                            class="recomment_save_btn custom_btn">답글달기</button>
+                                </div>
+                            </form>
+                            <!--리댓종료-->
+                        </div>
+
+                    </div>
+                    <button type="button" class="load custom_btn">댓글더보기</button>
+                </div>
+            </div>
+
+        </div>
+        <script>
+
+
+
+
+        </script>
+
     </div>
-    <script>
-
-
-
-
-    </script>
-
 </div>
 </body>
+
 </html>

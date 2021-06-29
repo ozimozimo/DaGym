@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@EqualsAndHashCode(callSuper = false, exclude = {"recommends","comments","boardImages"})
+//@EqualsAndHashCode(callSuper = false, exclude = {"boardImages"}) //"emotion",
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 @Table(name = "boast_board")
 public class Boastboard extends BaseEntity {

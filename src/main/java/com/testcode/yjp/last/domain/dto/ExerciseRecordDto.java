@@ -10,19 +10,24 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ExerciseRecordDto {
     private Long ex_record_id;
-    private String ex_record_member_id;
+    private String ex_set; // 세트
+    private String ex_weight; // KG
+    private String ex_count; // 렙
+    private String ex_date; // 운동한 날짜
+    private String ex_time; // 운동한 시간
+    private String ex_meter; // KM
+    private Long ex_record_member_id;
+    private Long exercise_id;
     private String ex_name;
-    private String ex_set;
-    private String ex_weight;
-    private String ex_count;
-    private String ex_date;
+    private String ex_category;
+    private String ex_parts;
+    private int kcal;
 
     public ExerciseRecordDto(ExRecord exRecord) {
         this.ex_record_id = exRecord.getEx_record_id();
-        this.ex_record_member_id = exRecord.getEx_record_member_id();
-        this.ex_name = exRecord.getEx_name();
         this.ex_set = exRecord.getEx_set();
         this.ex_weight = exRecord.getEx_weight();
         this.ex_count = exRecord.getEx_count();
@@ -32,7 +37,6 @@ public class ExerciseRecordDto {
     public ExRecord toEntity() {
         return ExRecord.builder()
                 .ex_record_id(ex_record_id)
-                .ex_name(ex_name)
                 .ex_set(ex_set)
                 .ex_weight(ex_weight)
                 .ex_count(ex_count)
@@ -40,13 +44,5 @@ public class ExerciseRecordDto {
                 .build();
     }
 
-    @Builder
-    public ExerciseRecordDto(Long ex_record_id, String ex_name, String ex_set, String ex_weight, String ex_count, String ex_date) {
-        this.ex_record_id = ex_record_id;
-        this.ex_name = ex_name;
-        this.ex_set = ex_set;
-        this.ex_weight = ex_weight;
-        this.ex_count = ex_count;
-        this.ex_date = ex_date;
-    }
+
 }

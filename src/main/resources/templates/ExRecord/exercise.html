@@ -14,88 +14,181 @@
     <script th:src="@{/js/calendar.js?ver=1.0}"></script>
 
 
-
 </head>
 
 <body>
 <div layout:fragment="content">
     <!--        현재 로그인한 회원의 member_id-->
     <input type="hidden" th:value="${session.loginUser}" class="member">
+    <input type="hidden" th:value="${session.loginUser}" class="loginUser">
     <input type="hidden" th:value="${session.loginId}" class="ex_record_member_id">
     <input type="hidden" class="date" value="">
     <div th:if="${session.loginId != null}">
         <p>
         <h1 th:text="${session.loginId}" class="loginId" style="display: none"></h1></p>
     </div>
-    <!-- 캘린더 -->
-    <div class="calendar_area">
-        <div id="calendar" style="min-width: 300px"></div>
-    </div>
-    <!-- 운동 추가 영역 -->
-    <div class="add_area">
-        <h3>운동 추가</h3>
-        <div class="ex_add_area">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th width="20%" class="ex_name">운동 명</th>
-                    <th width="5%" class="ex_set">세트</th>
-                    <th width="5%" class="ex_count">횟수</th>
-                    <th width="5%" class="ex_weight">무게</th>
-                    <th width="20%" class="buttons"></th>
-                </tr>
-                </thead>
-                <tbody class="addEx">
-                <tr class="addInput">
-                    <td class="ex_name">
-                        <input type="text" id="ex_name" name="ex_name"/>
-                    </td>
-                    <td class="ex_set">
-                        <input type="text" id="ex_set" name="ex_set"/>
-                    </td>
-                    <td class="ex_count">
-                        <input type="text" id="ex_count" name="ex_count"/>
-                    </td>
-                    <td class="ex_weight">
-                        <input type="text" id="ex_weight" name="ex_weight"/>
-                    </td>
-                    <td class="buttons">
-                        <button type="button" class="addEx_btn">운동 추가</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+    <div class="all">
+        <!-- 캘린더 -->
+        <div class="calendar_area">
+            <div id="calendar" style="height: 150px;"></div>
         </div>
-    </div>
-    <!-- 운동 기록 영역 -->
-    <div class="record_area">
-        <h3>운동 기록</h3>
-        <input type="hidden" class="date" value="">
-        <div id="record_table">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th class="ex_name">운동 명</th>
-                    <th class="ex_count">세트</th>
-                    <th class="ex_set">횟수</th>
-                    <th class="ex_weight">무게</th>
-                    <th class="ex_delete"></th>
-                </tr>
-                </thead>
-                <tbody class="resultEx">
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <!-- 피드백 영역 -->
-<!--    <div class="feedback_area">-->
-<!--        <h3>피드백</h3>-->
+        <div>
+            <!-- 운동 추가 영역 -->
+            <div class="add_area">
+                <h3>운동 추가</h3>
+                <div class="ex_add_area">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th width="10%" class="ex_category">카테고리</th>
+                            <th width="10%" class="ex_parts">운동 부위</th>
+                            <th width="10%" class="ex_name">운동 명</th>
+                            <th width="5%" class="ex_set">세트</th>
+                            <th width="5%" class="ex_count">횟수</th>
+                            <th width="5%" class="ex_weight">무게(KG)</th>
+                            <th width="5%" class="ex_time">운동한 시간(분)</th>
+                            <th width="5%" class="ex_meter">운동 거리(KM)</th>
+                            <th width="5%" class="ex_kcal">소모 칼로리(Kcal)</th>
+                            <th width="20%" class="buttons"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="addEx">
+                        <tr class="addInput">
+                            <td class="">
+                                <select class="category" onchange="category_select()">
+                                    <option value="">선택해 주세요.</option>
+                                    <option value="바벨">바벨</option>
+                                    <option value="덤벨">덤벨</option>
+                                    <option value="머신/기타">머신/기타</option>
+                                    <option value="가중 체중">가중 체중</option>
+                                    <option value="보조 체중 저항 운동">보조 체중 저항 운동</option>
+                                    <option value="렙만">렙만</option>
+                                    <option value="유산소">유산소</option>
+                                    <option value="지속 시간">지속 시간</option>
+                                    <option value="기타(유산소)">기타(유산소)</option>
+                                </select>
+                            </td>
+                            <td class="">
+                                <select class="parts" onchange="category_select()">
+                                    <option value="">선택해 주세요.</option>
+                                    <option value="가슴">가슴</option>
+                                    <option value="다리">다리</option>
+                                    <option value="등">등</option>
+                                    <option value="팔">팔</option>
+                                    <option value="심혈관">심혈관</option>
+                                    <option value="어깨">어깨</option>
+                                    <option value="올림픽">올림픽</option>
+                                    <option value="전신">전신</option>
+                                    <option value="코어">코어</option>
+                                </select>
+                            </td>
+                            <td class="ex_name">
+                                <select class="exer_name" id="exer_name" onchange="name_select(this)"></select>
+                                <input class="exer_name" id="input_exer_name" type="text" style="display: none">
+                            </td>
+                            <td class="ex_set">
+                                <input type="text" class="ex_set" name="ex_set"/>
+                            </td>
+                            <td class="ex_count">
+                                <input type="text" class="ex_count" name="ex_count"/>
+                            </td>
+                            <td class="ex_weight">
+                                <input type="text" class="ex_weight" name="ex_weight"/>
+                            </td>
+                            <td class="ex_time">
+                                <input type="text" class="ex_time" name="ex_set"/>
+                            </td>
+                            <td class="ex_meter">
+                                <input type="text" class="ex_meter" name="ex_meter"/>
+                            </td>
+                            <td class="ex_kcal">
+                                <input type="text" class="ex_kcal" name="ex_kcal"/>
+                            </td>
+                        </tr>
 
-<!--        <form name="feedbackForm" class="feedbackForm">-->
-<!--            <input name="ex_feedback"/>-->
-<!--            <button type="submit">전송</button>-->
-<!--        </form>-->
-<!--    </div>-->
+                        </tbody>
+                    </table>
+                </div>
+                <div style="display: none">
+                    <input type="text" id="ex_set" name="ex_set"/>
+                    <input type="text" id="ex_count" name="ex_count"/>
+                    <input type="text" id="ex_weight" name="ex_weight"/>
+                    <input type="text" id="ex_time" name="ex_set"/>
+                    <input type="text" id="ex_meter" name="ex_meter"/>
+                    <input type="text" id="ex_kcal" name="ex_kcal"/>
+                </div>
+                <div class="buttons">
+                    <button type="button" class="setAddBtn">운동 세트 추가</button>
+                    <button type="button" class="addEx_btn">운동 추가</button>
+                </div>
+            </div>
+            <!-- 운동 기록 영역 -->
+            <div class="record_area">
+                <h3>운동 기록</h3> <span class="allKcal"></span>
+                <input type="hidden" class="date" value="">
+                <div id="record_table">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr class="another" style='display: none'>
+                            <th>카테고리</th>
+                            <th>운동 명</th>
+                            <th>세트</th>
+                            <th>횟수</th>
+                            <th>무게</th>
+                            <th class="ex_delete"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="anotherEx">
+                        </tbody>
+                        <thead>
+                        <tr class="onlyCount" style='display: none'>
+                            <th>카테고리</th>
+                            <th>운동 명</th>
+                            <th>세트</th>
+                            <th>횟수</th>
+                            <th class="ex_delete"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="onlyCountEx">
+                        </tbody>
+                        <thead>
+                        <tr class="cardio" style='display: none'>
+                            <th>카테고리</th>
+                            <th>운동 명</th>
+                            <th>운동한 시간</th>
+                            <th>운동 거리(KM)</th>
+                            <th>Kcal</th>
+                            <th class="ex_delete"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="cardioEx">
+                        </tbody>
+                        <thead>
+                        <tr class="time" style='display: none'>
+                            <th>카테고리</th>
+                            <th>운동 명</th>
+                            <th>세트</th>
+                            <th>운동한 시간</th>
+                            <th class=""></th>
+                            <th class="ex_delete"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="timeEx">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- 피드백 영역 -->
+            <!--    <div class="feedback_area">-->
+            <!--        <h3>피드백</h3>-->
+
+            <!--        <form name="feedbackForm" class="feedbackForm">-->
+            <!--            <input name="ex_feedback"/>-->
+            <!--            <button type="submit">전송</button>-->
+            <!--        </form>-->
+            <!--    </div>-->
+        </div>
+    </div>
 </div>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package com.testcode.yjp.last.controller;
 
+import com.testcode.yjp.last.config.PaymentCheck;
+import com.testcode.yjp.last.domain.BuyerPt;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.PTUser;
 import com.testcode.yjp.last.domain.TrainerInfo;
@@ -10,11 +12,11 @@ import com.testcode.yjp.last.repository.TrainerRepository;
 import com.testcode.yjp.last.service.PTUserService;
 import com.testcode.yjp.last.service.TrainerService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +56,22 @@ public class PTApiController {
         return ptMemberInfoDto;
     }
 
+    // pt 종료하기
+    @PostMapping("/delete/{pt_id}")
+    public void PTFinish(@PathVariable Long pt_id) {
+        log.info("pt 종료 PK는 =" + pt_id);
+        ptUserRepository.deletePT(pt_id);
+    }
+
+    // 회원이 신청한 목록 보기
+    @GetMapping("/apply/memcheck")
+    @ResponseBody
+    public PTUser checkMemApply(@RequestParam Long member_id) {
+        log.info("회원이 신청한 트레이너 조회 ");
+        PTUser ptUser = ptUserService.getMemberApply(member_id);
+        return ptUser;
+    }
+
     // 이미 신청했는지 확인하기
     @GetMapping("/apply/check")
     @ResponseBody
@@ -85,9 +103,10 @@ public class PTApiController {
         System.out.println("data = " + data);
         if (data.equals("1")) {
             ptUserService.update(pt_user_id, ptUserApplyConDto);
-        } else if (data.equals("2")) {
-            ptUserService.delete(pt_user_id);
         }
+//        else if (data.equals("2")) {
+//            ptUserService.delete(pt_user_id);
+//        }
         System.out.println("ptuser_id =" + pt_user_id);
         return ptUserApplyConDto;
     }
@@ -109,11 +128,38 @@ public class PTApiController {
         return trainerLists;
     }
 
-    @PostMapping("payment/{member_id}/{trainer_id}")
-    public BuyerPTDto payResult(@PathVariable Long member_id,@PathVariable Long trainer_id, @RequestBody BuyerPTDto buyerPTDto) {
+    // 결제처리
+    @PostMapping("/payment/{member_id}/{trainer_id}")
+    public BuyerPTDto payResult(@PathVariable Long member_id, @PathVariable Long trainer_id, @RequestBody BuyerPTDto buyerPTDto) {
 
         log.info("결제 PK 아이디는 = " + member_id);
-        ptUserService.payment(member_id,trainer_id,buyerPTDto);
+        ptUserService.payment(member_id, trainer_id, buyerPTDto);
         return buyerPTDto;
     }
+
+    // 환불처리
+    @PostMapping("/payRefund/{member_id}/{trainer_id}")
+    public BuyerPt payRefund(@PathVariable Long member_id, @PathVariable Long trainer_id) {
+        log.info("환불처리 POST 컨트롤러에 들어오셨습니다");
+        BuyerPt refund = ptUserService.refund(member_id, trainer_id);
+        return refund;
+    }
+
+    @PostMapping("/payments/cancel")
+    public Boolean payCancel(@RequestBody RefundDto refundDto) {
+        log.info("cancle Controlelr post에 들어옴");
+        log.info("refund info는" + refundDto);
+
+        PaymentCheck paymentCheck = new PaymentCheck();
+        String token = paymentCheck.getImportToken();
+        paymentCheck.cancelPayment(token, refundDto.getMerchant_uid());
+
+        Long member_id = refundDto.getMember_id();
+        Long trainer_id = refundDto.getTrainer_id();
+
+        ptUserService.refundDel(member_id, trainer_id);
+
+        return true;
+    }
+
 }

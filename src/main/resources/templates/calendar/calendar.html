@@ -31,6 +31,9 @@
 
 
     <input type="hidden" th:value="${session.loginUser}" id="calendar_user" name="calendar_user"/>
+    <input type="hidden" th:value="${trainer_id}" id="trainer_id" name="trainer_id">
+    <input type="hidden" th:value="${member_id}" id="member_id" name="member_id">
+
     <!-- 일자 클릭시 메뉴오픈 -->
     <div id="contextMenu" class="dropdown clearfix">
         <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu"
@@ -214,6 +217,10 @@
     <script th:src="@{~/js/calendar/editEvent.js}"></script>
     <script th:src="@{~/js/calendar/etcSetting.js}"></script>
 
+    <script th:inline="javascript">
+        var count = [[${count}]];
+        alert("PT 남은 횟수는 = " + count + " 입니다. ");
+    </script>
 </div>
 
 

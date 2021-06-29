@@ -1,10 +1,12 @@
 package com.testcode.yjp.last.controller;
 
 import com.testcode.yjp.last.domain.Board;
+//import com.testcode.yjp.last.domain.Emotion;
 import com.testcode.yjp.last.domain.dto.BoardResponseDto;
 import com.testcode.yjp.last.domain.dto.BoastboardResponseDto;
 import com.testcode.yjp.last.domain.dto.CommentsListResponseDto;
 import com.testcode.yjp.last.domain.dto.PageRequestDto;
+import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.service.BoastboardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Required;
@@ -24,6 +26,7 @@ import java.util.Optional;
 public class BoastboardController {
 
     private final BoastboardService boastboardService;
+    private final MemberRepository memberRepository;
 
     @GetMapping("/bb")
     public String BList(Model model, PageRequestDto pageRequestDto) {
