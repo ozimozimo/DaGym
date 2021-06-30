@@ -248,10 +248,10 @@ public class PTUserService {
                 .trainer_category(entity.getTrainer_category())
                 .trainer_kakao(entity.getTrainer_kakao())
                 .trainer_instagram(entity.getTrainer_instagram())
+                .trainer_gymName(entity.getTrainer_gymName())
                 .user_name(entity.getMember().getUser_name())
                 .trainer_content(entity.getTrainer_content())
                 .build();
-
         return dto;
     }
 
@@ -351,5 +351,11 @@ public class PTUserService {
     public void refundDel(Long member_id, Long trainer_id) {
         buyerPTRepository.deleteInfo(member_id, trainer_id);
         ptUserRepository.deleteByInfo(member_id, trainer_id);
+    }
+
+    public void updatePT(Long pt_id) {
+        PTUser ptUser = ptUserRepository.findById(pt_id).get();
+        ptUser.setPt_end(1);
+        ptUserRepository.save(ptUser);
     }
 }

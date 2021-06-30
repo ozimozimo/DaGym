@@ -61,7 +61,8 @@ $(function (){
     $('.search_btn').on("click",search);
     $('.sclear_btn').on("click",Sclear);
     $('.checkBtn').on("click",function (){
-        let trainerId = $(this).parent().parent().children('.trainerId').val();
+        let trainerId = $(this).parent().parent().parent().children('.trainerId').val();
+        console.log(trainerId);
         check(trainerId);
     });
     $('.detailBtn').on("click",function (){

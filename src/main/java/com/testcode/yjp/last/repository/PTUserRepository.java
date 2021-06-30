@@ -57,7 +57,7 @@ public interface PTUserRepository extends JpaRepository<PTUser, Long> {
     @Query("select p from PTUser p where p.trainer_id.id=:trainer_id")
     PTUser findPtUserId(Long trainer_id);
 
-    @Query("select p from PTUser p where p.trainer_id.id=:trainer_id and p.accept_condition='1'")
+    @Query("select p from PTUser p where p.trainer_id.id=:trainer_id and p.accept_condition='1' and p.pt_end=0")
     List<PTUser> findByUser(Long trainer_id);
 
     @Query("select p from PTUser p where p.member_id.id=:member_id and p.accept_condition='1'" )

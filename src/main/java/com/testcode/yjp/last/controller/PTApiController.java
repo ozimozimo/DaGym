@@ -50,10 +50,17 @@ public class PTApiController {
         ptMemberInfoDto.setTrainer(trainerId.get());
 
         ptMemberInfoDto.setAccept_condition("0"); // 신청 - 보류상태로 전환.
+        ptMemberInfoDto.setPt_end(0);
 
         ptUserService.save(ptMemberInfoDto);
 
         return ptMemberInfoDto;
+    }
+
+    @PostMapping("/ptEnd/{pt_id}")
+    public void PtEnd(@PathVariable Long pt_id) {
+        log.info("트레이너 측에서 PT 종료 누를때 " + pt_id);
+        ptUserService.updatePT(pt_id);
     }
 
     // pt 종료하기

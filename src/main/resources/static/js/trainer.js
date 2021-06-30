@@ -193,6 +193,7 @@ function updateAccept(a) {
         console.log(data);
         if (con == "수락") {
             alert("PT신청이 수락되었습니다");
+            location.reload();
         } else if (con == "거절") {
             alert("PT신청이 거절되었습니다");
             location.reload();

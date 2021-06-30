@@ -27,8 +27,14 @@
         </thead>
         <tbody>
         <tr>
-<!--            <td th:text="${myTrainer.id}"></td>-->
-            <td><img class="trainer_image" width="200px" height="200px" th:src="@{/display(fileName=${myTrainer.trainer_id.imgName})}"></td>
+            <!--            <td th:text="${myTrainer.id}"></td>-->
+            <td><img class="trainer_image" width="200px" height="200px"
+                     th:src="@{/display(fileName=${myTrainer.trainer_id.imgName})}"></td>
+            <input type="hidden" th:value="${myTrainer.pt_end}" id="pt_end" name="pt_end">
+            <input type="hidden" th:value="${myTrainer.id}" id="pt_id" name="pt_id">
+            <input type="hidden" th:value="${myTrainer.trainer_id.id}" id="trainer_id">
+            <input type="hidden" th:value="${myTrainer.member_id.id}" id="member_id">
+            <input type="hidden" th:value="${myTrainer.trainer_id.member.user_name}" id="trainer_name">
             <td th:text="${myTrainer.trainer_id.member.user_name}">이름</td>
             <td th:text="${myTrainer.trainer_id.member.user_pn}">폰번호</td>
             <td th:text="${myTrainer.trainer_id.trainer_gymName}">헬스장이름</td>
@@ -37,13 +43,64 @@
             <td th:text="${myTrainer.trainer_id.trainer_kakao}">카카오톡</td>
             <td th:text="${myTrainer.trainer_id.trainer_instagram}">Instagram</td>
             <td><a href="#">채팅하기</a></td>
-            <td><button type="button" onclick="myTrainerDetailView()">상세 보기</button></td>
+            <td>
+                <button type="button" onclick="myTrainerDetailView()">상세 보기</button>
+            </td>
             <td><a class="btn btn-primary" th:href="@{~/calendar/memo(member_id=${session.loginUser},
                                                             trainer_id=${myTrainer.trainer_id.id})}">PT일정</a></td>
         </tr>
         </tbody>
 
     </table>
+    <script>
+        $(function () {
+            ptEnd()
+        });
+
+        function ptEnd() {
+            let pt_id = $('#pt_id').val();
+            let pt_end = $('#pt_end').val();
+            let trainer_name = $('#trainer_name').val();
+            let trainer_id = $('#trainer_id').val();
+            let member_id = $('#member_id').val();
+
+            console.log("pt entity PK = " + pt_id);
+            console.log("pt entity 종료 = " + pt_end);
+            console.log("pt member_id = " + member_id);
+            console.log("pt trainer_name = " + trainer_name);
+            console.log("pt trainer_id = " + trainer_id);
+
+            let count = parseInt(pt_end);
+
+            if (count == 1) {
+                alert(trainer_name + "님과의 PT가 종료 되었습니다");
+
+                // let url = "http://localhost:8090/ptUser/review/" + member_id + "/" + trainer_id;
+                popup();
+            }
+
+        }
+
+        function popup() {
+            let popWidth = 500;
+            let popHeight = 500;
+
+            let winWidth = document.body.clientWidth; // 현재창의 너비
+            let winHeight = document.body.clientHeight; // 현재창의 높이
+
+            let winX = window.screenX||window.screenLeft||0; // 현재창의 x좌표
+            let winY = window.screenY||window.screenTop||0; // 현재창의 y좌표
+
+            let left = winX + (winWidth - popWidth) / 2;
+            let top = winY + (winHeight - popHeight) / 2;
+            let trainer_id = $('#trainer_id').val();
+            let member_id = $('#member_id').val();
+            let url = "http://localhost:8090/ptUser/review/" + member_id + "/" + trainer_id;
+
+            window.open(url, + ",left=" + left + ",top=" + top + ",width=" + popWidth + ',height=' + popHeight);
+        }
+
+    </script>
 
 </div>
 

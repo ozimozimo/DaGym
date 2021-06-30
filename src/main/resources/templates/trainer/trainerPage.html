@@ -39,7 +39,8 @@
         <h2>트레이너 대표 이미지</h2>
         <input type="hidden" id="id" name="id" th:value="${trainerInfo.id}">
         <div class="updateResult">
-            <img class="trainer_image" th:src="@{/display(fileName=${trainerInfo.imgName})}">
+            <img th:if="${trainerInfo.imgName != null}" class="trainer_image" width="200px" height="200px" th:src="@{/display(fileName=${trainerInfo.imgName})}">
+            <img th:if="${trainerInfo.imgName == null}" th:src="@{~/image/noImg.png}" width="200px" height="200px">
         </div>
         <div class="updateResult2">
         </div>

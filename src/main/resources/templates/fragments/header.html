@@ -17,7 +17,7 @@
                                                              style="text-decoration:none">회원 관리</a></li>
             <!--            트레이너이면 수락한 회원목록, 회원이면 트레이너 검색창으로 이동-->
             <li><a th:href="@{/ptUser/view}" style="text-decoration:none">PT 신청</a></li>
-            <li th:if="${session.loginRole == 'trainer'}"><a th:href="@{/calendar/memo(id=${session.loginUser})}" style="text-decoration:none">일정</a></li>
+            <li th:if="${session.loginRole == 'trainer'}"><a th:href="@{/calendar/TrMemo(id=${session.loginUser})}" style="text-decoration:none">PT 일정</a></li>
             <li><a th:href="@{/room}" style="text-decoration:none">채팅</a></li>
             <li><a th:href="@{/board}" style="text-decoration:none">트레이너 게시판</a></li>
         </ul>
