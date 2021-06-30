@@ -101,12 +101,9 @@ public class PTApiController {
         System.out.println("ptUserApply.getApply_if() = " + ptUserApplyConDto.getApply_if());
         String data = ptUserApplyConDto.getApply_if();
         System.out.println("data = " + data);
-        if (data.equals("1")) {
+        if (data.equals("1") || data.equals("2")) {
             ptUserService.update(pt_user_id, ptUserApplyConDto);
         }
-//        else if (data.equals("2")) {
-//            ptUserService.delete(pt_user_id);
-//        }
         System.out.println("ptuser_id =" + pt_user_id);
         return ptUserApplyConDto;
     }

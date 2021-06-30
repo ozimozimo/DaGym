@@ -14,12 +14,12 @@ function memberCheck() {
             applyInfo(data);
         } else if (data.accept_condition == 1) {
             alert(data.trainer_id.member.user_name + ' 트레이너와 매칭 되었습니다');
-
-
             // 로그아웃 보내고 / 나의 트레이너 확인
             // 매칭중인 상태에선 회원은 다른 트레이너와 PT를 진행할수 없음
         } else if (data.accept_condition == 2) {
             alert('PT 신청이 거절 되었습니다');
+            applyInfo(data);
+            trCancelPay();
         } else {
 
         }
@@ -49,8 +49,9 @@ function check() {
         } else if (data.accept_condition == 1) {
             alert('PT가 진행 중입니다.');
             window.location.href = '/ptUser/view';
-        } else if (data.accept_condition == null || data.accept_condition == 2) {
-            console.log(data);
+        } else if (data.accept_condition) {
+            alert('PT신청 페이지로 이동하겠습니다');
+            window.location.href = '/ptUser/apply?member_id=' + member_id + "&trainer_id=" + trainer_id;
         }
     }).fail(function () {
         alert('PT신청 페이지로 이동하겠습니다');
@@ -151,6 +152,7 @@ function acceptList() {
         console.log(error);
     });
 }
+
 // 수락, 거절 눌러서 accept_condition 바꾸기
 function updateAccept(a) {
     // PTUserApplyConDto에 넘겨줄 apply_if값
@@ -193,7 +195,8 @@ function updateAccept(a) {
             alert("PT신청이 수락되었습니다");
         } else if (con == "거절") {
             alert("PT신청이 거절되었습니다");
-            trCancelPay();
+            location.reload();
+            // trCancelPay();
         }
     }).fail(function (error) {
         console.log(error);
@@ -245,19 +248,19 @@ function mkApply(data) {
 
         // 삭제할려면 필요한 정보가 회원 pk와 트레이너 pk 트레이너 페이지에선 뒤에꺼는 적용된다
 
-        let tr_Id = data[i].trainer.id;
-        let mem_Id = data[i].member.id;
+        // let tr_Id = data[i].trainer.id;
+        // let mem_Id = data[i].member.id;
 
-        console.log("트레이너 ID는" + tr_Id);
-        console.log("멤버 ID는 " + mem_Id);
+        // console.log("트레이너 ID는" + tr_Id);
+        // console.log("멤버 ID는 " + mem_Id);
         // hidden 값 넣기
         var p = data[i].id;
         console.log("ptUser pk는" + p);
 
 
         let content = "<tr>"
-        content += `<input type="hidden" value="${mem_Id}" id="mem_Id" name="mem_Id"> `
-        content += `<input type="hidden" value="${tr_Id}" id="tr_Id" name="tr_Id"> `
+        // content += `<input type="hidden" value="${mem_Id}" id="mem_Id" name="mem_Id"> `
+        // content += `<input type="hidden" value="${tr_Id}" id="tr_Id" name="tr_Id"> `
         content += "<td class='ptUserId'>" + m + "</td>"
         content += "<td class='ptUserName'>" + g + "</td>"
         content += "<td class='ptUserPn'>" + h + "</td>"
@@ -275,8 +278,8 @@ function mkApply(data) {
 
 
 function trCancelPay() {
-    let member_id = $('#mem_Id').val();
-    let trainer_id = $('#tr_Id').val();
+    let member_id = $('#memId').val();
+    let trainer_id = $('#trId').val();
     console.log("회원 아이디는" + member_id);
     console.log("트레이너 아이디는 " + trainer_id);
 
@@ -317,7 +320,6 @@ function trCancelPay() {
         alert("실패");
     });
 }
-
 
 
 function a() {
