@@ -53,6 +53,28 @@ function check(trainer_id) {
     })
 }
 
+function ReviewList() {
+
+}
+
+function TrReviewList(trainerId) {
+    console.log("function TrReviewList id = " + trainerId);
+
+    $.ajax({
+        type: 'get',
+        url: '/pt/review/list/' + trainerId,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+    }).done(function (data) {
+        console.log(data);
+        ReviewList(data);
+        alert("성공");
+    }).fail(function () {
+        alert("실패");
+
+    })
+
+}
 
 
 $(function (){
@@ -65,8 +87,13 @@ $(function (){
         console.log(trainerId);
         check(trainerId);
     });
+    $('.reviewBtn').on("click", function () {
+        let trainerId = $(this).parent().parent().parent().children('.trainerId').val();
+        console.log(trainerId);
+        TrReviewList(trainerId);
+    });
     $('.detailBtn').on("click",function (){
-        let trainerId = $(this).parent().parent().children('.trainerId').val();
+        let trainerId = $(this).parent().parent().parent().children('.trainerId').val();
         detailView(trainerId);
     });
 })

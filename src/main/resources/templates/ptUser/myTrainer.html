@@ -95,9 +95,11 @@
             let top = winY + (winHeight - popHeight) / 2;
             let trainer_id = $('#trainer_id').val();
             let member_id = $('#member_id').val();
-            let url = "http://localhost:8090/ptUser/review/" + member_id + "/" + trainer_id;
+            let url = "http://localhost:8090/pt/review/" + member_id + "/" + trainer_id;
 
-            window.open(url, + ",left=" + left + ",top=" + top + ",width=" + popWidth + ',height=' + popHeight);
+            let option = "status=no, left=" + left + ",top=" + top + ",width=" + popWidth + ',height=' + popHeight
+
+            window.open(url, 'popup', option);
         }
 
     </script>

@@ -2,6 +2,7 @@ package com.testcode.yjp.last.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.testcode.yjp.last.domain.dto.TrReviewDto;
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -28,4 +29,6 @@ abstract public class BaseEntity {
     @UpdateTimestamp
     @Column(name = "moddate")
     private LocalDateTime modDate;
+
+
 }

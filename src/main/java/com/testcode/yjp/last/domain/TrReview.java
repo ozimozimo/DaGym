@@ -1,5 +1,6 @@
 package com.testcode.yjp.last.domain;
 
+import com.testcode.yjp.last.domain.dto.TrReviewDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,7 +18,11 @@ public class TrReview extends BaseEntity{
     @Column(name = "trReview_id")
     private Long id;
 
-    // 리뷰에 들어갈 컬럼들
+    // 리뷰 내용
+    private String content;
+
+    // 리뷰 점수
+    private int score;
 
     // member_id 기본정보에 + pt 추가 정보기입
     @ManyToOne
@@ -28,4 +33,9 @@ public class TrReview extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "trainer_id")
     private TrainerInfo trainer_id;
+
+    public void update(TrReviewDto trReviewDto) {
+        this.score = trReviewDto.getScore();
+        this.content = trReviewDto.getContent();
+    }
 }

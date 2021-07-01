@@ -10,6 +10,7 @@ import com.testcode.yjp.last.domain.dto.TrainerSearchDto;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.PTUserRepository;
 import com.testcode.yjp.last.repository.TrainerRepository;
+import com.testcode.yjp.last.service.PTReviewService;
 import com.testcode.yjp.last.service.PTUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -30,6 +31,7 @@ public class PTController {
     private final TrainerRepository trainerRepository;
     private final MemberRepository memberRepository;
     private final PTUserRepository ptUserRepository;
+    private final PTReviewService ptReviewService;
 
     // 트레이너 조회, 검색 페이지 뷰
     @GetMapping("/view")
@@ -111,6 +113,7 @@ public class PTController {
         TrainerInfo trainerInfo = trainerRepository.findById(id).get();
         model.addAttribute("pageRequestDto", pageRequestDto);
         model.addAttribute("trainerInfo", trainerInfo);
+        model.addAttribute("reviewList", ptReviewService.trainerReviewList(id));
 
         return "ptUser/trainerDetail";
     }
@@ -143,12 +146,6 @@ public class PTController {
         return "ptUser/trainerApply";
     }
 
-    @GetMapping("/review/{member_id}/{trainer_id}")
-    public String review(@PathVariable Long member_id ,@PathVariable Long trainer_id) {
 
-        log.info("member_id =" + member_id);
-        log.info("trainer_id =" + trainer_id);
-        return "ptUser/trainerReview";
-    }
 
 }

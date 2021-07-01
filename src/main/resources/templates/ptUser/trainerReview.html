@@ -3,14 +3,84 @@
         lang="ko"
         xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        data-layout-decorate="~{layout/default}"
 >
 <head>
 </head>
 <div layout:fragment="content">
+    <input type="hidden" th:value="${member_id}" id="member_id" name="member_id">
+    <input type="hidden" th:value="${trainer_id}" id="trainer_id" name="trainer_id">
     <h2>리뷰 창입니다</h2>
-    <form id="review">
+    <div>
+        <p>DAGYM</p>
+    </div>
+    <div class="topimg-text">
+        <p>리뷰 등록</p>
+    </div>
+    <div>
+        <img th:if="${trainerInfo.imgName != null}" class="trainer_image" width="200px" height="200px"
+             th:src="@{/display(fileName=${trainerInfo.imgName})}">
+        <img th:if="${trainerInfo.imgName == null}" th:src="@{~/image/noImg.png}" width="200px" height="200px">
+    </div>
+    <div class="total-body">
+        <form>
+            <div>
+                <div>
+                    <h4 th:text="${trainerInfo.member.user_name}"></h4>
+                </div>
+                <div class="score">
+                    <div class="label">평점</div>
+                    <div>
+                        <select
+                                class="scorebox"
+                                id="score"
+                        >
+                            <option value="">::선택::</option>
+                            <option value="5">★★★★★</option>
+                            <option value="4">★★★★☆</option>
+                            <option value="3">★★★☆☆</option>
+                            <option value="2">★★☆☆☆</option>
+                            <option value="1">★☆☆☆☆</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="label-desc">리뷰 내용</div>
+                <div>
+                                <textarea
+                                        row="8"
+                                        placeholder="리뷰 내용"
+                                        id="description"
+                                        class="input-box-area"
+                                ></textarea>
+                </div>
+            </div>
+        </form>
+        <div class="button-box">
+            <button type="button" onclick="reviewRegister()">
+                추가
+            </button>
+            <button class="button4">취소</button>
+        </div>
+    </div>
+    <script>
 
-    </form>
+        function reviewRegister() {
+            let member_id = $('#member_id').val();
+            let trainer_id = $('#trainer_id').val();
+            console.log(member_id);
+            console.log(trainer_id);
+
+            $.ajax({
+                type: 'post',
+                url: '/pt/review/register/' + member_id + '/' + trainer_id,
+                contentType: 'application/json; charset=utf-8',
+            }).done(function () {
+                alert('기록이 삭제되었습니다');
+                location.reload();
+            }).fail(function (error) {
+                alert(error);
+                console.log(JSON.stringify(error));
+            })
+        }
+    </script>
 </div>
 </html>
