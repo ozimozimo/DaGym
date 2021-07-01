@@ -128,14 +128,12 @@ public class PTApiController {
     public List<TrainerInfoDto> trainer() {
         List<TrainerInfoDto> trainerLists = trainerService.findAll();
         System.out.println(trainerLists);
-
         return trainerLists;
     }
 
     // 결제처리
     @PostMapping("/payment/{member_id}/{trainer_id}")
     public BuyerPTDto payResult(@PathVariable Long member_id, @PathVariable Long trainer_id, @RequestBody BuyerPTDto buyerPTDto) {
-
         log.info("결제 PK 아이디는 = " + member_id);
         ptUserService.payment(member_id, trainer_id, buyerPTDto);
         return buyerPTDto;
@@ -162,8 +160,6 @@ public class PTApiController {
         Long trainer_id = refundDto.getTrainer_id();
 
         ptUserService.refundDel(member_id, trainer_id);
-
         return true;
     }
-
 }
