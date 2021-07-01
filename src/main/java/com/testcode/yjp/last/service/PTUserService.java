@@ -167,7 +167,6 @@ public class PTUserService {
         Long trainer_id = trainer.getId();
 
 
-
         return ptUserRepository.findApply(trainer_id).stream()
                 .map(PTMemberInfoDto::new)
                 .collect(Collectors.toList());
@@ -319,7 +318,7 @@ public class PTUserService {
         ptUserRepository.delete(ptUser);
     }
 
-    public void payment(Long member_id,Long trainer_id, BuyerPTDto buyerPTDto) {
+    public void payment(Long member_id, Long trainer_id, BuyerPTDto buyerPTDto) {
 
         Optional<Member> member = memberRepository.findById(member_id);
         Optional<TrainerInfo> trainer = trainerRepository.findById(trainer_id);
@@ -358,4 +357,9 @@ public class PTUserService {
         ptUser.setPt_end(1);
         ptUserRepository.save(ptUser);
     }
+
+    public void delete(Long member_id, Long trainer_id) {
+        ptUserRepository.deleteByInfo(member_id, trainer_id);
+    }
+
 }

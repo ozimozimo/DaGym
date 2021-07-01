@@ -77,22 +77,44 @@
 
                 // let url = "http://localhost:8090/ptUser/review/" + member_id + "/" + trainer_id;
                 popup();
+            } else if (count == 2) {
+                let trainer_id = $('#trainer_id').val();
+                let member_id = $('#member_id').val();
+                console.log(member_id);
+                console.log(trainer_id);
+
+                $.ajax({
+                    type: 'post',
+                    url: '/ptUser/end/' + member_id + '/' + trainer_id,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        if (data == true) {
+                            alert('PT가 종료되었습니다');
+                            alert('회원님은 재접속 부탁드립니다');
+                            location.href = "/member/logout";
+                        }
+                    },
+                    error: function () {
+                        alert("에러")
+                    }
+                });
             }
 
         }
 
         function popup() {
-            let popWidth = 500;
-            let popHeight = 500;
+            let popWidth = 600;
+            let popHeight = 700;
 
             let winWidth = document.body.clientWidth; // 현재창의 너비
             let winHeight = document.body.clientHeight; // 현재창의 높이
 
-            let winX = window.screenX||window.screenLeft||0; // 현재창의 x좌표
-            let winY = window.screenY||window.screenTop||0; // 현재창의 y좌표
+            let winX = window.screenX || window.screenLeft || 0; // 현재창의 x좌표
+            let winY = window.screenY || window.screenTop || 0; // 현재창의 y좌표
 
-            let left = winX + (winWidth - popWidth) / 2;
-            let top = winY + (winHeight - popHeight) / 2;
+            let left = winX + (winWidth - winX) / 2;
+            let top = winY + (winHeight - winY) / 2;
             let trainer_id = $('#trainer_id').val();
             let member_id = $('#member_id').val();
             let url = "http://localhost:8090/pt/review/" + member_id + "/" + trainer_id;
@@ -100,6 +122,7 @@
             let option = "status=no, left=" + left + ",top=" + top + ",width=" + popWidth + ',height=' + popHeight
 
             window.open(url, 'popup', option);
+
         }
 
     </script>

@@ -7,6 +7,7 @@ import com.testcode.yjp.last.domain.TrainerInfo;
 import com.testcode.yjp.last.domain.dto.PTUserApplyMemberDto;
 import com.testcode.yjp.last.domain.dto.TrReviewDto;
 import com.testcode.yjp.last.repository.MemberRepository;
+import com.testcode.yjp.last.repository.PTUserRepository;
 import com.testcode.yjp.last.repository.TrReviewRepository;
 import com.testcode.yjp.last.repository.TrainerRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class PTReviewService {
     private final MemberRepository memberRepository;
     private final TrainerRepository trainerRepository;
     private final TrReviewRepository trReviewRepository;
+    private final PTUserRepository ptUserRepository;
 
     public void reviewRegister(Long member_id, Long trainer_id, TrReviewDto trReviewDto) {
 
@@ -41,6 +43,7 @@ public class PTReviewService {
                 .build();
 
         trReviewRepository.save(trReview);
+        ptUserRepository.acceptAdd(member_id, trainer_id);
     }
 
     public List<TrReviewDto> trainerReviewList(Long trainer_id) {
@@ -54,4 +57,5 @@ public class PTReviewService {
         trReview.update(trReviewDto);
         trReviewRepository.save(trReview);
     }
+
 }

@@ -2,6 +2,7 @@ package com.testcode.yjp.last.controller;
 
 
 import com.testcode.yjp.last.domain.dto.TrReviewDto;
+import com.testcode.yjp.last.repository.PTUserRepository;
 import com.testcode.yjp.last.service.PTReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -17,6 +18,7 @@ import java.util.List;
 public class PTReviewApiController {
 
     private final PTReviewService ptReviewService;
+    private final PTUserRepository ptUserRepository;
 
     @PostMapping("/review/register/{member_id}/{trainer_id}")
     public TrReviewDto register(@PathVariable Long member_id, @PathVariable Long trainer_id, @RequestBody TrReviewDto trReviewDto) {
@@ -38,6 +40,8 @@ public class PTReviewApiController {
         List<TrReviewDto> trReviewDtos = ptReviewService.trainerReviewList(trainer_id);
         return trReviewDtos;
     }
+
+
 
 
 }

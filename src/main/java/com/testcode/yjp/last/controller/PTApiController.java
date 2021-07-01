@@ -162,4 +162,19 @@ public class PTApiController {
         ptUserService.refundDel(member_id, trainer_id);
         return true;
     }
+
+    @PostMapping("/accept/{member_id}/{trainer_id}")
+    public Boolean accept(@PathVariable Long member_id, @PathVariable Long trainer_id) {
+        ptUserRepository.acceptAdd(member_id, trainer_id);
+        return true;
+    }
+
+    @PostMapping("/end/{member_id}/{trainer_id}")
+    public Boolean ptend(@PathVariable Long member_id, @PathVariable Long trainer_id) {
+        log.info("pt삭제 처리하는 부분 controller 들어옴");
+        ptUserService.delete(member_id, trainer_id);
+        return true;
+    }
+
+
 }

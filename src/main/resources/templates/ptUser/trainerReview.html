@@ -1,86 +1,317 @@
 <!DOCTYPE html>
-<html
-        lang="ko"
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            display: block;
+        }
+
+        li {
+            display: inline-block;
+            list-style: none;
+        }
+
+        ul img {
+            cursor: pointer;
+        }
+
+        .header {
+            top: 0;
+            height: 75px;
+            background: white;
+            margin-bottom: 20px;
+            object-fit: fill;
+            border-bottom: 1px solid #999999;
+        }
+
+        .header-left {
+            width: 190px;
+            height: inherit;
+            float: left;
+            overflow: hidden;
+        }
+
+        .header-right {
+            font-size: 22px;
+            margin-top: 22px;
+            height: 30px;
+            font-weight: bold;
+            line-height: initial;
+            display: inline-block;
+            border-left: 2px solid #d3d3d3;
+            padding-left: 10px;
+        }
+
+        .total_content {
+            width: 90%;
+            margin-left: 5%;
+        }
+
+        .logo {
+            transform: translateY(-20px);
+            object-fit: fill;
+        }
+
+        .first-content::after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        .trainer_img {
+            float: left;
+            padding: 20px;
+        }
+
+        .name_score {
+            height: 200px;
+            float: left;
+            padding: 20px;
+        }
+
+        .trainer_name {
+            font-size: 24px;
+            margin-left: -20px;
+        }
+
+        .desc {
+            margin-left: -20px;
+            transform: translateY(6px);
+            color: #555555;
+        }
+
+        .star_score {
+            float: left;
+            margin-left: -70px;
+            margin-top: -20px;
+        }
+
+        .change_score {
+            float: left;
+            font-size: 30px;
+            font-weight: bold;
+            color: orange;
+            margin-left: 16px;
+            margin-top: -5px;
+        }
+
+        .second-content {
+            float: inherit;
+            background: #F5F9FD;
+        }
+
+        .label-desc {
+            margin-left: 3%;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .input-box-area {
+            width: 94%;
+            height: 200px;
+            margin-left: 3%;
+        }
+
+        .button-box {
+            width: 94%;
+            margin-left: 3%;
+            text-align: center;
+            padding: 20px 0 30px 0;
+        }
+
+        .addBtn {
+            width: 230px;
+            padding: 20px;
+            margin-right: 10px;
+            background: #1886EE;
+            border: none;
+            color: white;
+        }
+
+        .cancelBtn {
+            width: 230px;
+            padding: 20px;
+            margin-left: 20px;
+            background: white;
+            border: 1px solid gray;
+            color: gray;
+        }
+
+    </style>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js">
+    </script>
+    <script type="text/javascript">
+        score = 0;
+
+        function changeImage() {
+            document.getElementById('img1').src = "/image/fullstar1.png";
+            document.getElementById('img2').src = "/image/emptystar.png";
+            document.getElementById('img3').src = "/image/emptystar.png";
+            document.getElementById('img4').src = "/image/emptystar.png";
+            document.getElementById('img5').src = "/image/emptystar.png";
+            $('.change_score').text('1 / 5');
+            $('.score_input').val(1);
+        }
+
+        function changeImage2() {
+            document.getElementById('img1').src = "/image/fullstar1.png";
+            document.getElementById('img2').src = "/image/fullstar1.png";
+            document.getElementById('img3').src = "/image/emptystar.png";
+            document.getElementById('img4').src = "/image/emptystar.png";
+            document.getElementById('img5').src = "/image/emptystar.png";
+            $('.change_score').text('2 / 5');
+            $('.score_input').val(2);
+        }
+
+        function changeImage3() {
+            document.getElementById('img1').src = "/image/fullstar1.png";
+            document.getElementById('img2').src = "/image/fullstar1.png";
+            document.getElementById('img3').src = "/image/fullstar1.png";
+            document.getElementById('img4').src = "/image/emptystar.png";
+            document.getElementById('img5').src = "/image/emptystar.png";
+            $('.change_score').text('3 / 5');
+            $('.score_input').val(3);
+        }
+
+        function changeImage4() {
+            document.getElementById('img1').src = "/image/fullstar1.png";
+            document.getElementById('img2').src = "/image/fullstar1.png";
+            document.getElementById('img3').src = "/image/fullstar1.png";
+            document.getElementById('img4').src = "/image/fullstar1.png";
+            document.getElementById('img5').src = "/image/emptystar.png";
+            $('.change_score').text('4 / 5');
+            $('.score_input').val(4);
+        }
+
+        function changeImage5() {
+            document.getElementById('img1').src = "/image/fullstar1.png";
+            document.getElementById('img2').src = "/image/fullstar1.png";
+            document.getElementById('img3').src = "/image/fullstar1.png";
+            document.getElementById('img4').src = "/image/fullstar1.png";
+            document.getElementById('img5').src = "/image/fullstar1.png";
+            $('.change_score').text('5 / 5');
+            $('.score_input').val(5);
+        }
+    </script>
 </head>
-<div layout:fragment="content">
-    <input type="hidden" th:value="${member_id}" id="member_id" name="member_id">
-    <input type="hidden" th:value="${trainer_id}" id="trainer_id" name="trainer_id">
-    <h2>리뷰 창입니다</h2>
-    <div>
-        <p>DAGYM</p>
+
+<body>
+<div class="header">
+    <div class="header-left">
+        <img th:src="@{~/image/dagym.png}" height="100px" class="logo">
     </div>
-    <div class="topimg-text">
-        <p>리뷰 등록</p>
+    <div class="header-right">
+        트레이너 리뷰 등록
+        <input type="hidden" th:value="${trainer_id}" id="trainer_id">
+        <input type="hidden" th:value="${member_id}" id="member_id">
     </div>
-    <div>
-        <img th:if="${trainerInfo.imgName != null}" class="trainer_image" width="200px" height="200px"
-             th:src="@{/display(fileName=${trainerInfo.imgName})}">
-        <img th:if="${trainerInfo.imgName == null}" th:src="@{~/image/noImg.png}" width="200px" height="200px">
+</div>
+<div class="total_content">
+    <div class="first-content">
+        <div class="trainer_img">
+            <img th:if="${trainerInfo.imgName != null}" class="trainer_image" width="180px" height="180px"
+                 th:src="@{/display(fileName=${trainerInfo.imgName})}">
+            <img th:if="${trainerInfo.imgName == null}" th:src="@{~/image/noImg.png}" width="180px" height="180px">
+        </div>
+        <div class="name_score">
+            <h4 th:text="${trainerInfo.member.user_name + ' 트레이너'}" class="trainer_name">트레이너</h4>
+            <p class="desc">PT 트레이너에 대한 점수는?</p>
+            <div class="star_score">
+                <ul>
+                    <li><img id="img1" width="40px" onclick="changeImage()" th:src="@{~/image/emptystar.png}"></li>
+                    <li><img id="img2" width="40px" onclick="changeImage2()" th:src="@{~/image/emptystar.png}"></li>
+                    <li><img id="img3" width="40px" onclick="changeImage3()" th:src="@{~/image/emptystar.png}"></li>
+                    <li><img id="img4" width="40px" onclick="changeImage4()" th:src="@{~/image/emptystar.png}"></li>
+                    <li><img id="img5" width="40px" onclick="changeImage5()" th:src="@{~/image/emptystar.png}"></li>
+                </ul>
+            </div>
+            <p class="change_score">0 / 5</p>
+            <input class="score_input" id="score" type="hidden">
+        </div>
     </div>
-    <div class="total-body">
+    <div class="second-content">
         <form>
-            <div>
+            <div class="review-box">
+                <div class="label-desc"><span style="color: red;">(필수)</span><span> PT는 어떠셨나요?</span></div>
                 <div>
-                    <h4 th:text="${trainerInfo.member.user_name}"></h4>
-                </div>
-                <div class="score">
-                    <div class="label">평점</div>
-                    <div>
-                        <select
-                                class="scorebox"
-                                id="score"
-                        >
-                            <option value="">::선택::</option>
-                            <option value="5">★★★★★</option>
-                            <option value="4">★★★★☆</option>
-                            <option value="3">★★★☆☆</option>
-                            <option value="2">★★☆☆☆</option>
-                            <option value="1">★☆☆☆☆</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="label-desc">리뷰 내용</div>
-                <div>
-                                <textarea
-                                        row="8"
-                                        placeholder="리뷰 내용"
-                                        id="description"
-                                        class="input-box-area"
-                                ></textarea>
+                    <textarea row="8" placeholder="리뷰 내용" id="content" class="input-box-area"></textarea>
                 </div>
             </div>
         </form>
         <div class="button-box">
-            <button type="button" onclick="reviewRegister()">
+            <button onclick=reviewRegister() class="addBtn">
                 추가
             </button>
-            <button class="button4">취소</button>
+            <button onclick="endPt()" class="cancelBtn">취소</button>
         </div>
     </div>
-    <script>
+</div>
+<script>
+    function reviewRegister() {
+        let member_id = $('#member_id').val();
+        let trainer_id = $('#trainer_id').val();
+        let content = $('#content').val();
+        let sc = $('#score').val();
+        let score = parseInt(sc);
+        console.log(member_id);
+        console.log(trainer_id);
+        console.log(content);
+        console.log(score);
 
-        function reviewRegister() {
-            let member_id = $('#member_id').val();
-            let trainer_id = $('#trainer_id').val();
-            console.log(member_id);
-            console.log(trainer_id);
 
+        let data = {
+            score: score,
+            content: content
+        }
+
+
+        $.ajax({
+            type: 'post',
+            url: '/pt/review/register/' + member_id + '/' + trainer_id,
+            dataType: "json",
+            data: JSON.stringify(data),
+            contentType: 'application/json; charset=utf-8',
+        }).done(function () {
+            alert('PT 리뷰 등록이 완료 되었습니다');
+            window.open('', '_self').close();
+            opener.parent.location.reload();
+        }).fail(function (error) {
+            alert(error);
+            console.log(JSON.stringify(error));
+        })
+    }
+
+    function endPt() {
+        let member_id = $('#member_id').val();
+        let trainer_id = $('#trainer_id').val();
+
+        if (confirm("해당 트레이너에게 도움이 되는 리뷰작성을 취소 하시겠습니까?")) {
             $.ajax({
                 type: 'post',
-                url: '/pt/review/register/' + member_id + '/' + trainer_id,
+                url: '/ptUser/accept/' + member_id + '/' + trainer_id,
+                dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-            }).done(function () {
-                alert('기록이 삭제되었습니다');
-                location.reload();
-            }).fail(function (error) {
-                alert(error);
-                console.log(JSON.stringify(error));
-            })
+                success: function (data) {
+                    if (data == true) {
+                        window.open('', '_self').close();
+                        opener.parent.location.reload();
+                    }
+
+                },
+                error: function () {
+                    alert("에러입니다");
+                }
+            });
+        } else {
+
         }
-    </script>
-</div>
+    }
+</script>
+</body>
 </html>
