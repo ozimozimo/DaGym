@@ -18,22 +18,55 @@ function getFormatDate(date) {
     return year + '-' + month + '-' + day;
 }
 
+function AllAddClassValue(className) {
+    let name = $(className);
+    let contents = "";
+    name.each(function () {
+        let value = $(this).val() || "";
+        value += ","
+        contents += value;
+    })
+    return contents;
+}
+
 function addExBtnClick() {
     let id = $(".loginUser").val();
     let user = $(".ex_record_member_id").val();
     console.log("id= " + id);
     console.log("user= " + user);
-    let ex_set = $("#ex_set").val();
-    let ex_count = $("#ex_count").val();
-    let ex_weight = $("#ex_weight").val();
+
+    // let ex_set = $("#ex_set").val();
+    // let ex_count = $("#ex_count").val();
+    // let ex_weight = $("#ex_weight").val();
+    // let ex_date = $('.date').val();
+    // let ex_time = $('#ex_time').val();
+    // let ex_meter = $('#ex_meter').val();
+    // let exercise_id = $('.exer_name option:selected').attr("id");
+    // let ex_parts = $('.parts option:selected').val();
+    // let ex_name = $('#input_exer_name').val();
+    // let ex_kcal = $('#ex_kcal').val();
+    // let ex_category = $('.category option:selected').val();
+
+    let set = AllAddClassValue(".ex_set1");
+    let count = AllAddClassValue(".ex_count1");
+    let weight = AllAddClassValue(".ex_weight1");
+    let time = AllAddClassValue('.ex_time1');
+    let meter = AllAddClassValue('.ex_meter1');
+    let name = AllAddClassValue('.input_exer_name1');
+    let kcal = AllAddClassValue('.ex_kcal1');
+
+    let ex_set = set
+    let ex_count = count
+    let ex_weight = weight
     let ex_date = $('.date').val();
-    let ex_time = $('#ex_time').val();
-    let ex_meter = $('#ex_meter').val();
+    let ex_time = time
+    let ex_meter = meter
     let exercise_id = $('.exer_name option:selected').attr("id");
     let ex_parts = $('.parts option:selected').val();
-    let ex_name = $('#input_exer_name').val();
-    let ex_kcal = $('#ex_kcal').val();
+    let ex_name = name
+    let ex_kcal = kcal
     let ex_category = $('.category option:selected').val();
+
 
     alert("ex_name = " + ex_name);
 
@@ -87,7 +120,7 @@ function addExBtnClick() {
             ex_category: ex_category
         });
     }
-
+    console.log(data);
     $.ajax({
         type: 'post',
         url: '/ExRecord/save/' + id,
@@ -123,7 +156,10 @@ function mkExr(result) {
     let allKcal = 0;
 
     result.sort(function (a, b) {
-        return a.ex_name < b.ex_name ? -1 : a.ex_name > b.name ? 1 : 0;
+        return a.ex_category < b.ex_category ? -1 : a.ex_category > b.ex_category ? 1 : 0;
+    })
+    result.sort(function (a, b) {
+        return a.ex_name < b.ex_name ? -1 : a.ex_name > b.ex_name ? 1 : 0;
     })
 
     for (let i = 0; i < result.length; i++) {
@@ -131,82 +167,187 @@ function mkExr(result) {
         let a = result[i].ex_record_id;
         let member_id = result[i].ex_record_member_id;
         let exName = result[i].ex_name;
-        let exSet = result[i].ex_set;
-        let exCount = result[i].ex_count;
-        let exWeight = result[i].ex_weight;
         let exDate = result[i].ex_date;
-        let exMeter = result[i].ex_meter;
-        let exTime = result[i].ex_time;
         let exCategory = result[i].ex_category;
         let exParts = result[i].ex_parts;
-        let exKcal = result[i].kcal;
-        allKcal += exKcal;
+
+        let exSet = removeString(result[i].ex_set || "");
+        let exCount = removeString(result[i].ex_count || "");
+        let exWeight = removeString(result[i].ex_weight || "");
+        let exMeter = removeString(result[i].ex_meter || "");
+        let exTime = removeString(result[i].ex_time || "");
+        let exKcal = removeString(result[i].kcal || "");
+        for(let i in exKcal){
+            allKcal += parseInt(exKcal[i]);
+        }
         console.log("allKcal = " + allKcal);
         console.log("member_id  " + member_id);
 
+        function removeString(str) {
+            // let result = str.match(/,/g);
+            // if(result != null) {
+            //     if (result == 1) {
+            //         let prevStr = str;
+            //         let fStr = prevStr.replace(',', '');
+            //
+            //     } else {
+            //         let splitStr = str.split(',');
+            //         return splitStr;
+            //     }
+            // }
+
+            let splitStr = str.split(',');
+            return splitStr;
+        }
+
+        let content = "";
         if (exCategory == '렙만') {
             $(".onlyCount").css("display", "");
+            if (exSet.length > 1) {
+                for (let i in exSet) {
+                    if (!(exSet[i] == "")) {
+                        content += "<tr>"
+                        content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>"
+                        // if(i == 0){
+                            content += "<td class='res_ex_category'>" + exCategory + "</td>"
+                            content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
+                        // } else {
+                        //     content += "<td></td>"
+                        //     content += "<td></td>"
+                        // }
+                        content += "<td class='res_ex_set'>" + exSet[i] + "세트</td>"
+                        content += "<td class='res_ex_count'>" + exCount[i] + "개</td>"
+                        content += "<td>" + "</td>";
+                        content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
 
-            let content = "<tr>";
-            content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>"
-            content += "<td class='res_ex_category'>" + exCategory + "</td>"
-            content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
-            content += "<td class='res_ex_set'>" + exSet + "세트</td>"
-            content += "<td class='res_ex_count'>" + exCount + "개</td>"
-            content += "<td>" + "</td>";
-            content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
+                        if (id == member_id)
+                            content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>"
+                        content += "</tr>"
+                    }
+                }
+            } else {
+                content += "<tr>";
+                content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>"
+                content += "<td class='res_ex_category'>" + exCategory + "</td>"
+                content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
+                content += "<td class='res_ex_set'>" + exSet + "세트</td>"
+                content += "<td class='res_ex_count'>" + exCount + "개</td>"
+                content += "<td>" + "</td>";
+                content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
 
-            if (id == member_id)
-                content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>"
-            content += "</tr>"
+                if (id == member_id)
+                    content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>"
+                content += "</tr>"
+            }
             $('.onlyCountEx').append(content);
+
         } else if (exCategory == '유산소' || exCategory == '기타(유산소)') {
             $(".cardio").css("display", "");
 
-            let content = "<tr>";
-            content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>"
-            content += "<td class='res_ex_category'>" + exCategory + "</td>"
-            content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
-            content += "<td class='res_ex_time'>" + exTime + "분</td>"
-            content += "<td class='res_ex_meter'>" + exMeter + "KM</td>"
-            content += "<td class='res_ex_kcal'>" + exKcal + "Kcal</td>"
-            content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
+            if (exTime.length > 1) {
+                for (let i in exTime) {
+                    if (!(exTime[i] == "")) {
+                        content += "<tr>";
+                        content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>"
+                        content += "<td class='res_ex_category'>" + exCategory + "</td>"
+                        content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
+                        content += "<td class='res_ex_time'>" + exTime[i] + "분</td>"
+                        content += "<td class='res_ex_meter'>" + exMeter[i] + "KM</td>"
+                        content += "<td class='res_ex_kcal'>" + exKcal[i] + "Kcal</td>"
+                        content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
 
-            if (id == member_id)
-                content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>"
-            content += "</tr>"
+                        if (id == member_id)
+                            content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>"
+                        content += "</tr>"
+                    }
+                }
+            } else {
+                content += "<tr>";
+                content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>"
+                content += "<td class='res_ex_category'>" + exCategory + "</td>"
+                content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
+                content += "<td class='res_ex_time'>" + exTime + "분</td>"
+                content += "<td class='res_ex_meter'>" + exMeter + "KM</td>"
+                content += "<td class='res_ex_kcal'>" + exKcal + "Kcal</td>"
+                content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
+
+                if (id == member_id)
+                    content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>"
+                content += "</tr>"
+            }
             $('.cardioEx').append(content);
         } else if (exCategory == '지속 시간') {
             $(".time").css("display", "");
 
-            let content = "<tr>";
-            content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>";
-            content += "<td class='res_ex_category'>" + exCategory + "</td>"
-            content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
-            content += "<td class='res_ex_set'>" + exSet + "세트</td>";
-            content += "<td class='res_ex_time'>" + exTime + "분</td>";
-            content += "<td>" + "</td>";
-            content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>";
+            if (exSet.length > 1) {
+                for (let i in exSet) {
+                    if (!(exSet[i] == "")) {
 
-            if (id == member_id)
-                content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>";
-            content += "</tr>";
+                        content += "<tr>";
+                        content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>";
+                        content += "<td class='res_ex_category'>" + exCategory + "</td>"
+                        content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
+                        content += "<td class='res_ex_set'>" + exSet[i] + "세트</td>";
+                        content += "<td class='res_ex_time'>" + exTime[i] + "분</td>";
+                        content += "<td>" + "</td>";
+                        content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>";
+
+                        if (id == member_id)
+                            content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>";
+                        content += "</tr>";
+                    }
+                }
+            } else {
+                content += "<tr>";
+                content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>";
+                content += "<td class='res_ex_category'>" + exCategory + "</td>"
+                content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
+                content += "<td class='res_ex_set'>" + exSet + "세트</td>";
+                content += "<td class='res_ex_time'>" + exTime + "분</td>";
+                content += "<td>" + "</td>";
+                content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>";
+
+                if (id == member_id)
+                    content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>";
+                content += "</tr>";
+            }
+
             $('.timeEx').append(content);
         } else {
             $(".another").css("display", "");
+            if (exSet.length > 1) {
+                for (let i in exSet) {
+                    if (!(exSet[i] == "")) {
 
-            let content = "<tr>";
-            content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>"
-            content += "<td class='res_ex_category'>" + exCategory + "</td>"
-            content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
-            content += "<td class='res_ex_set'>" + exSet + "세트</td>"
-            content += "<td class='res_ex_count'>" + exCount + "개</td>"
-            content += "<td class='res_ex_weight'>" + exWeight + "KG</td>"
-            content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
+                        content += "<tr>";
+                        content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>"
+                        content += "<td class='res_ex_category'>" + exCategory + "</td>"
+                        content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
+                        content += "<td class='res_ex_set'>" + exSet[i] + "세트</td>"
+                        content += "<td class='res_ex_count'>" + exCount[i] + "개</td>"
+                        content += "<td class='res_ex_weight'>" + exWeight[i] + "KG</td>"
+                        content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
 
-            if (id == member_id)
-                content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>";
-            content += "</tr>";
+                        if (id == member_id)
+                            content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>";
+                        content += "</tr>";
+                    }
+                }
+            } else {
+                content += "<tr>";
+                content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>"
+                content += "<td class='res_ex_category'>" + exCategory + "</td>"
+                content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
+                content += "<td class='res_ex_set'>" + exSet + "세트</td>"
+                content += "<td class='res_ex_count'>" + exCount + "개</td>"
+                content += "<td class='res_ex_weight'>" + exWeight + "KG</td>"
+                content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
+
+                if (id == member_id)
+                    content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>";
+                content += "</tr>";
+            }
+
             $('.anotherEx').append(content);
         }
     }
@@ -399,22 +540,22 @@ function addBtn() {
 <td class="ex_name">
 </td>
 <td class="ex_set">
-<input type="text" class="ex_set" name="ex_set"/>
+<input type="text" class="ex_set1" name="ex_set"/>
 </td>
  <td class="ex_count">
-<input type="text" class="ex_count" name="ex_count"/>
+<input type="text" class="ex_count1" name="ex_count"/>
 </td>
 <td class="ex_weight">
-<input type="text" class="ex_weight" name="ex_weight"/>
+<input type="text" class="ex_weight1" name="ex_weight"/>
 </td>
 <td class="ex_time">
-<input type="text" class="ex_time" name="ex_set"/>
+<input type="text" class="ex_time1" name="ex_set"/>
 </td>
 <td class="ex_meter">
-<input type="text" class="ex_meter" name="ex_meter"/>
+<input type="text" class="ex_meter1" name="ex_meter"/>
 </td>
 <td class="ex_kcal">
-    <input type="text" class="ex_kcal" name="ex_kcal"/>
+    <input type="text" class="ex_kcal1" name="ex_kcal"/>
     </td>
 </tr>`
     $('.addEx').append(content);
