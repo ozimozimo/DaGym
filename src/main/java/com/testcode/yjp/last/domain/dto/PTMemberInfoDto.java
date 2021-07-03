@@ -34,6 +34,8 @@ public class PTMemberInfoDto {
     private Member member;
     private TrainerInfo trainer;
     private String accept_condition; // {0 신청(보류), 1 신청(수락), 2 신청(거절)}로 생각
+    private int pt_end;
+
 
 
     public PTMemberInfoDto(PTUser ptUser) {
@@ -46,6 +48,7 @@ public class PTMemberInfoDto {
         this.pt_positiveDate = ptUser.getPt_positiveDate();
         this.pt_wantTime = ptUser.getPt_wantTime();
         this.accept_condition = ptUser.getAccept_condition();
+        this.pt_end = ptUser.getPt_end();
         this.member = ptUser.getMember_id();
         this.trainer = ptUser.getTrainer_id();
     }

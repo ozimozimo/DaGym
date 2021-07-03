@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface InBodyRepository extends JpaRepository<InBody, Long> {
 
-    @Query("select i from InBody i where i.member.user_id=:id")
+    @Query("select i from InBody i where i.member.user_id=:id order by i.regDate asc")
     List<InBody> findAllDesc(String id);
 
 

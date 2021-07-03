@@ -8,8 +8,8 @@
 <head>
     <script th:src="@{/js/trainer.js?ver=1.0}"></script>
     <script th:src="@{/js/trainerView.js?ver=1.0}"></script>
-    <script     src="https://code.jquery.com/jquery-3.3.1.min.js"
-                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/trainerView.css}"/>
 </head>
@@ -17,165 +17,198 @@
 <div layout:fragment="content">
 
     <input type="hidden" id="role" th:value="${session.loginRole}">
-    <!--    로그인한 유저롤이 트레이너일 때-->
-    <div th:if="${session.loginRole == 'trainer'}">
-        <input type="hidden" th:value="${session.loginUser}" id="member_id">
-        <div>
+    <div class="total">
+        <!--    로그인한 유저롤이 트레이너일 때-->
+        <div th:if="${session.loginRole == 'trainer'}">
+            <input type="hidden" th:value="${session.loginUser}" id="member_id">
             <div>
-                <h1>받은 신청</h1>
                 <div>
-                    <table class="table table-striped applyList">
-                        <thead>
-                        <tr>
-                            <th>회원아이디</th>
-                            <th>회원이름</th>
-                            <th>연락처</th>
-                            <th>나이</th>
-                            <th>성별</th>
-                            <th>키</th>
-                            <th>몸무게</th>
-                            <th>상세보기</th>
-                        </tr>
-                        </thead>
-                        <tbody class="applyListDetail">
+                    <h1>받은 신청</h1>
+                    <div>
+                        <table class="table table-striped applyList">
+                            <thead>
+                            <tr>
+                                <th>회원아이디</th>
+                                <th>회원이름</th>
+                                <th>연락처</th>
+                                <th>나이</th>
+                                <th>성별</th>
+                                <th>키</th>
+                                <th>몸무게</th>
+                                <th>상세보기</th>
+                            </tr>
+                            </thead>
+                            <tbody class="applyListDetail">
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    <!-- 로그인한 유저롤이 유저일 때-->
-    <div th:if="${session.loginRole == 'user'} ">
-        <h2>트레이너 찾기</h2>
-        <a th:href="@{/ptUser/view}">검색으로 찾기</a>
-        <a th:href="@{/ptUser/view/map}">맵으로 찾기</a>
-        <h1 th:text="${session.loginId}" class="loginId" style="display: none"></h1>
-        <input type="hidden" th:value="${session.loginUser}" name="member_id"/>
-        <!--트레이너 검색-->
-        <form th:action="@{/ptUser/view}" method="get" id="searchForm">
-            <div class="input-group">
-                <input type="hidden" name="page" value="1">
-                <div class="input-group-prepend">
-                    <select class="custom-select" name="type">
-                        <option th:selected="${pageRequestDto.type == null}"></option>
-                        <option value="n" th:selected="${pageRequestDto.type == 'n'}">이름</option>
-                        <option value="g" th:selected="${pageRequestDto.type == 'g'}">헬스장이름</option>
-                        <option value="c" th:selected="${pageRequestDto.type == 'c'}">운동목적</option>
-                        <option value="ki" th:selected="${pageRequestDto.type == 'ki'}">SNS</option>
-                        <option value="p" th:selected="${pageRequestDto.type == 'p'}">경력사항</option>
-                        <option value="ngc" th:selected="${pageRequestDto.type == 'ngc'}">이름+헬스장이름+운동목적</option>
-                    </select>
+        <!-- 로그인한 유저롤이 유저일 때-->
+        <div th:if="${session.loginRole == 'user'} ">
+            <div class="box1">
+                <div class="underline1">
+                    <h2 class="sub-title">트레이너 찾기</h2>
+                    <hr class="hr-style1">
                 </div>
-                <input class="form-control" name="keyword" th:value="${pageRequestDto.keyword}">
-                <div class="input-group-append" id="button-addon4">
-                    <button class="btn btn-outline-secondary search_btn" type="button">검색</button>
-                    <button class="btn btn-outline-secondary sclear_btn" type="button">Clear</button>
-                </div>
+                <!--        <a th:href="@{/ptUser/view}">검색으로 찾기</a>-->
+                <a th:href="@{/ptUser/view/map}" class="a_map">맵으로 찾기</a>
+                <h1 th:text="${session.loginId}" class="loginId" style="display: none"></h1>
+                <input type="hidden" th:value="${session.loginUser}" name="member_id"/>
+                <!--트레이너 검색-->
+                <form th:action="@{/ptUser/view}" method="get" id="searchForm">
+                    <div class="input-group">
+                        <input type="hidden" name="page" value="1">
+                        <div class="input-group-prepend">
+                            <select class="custom-select" name="type">
+                                <option th:selected="${pageRequestDto.type == null}"></option>
+                                <option value="n" th:selected="${pageRequestDto.type == 'n'}">이름</option>
+                                <option value="g" th:selected="${pageRequestDto.type == 'g'}">헬스장이름</option>
+                                <option value="c" th:selected="${pageRequestDto.type == 'c'}">운동목적</option>
+                                <option value="ki" th:selected="${pageRequestDto.type == 'ki'}">SNS</option>
+                                <option value="p" th:selected="${pageRequestDto.type == 'p'}">경력사항</option>
+                                <option value="ngc" th:selected="${pageRequestDto.type == 'ngc'}">이름+헬스장이름+운동목적</option>
+                            </select>
+                        </div>
+                        <input class="form-control" name="keyword" th:value="${pageRequestDto.keyword}">
+                        <div class="input-group-append" id="button-addon4">
+                            <button class="search_btn" type="button">검색</button>
+                            <button class="clear_btn" type="button">Clear</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </form>
 
+            <div class="box2">
+                <div class="underline2">
+                    <h1 class="sub-title">내가 신청한 트레이너</h1>
+                    <hr class="hr-style1">
+                </div>
 
-        <div>
-            <h1>내가 신청한 트레이너</h1>
-            <table class="table table-striped applyList">
-                <thead>
-                <tr>
-                    <th>트레이너 이름</th>
-                    <th>트레이너 연락처</th>
-                    <th>트레이너 카카오</th>
-                    <th>트레이너 인스타</th>
-                    <th>트레이너 헬스장 일반주소</th>
-                    <th>트레이너 헬스장 상세주소</th>
-                    <th>PT 가격</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody class="applyInfoList">
+                <table class="table table-striped applyList">
+                    <thead>
+                    <tr>
+                        <th>트레이너 이름</th>
+                        <th>트레이너 연락처</th>
+                        <th>트레이너 카카오</th>
+                        <th>트레이너 인스타</th>
+                        <th>트레이너 헬스장 일반주소</th>
+                        <th>트레이너 헬스장 상세주소</th>
+                        <th>PT 가격</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody class="applyInfoList">
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="user_view">
+                <div class="underline3">
+                    <h5 class="sub-title">트레이너 검색 결과</h5>
+                    <hr class="hr-style1">
+                </div>
+                <div th:each="trainer : ${result.dtoList}" class="card-box">
+
+                    <div class="card">
+                        <input type="hidden" class="trainerId" id="trainer_id" th:value="${trainer.id}">
+                        <div class="item-img">
+                            <img th:if="${trainer.imgName != null}" class="trainer_image" width="240px" height="220px"
+                                 th:src="@{/display(fileName=${trainer.imgName})}">
+                            <img th:if="${trainer.imgName == null}" th:src="@{~/image/noImg.png}" width="240px" height="220px">
+                        </div>
+                        <div class="item-name">
+                            <span th:text="${trainer.user_name}" >
+                            </span>
+                            <span class="trainer-text">
+                                트레이너
+                            </span>
+                        </div>
+                        <!-- <div th:text="${trainer.user_id}" class="item-id">아이디</div> -->
+                        <div class="item-gymname">
+                            <span>
+                                <img th:src="@{~/image/gymicon.png}" width="12px" height="12px">
+                            </span>
+                            <span th:text="${trainer.trainer_gymName}"></span>
+                        </div>
+                        <div class="item-phone">
+                            <span>
+                                <img th:src="@{~/image/phoneicon.png}" width="12px" height="12px">
+                            </span>
+                            <span th:text="${trainer.user_pn}"></span>
+                        </div>
+                        <div class="sns-box">
+                            <div class="item-kakao">
+                                <span>
+                                    <img th:src="@{~/image/kakaoicon.png}" width="12px" height="12px">
+                                </span>
+                                <span th:text="${trainer.trainer_kakao}">
+                                </span>
+                            </div>
+                            <div class="item-insta">
+                                <span>
+                                    <img th:src="@{~/image/instaicon.png}" width="12px" height="12px">
+                                </span>
+                                <span th:text="${trainer.trainer_instagram}"></span>
+                            </div>
+                        </div>
+                        <div class="btn-box">
+                            <span>
+                                <button type="button" th:text="PT신청" class="checkBtn">PT신청</button>
+                            </span>
+                            <span>
+                                <button type="button" class="detailBtn">상세보기</button>
+                                <input type="hidden" id="pageValue" th:value="${pageRequestDto.page}">
+                                <input type="hidden" id="typeValue" th:value="${pageRequestDto.type}">
+                                <input type="hidden" id="keywordValue" th:value="${pageRequestDto.keyword}">
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
         </div>
-
-        <div class="user_view">
-            <h5>트레이너 검색 결과</h5>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>프로필 이미지</th>
-                    <th>트레이너 아이디</th>
-                    <th>이름</th>
-                    <th>휴대폰 번호</th>
-                    <th>헬스장 이름</th>
-                    <th>카카오톡 아이디</th>
-                    <th>인스타그램 아이디</th>
-                    <th>신청</th>
-                    <th>상세보기</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="trainer : ${result.dtoList}">
-                    <input type="hidden" class="trainerId" id="trainer_id" th:value="${trainer.id}">
-                    <td><img class="trainer_image" width="200px" height="200px"
-                             th:src="@{/display(fileName=${trainer.imgName})}"></td>
-                    <td th:text="${trainer.user_id}">아이디</td>
-                    <td th:text="${trainer.user_name}">이름</td>
-                    <td th:text="${trainer.user_pn}">폰번호</td>
-                    <td th:text="${trainer.trainer_gymName}">헬스장이름</td>
-                    <td th:text="${trainer.trainer_kakao}">카카오톡</td>
-                    <td th:text="${trainer.trainer_instagram}">Instagram</td>
-                    <td>
-                        <button type="button"
-                                th:text="PT신청"
-                                class="checkBtn"
-                        ></button>
-                    </td>
-                    <td>
-                        <button type="button" class="detailBtn">상세보기</button>
-                        <input type="hidden" id="pageValue" th:value="${pageRequestDto.page}">
-                        <input type="hidden" id="typeValue" th:value="${pageRequestDto.type}">
-                        <input type="hidden" id="keywordValue" th:value="${pageRequestDto.keyword}">
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="pagination_area">
-        <ul>
-            <li th:if="${result.prev}">
-                <a class="custom_btn" th:href="@{/ptUser/view(page = ${result.start -1},
+        <div class="pagination_area">
+            <ul>
+                <li th:if="${result.prev}">
+                    <a class="custom_btn" th:href="@{/ptUser/view(page = ${result.start -1},
                                         type=${pageRequestDto.type},
                                         keyword=${pageRequestDto.keyword})}">이전</a>
-            </li>
-            <li th:each="page: ${result.pageList}">
-                <a class="custom_btn" th:href="@{/ptUser/view(page= ${page},
+                </li>
+                <li th:each="page: ${result.pageList}">
+                    <a class="custom_btn" th:href="@{/ptUser/view(page= ${page},
                                         type=${pageRequestDto.type},
                                         keyword=${pageRequestDto.keyword})}" th:text="${page}">1</a>
-            </li>
-            <li th:if="${result.next}">
-                <a class="custom_btn" th:href="@{/ptUser/view(page = ${result.end +1},
+                </li>
+                <li th:if="${result.next}">
+                    <a class="custom_btn" th:href="@{/ptUser/view(page = ${result.end +1},
                                         type=${pageRequestDto.type},
                                         keyword=${pageRequestDto.keyword})}">다음</a>
-            </li>
-        </ul>
+                </li>
+            </ul>
+        </div>
+
+
+<!--        <script th:inline="javascript">-->
+
+<!--            var searchForm = $('#searchForm');-->
+
+<!--            function search() {-->
+<!--                searchForm.submit();-->
+<!--            }-->
+
+<!--            function Sclear() {-->
+<!--                searchForm.empty().submit();-->
+<!--            }-->
+<!--        </script>-->
     </div>
-
-
-    <script th:inline="javascript">
-
-        var searchForm = $('#searchForm');
-
-        function search() {
-            searchForm.submit();
-        }
-
-        function Sclear() {
-            searchForm.empty().submit();
-        }
-    </script>
 </div>
 </body>
 </html>

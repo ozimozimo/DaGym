@@ -167,7 +167,6 @@ public class PTUserService {
         Long trainer_id = trainer.getId();
 
 
-
         return ptUserRepository.findApply(trainer_id).stream()
                 .map(PTMemberInfoDto::new)
                 .collect(Collectors.toList());
@@ -248,10 +247,10 @@ public class PTUserService {
                 .trainer_category(entity.getTrainer_category())
                 .trainer_kakao(entity.getTrainer_kakao())
                 .trainer_instagram(entity.getTrainer_instagram())
+                .trainer_gymName(entity.getTrainer_gymName())
                 .user_name(entity.getMember().getUser_name())
                 .trainer_content(entity.getTrainer_content())
                 .build();
-
         return dto;
     }
 
@@ -319,7 +318,7 @@ public class PTUserService {
         ptUserRepository.delete(ptUser);
     }
 
-    public void payment(Long member_id,Long trainer_id, BuyerPTDto buyerPTDto) {
+    public void payment(Long member_id, Long trainer_id, BuyerPTDto buyerPTDto) {
 
         Optional<Member> member = memberRepository.findById(member_id);
         Optional<TrainerInfo> trainer = trainerRepository.findById(trainer_id);
@@ -352,4 +351,15 @@ public class PTUserService {
         buyerPTRepository.deleteInfo(member_id, trainer_id);
         ptUserRepository.deleteByInfo(member_id, trainer_id);
     }
+
+    public void updatePT(Long pt_id) {
+        PTUser ptUser = ptUserRepository.findById(pt_id).get();
+        ptUser.setPt_end(1);
+        ptUserRepository.save(ptUser);
+    }
+
+    public void delete(Long member_id, Long trainer_id) {
+        ptUserRepository.deleteByInfo(member_id, trainer_id);
+    }
+
 }

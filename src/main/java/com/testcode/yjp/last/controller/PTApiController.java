@@ -50,10 +50,17 @@ public class PTApiController {
         ptMemberInfoDto.setTrainer(trainerId.get());
 
         ptMemberInfoDto.setAccept_condition("0"); // 신청 - 보류상태로 전환.
+        ptMemberInfoDto.setPt_end(0);
 
         ptUserService.save(ptMemberInfoDto);
 
         return ptMemberInfoDto;
+    }
+
+    @PostMapping("/ptEnd/{pt_id}")
+    public void PtEnd(@PathVariable Long pt_id) {
+        log.info("트레이너 측에서 PT 종료 누를때 " + pt_id);
+        ptUserService.updatePT(pt_id);
     }
 
     // pt 종료하기
@@ -101,12 +108,9 @@ public class PTApiController {
         System.out.println("ptUserApply.getApply_if() = " + ptUserApplyConDto.getApply_if());
         String data = ptUserApplyConDto.getApply_if();
         System.out.println("data = " + data);
-        if (data.equals("1")) {
+        if (data.equals("1") || data.equals("2")) {
             ptUserService.update(pt_user_id, ptUserApplyConDto);
         }
-//        else if (data.equals("2")) {
-//            ptUserService.delete(pt_user_id);
-//        }
         System.out.println("ptuser_id =" + pt_user_id);
         return ptUserApplyConDto;
     }
@@ -124,14 +128,12 @@ public class PTApiController {
     public List<TrainerInfoDto> trainer() {
         List<TrainerInfoDto> trainerLists = trainerService.findAll();
         System.out.println(trainerLists);
-
         return trainerLists;
     }
 
     // 결제처리
     @PostMapping("/payment/{member_id}/{trainer_id}")
     public BuyerPTDto payResult(@PathVariable Long member_id, @PathVariable Long trainer_id, @RequestBody BuyerPTDto buyerPTDto) {
-
         log.info("결제 PK 아이디는 = " + member_id);
         ptUserService.payment(member_id, trainer_id, buyerPTDto);
         return buyerPTDto;
@@ -158,8 +160,21 @@ public class PTApiController {
         Long trainer_id = refundDto.getTrainer_id();
 
         ptUserService.refundDel(member_id, trainer_id);
-
         return true;
     }
+
+    @PostMapping("/accept/{member_id}/{trainer_id}")
+    public Boolean accept(@PathVariable Long member_id, @PathVariable Long trainer_id) {
+        ptUserRepository.acceptAdd(member_id, trainer_id);
+        return true;
+    }
+
+    @PostMapping("/end/{member_id}/{trainer_id}")
+    public Boolean ptend(@PathVariable Long member_id, @PathVariable Long trainer_id) {
+        log.info("pt삭제 처리하는 부분 controller 들어옴");
+        ptUserService.delete(member_id, trainer_id);
+        return true;
+    }
+
 
 }

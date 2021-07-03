@@ -34,8 +34,6 @@ public class AndroidExcerciseRecordControllerTest {
         Member member = Member.builder().id(id).build();
         System.out.println(member);
         AndExerciseRecordDto dto = new AndExerciseRecordDto();
-        dto.setEx_record_member_id("ehgus0006");
-        dto.setEx_name("test");
         dto.setEx_set("test");
         dto.setEx_weight("test");
         dto.setEx_count("count");
@@ -48,14 +46,10 @@ public class AndroidExcerciseRecordControllerTest {
     @Test
     public void select() {
         AndExerciseRecordDto dto = new AndExerciseRecordDto();
-        dto.setEx_record_member_id("ehgus0006");
-        dto.setEx_name("test");
         dto.setEx_set("test");
         dto.setEx_weight("test");
         dto.setEx_count("count");
         dto.setEx_date("date");
-        ArrayList<AndExerciseRecordDto> select = andExRecordService.select(dto);
-        System.out.println(select+"============================");
     }
 
     //삭제
@@ -75,8 +69,6 @@ public class AndroidExcerciseRecordControllerTest {
         ExRecord record = ExRecord.builder().ex_record_id(id).build();
 
         AndExerciseRecordDto dto = new AndExerciseRecordDto();
-        dto.setEx_record_member_id("ehgus0006");
-        dto.setEx_name("update");
         dto.setEx_set("update");
         dto.setEx_weight("update");
         dto.setEx_count("update");

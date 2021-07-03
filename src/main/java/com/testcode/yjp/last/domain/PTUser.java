@@ -51,6 +51,9 @@ public class PTUser extends BaseEntity{
 
     private String accept_condition; // {0 신청(보류), 1 신청(수락), 2 신청(거절)}로 생각
 
+    // pt 종료후 리뷰를 위한 컬럼 0 PT진행 1 PT종료 표시
+    private int pt_end;
+
     public void update(String accept_condition) {
         this.accept_condition = accept_condition;
     }
