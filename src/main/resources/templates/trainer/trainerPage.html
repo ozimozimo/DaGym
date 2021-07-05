@@ -28,7 +28,7 @@
 <!--        <label for="chooseFile" id="fileNameLabel"></label>-->
 <!--        <button type="button" id="updateLoadBtn">업로드</button>-->
 
-        <input name="uploadFiles" type="file" multiple>
+        <input name="uploadFiles" th:value="${trainerInfo.fileName}" type="file" multiple>
         <button type="button" id="updateLoadBtn">업로드</button>
 
         <div>

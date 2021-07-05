@@ -21,6 +21,7 @@
     <!--        현재 로그인한 회원의 member_id-->
     <input type="hidden" th:value="${session.loginUser}" class="member">
     <input type="hidden" th:value="${session.loginUser}" class="loginUser">
+
     <input type="hidden" th:value="${session.loginId}" class="ex_record_member_id">
     <input type="hidden" class="date" value="">
     <div th:if="${session.loginId != null}">

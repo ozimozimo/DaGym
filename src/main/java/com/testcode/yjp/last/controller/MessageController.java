@@ -21,6 +21,19 @@ public class MessageController {
     List<Room> roomList = new ArrayList<Room>();
     static int roomNumber = 0;
 
+    @RequestMapping("/ptChat")
+    public ModelAndView ptChat() {
+//        Long member_id, Long trainer_id
+//        log.info("member_id = " + member_id);
+//        log.info("trainer_id = " + trainer_id);
+
+        ModelAndView mv = new ModelAndView();
+//        mv.addObject("member_id" , member_id);
+//        mv.addObject("trainer_id", trainer_id);
+        mv.setViewName("chat/ptChat");
+        return mv;
+    }
+
     @RequestMapping("/chat")
     public ModelAndView chat() {
         ModelAndView mv = new ModelAndView();

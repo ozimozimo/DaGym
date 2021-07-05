@@ -177,7 +177,7 @@ function mkExr(result) {
         let exMeter = removeString(result[i].ex_meter || "");
         let exTime = removeString(result[i].ex_time || "");
         let exKcal = removeString(result[i].kcal || "");
-        for(let i in exKcal){
+        for (let i in exKcal) {
             allKcal += parseInt(exKcal[i]);
         }
         console.log("allKcal = " + allKcal);
@@ -209,8 +209,8 @@ function mkExr(result) {
                         content += "<tr>"
                         content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>"
                         // if(i == 0){
-                            content += "<td class='res_ex_category'>" + exCategory + "</td>"
-                            content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
+                        content += "<td class='res_ex_category'>" + exCategory + "</td>"
+                        content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
                         // } else {
                         //     content += "<td></td>"
                         //     content += "<td></td>"
@@ -357,7 +357,11 @@ function mkExr(result) {
 // 오늘 날짜 데이터
 function todayData() {
     let today = date;
-    let id = $('.loginUser').val();
+    let id = $('.ex_record_member_id').val();
+
+
+    console.log("id="+id)
+    console.log("today="+today)
     let data = {
         id: id,
         ex_date: today
@@ -368,9 +372,11 @@ function todayData() {
         data: data,
         contentType: 'application/json; charset=utf-8',
     }).done(function (result) {
+        console.log(result);
         mkExr(result);
     }).fail(function () {
-    })
+        alert("실패");
+    });
 
 }
 

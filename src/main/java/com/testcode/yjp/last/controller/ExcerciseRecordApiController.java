@@ -32,7 +32,7 @@ public class ExcerciseRecordApiController {
 
     // 오늘 데이터 보여주기
     @GetMapping("/exDate")
-    public List<ExerciseRecordDto> exDate(Long id, String ex_date) {
+    public List<ExerciseRecordDto> exDate(String id, String ex_date) {
         log.info(id + " = id , " +ex_date + " = ex_date");
         List<ExRecord> byIdWithExDate = exerciseRecordRepository.findByIdWithExDate(id, ex_date);
         List<ExerciseRecordDto> exerciseRecordDtos = new ArrayList<>();
