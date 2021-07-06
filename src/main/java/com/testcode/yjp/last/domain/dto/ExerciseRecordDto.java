@@ -24,7 +24,7 @@ public class ExerciseRecordDto {
     private String ex_name;
     private String ex_category;
     private String ex_parts;
-    private int kcal;
+    private String kcal;
 
     public ExerciseRecordDto(ExRecord exRecord) {
         this.ex_record_id = exRecord.getEx_record_id();
