@@ -205,3 +205,14 @@ body a {
     -webkit-transform: scale(1);
     transform: scale(1);
 }
+.applyBtn {
+    margin-top: 7px;
+    /*margin-left: 10px;*/
+}
+.uploadFiles {
+    margin-left: 55px;
+    margin-bottom: 10px;
+}
+.delBtn{
+    margin-left: 10px;
+}

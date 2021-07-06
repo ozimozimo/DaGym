@@ -106,19 +106,22 @@ var calendar = $('#calendar').fullCalendar({
      *  일정 받아옴
      * ************** */
     events: function (start, end, timezone, callback) {
-        // var calendar_user = $('#calendar_user').val();
-        // var member_id = $('#member_id').val();
+        var calendar_user = $('#calendar_user').val();
+        var member_id = $('#member_id').val();
         var trainer_id = $('#trainer_id').val();
-        console.log(trainer_id);
+
+        var url = "/calendar/findPTAll";
+        var data = {
+            id: trainer_id
+            // 화면이 바뀌면 Date 객체인 start, end 가 들어옴
+            //startDate : moment(start).format('YYYY-MM-DD'),
+            //endDate   : moment(end).format('YYYY-MM-DD')
+
+        }
         $.ajax({
             type: "get",
-            url: '/calendar/findPTAll',
-            data: {
-                id: trainer_id
-                // 화면이 바뀌면 Date 객체인 start, end 가 들어옴
-                //startDate : moment(start).format('YYYY-MM-DD'),
-                //endDate   : moment(end).format('YYYY-MM-DD')
-            },
+            url: url,
+            data: data,
             success: function (response) {
                 console.log(response);
                 var fixedDate = response.map(function (array) {
