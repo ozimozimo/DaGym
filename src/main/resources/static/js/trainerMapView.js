@@ -178,6 +178,7 @@ function drawMarker(x, y) {
                         );
 
                         var content = "";
+
                         content += `<tr>`
                         if(item.imgName == null){
                             content += `<td><img class="trainer_image" width="200px" height="200px" src="../../image/noImg.png"></td>`

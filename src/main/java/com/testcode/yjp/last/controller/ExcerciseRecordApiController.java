@@ -57,17 +57,17 @@ public class ExcerciseRecordApiController {
         return exerciseRecordDtos;
     }
 //
-//    // 클릭한 날짜 데이터 보여주기
-//    @GetMapping("/clickDate")
-//    public List<ExerciseRecordDto> clickDate(String id, String ex_date) {
-//        log.info("Clicked Ex Date Data");
-//        System.out.println("id = " + id);
-//        System.out.println("ex_date = " + ex_date);
-//        List<ExerciseRecordDto> byIdWithExDate = exerciseRecordService.findByIdWithExDate(id, ex_date);
-//        System.out.println("dietService.findByIdWithExDate(id, ex_date) = " + byIdWithExDate);
-//        log.info("Clicked Date Exr Data HOLY MOLY");
-//        return byIdWithExDate;
-//    }
+    // 클릭한 날짜 데이터 보여주기
+    @GetMapping("/clickDate")
+    public List<ExerciseRecordDto> clickDate(String id, String ex_date) {
+        log.info("Clicked Ex Date Data");
+        System.out.println("id = " + id);
+        System.out.println("ex_date = " + ex_date);
+        List<ExerciseRecordDto> byIdWithExDate = exerciseRecordService.findByIdWithExDate(id, ex_date);
+        System.out.println("dietService.findByIdWithExDate(id, ex_date) = " + byIdWithExDate);
+        log.info("Clicked Date Exr Data HOLY MOLY");
+        return byIdWithExDate;
+    }
 
 
     // 데이터 추가
