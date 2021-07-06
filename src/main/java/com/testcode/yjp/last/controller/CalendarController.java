@@ -30,13 +30,11 @@ public class CalendarController {
     }
 
     @GetMapping("/trMemo")
-    public String trMemo(Long member_id, Long trainer_id, Model model) {
-        log.info("member_id =" + member_id);
+    public String trMemo(Long trainer_id, Model model) {
         log.info("trainer_id= " + trainer_id);
-        model.addAttribute("member_id", member_id);
         model.addAttribute("trainer_id", trainer_id);
 
-        return "calendar/calendar";
+        return "calendar/ptCalendar";
     }
 
     @GetMapping("/memoPop")

@@ -57,6 +57,13 @@ public class CalendarApiController {
         return all;
     }
 
+    @GetMapping("/findPTAll")
+    public List<Calendar> findPTAll(@RequestParam Long id) {
+        log.info("trainer_id =" + id);
+        List<Calendar> ptAll = calendarRepository.findPTAll(id);
+        return ptAll;
+    }
+
     @GetMapping("/findPT/{member_id}/{trainer_id}")
     public List<Calendar> findPT(@PathVariable Long member_id, @PathVariable Long trainer_id) {
 
