@@ -73,17 +73,18 @@ public class GoogleController {
             }
             ckUserId = memberRepository.findByUser_id(user_id);
 
-            if (ckUserId.getUser_role().equals("user")) {
-                PTUser myTrainer = ptUserRepository.loginCheckState(ckUserId.getId());
-                if (myTrainer != null) {
-                    HttpSession session = (HttpSession) request.getSession();
-                    session.setAttribute("PTState", myTrainer.getAccept_condition());
+            try {
+                if (ckUserId.getUser_role().equals("user")) {
+                    PTUser myTrainer = ptUserRepository.loginCheckState(ckUserId.getId());
+                    if (myTrainer != null) {
+                        HttpSession session = (HttpSession) request.getSession();
+                        session.setAttribute("PTState", myTrainer.getAccept_condition());
+                    }
                 }
+            } catch (Exception e) {
             }
 
-            // pt 기간 만료
-//            ptUserService.endDate(ckUserId);
-
+            log.info("loginUser = " + ckUserId.getId());
             HttpSession session = (HttpSession) request.getSession();
             session.setAttribute("loginUser", ckUserId.getId());
             session.setAttribute("loginName", user_name);
@@ -101,7 +102,7 @@ public class GoogleController {
             is.close();
 
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
         return "redirect:/"; // restController 쓰니까 return에 주소값 못받아옴.

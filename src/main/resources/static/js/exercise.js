@@ -67,9 +67,6 @@ function addExBtnClick() {
     let ex_kcal = kcal
     let ex_category = $('.category option:selected').val();
 
-
-    alert("ex_name = " + ex_name);
-
     console.log("addExBtnClick ex_date = " + ex_date);
 
     let category = $('.category option:selected').val();
@@ -177,10 +174,12 @@ function mkExr(result) {
         let exMeter = removeString(result[i].ex_meter || "");
         let exTime = removeString(result[i].ex_time || "");
         let exKcal = removeString(result[i].kcal || "");
+        // exKcal = exKcal.replace(',','');
         for (let i in exKcal) {
             allKcal += parseInt(exKcal[i]);
         }
         console.log("allKcal = " + allKcal);
+        console.log("Kcal = " + exKcal);
         console.log("member_id  " + member_id);
 
         function removeString(str) {
