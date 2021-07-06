@@ -109,15 +109,19 @@ var calendar = $('#calendar').fullCalendar({
         var calendar_user = $('#calendar_user').val();
         var member_id = $('#member_id').val();
         var trainer_id = $('#trainer_id').val();
+
+        var url = "";
+        var data = {
+            id: calendar_user
+            // 화면이 바뀌면 Date 객체인 start, end 가 들어옴
+            //startDate : moment(start).format('YYYY-MM-DD'),
+            //endDate   : moment(end).format('YYYY-MM-DD')
+
+        }
         $.ajax({
             type: "get",
-            url: '/calendar/findPT/' + member_id + '/' + trainer_id,
-            data: {
-                id: calendar_user
-                // 화면이 바뀌면 Date 객체인 start, end 가 들어옴
-                //startDate : moment(start).format('YYYY-MM-DD'),
-                //endDate   : moment(end).format('YYYY-MM-DD')
-            },
+            url: url,
+            data: data,
             success: function (response) {
                 var fixedDate = response.map(function (array) {
                     delete array.member;
