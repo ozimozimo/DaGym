@@ -31,6 +31,7 @@ public class CalendarService {
     @Transactional
     public void delete(String calendar_start, String calendar_end) {
         calendarRepository.deleteCalendar(calendar_start,calendar_end);
+
     }
 
     public void update(Long id, CalendarListDto calendarListDto) {

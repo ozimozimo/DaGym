@@ -66,7 +66,6 @@ public class CalendarApiController {
 
     @GetMapping("/findPT/{member_id}/{trainer_id}")
     public List<Calendar> findPT(@PathVariable Long member_id, @PathVariable Long trainer_id) {
-
         List<Calendar> all = calendarRepository.findPT(member_id,trainer_id);
         return all;
     }
@@ -76,6 +75,7 @@ public class CalendarApiController {
         System.out.println(calendar_start);
         System.out.println(calendar_end);
         calendarService.delete(calendar_start, calendar_end);
+
     }
 
     @PostMapping("/update")

@@ -167,6 +167,7 @@
                                 <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
                                 <div class="comment_control_btn_area"
                                      th:if="${session.loginId == recomment.re_user_id}">
+                                    <input type="hidden" th:value="${comment.id}" class="re_parentCoNum">
                                     <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
                                 </div>
                             </div>
@@ -251,6 +252,7 @@
                                 <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
                                 <div class="comment_control_btn_area"
                                      th:if="${session.loginId == recomment.re_user_id}">
+                                    <input type="hidden" th:value="${comment.id}" class="re_parentCoNum">
                                     <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
                                 </div>
                             </div>
@@ -337,6 +339,7 @@
                                 <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
                                 <div class="comment_control_btn_area"
                                      th:if="${session.loginId == recomment.re_user_id}">
+                                    <input type="hidden" th:value="${comment.id}" class="re_parentCoNum">
                                     <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
                                 </div>
                             </div>
@@ -424,6 +427,7 @@
                                 <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
                                 <div class="comment_control_btn_area"
                                      th:if="${session.loginId == recomment.re_user_id}">
+                                    <input type="hidden" th:value="${comment.id}" class="re_parentCoNum">
                                     <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
                                 </div>
                             </div>
@@ -508,6 +512,7 @@
                                 <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
                                 <div class="comment_control_btn_area"
                                      th:if="${session.loginId == recomment.re_user_id}">
+                                    <input type="hidden" th:value="${comment.id}" class="re_parentCoNum">
                                     <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
                                 </div>
                             </div>
