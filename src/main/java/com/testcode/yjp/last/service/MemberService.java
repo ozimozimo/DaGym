@@ -112,7 +112,7 @@ public class MemberService {
     }
 
     // 회원 삭제
-    public String delete(Long id, String user_pw,String out_comments) {
+    public String delete(Long id, String user_pw, String out_comments) {
         log.info("service post delete");
         Member delete = memberRepository.findByMemberOut(id, user_pw);
         if (delete == null) {
@@ -162,14 +162,18 @@ public class MemberService {
     public String findMember(String user_id, String user_pw) {
         List<Member> create = memberRepository.findByMemberIn(user_id, user_pw);
         Member member = memberRepository.findMember(user_id, user_pw);
-        if (member.getUser_id().equals("admin")) {
-            return "3";
-        }
+
         if (create.isEmpty()) {
             return "1";
         } else {
-            return "2";
+            if (member.getUser_id().equals("admin")) {
+                return "3";
+            } else {
+                return "2";
+            }
         }
+
+
     }
 
 }
