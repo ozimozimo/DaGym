@@ -6,8 +6,9 @@ function myTrainerDetailView() {
     // var pageValue = $('#pageValue').val() || "";
     // var typeValue = $('#typeValue').val() || "";
     // var keywordValue = $('#keywordValue').val() || "";
-    // var trainerId= $('#trainer_id').val();
-    var url = `/ptUser/detail?id=${trainerId}&page=${pageValue}&type=${typeValue}&keyword=${keywordValue}`
+// &page=${pageValue}&type=${typeValue}&keyword=${keywordValue}
+    var trainerId = $('#trainer_id').val();
+    var url = `/ptUser/detail?id=${trainerId}`;
 
     window.open(url, 'myTrainerDetailView', option);
 

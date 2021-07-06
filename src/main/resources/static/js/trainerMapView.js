@@ -180,7 +180,7 @@ function drawMarker(x, y) {
                         var content = "";
 
                         content += `<tr>`
-                        content += `<td><img className="trainer_image" width="200px" height="200px" src="@{/display(fileName=${item.imgName})}"></td>`
+                        content += `<td><img class="trainer_image" width="200px" height="200px" src="/display?fileName=${item.imgName}" alt="trainer_image"></td>`
                         content += `<td>${item.trainer_id}</td>`
                         content += `<td>${item.trainer_name}</td>`
                         content += `<td>${item.trainer_pn}</td>`
