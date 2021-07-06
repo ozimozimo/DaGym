@@ -7,6 +7,7 @@ import com.testcode.yjp.last.domain.dto.*;
 import com.testcode.yjp.last.repository.BoardRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.NoticeRepository;
+import com.testcode.yjp.last.repository.OooRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -26,6 +27,7 @@ public class AdminService {
     private final MemberRepository memberRepository;
     private final NoticeRepository noticeRepository;
     private final BoardRepository boardRepository;
+    private final OooRepository oooRepository;
 
     public List<MemberList> selectTrainer() {
         List<Member> members = memberRepository.selectTrainer();
@@ -59,6 +61,33 @@ public class AdminService {
         return new PageResultDto<>(result, fn);
     }
 
+    public PageResultDto<OooDto, OneOnOne> getOooList(PageRequestDto requestDto) {
+        Pageable pageable = requestDto.getPageable(Sort.by("id").descending());
+        Page<OneOnOne> all = oooRepository.findAll(pageable);
+        Function<OneOnOne, OooDto> fn = (entity -> entityToDto(entity));
+        return new PageResultDto<>(all, fn);
+    }
+
+    public PageResultDto<OooDto, OneOnOne> getOooList(PageRequestDto requestDto, String category) {
+        Pageable pageable = requestDto.getPageable(Sort.by("id").descending());
+        Page<OneOnOne> all = null;
+        try {
+            if (category.equals(null)) {
+                log.info("hi");
+            } else if (category.equals("전체보기")) {
+                all = oooRepository.findAll(pageable);
+            } else if (category.equals("미완료")) {
+                all = oooRepository.findByAnswerIsNull(pageable);
+            } else {
+                all = oooRepository.findByCategory(category, pageable);
+            }
+        } catch (Exception e) {
+            all = oooRepository.findAll(pageable);
+        }
+        Function<OneOnOne, OooDto> fn = (entity -> entityToDto(entity));
+        return new PageResultDto<>(all, fn);
+    }
+
     private NoticeDto entityToDto(Notice entity) {
         NoticeDto dto = NoticeDto.builder()
                 .id(entity.getId())
@@ -67,6 +96,19 @@ public class AdminService {
                 .user_id(entity.getUser_id())
                 .active(entity.getActive())
                 .hit(entity.getHit())
+                .regDate(entity.getRegDate())
+                .modifiedDate(entity.getModDate())
+                .build();
+        return dto;
+    }
+
+    private OooDto entityToDto(OneOnOne entity) {
+        OooDto dto = OooDto.builder()
+                .id(entity.getId())
+                .title(entity.getTitle())
+                .content(entity.getContent())
+                .answer(entity.getAnswer())
+                .user_id(entity.getUser_id())
                 .regDate(entity.getRegDate())
                 .modifiedDate(entity.getModDate())
                 .build();

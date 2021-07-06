@@ -75,10 +75,48 @@ function Delete() {
     });
 }
 
+function btnQnA() {
 
+}
+
+function OooUserSave() {
+    if ($('#ooo-title').val().length == 0) {
+        alert('제목을 입력하세요');
+        return false;
+    } else if ($('#ooo-content').val().length == 0) {
+        alert('내용을 입력하세요');
+        return false;
+    }
+
+    var category = $('#ooo-category option:selected').val();
+    console.log(category);
+
+    var data = {
+        title: $('#ooo-title').val(),
+        user_id: $('#user_id').val(),
+        content: $('#ooo-content').val(),
+        category: category
+    };
+    var id = $('#member_id').val();
+    console.log("session login id=" + id);
+
+    $.ajax({
+        type: 'post',
+        url: '/faq/oooInsert/' + id,
+        // dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(data)
+    }).done(function () {
+        alert('등록되었습니다');
+        window.location.href = '/faq/oooManagement';
+    }).fail(function (error) {
+        alert(JSON.stringify(error));
+    })
+}
 
 $(function () {
     $(".activeCBox").on("click", Active);
     $('#btn-update').on('click', update);
     $('#btn-delete').on('click', Delete);
+    $("#ooo-save").on('click', OooUserSave);
 });

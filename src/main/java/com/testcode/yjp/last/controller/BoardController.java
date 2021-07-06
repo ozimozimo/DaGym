@@ -2,9 +2,11 @@ package com.testcode.yjp.last.controller;
 
 import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Comment;
+import com.testcode.yjp.last.domain.Notice;
 import com.testcode.yjp.last.domain.dto.*;
 import com.testcode.yjp.last.repository.BoardRepository;
 import com.testcode.yjp.last.repository.CommentsRepository;
+import com.testcode.yjp.last.repository.NoticeRepository;
 import com.testcode.yjp.last.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,11 +29,14 @@ public class BoardController {
     private final ReCommentsService reCommentsService;
     private final CommentsRepository commentsRepository;
     private final BoardRepository boardRepository;
-
+    private final AdminService adminService;
+    private final NoticeRepository noticeRepository;
 
     // 전체조회
     @GetMapping("")
     public String BoardView(PageRequestDto pageRequestDto, Model model) {
+        PageResultDto<NoticeDto, Notice> list = adminService.getList(pageRequestDto, 1);
+        model.addAttribute("notice", list);
         model.addAttribute("boards", boardService.findAllDesc());
         model.addAttribute("result", boardService.getList(pageRequestDto));
         model.addAttribute("PageRequestDto", pageRequestDto);
@@ -40,7 +45,7 @@ public class BoardController {
 
     // 저장페이지
     @GetMapping("/trainerBoard/save")
-    public String trainerBoardSave(Long member_id,Model model) {
+    public String trainerBoardSave(Long member_id, Model model) {
         log.info("save get Controller");
         System.out.println(member_id);
         return "board/boardView";
@@ -48,7 +53,7 @@ public class BoardController {
 
     // 수정페이지
     @GetMapping("/trainerBoard/update")
-    public String trainerBoardUpdate( Long hb_num, Model model, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
+    public String trainerBoardUpdate(Long hb_num, Model model, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
         BoardResponseDto dto = boardService.findById(hb_num);
         model.addAttribute("boards", dto);
         return "board/boardUpdate";
@@ -62,7 +67,7 @@ public class BoardController {
 
     // 게시판 디테일 페이지
     @GetMapping("/trainerBoard/detail")
-    public String trainerBoardDetail(Long hb_num ,Model model,@ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
+    public String trainerBoardDetail(Long hb_num, Model model, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
 
 
         model.addAttribute("boards", boardService.findById(hb_num));
@@ -73,23 +78,23 @@ public class BoardController {
 //        model.addAttribute("result", boardService.getList(pageRequestDto));
 //        model.addAttribute("CoResult", commentsService.getList(pageCommentRequestDto));
 //        model.addAttribute("comment", commentsService.findById(cm_id));
-        model.addAttribute("commentLikeAll",commentsService.findLikeAll(hb_num));
-        model.addAttribute("commentDisLikeAll",commentsService.findDisLikeAll(hb_num));
-        model.addAttribute("commentLikeLatestAll",commentsService.findLatestAllClass(hb_num));
-        model.addAttribute("commentLikePastAll",commentsService.findPastAllClass(hb_num));
+        model.addAttribute("commentLikeAll", commentsService.findLikeAll(hb_num));
+        model.addAttribute("commentDisLikeAll", commentsService.findDisLikeAll(hb_num));
+        model.addAttribute("commentLikeLatestAll", commentsService.findLatestAllClass(hb_num));
+        model.addAttribute("commentLikePastAll", commentsService.findPastAllClass(hb_num));
         model.addAttribute("commentCountAll", commentsService.findCountAllClass(hb_num));
 
         boardService.updateView(hb_num);
 
         List<CommentsListResponseDto> count = commentsService.findAllCount(hb_num);
-        model.addAttribute("count",count.size());
-        System.out.println("전체크기는"+count.size());
+        model.addAttribute("count", count.size());
+        System.out.println("전체크기는" + count.size());
 
         // board_id  값
         Optional<Board> result = boardRepository.findById(hb_num);
         commentsRepository.findByparentNum(result.get().getId());
 
-        System.out.println("commentId==="+commentsRepository.findByparentNum(result.get().getId()));
+        System.out.println("commentId===" + commentsRepository.findByparentNum(result.get().getId()));
 
 
         // img 보내기
@@ -98,6 +103,13 @@ public class BoardController {
         return "board/boardDetail";
     }
 
+    @GetMapping("/noticeDetail")
+    public String noticeDetail(Model model, Long id, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
+        log.info("id = " + id);
+        Notice notice = noticeRepository.findById(id).get();
+        model.addAttribute("notices", notice);
+        adminService.updateView(id);
 
-
+        return "board/noticeDetail";
+    }
 }

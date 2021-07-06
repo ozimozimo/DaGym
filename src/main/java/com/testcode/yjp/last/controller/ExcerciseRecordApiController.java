@@ -73,10 +73,6 @@ public class ExcerciseRecordApiController {
     // 데이터 추가
     @PostMapping("/save/{id}")
     public void save(@PathVariable Long id, @RequestBody ExerciseRecordDto exerciseRecordDto) {
-        log.info("ExRecord Controller Save Api Post");
-
-        log.info("ExRecord Controller Post id=" + id);
-        log.info("ExRecord Controller Post kcal= " + exerciseRecordDto.getKcal());
         Member member = memberRepository.findById(id).get();
 
         Long exercise_id = exerciseRecordDto.getExercise_id();
@@ -125,8 +121,7 @@ public class ExcerciseRecordApiController {
                     .exercise(exercise)
                     .member(member)
                     .build();
-        }
-        else if (exerciseRecordDto.getEx_category().equals("지속 시간")) {
+        } else if (exerciseRecordDto.getEx_category().equals("지속 시간")) {
             log.info("지속 시간");
             exRecord = ExRecord.builder()
                     .ex_date(exerciseRecordDto.getEx_date())
@@ -153,7 +148,6 @@ public class ExcerciseRecordApiController {
         log.info(exRecord.getEx_name());
 
         exerciseRecordRepository.save(exRecord);
-//        return exRecord;
     }
 
     // 데이터 삭제

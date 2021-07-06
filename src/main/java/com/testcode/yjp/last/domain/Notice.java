@@ -24,7 +24,7 @@ public class Notice extends BaseEntity{
     @Column(name = "hb_content" ,length = 2000)
     private String content;
     @Column(name = "active")
-    private int active = 0; // 0 = 비활성화, 1 = 활성화
+    private int active = 0; // 0 = 비활성화, 1 = 활성화, 2 = FAQ
 
 
     @Column(name = "hb_hit")

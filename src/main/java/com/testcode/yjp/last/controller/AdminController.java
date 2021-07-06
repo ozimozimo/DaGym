@@ -3,14 +3,13 @@ package com.testcode.yjp.last.controller;
 import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.Notice;
+import com.testcode.yjp.last.domain.OneOnOne;
 import com.testcode.yjp.last.domain.dto.*;
 import com.testcode.yjp.last.repository.BoardRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.NoticeRepository;
-import com.testcode.yjp.last.service.AdminService;
-import com.testcode.yjp.last.service.BoardService;
-import com.testcode.yjp.last.service.CommentsService;
-import com.testcode.yjp.last.service.ReCommentsService;
+import com.testcode.yjp.last.repository.OooRepository;
+import com.testcode.yjp.last.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -34,9 +33,10 @@ public class AdminController {
     private final ReCommentsService reCommentsService;
     private final NoticeRepository noticeRepository;
     private final MemberRepository memberRepository;
+    private final OooRepository oooRepository;
 
     //메인
-    @GetMapping("/adminMain")
+    @GetMapping(value = {"/adminMain", "/"})
     public String adminPage(Model model) {
         int userSize = memberRepository.selectUser().size();
         int trainerSize = memberRepository.selectTrainer().size();
@@ -187,10 +187,11 @@ public class AdminController {
         return "admin/FAQ/faqUpdate";
     }
 
+
     @GetMapping("/1on1Management")
-    public String oneOnOneManagement(Model model, PageRequestDto pageRequestDto) {
-        PageResultDto<NoticeDto, Notice> list = adminService.getList(pageRequestDto, 3);
-        model.addAttribute("oneOnOne", list);
+    public String oneOnOneManagement(Model model, PageRequestDto pageRequestDto, String category) {
+        PageResultDto<OooDto, OneOnOne> oooList = adminService.getOooList(pageRequestDto, category);
+        model.addAttribute("ooo", oooList);
         model.addAttribute("PageRequestDto", pageRequestDto);
         return "admin/oneOnOne/oneOnOneManagement";
     }
@@ -198,8 +199,8 @@ public class AdminController {
     @GetMapping("/1on1Detail")
     public String oneOnOneDetail(Model model, Long id, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
         log.info("oneOnOneDetail in");
-        Notice notice = noticeRepository.findById(id).get();
-        model.addAttribute("ooo", notice);
+        OneOnOne oneOnOne = oooRepository.findById(id).get();
+        model.addAttribute("ooo", oneOnOne);
         return "admin/oneOnOne/oneOnOneDetail";
     }
 }

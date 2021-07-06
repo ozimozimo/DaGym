@@ -36,18 +36,13 @@ public class Advice {
     @JoinColumn(name = "trainer_id")
     private Member trainer_id;
 
-    @ManyToOne
-    @JoinColumn(name = "diet_id")
-    private Diet diet;
-
     @Builder
-    public Advice(Long id, String advice_type, String advice_content, String advice_date, Member member_id, Member trainer_id, Diet diet) {
+    public Advice(Long id, String advice_type, String advice_content, String advice_date, Member member_id, Member trainer_id) {
         this.id = id;
         this.advice_type = advice_type;
         this.advice_content = advice_content;
         this.advice_date = advice_date;
         this.member_id = member_id;
         this.trainer_id = trainer_id;
-        this.diet = diet;
     }
 }

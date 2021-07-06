@@ -3,9 +3,11 @@ package com.testcode.yjp.last.controller;
 import com.testcode.yjp.last.domain.Board;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.Notice;
+import com.testcode.yjp.last.domain.OneOnOne;
 import com.testcode.yjp.last.repository.BoardRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.NoticeRepository;
+import com.testcode.yjp.last.repository.OooRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ public class AdminApiController {
     private final MemberRepository memberRepository;
     private final NoticeRepository noticeRepository;
     private final BoardRepository boardRepository;
+    private final OooRepository oooRepository;
 
     // 회원 삭제
     @DeleteMapping("/delete/{id}")
@@ -86,9 +89,9 @@ public class AdminApiController {
     }
 
     @PutMapping("/1on1Update/{id}")
-    public void oooUpdate(@PathVariable("id") Long id, @RequestBody Notice getNotice) {
-        Notice notice = noticeRepository.findById(id).get();
-        notice.setContent(getNotice.getContent());
-        noticeRepository.save(notice);
+    public void oooUpdate(@PathVariable("id") Long id, @RequestBody OneOnOne getOOO) {
+        OneOnOne oneOnOne = oooRepository.findById(id).get();
+        oneOnOne.setAnswer(getOOO.getAnswer());
+        oooRepository.save(oneOnOne);
     }
 }

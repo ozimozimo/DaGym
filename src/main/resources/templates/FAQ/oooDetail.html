@@ -104,15 +104,14 @@
         </div>
         <div class="tableForm-group">
             <div class="tableInput-group">
-                <label for="ooo_answer">답변</label>
+                <label for="ooo_content">답변</label>
                 <textarea id="ooo_answer" class="table-input" placeholder="내용을 입력하세요"
-                          th:text="${ooo.answer}"></textarea>
+                          th:text="${ooo.answer}" readonly></textarea>
             </div>
         </div>
 
         <div class="post_control_btn_area">
-            <button class="customBtn ooo_save">답변하기</button>
-            <a class="customBtn" th:if="${session.loginId == 'admin'}" th:href="@{/admin/1on1Management(
+            <a class="customBtn" th:href="@{/faq/oooManagement(
                                         page=${PageRequestDto.page},
                                         type=${PageRequestDto.type},
                                         keyword=${PageRequestDto.keyword})}">이전
