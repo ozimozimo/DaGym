@@ -3,209 +3,558 @@
         lang="ko"
         xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        data-layout-decorate="~{layout/default}"
+        data-layout-decorate="~{layout/boot4}"
 >
 <head>
-    <title>Main</title>
+    <title>트레이너 프로필 수정</title>
     <script th:src="@{http://dmaps.daum.net/map_js_init/postcode.v2.js}"></script>
-    <script th:src="@{/js/trainer/trainerPage.js?ver=1.0}"></script>
+    <script th:src="@{~/js/trainer/trainerPage.js?ver=1.0}"></script>
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+          integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{~/css/trainerPage.css}">
 </head>
 <div layout:fragment="content">
+    <style>
+        .applyBtn {
+            margin-top: 7px;
+            /*margin-left: 10px;*/
+        }
+        .uploadFiles {
+            margin-left: 55px;
+            margin-bottom: 10px;
+        }
+        .delBtn{
+            margin-left: 10px;
+        }
 
-    <h1>프로필 수정 페이지</h1>
-    <form id="trainerInfo">
-        <h2>트레이너 대표 이미지</h2>
-        <input type="hidden" id="id" name="id" th:value="${trainerInfo.id}">
-        <div class="updateResult">
-            <img th:if="${trainerInfo.imgName != null}" class="trainer_image" width="200px" height="200px" th:src="@{/display(fileName=${trainerInfo.imgName})}">
-            <img th:if="${trainerInfo.imgName == null}" th:src="@{~/image/noImg.png}" width="200px" height="200px">
-        </div>
-        <div class="updateResult2">
-        </div>
+    </style>
+    <!--PEN HEADER-->
 
-<!--        <input name="uploadFiles" type="file" id="chooseFile" multiple style="display:none;">-->
-<!--        <button for="chooseFile"><label for="chooseFile">파일선택</label></button>-->
-<!--        <label for="chooseFile" id="fileNameLabel"></label>-->
-<!--        <button type="button" id="updateLoadBtn">업로드</button>-->
-
-        <input name="uploadFiles" th:value="${trainerInfo.fileName}" type="file" multiple>
-        <button type="button" id="updateLoadBtn">업로드</button>
-
-        <div>
-            <label for="trainer_category">트레이너 분야</label>
-            <select name="trainer_category" id="trainer_category" class="category">
-                <option value="PT" th:selected="${trainerInfo.trainer_category}=='PT'">PT</option>
-                <option value="재활" th:selected="${trainerInfo.trainer_category}=='재활'">재활</option>
-                <option value="대회" th:selected="${trainerInfo.trainer_category}=='대회'">대회</option>
-                <option value="기타"
-                        th:selected="${trainerInfo.trainer_category} != 'PT' and
-                        ${trainerInfo.trainer_category} !='재활' and
-                        ${trainerInfo.trainer_category} != '대회' ">기타
-                </option>
-            </select>
-            <input type="text" class="input_category" th:value="${trainerInfo.trainer_category}" style="display: none">
-
-        </div>
-
-
-        <div>
-            <label for="trainer_time1">근무 시간</label>
-            <input type="hidden" id="trainer_workTime" name="trainer_workTime"
-                   th:value="${trainerInfo.trainer_workTime}">
-            <input type="time" id="trainer_time1" name="trainer_time1"> ~
-            <input type="time" id="trainer_time2" name="trainer_time2">
-        </div>
-        <div>
-            PT 실제 가격(10회 기준) : <input type="text" name="pt_price" id="pt_price"/>
-
-            <br/>
-            <label for="discount_price">할인 가격(%)</label>
-            <select name="discount_price" id="discount_price">
-                <option value="0">0</option>
-                <option value="5">5%</option>
-                <option value="10">10%</option>
-                <option value="15">15%</option>
-                <option value="20">20%</option>
-            </select>
-
-            <br/>
-            <label for="discount_pt_count">횟수추가(회)</label>
-            <select name="discount_pt_count" id="discount_pt_count">
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-            <button type="button" id="discount">할인적용</button>
-
-            <br/>
-
-            최종 PT 가격 및 횟수 : <input type="text" id="final_price" name="final_price"
-                                   th:value="${trainerInfo.trainer_pt_total}"/>
-            <br/>
-            <input type="hidden" id="trainer_pt_total" name="trainer_pt_total">
-        </div>
-        <!-- 주소 -->
-        <ul>
-            <li class="th">
-                <p>헬스장 주소</p>
-            </li>
-            <li>
-                <label for="trainer_gymName">헬스장 이름</label>
-                <input type="text" th:value="${trainerInfo.trainer_gymName}" id="trainer_gymName"
-                       name="trainer_gymName">
-            </li>
-            <li class="td">
-                <input
-                        type="text"
-                        id="zipCode"
-                        name="gym_addr"
-                        readonly="readonly"
-                        class="size_zip_all"
-                />
-                <button
-                        type="button"
-                        class="btn zip_btn"
-                        id="zip"
-                >
-                    우편번호
-                </button>
-                <div class="address_area">
-                    <input
-                            placeholder="도로명 주소"
-                            id="trainer_address_normal"
-                            type="text"
-                            name="trainer_address_normal"
-                            class="address size_address"
-                            readonly="readonly"
-                            th:value="${trainerInfo.trainer_address_normal}"
-                    />
-                    <span>기본주소</span>
+    <h1 class="text-center mb-4 mt-4">트레이너 수정 페이지</h1>
+    <!--PEN CONTENT     -->
+    <div class="content">
+        <!--content inner-->
+        <div class="content__inner">
+            <!-- <div class="container">
+              content title
+              <h2 class="content__title content__title--m-sm">
+                Pick animation type
+              </h2>
+              animations form
+              <form class="pick-animation my-4">
+                <div class="form-row">
+                  <div class="col-5 m-auto">
+                    <select class="pick-animation__select form-control">
+                      <option value="scaleIn">ScaleIn</option>
+                      <option value="scaleOut">ScaleOut</option>
+                      <option value="slideHorz" selected="selected">
+                        SlideHorz
+                      </option>
+                      <option value="slideVert">SlideVert</option>
+                      <option value="fadeIn">FadeIn</option>
+                    </select>
+                  </div>
                 </div>
-                <div class="address_area">
-                    <input
-                            placeholder="상세주소"
-                            type="text"
-                            name="trainer_address_detail"
-                            id="trainer_address_detail"
-                            class="size_address"
-                            th:value="${trainerInfo.trainer_address_detail}"
-                    />
+              </form>
+              content title
+              <h2 class="content__title">
+                Click on steps or 'Prev' and 'Next' buttons
+              </h2>
+            </div> -->
+            <div class="container">
+                <!--multisteps-form-->
+                <div class="multisteps-form">
+                    <!--progress bar-->
+                    <div class="row">
+                        <div class="col-12 col-lg-8 ml-auto mr-auto mb-4">
+                            <div class="multisteps-form__progress">
+                                <button
+                                        class="multisteps-form__progress-btn js-active"
+                                        type="button"
+                                        title="User Info"
+                                >
+                                    대표 이미지
+                                </button>
+                                <button
+                                        class="multisteps-form__progress-btn"
+                                        type="button"
+                                        title="Address"
+                                >
+                                    세부 사항
+                                </button>
+                                <button
+                                        class="multisteps-form__progress-btn"
+                                        type="button"
+                                        title="Order Info"
+                                >
+                                    PT 가격
+                                </button>
+                                <button
+                                        class="multisteps-form__progress-btn"
+                                        type="button"
+                                        title="Comments"
+                                >
+                                    헬스장 정보
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--form panels-->
+                    <div class="row">
+                        <div class="col-12 col-lg-8 mx-auto text-center">
+                            <form id="trainerInfo" class="multisteps-form__form">
+                                <!--single form panel-->
+                                <div
+                                        class="
+                      multisteps-form__panel
+                      shadow
+                      p-4
+                      rounded
+                      bg-white
+                      js-active
+                    "
+                                        data-animation="scaleIn"
+                                >
+                                    <h3 class="multisteps-form__title text-center">
+                                        대표 이미지
+                                    </h3>
+                                    <div class="multisteps-form__content">
+                                        <div class="col-12 col-sm-6 m-auto">
+                                            <input
+                                                    type="hidden"
+                                                    id="id"
+                                                    name="id"
+                                                    th:value="${trainerInfo.id}"
+                                            />
+                                            <div class="col-md-12 col-sm-6 mt-4 mt-sm-0">
+                                                <div class="updateResult">
+                                                    <img
+                                                            th:if="${trainerInfo.imgName != null}"
+                                                            class="trainer_image"
+                                                            width="200px"
+                                                            height="200px"
+                                                            th:src="@{/display(fileName=${trainerInfo.imgName})}"
+                                                    />
+                                                    <img
+                                                            th:if="${trainerInfo.imgName == null}"
+                                                            th:src="@{~/image/noImg.png}"
+                                                            width="200px"
+                                                            height="200px"
+                                                    />
+                                                </div>
+                                                <div class="updateResult2"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4 col-12">
+                                            <div class="col-12 col-sm-12 text-center uploadFiles">
+                                                <input
+                                                        name="uploadFiles"
+                                                        th:value="${trainerInfo.fileName}"
+                                                        type="file"
+                                                        multiple
+                                                />
+                                            </div>
+                                            <div class="col-12 col-sm-12 mt-2 text-center">
+                                                <div class="btns">
+                                                    <button
+                                                            type="button"
+                                                            id="updateLoadBtn"
+                                                            class="btn btn-primary"
+                                                    >
+                                                        업로드
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-4 m-auto text-center">
+                                                <label for="trainer_instagram"
+                                                >인스타그램 아이디</label
+                                                >
+                                                <input
+                                                        type="text"
+                                                        name="trainer_instagram"
+                                                        id="trainer_instagram"
+                                                        th:value="${trainerInfo.trainer_instagram}"
+                                                        class="form-control"
+                                                />
+                                            </div>
+                                            <div class="col-12 col-sm-4 m-auto text-center">
+                                                <label for="trainer_kakao">카카오톡 아이디</label>
+                                                <input
+                                                        type="text"
+                                                        name="trainer_kakao"
+                                                        id="trainer_kakao"
+                                                        th:value="${trainerInfo.trainer_kakao}"
+                                                        class="form-control"
+                                                />
+                                            </div>
+                                            <!-- <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                                            </div> -->
+                                        </div>
+                                        <div class="button-row d-flex mt-4">
+                                            <button
+                                                    class="btn btn-primary ml-auto js-btn-next"
+                                                    type="button"
+                                                    title="Next"
+                                            >
+                                                다음
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--single form panel-->
+                                <div
+                                        class="multisteps-form__panel shadow p-4 rounded bg-white"
+                                        data-animation="scaleIn"
+                                >
+                                    <h3 class="multisteps-form__title">세부 사항</h3>
+                                    <div class="multisteps-form__content">
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-12">
+                                                <label for="trainer_category">트레이너 분야</label>
+                                                <select
+                                                        name="trainer_category custom-select d-block w-100"
+                                                        id="trainer_category"
+                                                        class="category form-control"
+                                                >
+                                                    <option
+                                                            value="PT"
+                                                            th:selected="${trainerInfo.trainer_category}=='PT'"
+                                                    >
+                                                        PT
+                                                    </option>
+                                                    <option
+                                                            value="재활"
+                                                            th:selected="${trainerInfo.trainer_category}=='재활'"
+                                                    >
+                                                        재활
+                                                    </option>
+                                                    <option
+                                                            value="대회"
+                                                            th:selected="${trainerInfo.trainer_category}=='대회'"
+                                                    >
+                                                        대회
+                                                    </option>
+                                                    <option
+                                                            value="기타"
+                                                            th:selected="${trainerInfo.trainer_category} != 'PT' and
+                                  ${trainerInfo.trainer_category} !='재활' and
+                                  ${trainerInfo.trainer_category} != '대회' "
+                                                    >
+                                                        기타
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-12 col-sm-12">
+                                                <input
+                                                        type="text"
+                                                        class="
+                              input_category
+                              form-control
+                              trainer_text_area
+                            "
+                                                        th:value="${trainerInfo.trainer_category}"
+                                                        style="display: none"
+                                                />
+                                                <input
+                                                        type="text"
+                                                        class="real_category form-control trainer_text_area"
+                                                        th:value="${trainerInfo.trainer_category}"
+                                                        style="display: none"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 col-sm-12">
+                                                <input
+                                                        type="hidden"
+                                                        id="trainer_workTime"
+                                                        name="trainer_workTime"
+                                                        th:value="${trainerInfo.trainer_workTime}"
+                                                />
+                                                <label for="trainer_time1">근무 시간</label
+                                                >
+                                            </div>
+                                            <div class="col-5 col-sm-5 text-center">
+                                                <input
+                                                        type="text"
+                                                        class="form-control time"
+                                                        id="trainer_time1"
+                                                        name="trainer_time1"
+                                                />
+                                            </div>
+                                            <div class="col-sm-2 text-center"><h3>~</h3></div>
+                                            <div class="col-5 col-sm-5">
+                                                <input
+                                                        type="text"
+                                                        class="form-control time"
+                                                        id="trainer_time2"
+                                                        name="trainer_time2"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4 trainerContent">
+                                            <div class="col-12 col-sm-12">
+                                                <label for="trainer_content">트레이너 경력사항</label>
+                                            </div>
+                                            <div class="col-11 col-sm-11 m-auto">
+                          <textarea
+                                  style="resize: none; display: none"
+                                  name="trainer_content"
+                                  th:text="${trainerInfo.trainer_content}"
+                                  id="trainer_content"
+                                  cols="25"
+                                  rows="15"
+                          ></textarea>
+
+                                                <!--            <div style="display: none">-->
+                                                <!--            </div>-->
+
+                                                <input
+                                                        type="text"
+                                                        name="trainer_contents"
+                                                        id="trainer_contents"
+                                                        class="form-control"
+                                                        placeholder="ex) 다짐 대구지점 근무(2017~2021)"
+                                                />
+                                            </div>
+                                            <div class="col-1 col-sm-1">
+                                                <button type="button" class="addBtn btn btn-primary">
+                                                    추가
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4 showContent text-left">
+
+                                        </div>
+                                        <div class="button-row d-flex mt-4">
+                                            <button
+                                                    class="btn btn-primary js-btn-prev"
+                                                    type="button"
+                                                    title="Prev"
+                                            >
+                                                이전
+                                            </button>
+                                            <button
+                                                    class="btn btn-primary ml-auto js-btn-next"
+                                                    type="button"
+                                                    title="Next"
+                                            >
+                                                다음
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--single form panel-->
+                                <div
+                                        class="multisteps-form__panel shadow p-4 rounded bg-white"
+                                        data-animation="scaleIn"
+                                >
+                                    <h3 class="multisteps-form__title">PT 가격</h3>
+                                    <div class="multisteps-form__content">
+                                        <div class="form-row mt-4 col-12 text-center">
+                                            <div class="col-12 col-sm-4">
+                                                <label for="pt_price">PT 가격(10회 기준)</label>
+                                                <input
+                                                        type="text"
+                                                        name="pt_price"
+                                                        id="pt_price"
+                                                        class="form-control"
+                                                        placeholder="실제 가격(원)"
+                                                        maxlength="13"
+                                                />
+                                            </div>
+
+                                            <div class="col-12 col-sm-3">
+                                                <label for="discount_price">할인 가격(%)</label>
+
+                                                <select
+                                                        name="discount_price"
+                                                        class="form-control"
+                                                        id="discount_price"
+                                                >
+                                                    <option value="0">0</option>
+                                                    <option value="5">5%</option>
+                                                    <option value="10">10%</option>
+                                                    <option value="15">15%</option>
+                                                    <option value="20">20%</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-12 col-sm-3">
+                                                <label for="discount_pt_count">횟수추가(회)</label>
+
+                                                <select
+                                                        name="discount_pt_count"
+                                                        class="form-control"
+                                                        id="discount_pt_count"
+                                                >
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-12 col-sm-2 mt-4">
+                                                <button
+                                                        type="button"
+                                                        id="discount"
+                                                        class="applyBtn btn btn-primary"
+                                                >
+                                                    할인적용
+                                                </button>
+                                            </div>
+                                            <!-- <div class="col-2 col-sm-2">
+                                              <button
+                                                type="button"
+                                                id="discount"
+                                                class="applyBtn btn btn-primary"
+                                              >
+                                                할인적용
+                                              </button>
+                                            </div> -->
+                                        </div>
+
+                                        <div class="form-row mt-4">
+                                            <div class="col">
+                                                <label class="">최종 가격 / 횟수</label>
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="final_price"
+                                                        name="final_price"
+                                                        th:value="${trainerInfo.trainer_pt_total}"
+                                                        readonly
+                                                />
+                                                <input
+                                                        type="hidden"
+                                                        id="trainer_pt_total"
+                                                        name="trainer_pt_total"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="button-row d-flex mt-4">
+                                            <button
+                                                    class="btn btn-primary js-btn-prev"
+                                                    type="button"
+                                                    title="Prev"
+                                            >
+                                                이전
+                                            </button>
+                                            <button
+                                                    class="btn btn-primary ml-auto js-btn-next"
+                                                    type="button"
+                                                    title="Next"
+                                            >
+                                                다음
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--single form panel-->
+                                <div
+                                        class="multisteps-form__panel shadow p-4 rounded bg-white"
+                                        data-animation="scaleIn"
+                                >
+                                    <h3 class="multisteps-form__title">헬스장 정보</h3>
+                                    <div class="multisteps-form__content">
+                                        <div class="form-row mt-4">
+                                            <div class="col text-left">
+                                                <label for="trainer_gymName">헬스장 이름</label>
+                                                <input
+                                                        type="text"
+                                                        th:value="${trainerInfo.trainer_gymName}"
+                                                        id="trainer_gymName"
+                                                        name="trainer_gymName"
+                                                        class="form-control"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="col-12 text-left">
+                                                <label for="zip">헬스장 주소</label>
+                                            </div>
+                                            <div class="col-4 col-sm-4">
+                                                <input
+                                                        type="text"
+                                                        id="zipCode"
+                                                        name="gym_addr"
+                                                        readonly="readonly"
+                                                        class="size_zip_all form-control"
+                                                        placeholder="우편 번호"
+                                                />
+                                            </div>
+                                            <div class="col-4 col-sm-4">
+                                                <button
+                                                        type="button"
+                                                        class="zip_btn btn btn-primary mr-5"
+                                                        id="zip"
+                                                >
+                                                    우편번호
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row mt-4">
+                                            <div class="col">
+                                                <div class="address_area">
+                                                    <input
+                                                            placeholder="도로명 주소"
+                                                            id="trainer_address_normal"
+                                                            type="text"
+                                                            name="trainer_address_normal"
+                                                            class="address size_address form-control"
+                                                            readonly="readonly"
+                                                            th:value="${trainerInfo.trainer_address_normal}"
+                                                    />
+                                                </div>
+                                                <div class="address_area mt-2">
+                                                    <input
+                                                            placeholder="상세주소"
+                                                            type="text"
+                                                            name="trainer_address_detail"
+                                                            id="trainer_address_detail"
+                                                            class="size_address form-control"
+                                                            th:value="${trainerInfo.trainer_address_detail}"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="button-row d-flex mt-4">
+                                            <button
+                                                    class="btn btn-primary js-btn-prev"
+                                                    type="button"
+                                                    title="Prev"
+                                            >
+                                                이전
+                                            </button>
+                                            <button
+                                                    class="modify_btn btn btn-success ml-auto"
+                                                    type="button"
+                                                    title="Send"
+                                                    onclick="trainerUpdate()"
+                                            >
+                                                수정하기
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </li>
-        </ul>
-
-        <div>
-            <label for="trainer_instagram">인스타그램</label>
-            <input type="text" name="trainer_instagram" id="trainer_instagram"
-                   th:value="${trainerInfo.trainer_instagram}">
-        </div>
-        <div>
-            <label for="trainer_kakao">카카오 아이디</label>
-            <input type="text" name="trainer_kakao" id="trainer_kakao" th:value="${trainerInfo.trainer_kakao}">
-        </div>
-
-        <div>
-            <label for="trainer_content">트레이너 경력사항</label><br/>
-<!--            <div style="display: none">-->
-            <textarea style="resize: none" name="trainer_content" th:text="${trainerInfo.trainer_content}"
-                      id="trainer_content" cols="25" rows="15"></textarea>
-<!--            </div>-->
-            <div class="showContent">
-
             </div>
-            <input type="text" name="trainer_contents" id="trainer_contents">
-            <button class="addBtn" type="button">추가</button>
         </div>
+    </div>
 
-
-        <button type="button" onclick="trainerUpdate()">수정하기</button>
-    </form>
-    <script>
-        $(document).ready(function () {
-
-            let count = 10;
-
-            let pt_price = $('#pt_price').val();
-            let pt_discount = $('#discount_price').val();
-            let pt_count = $('#discount_pt_count').val();
-            let final_price = $('#final_price').val();
-
-            pt_price = parseInt(pt_price);
-            pt_discount = parseInt(pt_discount);
-            pt_count = parseInt(pt_count);
-            final_price = parseInt(final_price);
-
-            $("#discount").click(function () {
-                let pt_price = $('#pt_price').val();
-                let pt_discount = $('#discount_price').val();
-                let pt_count = $('#discount_pt_count').val();
-
-
-                // 형변환
-                pt_price = parseInt(pt_price);
-                pt_discount = parseInt(pt_discount);
-                pt_count = parseInt(pt_count);
-
-                // 할인금액
-                let dis = pt_price - pt_discount * 0.01 * pt_price;
-                // 추가 카운트
-                let final_count = pt_count + count;
-
-                // 최종값
-                $('#final_price').val(final_count + "회 / " + dis);
-                var trainer_pt_total = $('#final_price').val();
-
-                $('#trainer_pt_total').val(trainer_pt_total);
-
-            })
-
-
-        });
-
-    </script>
 </div>
 
 </html>
