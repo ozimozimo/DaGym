@@ -1,8 +1,5 @@
 package com.testcode.yjp.last.controller;
 
-import com.testcode.yjp.last.domain.Board;
-//import com.testcode.yjp.last.domain.Emotion;
-import com.testcode.yjp.last.domain.dto.BoardResponseDto;
 import com.testcode.yjp.last.domain.dto.BoastboardResponseDto;
 import com.testcode.yjp.last.domain.dto.CommentsListResponseDto;
 import com.testcode.yjp.last.domain.dto.PageRequestDto;
@@ -16,9 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor

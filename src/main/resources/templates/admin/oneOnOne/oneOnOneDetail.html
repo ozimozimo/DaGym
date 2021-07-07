@@ -111,11 +111,8 @@
         </div>
 
         <div class="post_control_btn_area">
-            <button class="customBtn ooo_save">답변하기</button>
-            <a class="customBtn" th:if="${session.loginId == 'admin'}" th:href="@{/admin/1on1Management(
-                                        page=${PageRequestDto.page},
-                                        type=${PageRequestDto.type},
-                                        keyword=${PageRequestDto.keyword})}">이전
+            <button class="customBtn ooo_save" th:if="${session.loginId == 'admin'}">답변하기</button>
+            <button class="customBtn" onclick="history.back()">이전</button>
             </a>
         </div>
     </div>

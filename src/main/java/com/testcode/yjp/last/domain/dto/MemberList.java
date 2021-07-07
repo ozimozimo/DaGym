@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 @Getter
@@ -27,7 +28,7 @@ public class MemberList {
     private LocalDateTime modDate;
 
     @Builder
-    public MemberList(Long id, String user_id, String user_pw, String user_name, String user_pn, String user_email,  String address_normal, String address_detail,String user_rrn,String user_gender,String user_role) {
+    public MemberList(Long id, String user_id, String user_pw, String user_name, String user_pn, String user_email, String address_normal, String address_detail, String user_rrn, String user_gender, String user_role, LocalDateTime regDate) {
         this.id = id;
         this.user_id = user_id;
         this.user_pw = user_pw;
@@ -39,6 +40,7 @@ public class MemberList {
         this.user_rrn = user_rrn;
         this.user_gender = user_gender;
         this.user_role = user_role;
+        this.regDate = regDate;
     }
 
 }

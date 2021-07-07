@@ -4,10 +4,11 @@ import com.testcode.yjp.last.domain.BuyerPt;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import javax.transaction.Transactional;
 
-public interface BuyerPTRepository extends JpaRepository<BuyerPt, Long> {
+public interface BuyerPTRepository extends JpaRepository<BuyerPt, Long>, QuerydslPredicateExecutor<BuyerPt>{
 
     @Query("select b from BuyerPt b where b.member.id=:member_id and b.trainerInfo.id=:trainer_id")
     BuyerPt findPayInfo(Long member_id, Long trainer_id);

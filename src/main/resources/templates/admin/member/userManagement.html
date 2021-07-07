@@ -111,7 +111,7 @@
                 <td><span th:text="${member.user_pn}"></span></td>
                 <td><span th:text="${member.address_normal}"></span><span th:text="${member.address_detail}"></span>
                 </td>
-                <td><span th:text="${member.regDate}"></span></td>
+                <td th:text="${#temporals.format(member.regDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
                 <td>
                     <button type="button" class="Delete">탈퇴</button>
                 </td>
