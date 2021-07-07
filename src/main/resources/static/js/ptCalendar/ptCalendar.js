@@ -1,7 +1,7 @@
-var draggedEventIsAllDay;
-var activeInactiveWeekends = true;
+// let draggedEventIsAllDay;
+let activeInactiveWeekends = true;
 
-var calendar = $('#calendar').fullCalendar({
+let calendar = $('#calendar').fullCalendar({
 
     /** ******************
      *  OPTIONS
@@ -17,9 +17,6 @@ var calendar = $('#calendar').fullCalendar({
     selectable: true,
     weekNumberCalculation: "ISO",
     eventLimit: true,
-    views: {
-        month: {eventLimit: 12} // 한 날짜에 최대 이벤트 12개, 나머지는 + 처리됨
-    },
     eventLimitClick: 'week', //popover
     navLinks: true,
     defaultDate: moment().format('YYYY-MM'), //실제 사용시 현재 날짜로 수정
@@ -42,7 +39,8 @@ var calendar = $('#calendar').fullCalendar({
     },
     views: {
         month: {
-            columnFormat: 'dddd'
+            columnFormat: 'dddd',
+            eventLimit: 12, // 한 날짜에 최대 이벤트 12개, 나머지는 + 처리됨
         },
         agendaWeek: {
             columnFormat: 'M/D ddd',
@@ -104,12 +102,12 @@ var calendar = $('#calendar').fullCalendar({
      *  일정 받아옴
      * ************** */
     events: function a(start, end, timezone, callback) {
-        // var calendar_user = $('#calendar_user').val();
-        // var member_id = $('#member_id').val();
-        var trainer_id = $('#trainer_id').val();
+        // let calendar_user = $('#calendar_user').val();
+        // let member_id = $('#member_id').val();
+        let trainer_id = $('#trainer_id').val();
 
-        var url = "/calendar/findPTAll";
-        var data = {
+        let url = "/calendar/findPTAll";
+        let data = {
             id: trainer_id
             // 화면이 바뀌면 Date 객체인 start, end 가 들어옴
             //startDate : moment(start).format('YYYY-MM-DD'),
@@ -137,7 +135,7 @@ var calendar = $('#calendar').fullCalendar({
                 //     obj = {};
                 // })
 
-                var fixedDate = response.map(function (array) {
+                let fixedDate = response.map(function (array) {
                     delete array.member;
                     delete array.trainerInfo;
 
@@ -181,7 +179,7 @@ var calendar = $('#calendar').fullCalendar({
             return false;
         });
 
-        var today = moment();
+        let today = moment();
 
         if (view.name == "month") {
             startDate.set({
@@ -211,11 +209,11 @@ var calendar = $('#calendar').fullCalendar({
 
 function getDisplayEventDate(event) {
 
-    var displayEventDate;
+    let displayEventDate;
 
     if (event.allDay == false) {
-        var startTimeEventInfo = moment(event.start).format('HH:mm');
-        var endTimeEventInfo = moment(event.end).format('HH:mm');
+        let startTimeEventInfo = moment(event.start).format('HH:mm');
+        let endTimeEventInfo = moment(event.end).format('HH:mm');
         displayEventDate = startTimeEventInfo + " - " + endTimeEventInfo;
     } else {
         displayEventDate = "하루종일";
