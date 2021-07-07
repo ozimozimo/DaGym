@@ -99,7 +99,7 @@ function gender() {
     }
 }
 
-//페이지 추가 될때마다 false 값 뒤에 추가 하면됨
+//페이지 추가 될때마다 false값 뒤에 추가 하면됨
 let page = [true, false, false, false, false, false, false, false];
 // 퍼센트 시작점
 let percentValue = 0;
@@ -107,7 +107,11 @@ let percentValue = 0;
 let updatePercentValue = 15;
 
 function nextBtn() {
+
     percentValue += updatePercentValue;
+    if(percentValue > 100){
+        percentValue = 100;
+    }
     $(".percent").text(percentValue + "%");
     changBarPercent(percentValue);
     let showPage;
@@ -197,6 +201,9 @@ function nextBtn() {
 
 function preBtn() {
     percentValue -= updatePercentValue;
+    if(percentValue < 0){
+        percentValue = 0;
+    }
     $(".percent").text(percentValue + "%");
     changBarPercent(percentValue);
     let showPage;

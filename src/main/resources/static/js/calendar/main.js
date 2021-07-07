@@ -17,9 +17,6 @@ var calendar = $('#calendar').fullCalendar({
     selectable: true,
     weekNumberCalculation: "ISO",
     eventLimit: true,
-    views: {
-        month: {eventLimit: 12} // 한 날짜에 최대 이벤트 12개, 나머지는 + 처리됨
-    },
     eventLimitClick: 'week', //popover
     navLinks: true,
     defaultDate: moment().format('YYYY-MM'), //실제 사용시 현재 날짜로 수정
@@ -42,7 +39,8 @@ var calendar = $('#calendar').fullCalendar({
     },
     views: {
         month: {
-            columnFormat: 'dddd'
+            month: {eventLimit: 12}, // 한 날짜에 최대 이벤트 12개, 나머지는 + 처리됨
+            columnFormat: 'dddd',
         },
         agendaWeek: {
             columnFormat: 'M/D ddd',
