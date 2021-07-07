@@ -8,9 +8,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface OooRepository extends JpaRepository<OneOnOne, Long>, QuerydslPredicateExecutor<OneOnOne> {
     Page<OneOnOne> findByCategory(String category, Pageable pageable);
 
     Page<OneOnOne> findByAnswerIsNull(Pageable pageable);
+
+    List<OneOnOne> findByAnswerIsNull();
 }

@@ -3,18 +3,17 @@ package com.testcode.yjp.last.domain.dto;
 import com.testcode.yjp.last.domain.BuyerPt;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.TrainerInfo;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @AllArgsConstructor
+@Builder
 public class BuyerPTDto {
     private Long id;
 
@@ -28,6 +27,8 @@ public class BuyerPTDto {
     private String pt_amount;
     // 카드 승인번호
     private String apply_num;
+    private LocalDateTime regDate;
+
     private Member member;
     private TrainerInfo trainerInfo;
 

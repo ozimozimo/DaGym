@@ -174,10 +174,9 @@ function mkExr(result) {
         let exMeter = removeString(result[i].ex_meter || "");
         let exTime = removeString(result[i].ex_time || "");
         let exKcal = removeString(result[i].kcal || "");
-        // exKcal = exKcal.replace(',','');
-        for (let i in exKcal) {
-            allKcal += parseInt(exKcal[i]);
-        }
+        exKcal = exKcal.toString().replace(/,/,"");
+        allKcal += parseInt(exKcal);
+
         console.log("allKcal = " + allKcal);
         console.log("Kcal = " + exKcal);
         console.log("member_id  " + member_id);
@@ -252,7 +251,7 @@ function mkExr(result) {
                         content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
                         content += "<td class='res_ex_time'>" + exTime[i] + "분</td>"
                         content += "<td class='res_ex_meter'>" + exMeter[i] + "KM</td>"
-                        content += "<td class='res_ex_kcal'>" + exKcal[i] + "Kcal</td>"
+                        content += "<td class='res_ex_kcal'>" + exKcal + "Kcal</td>" /////////////////////
                         content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
 
                         if (id == member_id)

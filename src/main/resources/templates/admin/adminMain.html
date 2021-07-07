@@ -125,6 +125,12 @@
                         >
                     </li>
                     <li>
+                        <a th:href="@{/admin/payManagement}" class=""
+                        ><i class="lnr lnr-chart-bars"></i>
+                            <span>결제 내역 관리</span></a
+                        >
+                    </li>
+                    <li>
                         <a th:href="@{/admin/ptManagement}" class=""
                         ><i class="lnr lnr-apartment"></i>
                             <span>PT 신청 관리</span></a
@@ -185,74 +191,47 @@
                 <!-- 문의사항 시작부분 -->
                 <div class="panel">
                     <div class="panel-heading">
-                        <h3 class="panel-title">문의사항</h3>
+                        <h3 class="panel-title">미완료 1:1 문의</h3>
                         <div class="right">
                         </div>
                     </div>
                     <div class="panel-body">
                         <ul class="list-unstyled todo-list">
-                            <li>
-                                <label class="control-inline fancy-checkbox">
-                                    <input type="checkbox"/><span></span>
-                                </label>
+                            <li th:each="ooo : ${ooos}">
                                 <p>
-                                    <span class="title">돈을 잘못보냈어요</span>
-                                    <span class="short-description">
-                        돈 잘못보냈어요 돈 다시 환불좀해주세요.</span>
-                                    <span class="date">2021년 6월 19일</span>
+                                    <a class="title" th:text="${ooo.title}" th:href="@{/admin/1on1Detail/(id = ${ooo.id})}"></a>
+                                    <span class="short-description" th:text="${ooo.content}"></span>
+                                    <span class="date" th:text="${ooo.regDate}"></span>
                                 </p>
-                                <div class="controls">
-                                    <a href="#"
-                                    ><i class="icon-software icon-software-pencil"></i
-                                    ></a>
-                                    <a href="#"
-                                    ><i
-                                            class="icon-arrows icon-arrows-circle-remove"
-                                    ></i
-                                    ></a>
-                                </div>
-                            </li>
-                            <li>
-                                <label class="control-inline fancy-checkbox">
-                                    <input type="checkbox"/><span></span>
-                                </label>
-                                <p>
-                                    <span class="title">Retest Upload Scenario</span>
-                                    <span class="short-description"
-                                    >Compellingly implement clicks-and-mortar
-                        relationships without highly efficient
-                        metrics.</span
-                                    >
-                                    <span class="date">Oct 23, 2016</span>
-                                </p>
-                            </li>
-                            <li>
-                                <label class="control-inline fancy-checkbox">
-                                    <input type="checkbox"/><span></span>
-                                </label>
-                                <p>
-                                    <strong>Functional Spec Meeting</strong>
-                                    <span class="short-description"
-                                    >Monotonectally formulate client-focused core
-                        competencies after parallel web-readiness.</span
-                                    >
-                                    <span class="date">Oct 11, 2016</span>
-                                </p>
-                                <div class="controls">
-                                    <a href="#"
-                                    ><i class="icon-software icon-software-pencil"></i
-                                    ></a>
-                                    <a href="#"
-                                    ><i
-                                            class="icon-arrows icon-arrows-circle-remove"
-                                    ></i
-                                    ></a>
-                                </div>
                             </li>
                         </ul>
+                        <a th:href="@{/admin/1on1Management(category='미완료')}">더보기</a>
                     </div>
                 </div>
                 <!-- END TODO LIST -->
+
+                <!-- 결제 시작부분 -->
+<!--                <div class="panel">-->
+<!--                    <div class="panel-heading">-->
+<!--                        <h3 class="panel-title">미완료 1:1 문의</h3>-->
+<!--                        <div class="right">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="panel-body">-->
+<!--                        <ul class="list-unstyled todo-list">-->
+<!--                            <li th:each="ooo : ${ooos}">-->
+<!--                                <p>-->
+<!--                                    <a class="title" th:text="${ooo.title}" th:href="@{/admin/1on1Detail/(id = ${ooo.id})}"></a>-->
+<!--                                    <span class="short-description" th:text="${ooo.content}"></span>-->
+<!--                                    <span class="date" th:text="${ooo.regDate}"></span>-->
+<!--                                </p>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                        <a th:href="@{/admin/1on1Management(category='미완료')}">더보기</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <!-- END TODO LIST -->
+
                 <!-- 회원목록 -->
                 <div class="panel">
                     <div class="panel-heading">
@@ -272,12 +251,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="user : ${user_list}">
-                                <td th:text="${user.id}"></td>
-                                <td th:text="${user.user_name}"></td>
-                                <td th:text="${user.user_gender}"></td>
-                                <td th:text="${user.regDate}"></td>
-                                <td th:text="${user.user_pn}"></td>
+                            <tr th:each="users : ${user_list}">
+                                <td th:text="${users.id}"></td>
+                                <td th:text="${users.user_name}"></td>
+                                <td th:text="${users.user_gender}"></td>
+                                <td th:text="${users.regDate}"></td>
+                                <td th:text="${users.user_pn}"></td>
                             </tr>
                             </tbody>
                         </table>
@@ -285,7 +264,7 @@
                     <div class="panel-footer">
                         <div class="row">
                             <div class="col-md-6">
-                        <span class="panel-note">
+                                <span class="panel-note"></span>
                             </div>
                             <div class="col-md-6 text-right">
                                 <a th:href="@{/admin/userManagement}" class="btn btn-primary"
