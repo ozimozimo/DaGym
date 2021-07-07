@@ -33,13 +33,15 @@ public class CalendarApiController {
     @PostMapping("/save/{member_id}/{trainer_id}")
     public Calendar save(@PathVariable Long member_id, @PathVariable Long trainer_id, @RequestBody Calendar calendar, Model model) {
         log.info("Calendar controller Post");
+        log.info("시작시간"+calendar.getStart());
+        log.info("종료시간"+calendar.getEnd());
         Optional<Member> member = memberRepository.findById(member_id);
         Optional<TrainerInfo> trainer = trainerRepository.findById(trainer_id);
         System.out.println(calendar.isAllDay());
         calendar.setMember(member.get());
         calendar.setTrainerInfo(trainer.get());
         if (calendar.getType().equals("PT일정")) {
-            ptUserRepository.update(member_id,trainer_id);
+            ptUserRepository.update(member_id, trainer_id);
         }
         calendarRepository.save(calendar);
 
@@ -66,15 +68,26 @@ public class CalendarApiController {
 
     @GetMapping("/findPT/{member_id}/{trainer_id}")
     public List<Calendar> findPT(@PathVariable Long member_id, @PathVariable Long trainer_id) {
-        List<Calendar> all = calendarRepository.findPT(member_id,trainer_id);
+        List<Calendar> all = calendarRepository.findPT(member_id, trainer_id);
         return all;
     }
 
     @PostMapping("/delete")
-    public void delete(String calendar_start, String calendar_end) {
+    public void delete(String calendar_start, String calendar_end, Long member_id, Long trainer_id) {
         System.out.println(calendar_start);
         System.out.println(calendar_end);
+        System.out.println(member_id);
+        System.out.println(trainer_id);
+
+
+        Calendar calendar = calendarRepository.findCalendar(calendar_start, calendar_end);
+        System.out.println(calendar.getType());
+
+        if (calendar.getType().equals("PT일정")) {
+            ptUserRepository.Ptupdate(member_id, trainer_id);
+        }
         calendarService.delete(calendar_start, calendar_end);
+
 
     }
 

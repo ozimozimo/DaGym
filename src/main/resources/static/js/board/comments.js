@@ -169,12 +169,12 @@ function CDelete() {
 function RCDelete() {
     console.log("rc 클릭");
     console.log($(this).siblings('.re_parentCoNum').val())
+
     if (!confirm('답글을 삭제하시겠습니까?')) {
         return false;
     }
 
-    // let re_parentCoNum = $(this).parent().parent().parent().parent().parent().children(".re_parentCoNum").val();
-    let re_parentCoNum = $(this).parent().parent().parent().parent().parent().parent().parent().parent().children('.re_parentCoNum').val();
+    let re_parentCoNum = $(this).siblings('.re_parentCoNum').val();
     console.log("댓글 pk=" + re_parentCoNum);
 
     var Rcdel = {

@@ -18,6 +18,9 @@ public interface CalendarRepository extends JpaRepository<Calendar, Long> {
     @Query("delete from Calendar c where c.start=:calendar_start and c.end=:calendar_end")
     void deleteCalendar(String calendar_start, String calendar_end);
 
+    @Query("select c from Calendar c where c.start=:calendar_start and c.end=:calendar_end")
+    Calendar findCalendar(String calendar_start, String calendar_end);
+
     @Query("select c from Calendar c where c.member.id=:member_id and c.trainerInfo.id=:trainer_id")
     List<Calendar> findAllDesc(Long member_id, Long trainer_id);
 
