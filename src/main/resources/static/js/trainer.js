@@ -86,6 +86,7 @@ function applyInfo(data) {
     content += "<td><button type='button' onclick='cancelPay()' class='btn-primary Deny'>신청취소</button></td></tr>"
 
     console.log(content);
+    $('.box2').show();
     $('.applyInfoList').append(content);
 }
 

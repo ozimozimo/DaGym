@@ -353,6 +353,7 @@ function trainerApplySumbit() {
                         console.log(error);
                     })
                 }).fail(function (error) {
+                    // alert(error);
                     alert("실패하였습니다");
                 });
             } else {
