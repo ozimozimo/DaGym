@@ -11,7 +11,8 @@
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     />
     <!-- VENDOR CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"> <!--CDN 링크 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <!--CDN 링크 -->
     <link rel="stylesheet" th:href="@{~/css/main/bootstrap.min.css}"/>
     <link
             rel="stylesheet"
@@ -50,11 +51,11 @@
 <div id="wrapper">
     <!-- NAVBAR -->
     <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="brand">
-            <a th:href="@{/adminMain}"
+        <div class="brand" style="width: 192px; height: 29px; margin-top: -30px;">
+            <a th:href="@{~/admin/adminMain}"
             ><img
-                    th:src="@{/image/logo-dark.png}"
-                    alt="Klorofil Logo"
+                    style="object-fit: contain;"
+                    th:src="@{/image/dagym.png}"
                     class="img-responsive logo"
             /></a>
         </div>
@@ -113,7 +114,7 @@
                     </li>
                     <li>
                         <a th:href="@{/admin/1on1Management}" class=""
-                        ><i class="lnr lnr-chart-bars"></i>
+                        ><i class="lnr lnr-book"></i>
                             <span>1:1 문의 관리</span></a
                         >
                     </li>
@@ -121,6 +122,12 @@
                         <a th:href="@{/admin/noticeManagement}" class=""
                         ><i class="lnr lnr-chart-bars"></i>
                             <span>공지사항 관리</span></a
+                        >
+                    </li>
+                    <li>
+                        <a th:href="@{/admin/ptManagement}" class=""
+                        ><i class="lnr lnr-apartment"></i>
+                            <span>PT 신청 관리</span></a
                         >
                     </li>
                 </ul>

@@ -362,4 +362,21 @@ public class PTUserService {
         ptUserRepository.deleteByInfo(member_id, trainer_id);
     }
 
+    public PageResultDto<PTMemberInfoDto, PTUser> getPTList(PageRequestDto pageRequestDto) {
+        Pageable pageable = pageRequestDto.getPageable(Sort.by("id").descending());
+        Page<PTUser> result = ptUserRepository.findAll(pageable);
+        Function<PTUser, PTMemberInfoDto> fn = (entity -> entityPTDto(entity));
+        return new PageResultDto<>(result, fn);
+    }
+
+    private PTMemberInfoDto entityPTDto(PTUser entity) {
+        PTMemberInfoDto dto = PTMemberInfoDto.builder()
+                .id(entity.getId())
+                .member(entity.getMember_id())
+                .trainer(entity.getTrainer_id())
+                .pt_times(entity.getPt_times())
+                .regDate(entity.getRegDate())
+                .build();
+        return dto;
+    }
 }
