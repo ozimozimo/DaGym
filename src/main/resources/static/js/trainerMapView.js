@@ -2,7 +2,8 @@ var AllMemberArr = [];
 
 var userNormalAddr = $('#userNormalAddr').val();
 var userDetailAddr = $('#userDetailAddr').val();
-var userAddr = userNormalAddr.substring(5, userNormalAddr.length) + " " + userDetailAddr;
+// var userAddr = userNormalAddr.substring(5, userNormalAddr.length) + " " + userDetailAddr;
+var userAddr = userNormalAddr.substring(5, userNormalAddr.length);
 
 let mapContainer = document.getElementById("map"), // 지도를 표시할 div
     mapOption = {

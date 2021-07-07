@@ -313,7 +313,7 @@ function trainerApplySumbit() {
         },
         function (rsp) {
             if (rsp.success) {
-                console.log(rsp);
+                // console.log(rsp);
                 let payment = {
                     imp_uid : rsp.imp_uid,
                     merchant_uid : rsp.merchant_uid,
@@ -360,7 +360,7 @@ function trainerApplySumbit() {
                 var msg = '결제에 실패하였습니다.';
                 msg += '에러내용 : ' + rsp.error_msg;
             }
-            alert(msg);
+            // alert(msg);
         });
 
 

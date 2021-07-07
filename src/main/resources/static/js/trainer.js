@@ -155,16 +155,16 @@ function acceptList() {
 }
 
 // 수락, 거절 눌러서 accept_condition 바꾸기
-function updateAccept(a) {
+function updateAccept() {
     // PTUserApplyConDto에 넘겨줄 apply_if값
     let apply_if = 0;
     // 내가 누른 버튼의 id값
     // let id = a.parentNode.parentNode.firstChild.innerText;
 
-    let id = $('#member_id').val();
+    // let id = $('#member_id').val();
 
-    let pt_user_id = $('#pt_user_id').val();
-
+    // let pt_user_id = $('#pt_user_id').val();
+    let pt_user_id = $(this).parent().siblings('.pt_user_id2').val();
 
     console.log("pt_user_id=" + pt_user_id)
 
@@ -172,7 +172,7 @@ function updateAccept(a) {
     console.log("id=" + id);
 
     // 내가 누른 버튼의 텍스트값
-    let con = a.innerText;
+    let con = $(this).text();
 
     console.log("수락버튼" + con);
     // 수락이면 apply_if에 1 저장하고 아니면 2 저장
@@ -270,11 +270,16 @@ function mkApply(data) {
         content += "<td class='ptUserGender'>" + k + "</td>"
         content += "<td class='ptUserHeight'>" + a + "</td>"
         content += "<td class='ptUserWeight'>" + b + "</td>"
-        content += `<input type="hidden" value="${p}" id="pt_user_id" name="pt_user_id"> `
+        content += `<input type="hidden" value="${p}" class= "pt_user_id2" id="pt_user_id" name="pt_user_id"> `
         content += `<td><a href='/ptUser/view/detail/${l}'>상세보기</a></td>`
-        content += "<td><button type='button' class='btn-primary Accept' onclick='updateAccept(this)'>수락</button></td>"
-        content += "<td><button type='button' class='btn-primary Deny' onclick='updateAccept(this)'>거절</button></td></tr>"
+        content += "<td><button type='button' class='btn-primary Accept'>수락</button></td>"
+        content += "<td><button type='button' class='btn-primary Deny'>거절</button></td></tr>"
         $('.applyListDetail').append(content);
+
+        $('.Accept').on("click", updateAccept);
+        $('.Deny').on("click", updateAccept);
+
+
     }
 }
 
