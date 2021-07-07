@@ -368,7 +368,7 @@ $(function () {
     // 버튼 클릭 이벤트 등록
     $('#comment_save').on("click", CommentSave);
     $('#delete').on("click" ,CDelete);
-    $('#RCDelete').on("click" ,RCDelete);
+    $('.RCDelete').on("click" ,RCDelete);
     $('.recomment_save_btn').on("click", ReCommentSave);
     $('.recmt_button').on("click", buttonToggle);
     $('.like_button').on("click", likeUnlike);
