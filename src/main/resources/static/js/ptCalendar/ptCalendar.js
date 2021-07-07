@@ -98,16 +98,14 @@ var calendar = $('#calendar').fullCalendar({
             container: 'body'
         });
 
-        return filtering(event);
-
     },
 
     /* ****************
      *  일정 받아옴
      * ************** */
-    events: function (start, end, timezone, callback) {
-        var calendar_user = $('#calendar_user').val();
-        var member_id = $('#member_id').val();
+    events: function a(start, end, timezone, callback) {
+        // var calendar_user = $('#calendar_user').val();
+        // var member_id = $('#member_id').val();
         var trainer_id = $('#trainer_id').val();
 
         var url = "/calendar/findPTAll";
@@ -116,25 +114,52 @@ var calendar = $('#calendar').fullCalendar({
             // 화면이 바뀌면 Date 객체인 start, end 가 들어옴
             //startDate : moment(start).format('YYYY-MM-DD'),
             //endDate   : moment(end).format('YYYY-MM-DD')
-
         }
+        // let arr = [];
         $.ajax({
             type: "get",
             url: url,
             data: data,
             success: function (response) {
-                console.log(response);
+                // console.log(response);
+                // let obj = {};
+                //
+                // response.forEach(function (a,i){
+                //     obj.start = response[i].start;
+                //     obj.end = response[i].end;
+                //     obj.textColor = response[i].textColor;
+                //     obj.title = response[i].title;
+                //     obj.backgroundColor = response[i].backgroundColor;
+                //     obj.description = response[i].description;
+                //     obj.allDay = response[i].allDay;
+                //     obj.type = response[i].type;
+                //     arr.push(obj);
+                //     obj = {};
+                // })
+
                 var fixedDate = response.map(function (array) {
                     delete array.member;
+                    delete array.trainerInfo;
+
                     if (array.allDay && array.start !== array.end) {
                         array.end = moment(array.end).add(1, 'days'); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
                     }
                     return array;
                 });
+                // console.log(fixedDate);
                 callback(fixedDate);
             }
         });
     },
+
+    // allDay: false
+    // backgroundColor: "#D25565"
+    // description: "23123123"
+    // end: "2021-07-08 20:42"
+    // start: "2021-07-06 19:42"
+    // textColor: "#ffffff"
+    // title: "asdfadsf"
+    // type: "PT일정"
 
     eventAfterAllRender: function (view) {
         if (view.name == "month") $(".fc-content").css('height', 'auto');
@@ -175,26 +200,6 @@ var calendar = $('#calendar').fullCalendar({
             startDate = moment(startDate).format('YYYY-MM-DD HH:mm');
             endDate = moment(endDate).format('YYYY-MM-DD HH:mm');
         }
-
-        //날짜 클릭시 카테고리 선택메뉴
-        var $contextMenu = $("#contextMenu");
-        $contextMenu.on("click", "a", function (e) {
-            e.preventDefault();
-
-            //닫기 버튼이 아닐때
-            if ($(this).data().role !== 'close') {
-                newEvent(startDate, endDate, $(this).html());
-            }
-
-            $contextMenu.removeClass("contextOpened");
-            $contextMenu.hide();
-        });
-
-        $('body').on('click', function () {
-            $contextMenu.removeClass("contextOpened");
-            $contextMenu.hide();
-        });
-
     },
 
     //이벤트 클릭시 수정이벤트
@@ -220,3 +225,5 @@ function getDisplayEventDate(event) {
 
 
 }
+
+
