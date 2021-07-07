@@ -168,8 +168,6 @@ function updateAccept() {
 
     console.log("pt_user_id=" + pt_user_id)
 
-    console.log("매개변수 a는" + a);
-    console.log("id=" + id);
 
     // 내가 누른 버튼의 텍스트값
     let con = $(this).text();

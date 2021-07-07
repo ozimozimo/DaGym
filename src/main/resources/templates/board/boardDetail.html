@@ -5,6 +5,8 @@
 <head>
     <title>상세보기</title>
     <link rel="stylesheet" th:href="@{~/css/board/board.css}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+          integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
     <script th:src="@{~/js/board/board.js}"></script>
     <script th:src="@{~/js/board/comments.js}"></script>
 </head>
@@ -136,10 +138,10 @@
                         <input type="hidden" th:value="${comment.id}" id="comId" class="comId">
 
                         <div>
-                        <span class="like_button"><i style="cursor: pointer" class="far fa-thumbs-up"
+                        <span class="like_button"><i style="cursor: pointer" class="fa-solid fa-thumbs-up"
                                                      th:text="${comment.likes}"></i>
                         </span>
-                            <span class="unlike_button"><i style="cursor: pointer" class="far fa-thumbs-down"
+                            <span class="unlike_button"><i style="cursor: pointer" class="fa-solid fa-thumbs-down"
                                                            th:text="${comment.dislike}"></i>
                         </span>
                         </div>
