@@ -37,7 +37,6 @@ public class CalendarApiController {
         log.info("종료시간"+calendar.getEnd());
         Optional<Member> member = memberRepository.findById(member_id);
         Optional<TrainerInfo> trainer = trainerRepository.findById(trainer_id);
-        System.out.println(calendar.isAllDay());
         calendar.setMember(member.get());
         calendar.setTrainerInfo(trainer.get());
         if (calendar.getType().equals("PT일정")) {
@@ -80,13 +79,9 @@ public class CalendarApiController {
         System.out.println(trainer_id);
 
 
-        Calendar calendar = calendarRepository.findCalendar(calendar_start, calendar_end);
-        System.out.println(calendar.getType());
 
-        if (calendar.getType().equals("PT일정")) {
-            ptUserRepository.Ptupdate(member_id, trainer_id);
-        }
-        calendarService.delete(calendar_start, calendar_end);
+        ptUserRepository.Ptupdate(member_id, trainer_id);
+        calendarService.delete(calendar_start, calendar_end,member_id,trainer_id);
 
 
     }

@@ -8,11 +8,11 @@ var editEvent = function (event, element, view) {
     $('.popover.fade.top').remove();
     $(element).popover("hide");
 
-    if (event.allDay === true) {
-        editAllDay.prop('checked', true);
-    } else {
-        editAllDay.prop('checked', false);
-    }
+    // if (event.allDay === true) {
+    //     editAllDay.prop('checked', true);
+    // } else {
+    //     editAllDay.prop('checked', false);
+    // }
 
     if (event.end === null) {
         event.end = event.start;
@@ -95,8 +95,8 @@ var editEvent = function (event, element, view) {
             type: event.type,
             backgroundColor : event.backgroundColor,
             description : event.description,
-            textColor : '#ffffff',
-            allDay : event.allDay
+            textColor : '#ffffff'
+            // allDay : event.allDay
         };
         console.log(event);
         //일정 업데이트

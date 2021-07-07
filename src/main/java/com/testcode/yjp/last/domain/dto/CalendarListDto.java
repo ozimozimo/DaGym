@@ -20,7 +20,6 @@ public class CalendarListDto {
     private String type;
     private String backgroundColor;
     private String textColor;
-    private boolean allDay;
     private Member member;
     private TrainerInfo trainerInfo;
 
@@ -33,7 +32,6 @@ public class CalendarListDto {
         this.type = entity.getType();
         this.backgroundColor = entity.getBackgroundColor();
         this.textColor = entity.getTextColor();
-        this.allDay = entity.isAllDay();
         this.member = entity.getMember();
         this.trainerInfo = entity.getTrainerInfo();
     }

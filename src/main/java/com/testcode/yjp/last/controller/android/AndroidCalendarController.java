@@ -31,7 +31,6 @@ public class AndroidCalendarController {
         for (Calendar calendar : calendarByMember) {
             AndInsertCalDto andInsertCalDto = new AndInsertCalDto();
             andInsertCalDto.setId(calendar.getId());
-            andInsertCalDto.setAllDay(calendar.isAllDay());
             andInsertCalDto.setDescription(calendar.getDescription());
             andInsertCalDto.setEnd(calendar.getEnd());
             andInsertCalDto.setStart(calendar.getStart());
@@ -49,7 +48,6 @@ public class AndroidCalendarController {
         Member member = androidMemberRepository.findById(member_id).get();
 
         Calendar calendar = new Calendar();
-        calendar.setAllDay(andInsertCalDto.isAllDay());
         calendar.setDescription(andInsertCalDto.getDescription());
         calendar.setEnd(andInsertCalDto.getEnd());
         calendar.setStart(andInsertCalDto.getStart());
@@ -63,7 +61,6 @@ public class AndroidCalendarController {
     @PutMapping("update")
     public void updateCal(@RequestBody AndInsertCalDto andInsertCalDto){
         Calendar calendar = androidCalendarRepository.findById(andInsertCalDto.getId()).get();
-        calendar.setAllDay(andInsertCalDto.isAllDay());
         calendar.setDescription(andInsertCalDto.getDescription());
         calendar.setEnd(andInsertCalDto.getEnd());
         calendar.setStart(andInsertCalDto.getStart());
@@ -97,7 +94,6 @@ public class AndroidCalendarController {
         for (Calendar calendar : calendarByDate) {
             AndInsertCalDto dto = new AndInsertCalDto();
             dto.setId(calendar.getId());
-            dto.setAllDay(calendar.isAllDay());
             dto.setDescription(calendar.getDescription());
             dto.setEnd(calendar.getEnd());
             dto.setStart(calendar.getStart());
@@ -114,7 +110,6 @@ public class AndroidCalendarController {
         AndInsertCalDto andInsertCalDto = new AndInsertCalDto();
         andInsertCalDto.setId(calendar.getId());
         andInsertCalDto.setDescription(calendar.getDescription());
-        andInsertCalDto.setAllDay(calendar.isAllDay());
         andInsertCalDto.setStart(calendar.getStart());
         andInsertCalDto.setEnd(calendar.getEnd());
         andInsertCalDto.setTitle(calendar.getTitle());
