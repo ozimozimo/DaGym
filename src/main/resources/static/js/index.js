@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function () {
     $(".name,.student,.small-intro").lettering();
 
     // IMAGES OVERLAY EFFECT
