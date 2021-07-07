@@ -48,10 +48,10 @@
     <!-- 메인 css -->
     <link th:href="@{~/css/header.css}" rel="stylesheet" type="text/css">
 
-    <script th:src="@{~/js/loginuser.js}"></script>
+<!--    <script th:src="@{~/js/loginuser.js}"></script>-->
 </head>
 <body>
-<input type="hidden" th:value="${session.loginId}" id="login_user_Id">
+<!--<input type="text" th:value="${session.loginId}" id="login_user_Id">-->
 
 <!-- body 태그 내부의 header 를 담당하는 부분이다. -->
 <header th:replace="fragments/header :: headerFragment"></header>

@@ -352,7 +352,7 @@ function trainerApplySumbit() {
                         alert("PT 신청에 실패하였습니다");
                         console.log(error);
                     })
-                }).error(function (error) {
+                }).fail(function (error) {
                     alert("실패하였습니다");
                 });
             } else {
