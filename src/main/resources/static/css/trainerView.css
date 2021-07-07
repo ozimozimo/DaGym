@@ -113,8 +113,9 @@
 }
 .card-box {
     text-align: center;
-    padding: 20px;
+    padding: 30px;
     display: inline-block;
+    margin-left: 3%;
 }
 
 .card {
