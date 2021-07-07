@@ -19,6 +19,10 @@
     <form th:action="@{/board}" method="get" id="searchForm" class="board_info">
         <div>
             <h2>트레이너 게시판</h2>
+            <div>
+                <a th:href="@{/board}">트레이너 게시판</a>
+                <a th:href="@{/boastboard/bb}">자랑 게시판</a>
+            </div>
             <input type="hidden" name="page" value="1">
             <div class="board_search">
                 <select name="type">

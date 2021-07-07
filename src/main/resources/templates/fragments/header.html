@@ -19,7 +19,7 @@
             <li><a th:href="@{/ptUser/view}" style="text-decoration:none">PT 신청</a></li>
             <li th:if="${session.loginRole == 'trainer'}"><a th:href="@{/calendar/trMemo(id=${session.loginUser})}" style="text-decoration:none">PT 일정</a></li>
             <li><a th:href="@{/room}" style="text-decoration:none">채팅</a></li>
-            <li><a th:href="@{/board}" style="text-decoration:none">트레이너 게시판</a></li>
+            <li><a th:href="@{/board}" style="text-decoration:none">게시판</a></li>
         </ul>
 
     </nav>

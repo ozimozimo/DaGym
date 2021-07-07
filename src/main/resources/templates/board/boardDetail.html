@@ -46,7 +46,9 @@
         </ul>
     </div>
 
-    <div class="post_content" th:text="${boards.content}"></div>
+    <div class="post_content">
+        <pre th:text="${boards.content}"></pre>
+    </div>
     <!--    // 추천 기능-->
     <div style="text-align: center">
         <input type="hidden" th:value="${session.loginId}" id="recommendId">
