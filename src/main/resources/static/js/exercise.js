@@ -52,7 +52,7 @@ function addExBtnClick() {
     let weight = AllAddClassValue(".ex_weight1");
     let time = AllAddClassValue('.ex_time1');
     let meter = AllAddClassValue('.ex_meter1');
-    let name = AllAddClassValue('.input_exer_name1');
+    let name = AllAddClassValue('.exer_name1');
     let kcal = AllAddClassValue('.ex_kcal1');
 
     let ex_set = set
@@ -68,6 +68,7 @@ function addExBtnClick() {
     let ex_category = $('.category option:selected').val();
 
     console.log("addExBtnClick ex_date = " + ex_date);
+    console.log("addExBtnClick ex_name = " + ex_name);
 
     let category = $('.category option:selected').val();
     let data;
@@ -251,7 +252,7 @@ function mkExr(result) {
                         content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
                         content += "<td class='res_ex_time'>" + exTime[i] + "분</td>"
                         content += "<td class='res_ex_meter'>" + exMeter[i] + "KM</td>"
-                        content += "<td class='res_ex_kcal'>" + exKcal + "Kcal</td>" /////////////////////
+                        content += "<td class='res_ex_kcal'>" + exKcal + "Kcal</td>"
                         content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
 
                         if (id == member_id)
