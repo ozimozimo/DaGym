@@ -248,8 +248,11 @@ public class PTUserService {
                 .trainer_kakao(entity.getTrainer_kakao())
                 .trainer_instagram(entity.getTrainer_instagram())
                 .trainer_gymName(entity.getTrainer_gymName())
+                .trainer_address_normal(entity.getTrainer_address_normal())
+                .trainer_pt_total(entity.getTrainer_pt_total())
                 .user_name(entity.getMember().getUser_name())
                 .trainer_content(entity.getTrainer_content())
+                .member(entity.getMember())
                 .build();
         return dto;
     }

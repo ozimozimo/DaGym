@@ -8,9 +8,9 @@
 <head>
     <script th:src="@{/js/trainer.js?ver=1.0}"></script>
     <script th:src="@{/js/trainerView.js?ver=1.0}"></script>
-<!--    <script src="https://code.jquery.com/jquery-3.3.1.min.js"-->
-<!--            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="-->
-<!--            crossorigin="anonymous"></script>-->
+    <!--    <script src="https://code.jquery.com/jquery-3.3.1.min.js"-->
+    <!--            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="-->
+    <!--            crossorigin="anonymous"></script>-->
     <link rel="stylesheet" th:href="@{/css/trainerView.css}"/>
 </head>
 <body>
@@ -53,7 +53,7 @@
             <div class="box1">
                 <div class="underline1">
                     <h2 class="sub-title">트레이너 찾기</h2>
-<!--                    <hr class="hr-style1">-->
+                    <!--                    <hr class="hr-style1">-->
                 </div>
                 <!--        <a th:href="@{/ptUser/view}">검색으로 찾기</a>-->
                 <a th:href="@{/ptUser/view/map}" class="a_map">맵으로 찾기</a>
@@ -86,7 +86,7 @@
             <div class="box2" style="display: none">
                 <div class="underline2">
                     <h1 class="sub-title">내가 신청한 트레이너</h1>
-<!--                    <hr class="hr-style1">-->
+                    <!--                    <hr class="hr-style1">-->
                 </div>
 
                 <table class="table table-striped applyList">
@@ -111,7 +111,7 @@
             <div class="user_view">
                 <div class="underline3">
                     <h5 class="sub-title">트레이너 검색 결과</h5>
-<!--                    <hr class="hr-style1">-->
+                    <!--                    <hr class="hr-style1">-->
                 </div>
                 <div th:each="trainer : ${result.dtoList}" class="card-box">
 
@@ -120,14 +120,17 @@
                         <div class="item-img">
                             <img th:if="${trainer.imgName != null}" class="trainer_image" width="240px" height="220px"
                                  th:src="@{/display(fileName=${trainer.imgName})}">
-                            <img th:if="${trainer.imgName == null}" th:src="@{~/image/noImg.png}" width="240px" height="220px">
+                            <img th:if="${trainer.imgName == null}" th:src="@{~/image/noImg.png}" width="240px"
+                                 height="220px">
                         </div>
                         <div class="item-name">
-                            <span th:text="${trainer.user_name}" >
+                            <span th:text="${trainer.user_name}">
                             </span>
                             <span class="trainer-text">
                                 트레이너
                             </span>
+                            <span th:text="${trainer.member.user_gender}" class="user_gender" id="user_gender"></span>
+                            <span th:text="${trainer.member.user_rrn}" class="user_rrn" id="user_rrn"></span>
                         </div>
                         <!-- <div th:text="${trainer.user_id}" class="item-id">아이디</div> -->
                         <div class="item-gymname">
@@ -155,6 +158,11 @@
                                     <img th:src="@{~/image/instaicon.png}" width="12px" height="12px">
                                 </span>
                                 <span th:text="${trainer.trainer_instagram}"></span>
+                            </div>
+                            <div>
+                                <span th:text="${trainer.trainer_workTime}"></span>
+                                <span th:text="${trainer.trainer_pt_total}"></span>
+                                <span th:text="${trainer.trainer_address_normal}" class="address_normal"></span>
                             </div>
                         </div>
                         <div class="btn-box">
@@ -197,6 +205,51 @@
 
 
         <script th:inline="javascript">
+
+            $(function () {
+                gender();
+                age();
+                addr();
+            });
+
+            function addr() {
+                var addr = $('.address_normal');
+                addr.each(function (i, el) {
+                    let normal = $(this).text().substring(5);
+                    console.log("주소는 =" + normal);
+                    $(this).text(normal);
+                });
+            }
+
+            function age() {
+                let ss = $('.user_rrn')
+                ss.each(function (i, el) {
+                    var today = new Date();
+                    var year = String(today.getFullYear()).substring(2, 4);
+                    let getUserYear = parseInt($(this).text().substring(0, 2));
+                    // 00년대생 이상
+                    if (year - getUserYear >= 0) {
+                        let age = year - getUserYear + 1;
+                        $(this).text(age);
+                    } else {
+                        let age = year - getUserYear + 101;
+                        $(this).text(age);
+                    }
+                });
+            }
+
+
+            function gender() {
+                let gender = $('.user_gender');
+                gender.each(function (i, el) {
+                    let text = parseInt($(this).text());
+                    if (text % 2 == 1) {
+                        $(this).text("남");
+                    } else {
+                        $(this).text("여");
+                    }
+                })
+            }
 
             var searchForm = $('#searchForm');
 
