@@ -56,7 +56,7 @@
                         <tbody class="addEx">
                         <tr class="addInput">
                             <td class="">
-                                <select class="category" onchange="category_select()">
+                                <select class="category form-control" onchange="category_select()">
                                     <option value="">선택해 주세요.</option>
                                     <option value="바벨">바벨</option>
                                     <option value="덤벨">덤벨</option>
@@ -70,7 +70,7 @@
                                 </select>
                             </td>
                             <td class="">
-                                <select class="parts" onchange="category_select()">
+                                <select class="parts form-control" onchange="category_select()">
                                     <option value="">선택해 주세요.</option>
                                     <option value="가슴">가슴</option>
                                     <option value="다리">다리</option>
@@ -84,26 +84,26 @@
                                 </select>
                             </td>
                             <td class="ex_name">
-                                <select class="exer_name" id="exer_name" onchange="name_select(this)"></select>
-                                <input class="exer_name1" id="input_exer_name" type="text" style="display: none">
+                                <select class="exer_name form-control" id="exer_name" onchange="name_select(this)"></select>
+                                <input class="exer_name1 form-control" id="input_exer_name" type="text" style="display: none">
                             </td>
                             <td class="ex_set">
-                                <input type="text" class="ex_set1" name="ex_set"/>
+                                <input type="text" class="ex_set1 form-control" name="ex_set" maxlength="3"/>
                             </td>
                             <td class="ex_count">
-                                <input type="text" class="ex_count1" name="ex_count"/>
+                                <input type="text" class="ex_count1 form-control" name="ex_count" maxlength="3"/>
                             </td>
                             <td class="ex_weight">
-                                <input type="text" class="ex_weight1" name="ex_weight"/>
+                                <input type="text" class="ex_weight1 form-control" name="ex_weight" maxlength="3"/>
                             </td>
                             <td class="ex_time">
-                                <input type="text" class="ex_time1" name="ex_set"/>
+                                <input type="text" class="ex_time1 form-control" name="ex_time" maxlength="3"/>
                             </td>
                             <td class="ex_meter">
-                                <input type="text" class="ex_meter1" name="ex_meter"/>
+                                <input type="text" class="ex_meter1 form-control" name="ex_meter" maxlength="3"/>
                             </td>
                             <td class="ex_kcal">
-                                <input type="text" class="ex_kcal1" name="ex_kcal"/>
+                                <input type="text" class="ex_kcal1 form-control" name="ex_kcal" maxlength="4"/>
                             </td>
                         </tr>
 
@@ -111,16 +111,16 @@
                     </table>
                 </div>
                 <div style="display: none">
-                    <input type="text" id="ex_set" name="ex_set"/>
-                    <input type="text" id="ex_count" name="ex_count"/>
-                    <input type="text" id="ex_weight" name="ex_weight"/>
-                    <input type="text" id="ex_time" name="ex_set"/>
-                    <input type="text" id="ex_meter" name="ex_meter"/>
-                    <input type="text" id="ex_kcal" name="ex_kcal"/>
+                    <input type="text" id="ex_set" class="form-control" name="ex_set" maxlength="3"/>
+                    <input type="text" id="ex_count" class="form-control" name="ex_count" maxlength="3"/>
+                    <input type="text" id="ex_weight" class="form-control" name="ex_weight" maxlength="3"/>
+                    <input type="text" id="ex_time" class="form-control" name="ex_set" maxlength="3"/>
+                    <input type="text" id="ex_meter" class="form-control" name="ex_meter" maxlength="3"/>
+                    <input type="text" id="ex_kcal" class="form-control" name="ex_kcal" maxlength="4"/>
                 </div>
                 <div class="buttons">
-                    <button type="button" class="setAddBtn">운동 세트 추가</button>
-                    <button type="button" class="addEx_btn">운동 추가</button>
+                    <button type="button" class="setAddBtn btn btn-primary">세트 추가</button>
+                    <button type="button" class="addEx_btn btn btn-primary">운동 추가</button>
                 </div>
             </div>
             <!-- 운동 기록 영역 -->

@@ -70,60 +70,29 @@ function addExBtnClick() {
     console.log("addExBtnClick ex_date = " + ex_date);
     console.log("addExBtnClick ex_name = " + ex_name);
 
+
     let category = $('.category option:selected').val();
-    let data;
-    if (category == '유산소') {
-        data = JSON.stringify({
-            ex_time: ex_time,
-            ex_meter: ex_meter,
-            ex_date: ex_date,
-            exercise_id: exercise_id,
-            ex_parts: ex_parts,
-            kcal: ex_kcal,
-            ex_category: ex_category
-        });
-    } else if (category == '렙만') {
-        data = JSON.stringify({
-            ex_set: ex_set,
-            ex_count: ex_count,
-            ex_date: ex_date,
-            exercise_id: exercise_id,
-            ex_category: ex_category
-        });
-    } else if (category == '지속 시간') {
-        data = JSON.stringify({
-            ex_set: ex_set,
-            ex_time: ex_time,
-            ex_date: ex_date,
-            exercise_id: exercise_id,
-            ex_category: ex_category
-        });
-    } else if (category == '기타(유산소)') {
-        data = JSON.stringify({
-            ex_time: ex_time,
-            ex_meter: ex_meter,
-            ex_date: ex_date,
-            ex_name: ex_name,
-            ex_parts: ex_parts,
-            kcal: ex_kcal,
-            ex_category: category
-        });
-    } else {
-        data = JSON.stringify({
-            ex_set: ex_set,
-            ex_count: ex_count,
-            ex_weight: ex_weight,
-            ex_date: ex_date,
-            exercise_id: exercise_id,
-            ex_category: ex_category
-        });
-    }
+    let data = {
+        ex_set: ex_set,
+        ex_count: ex_count,
+        ex_weight: ex_weight,
+        ex_time: ex_time,
+        ex_meter: ex_meter,
+        ex_date: ex_date,
+        ex_name: ex_name,
+        ex_parts: ex_parts,
+        exercise_id: exercise_id || null,
+        ex_parts: ex_parts,
+        kcal: ex_kcal,
+        ex_category: ex_category
+    };
+
     console.log(data);
     $.ajax({
         type: 'post',
         url: '/ExRecord/save/' + id,
         contentType: 'application/json; charset=utf-8',
-        data: data
+        data: JSON.stringify(data)
     }).done(function (result) {
         alert('운동이 추가되었습니다')
         location.reload();
@@ -151,7 +120,7 @@ function delExBtnClick(a) {
 function mkExr(result) {
     // console.log("mkExr in + " + result[0].ex_name);
     let id = $('.loginUser').val();
-    let allKcal = 0;
+
 
     result.sort(function (a, b) {
         return a.ex_category < b.ex_category ? -1 : a.ex_category > b.ex_category ? 1 : 0;
@@ -159,7 +128,7 @@ function mkExr(result) {
     result.sort(function (a, b) {
         return a.ex_name < b.ex_name ? -1 : a.ex_name > b.ex_name ? 1 : 0;
     })
-
+    let allKcal = 0;
     for (let i = 0; i < result.length; i++) {
         console.log("id  " + id);
         let a = result[i].ex_record_id;
@@ -175,11 +144,11 @@ function mkExr(result) {
         let exMeter = removeString(result[i].ex_meter || "");
         let exTime = removeString(result[i].ex_time || "");
         let exKcal = removeString(result[i].kcal || "");
-        exKcal = exKcal.toString().replace(/,/,"");
-        allKcal += parseInt(exKcal);
-
-        console.log("allKcal = " + allKcal);
         console.log("Kcal = " + exKcal);
+        // exKcal = exKcal.toString().replace(/,/,"");
+        console.log("Kcal2 = " + exKcal);
+
+
         console.log("member_id  " + member_id);
 
         function removeString(str) {
@@ -199,28 +168,32 @@ function mkExr(result) {
             return splitStr;
         }
 
+
         let content = "";
         if (exCategory == '렙만') {
             $(".onlyCount").css("display", "");
             if (exSet.length > 1) {
-                for (let i in exSet) {
-                    if (!(exSet[i] == "")) {
+                for (let j in exSet) {
+                    if (!(exSet[j] == "")) {
                         content += "<tr>"
                         content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>"
-                        // if(i == 0){
-                        content += "<td class='res_ex_category'>" + exCategory + "</td>"
-                        content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
-                        // } else {
-                        //     content += "<td></td>"
-                        //     content += "<td></td>"
-                        // }
-                        content += "<td class='res_ex_set'>" + exSet[i] + "세트</td>"
-                        content += "<td class='res_ex_count'>" + exCount[i] + "개</td>"
+                        if (j == 0) {
+
+                            content += "<td class='res_ex_category'>" + exCategory + "</td>"
+                            content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
+                        } else {
+                            content += "<td class='res_ex_category'></td>"
+                            content += "<td class='res_ex_name'></td>"
+                        }
+                        content += "<td class='res_ex_set'>" + exSet[j] + "세트</td>"
+                        content += "<td class='res_ex_count'>" + exCount[j] + "개</td>"
                         content += "<td>" + "</td>";
                         content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
 
-                        if (id == member_id)
-                            content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>"
+                        if (id == member_id && j == 0)
+                            content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button></td>"
+                        else if( j != 0) content += "<td></td>"
+
                         content += "</tr>"
                     }
                 }
@@ -235,28 +208,36 @@ function mkExr(result) {
                 content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
 
                 if (id == member_id)
-                    content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>"
+                    content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button></td>"
                 content += "</tr>"
             }
             $('.onlyCountEx').append(content);
 
         } else if (exCategory == '유산소' || exCategory == '기타(유산소)') {
             $(".cardio").css("display", "");
-
+            if (exCategory == '기타(유산소)') exName = exName.replaceAll(',', '');
             if (exTime.length > 1) {
-                for (let i in exTime) {
-                    if (!(exTime[i] == "")) {
-                        content += "<tr>";
+                for (let j in exTime) {
+                    if (!(exTime[j] == "")) {
+                        content += "<tr>"
                         content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>"
-                        content += "<td class='res_ex_category'>" + exCategory + "</td>"
-                        content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
-                        content += "<td class='res_ex_time'>" + exTime[i] + "분</td>"
-                        content += "<td class='res_ex_meter'>" + exMeter[i] + "KM</td>"
-                        content += "<td class='res_ex_kcal'>" + exKcal + "Kcal</td>"
+                        if (j == 0) {
+                            content += "<td class='res_ex_category'>" + exCategory + "</td>"
+                            content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
+                        } else {
+                            content += "<td class='res_ex_category'></td>"
+                            content += "<td class='res_ex_name'></td>"
+                        }
+                        content += "<td class='res_ex_time'>" + exTime[j] + "분</td>"
+                        content += "<td class='res_ex_meter'>" + exMeter[j] + "KM</td>"
+                        content += "<td class='res_ex_kcal kaclArr'>" + exKcal[j] + "Kcal</td>"
                         content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
+                        allKcal += parseInt(exKcal[j]);
 
-                        if (id == member_id)
-                            content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>"
+                        if (id == member_id && j == 0)
+                            content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button></td>"
+                        else if( j != 0) content += "<td></td>"
+
                         content += "</tr>"
                     }
                 }
@@ -267,11 +248,11 @@ function mkExr(result) {
                 content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
                 content += "<td class='res_ex_time'>" + exTime + "분</td>"
                 content += "<td class='res_ex_meter'>" + exMeter + "KM</td>"
-                content += "<td class='res_ex_kcal'>" + exKcal + "Kcal</td>"
+                content += "<td class='res_ex_kcal kaclArr'>" + exKcal + "Kcal</td>"
                 content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
-
+                allKcal += parseInt(exKcal);
                 if (id == member_id)
-                    content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>"
+                    content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button></td>"
                 content += "</tr>"
             }
             $('.cardioEx').append(content);
@@ -279,20 +260,27 @@ function mkExr(result) {
             $(".time").css("display", "");
 
             if (exSet.length > 1) {
-                for (let i in exSet) {
+                for (let j in exSet) {
                     if (!(exSet[i] == "")) {
 
                         content += "<tr>";
                         content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>";
-                        content += "<td class='res_ex_category'>" + exCategory + "</td>"
-                        content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
-                        content += "<td class='res_ex_set'>" + exSet[i] + "세트</td>";
-                        content += "<td class='res_ex_time'>" + exTime[i] + "분</td>";
+                        if (j == 0) {
+                            content += "<td class='res_ex_category'>" + exCategory + "</td>"
+                            content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
+                        } else {
+                            content += "<td class='res_ex_category'></td>"
+                            content += "<td class='res_ex_name'></td>"
+                        }
+                        content += "<td class='res_ex_set'>" + exSet[j] + "세트</td>";
+                        content += "<td class='res_ex_time'>" + exTime[j] + "분</td>";
                         content += "<td>" + "</td>";
                         content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>";
 
-                        if (id == member_id)
-                            content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>";
+                        if (id == member_id && j == 0)
+                            content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button></td>";
+                        else if( j != 0) content += "<td></td>"
+
                         content += "</tr>";
                     }
                 }
@@ -307,7 +295,7 @@ function mkExr(result) {
                 content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>";
 
                 if (id == member_id)
-                    content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>";
+                    content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button></td>";
                 content += "</tr>";
             }
 
@@ -315,20 +303,27 @@ function mkExr(result) {
         } else {
             $(".another").css("display", "");
             if (exSet.length > 1) {
-                for (let i in exSet) {
-                    if (!(exSet[i] == "")) {
+                for (let j in exSet) {
+                    if (!(exSet[j] == "")) {
 
                         content += "<tr>";
                         content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>"
-                        content += "<td class='res_ex_category'>" + exCategory + "</td>"
-                        content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
-                        content += "<td class='res_ex_set'>" + exSet[i] + "세트</td>"
-                        content += "<td class='res_ex_count'>" + exCount[i] + "개</td>"
-                        content += "<td class='res_ex_weight'>" + exWeight[i] + "KG</td>"
+                        if(j==0){
+                            content += "<td class='res_ex_category'>" + exCategory + "</td>"
+                            content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
+                        }
+                         else {
+                            content += "<td class='res_ex_category'></td>"
+                            content += "<td class='res_ex_name'></td>"
+                        }
+                        content += "<td class='res_ex_set'>" + exSet[j] + "세트</td>"
+                        content += "<td class='res_ex_count'>" + exCount[j] + "개</td>"
+                        content += "<td class='res_ex_weight'>" + exWeight[j] + "KG</td>"
                         content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
 
-                        if (id == member_id)
-                            content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>";
+                        if (id == member_id && j == 0)
+                            content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button></td>";
+                        else if( j != 0) content += "<td></td>"
                         content += "</tr>";
                     }
                 }
@@ -343,24 +338,28 @@ function mkExr(result) {
                 content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
 
                 if (id == member_id)
-                    content += "<td><button type='button' class='delEx_btn' onclick='delExBtnClick(this)'>삭제</button></td>";
+                    content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button></td>";
+                else content += "<td></td>"
+
                 content += "</tr>";
             }
 
             $('.anotherEx').append(content);
         }
     }
+
     $('.allKcal').text("오늘의 소모 칼로리는 " + allKcal + "Kcal 입니다.");
 }
 
 // 오늘 날짜 데이터
 function todayData() {
+    $('.anotherEx').empty();
     let today = date;
     let id = $('.ex_record_member_id').val();
 
 
-    console.log("id="+id)
-    console.log("today="+today)
+    console.log("id=" + id)
+    console.log("today=" + today)
     let data = {
         id: id,
         ex_date: today
@@ -409,7 +408,7 @@ function changeInsertBox(category) {
         $(".ex_count").css("display", "");
         $(".ex_kcal").css("display", "none");
         $(".ex_set").css("display", "");
-    } else if (category == '유산소') {
+    } else if (category == '유산소' || category == '기타(유산소)') {
         $(".ex_time").css("display", "");
         $(".ex_weight").css("display", "none");
         $(".ex_meter").css("display", "");
@@ -545,22 +544,22 @@ function addBtn() {
 <td class="ex_name">
 </td>
 <td class="ex_set">
-<input type="text" class="ex_set1" name="ex_set"/>
+<input type="text" class="ex_set1 form-control" name="ex_set" maxlength="3"/>
 </td>
  <td class="ex_count">
-<input type="text" class="ex_count1" name="ex_count"/>
+<input type="text" class="ex_count1 form-control" name="ex_count" maxlength="3"/>
 </td>
 <td class="ex_weight">
-<input type="text" class="ex_weight1" name="ex_weight"/>
+<input type="text" class="ex_weight1 form-control" name="ex_weight" maxlength="3"/>
 </td>
 <td class="ex_time">
-<input type="text" class="ex_time1" name="ex_set"/>
+<input type="text" class="ex_time1 form-control" name="ex_time" maxlength="3"/>
 </td>
 <td class="ex_meter">
-<input type="text" class="ex_meter1" name="ex_meter"/>
+<input type="text" class="ex_meter1 form-control" name="ex_meter" maxlength="3"/>
 </td>
 <td class="ex_kcal">
-    <input type="text" class="ex_kcal1" name="ex_kcal"/>
+    <input type="text" class="ex_kcal1 form-control" name="ex_kcal" maxlength="4"/>
     </td>
 </tr>`
     $('.addEx').append(content);
