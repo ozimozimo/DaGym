@@ -10,9 +10,13 @@ function Save() {
     var data = {
         title: $('#title').val(),
         user_id: $('#user_id').val(),
-        content: $('#bb_content').val()
+        content: $('#bb_content').val(),
+        uuid: $('#uuid').val(),
+        imgName: $('#imgName').val(),
+        fileName: $('#fileName').val()
     };
-    console.log("session login id=" + data.id)
+    console.log("session login id=" + data.id);
+    console.log("Data =" + data);
     var id = $('#member_id').val();
 
     $.ajax({
@@ -48,8 +52,12 @@ function Update() {
         Update: function () {
             var data = {
                 title: $('#title').val(),
-                content: $('#bb_content').val()
+                content: $('#bb_content').val(),
+                uuid: $('#uuid').val(),
+                imgName: $('#imgName').val(),
+                fileName: $('#fileName').val(),
             };
+            console.log(data);
             var id = $('#bb_num').val();
             var page = $('#page').val();
             $.ajax({

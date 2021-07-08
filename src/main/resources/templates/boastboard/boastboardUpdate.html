@@ -2,6 +2,7 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layout/default}"
 >
 <head>
     <title>boardUpdate</title>
@@ -18,10 +19,37 @@
             <input type="hidden" name="type" id="type" th:value="${PageRequestDto.type}">
             <input type="hidden" name="keyword" id="keyword" th:value="${PageRequestDto.keyword}">
 
-            <div  class="" >
+            <div class="">
                 <label for="bb_num">글 번호</label>
                 <input type="text" class="" id="bb_num" th:value="${bb.id}" readonly>
             </div>
+
+            <div class="updateResult">
+                <img
+                        th:if="${bb.imgName != null}"
+                        class="trainer_image"
+                        width="200px"
+                        height="200px"
+                        th:src="@{/boastboard/displayBoard(fileName=${bb.fileName})}"
+                />
+                <img
+                        th:if="${bb.fileName == null}"
+                />
+            </div>
+            <div class="updateResult2"></div>
+            <input
+                    name="uploadBoardFiles"
+                    th:value="${bb.fileName}"
+                    type="file"
+                    multiple
+            />
+            <button
+                    type="button"
+                    id="updateLoadBtn"
+            >
+                업로드
+            </button>
+
             <div class="">
                 <label for="title">제목</label>
                 <input type="text" class="" id="title" th:value="${bb.title}">
@@ -32,7 +60,8 @@
             </div>
             <div class="">
                 <label for="bb_content">내용</label>
-                <textarea style="resize: none" cols="25" rows="15"  class="" id="bb_content" th:text="${bb.content}"></textarea>
+                <textarea style="resize: none" cols="25" rows="15" class="" id="bb_content"
+                          th:text="${bb.content}"></textarea>
             </div>
         </form>
         <button type="button" class="">이전</button>
@@ -40,7 +69,86 @@
         <button type="button" class="" id="btn-delete">삭제</button>
 
     </div>
-</div>
+    <script>
+        $(function () {
+            let updateLoadBtn = document.getElementById('updateLoadBtn');
+            let updateResult = document.getElementById('updateResult');
+
+            updateLoadBtn.addEventListener("click", UpdateUpload);
+        });
+
+
+        function showUploadedImages(arr) {
+            console.log(arr);
+            $('.updateResult').addClass('hidden');
+            $('#updateLoadBtn').addClass('hidden');
+            var divArea = $(".updateResult2");
+
+            var str = "";
+            var removeBtn = '';
+            for (var i = 0; i < arr.length; i++) {
+                var uuid = arr[i].thumbnailURL;
+                var imgName = arr[i].imageURL;
+                var fileName = arr[i].fileName;
+                str += "<div>";
+                str += "<img src='/boastboard/displayBoard?fileName=" + arr[i].thumbnailURL + "'/>";
+                str += "<input type='hidden' id='uuid' name='uuid' value='" + uuid + "'>"
+                str += "<input type='hidden' id='imgName' name='imgName' value='" + imgName + "'>"
+                str += "<input type='hidden' id='fileName' name='fileName' value='" + fileName + "'>"
+                str += "</div>"
+                removeBtn += "<button class='removeBtn btn btn-primary' data-name='" + arr[i].imageURL + "'>삭제</button>";
+
+            }
+            divArea.append(str);
+            $('.btns').append(removeBtn);
+        }
+
+        $('.updateResult2').on("click", ".removeBtn", function () {
+            var target = $(this);
+            var fileName = target.data("name");
+            var targetDiv = $(this).closest("div");
+
+            $('.updateResult').removeClass('hidden');
+            $('#updateLoadBtn').removeClass('hidden');
+
+            console.log(fileName);
+
+            $.post('/boastboard/removeBoardFile', {fileName: fileName}, function (result) {
+                console.log(result);
+                if (result === true) {
+                    targetDiv.remove();
+                }
+            })
+        })
+
+        function UpdateUpload() {
+
+            var formData = new FormData();
+            var inputFile = $("input[type='file']");
+            var files = inputFile[0].files;
+
+            for (var i = 0; i < files.length; i++) {
+                console.log(files[i]);
+                formData.append("uploadBoardFiles", files[i]);
+            }
+            // 실제 업로드 부분
+            $.ajax({
+                url: '/boastboard/uploadBoardFile',
+                processData: false,
+                contentType: false,
+                data: formData,
+                type: "POST",
+                dataType: "json",
+                success: function (result) {
+                    console.log(result);
+                    showUploadedImages(result);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                }
+            }) // ajax end
+        };
+    </script>
 </div>
 
 

@@ -44,6 +44,7 @@ public class BoastboardController {
     @GetMapping("/bbUpdate")
     public String BUpdate( Long bb_num, Model model, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
         BoastboardResponseDto dto = boastboardService.findById(bb_num);
+
         model.addAttribute("bb", dto);
         return "boastboard/boastboardUpdate";
     }

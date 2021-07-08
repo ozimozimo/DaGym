@@ -34,12 +34,24 @@ public class Boastboard extends BaseEntity {
     @Column(name = "bb_hit")
     private int hit;
 
+    // 트레이너 이미지 변환
+    private String uuid;
+
+    // 트레이너 이미지
+    private String imgName;
+
+    // 파일 이름
+    private String fileName;
+
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public void update(String title, String content ){
+    public void update(String title, String content,String uuid, String imgName, String fileName ){
         this.title = title;
         this.content = content;
+        this.uuid = uuid;
+        this.imgName = imgName;
+        this.fileName = fileName;
     }
 }

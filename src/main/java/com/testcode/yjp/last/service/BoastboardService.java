@@ -95,7 +95,8 @@ public class BoastboardService {
     public Long update(Long id, BoardUpdateRequestDto boardUpdateRequestDto) {
         Boastboard boastboard = boastboardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-        boastboard.update(boardUpdateRequestDto.getTitle(), boardUpdateRequestDto.getContent());
+        boastboard.update(boardUpdateRequestDto.getTitle(), boardUpdateRequestDto.getContent(), boardUpdateRequestDto.getUuid(),
+                boardUpdateRequestDto.getFileName(), boardUpdateRequestDto.getImgName());
         boastboardRepository.save(boastboard);
         return id;
     }
