@@ -211,7 +211,8 @@ public class ExcerciseRecordApiController {
 
     @PostMapping("/random")
     public ExCategoryDto findRandom(@RequestBody ExCategoryDto exCategoryDto) {
-        Exercise rand = exerciseRepository.findRand(exCategoryDto.getEx_category(), exCategoryDto.getEx_parts());
+        List<Exercise> rands = exerciseRepository.findRand(exCategoryDto.getEx_category(), exCategoryDto.getEx_parts());
+        Exercise rand = rands.get(0);
         log.info("id = "+rand.getEx_id());
         ExCategoryDto e = ExCategoryDto.builder()
                 .ex_id(rand.getEx_id())
