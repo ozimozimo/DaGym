@@ -294,12 +294,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="trainer : ${trainer_list}">
-                                <td th:text="${trainer.id}"></td>
-                                <td th:text="${trainer.user_name}"></td>
-                                <td th:text="${trainer.user_gender}"></td>
-                                <td th:text="${trainer.regDate}"></td>
-                                <td th:text="${trainer.user_pn}"></td>
+                            <tr th:each="trainers : ${trainer_list}">
+                                <td th:text="${trainers.id}"></td>
+                                <td th:text="${trainers.user_name}"></td>
+                                <td th:text="${trainers.user_gender}"></td>
+                                <td th:text="${trainers.regDate}"></td>
+                                <td th:text="${trainers.user_pn}"></td>
                             </tr>
                             </tbody>
                         </table>
@@ -307,7 +307,7 @@
                     <div class="panel-footer">
                         <div class="row">
                             <div class="col-md-6">
-                        <span class="panel-note">
+                                <span class="panel-note"></span>
                             </div>
                             <div class="col-md-6 text-right">
                                 <a th:href="@{/admin/trainerManagement}" class="btn btn-primary"

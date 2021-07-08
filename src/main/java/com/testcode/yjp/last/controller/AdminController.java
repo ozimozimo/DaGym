@@ -53,7 +53,10 @@ public class AdminController {
                 trainers.add(trainerList.get(i));
             } catch (Exception e) {
             }
-            oneOnOnes.add(byAnswerIsNull.get(i));
+            try {
+                oneOnOnes.add(byAnswerIsNull.get(i));
+            } catch (Exception e) {
+            }
         }
 //        }
 //        else {
