@@ -19,7 +19,27 @@
     <link rel="stylesheet" th:href="@{~/css/trainerPage.css}">
 </head>
 <div layout:fragment="content">
+    <style>
+        img {
+            border: 0;
+            vertical-align: middle;
+        }
+
+        .trainer_image {
+            width: 200px;
+            height: 200px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #trainer_content {
+            display: none;
+        }
+    </style>
     <!--PEN HEADER-->
+
     <h1 class="text-center mb-4 mt-4">트레이너 수정 페이지</h1>
     <!--PEN CONTENT     -->
     <div class="content">

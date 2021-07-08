@@ -1,15 +1,14 @@
 $(function () {
     let zip = $('#zip');
 
-    let updateLoadBtn = document.getElementById('updateLoadBtn');
+    let updateLoadBtn = $('#updateLoadBtn');
     let updateResult = document.getElementById('updateResult');
 
-    updateLoadBtn.addEventListener("click", UpdateUpload);
+    updateLoadBtn.on("click", UpdateUpload);
     zip.on("click", GymPostCode);
 
     findPostCode();
     findTimeCode();
-    category_input();
     addBtn();
     delBtn();
     $('#fileNameLabel').text($('#fileName').val());
@@ -19,7 +18,9 @@ $(function () {
         noCalendar: true,
         dateFormat: "H:i",
     });
+
     init();
+    category_input();
 });
 
 function trainerUpdate() {
@@ -110,7 +111,7 @@ function showUploadedImages(arr) {
         var imgName = arr[i].imageURL;
         var fileName = arr[i].fileName;
         str += "<div>";
-        str += "<img src='/display?fileName=" + arr[i].thumbnailURL + "'/>";
+        str += `<img src='/display?fileName=${arr[i].thumbnailURL}' width="200px" height="200px">`;
         str += "<input type='hidden' id='uuid' name='uuid' value='" + uuid + "'>"
         str += "<input type='hidden' id='imgName' name='imgName' value='" + imgName + "'>"
         str += "<input type='hidden' id='fileName' name='fileName' value='" + fileName + "'>"
