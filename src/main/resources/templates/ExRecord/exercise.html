@@ -84,8 +84,10 @@
                                 </select>
                             </td>
                             <td class="ex_name">
-                                <select class="exer_name form-control" id="exer_name" onchange="name_select(this)"></select>
-                                <input class="exer_name1 form-control" id="input_exer_name" type="text" style="display: none">
+                                <select class="exer_name form-control" id="exer_name"
+                                        onchange="name_select(this)"></select>
+                                <input class="exer_name1 form-control" id="input_exer_name" type="text"
+                                       style="display: none">
                             </td>
                             <td class="ex_set">
                                 <input type="text" class="ex_set1 form-control" name="ex_set" maxlength="3"/>
@@ -118,6 +120,7 @@
                     <input type="text" id="ex_meter" class="form-control" name="ex_meter" maxlength="3"/>
                     <input type="text" id="ex_kcal" class="form-control" name="ex_kcal" maxlength="4"/>
                 </div>
+                <div class="recommendArea"></div>
                 <div class="buttons">
                     <button type="button" class="setAddBtn btn btn-primary">세트 추가</button>
                     <button type="button" class="addEx_btn btn btn-primary">운동 추가</button>
@@ -152,44 +155,47 @@
                         </thead>
                         <tbody class="onlyCountEx">
                         </tbody>
-                        <thead>
-                        <tr class="cardio" style='display: none'>
-                            <th>카테고리</th>
-                            <th>운동 명</th>
-                            <th>운동한 시간</th>
-                            <th>운동 거리(KM)</th>
-                            <th>Kcal</th>
-                            <th class="ex_delete"></th>
-                        </tr>
-                        </thead>
-                        <tbody class="cardioEx">
-                        </tbody>
-                        <thead>
-                        <tr class="time" style='display: none'>
-                            <th>카테고리</th>
-                            <th>운동 명</th>
-                            <th>세트</th>
-                            <th>운동한 시간</th>
-                            <th class=""></th>
-                            <th class="ex_delete"></th>
-                        </tr>
-                        </thead>
-                        <tbody class="timeEx">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <!-- 피드백 영역 -->
-            <!--    <div class="feedback_area">-->
-            <!--        <h3>피드백</h3>-->
 
-            <!--        <form name="feedbackForm" class="feedbackForm">-->
-            <!--            <input name="ex_feedback"/>-->
-            <!--            <button type="submit">전송</button>-->
-            <!--        </form>-->
-            <!--    </div>-->
+
+                </div>
+                <thead>
+                <tr class="cardio" style='display: none'>
+                    <th>카테고리</th>
+                    <th>운동 명</th>
+                    <th>운동한 시간</th>
+                    <th>운동 거리(KM)</th>
+                    <th>Kcal</th>
+                    <th class="ex_delete"></th>
+                </tr>
+                </thead>
+                <tbody class="cardioEx">
+                </tbody>
+                <thead>
+                <tr class="time" style='display: none'>
+                    <th>카테고리</th>
+                    <th>운동 명</th>
+                    <th>세트</th>
+                    <th>운동한 시간</th>
+                    <th class=""></th>
+                    <th class="ex_delete"></th>
+                </tr>
+                </thead>
+                <tbody class="timeEx">
+                </tbody>
+                </table>
+            </div>
         </div>
+        <!-- 피드백 영역 -->
+        <!--    <div class="feedback_area">-->
+        <!--        <h3>피드백</h3>-->
+
+        <!--        <form name="feedbackForm" class="feedbackForm">-->
+        <!--            <input name="ex_feedback"/>-->
+        <!--            <button type="submit">전송</button>-->
+        <!--        </form>-->
+        <!--    </div>-->
     </div>
+</div>
 </div>
 </body>
 </html>

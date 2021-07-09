@@ -357,4 +357,29 @@ $(function () {
         memberCheck();
     }
 
+    $('.pt_basic_info').each(function (i, el){
+        let total_string = $(this).closest('.card').find('.pt_total');
+
+        let total = total_string.text();
+        total = total.replace(/(\s*)/g,"");
+        // total = total.replace('/','');
+
+        let totalArr =  total.split('/');
+        let sale_price = totalArr[1];
+        let pt_discount = $(this).closest('.card').find('.pt_discount').text();
+        let pt_addCount = $(this).closest('.card').find('.pt_addCount').text();
+        console.log(sale_price);
+        console.log(pt_discount);
+
+        let origin_price = sale_price / ((100-parseInt(pt_discount))/100);
+        let text = "10회 / " + origin_price;
+        let pt_basic_info =  $(this).closest('.card').find('.pt_basic_info');
+        pt_basic_info.text(text);
+    })
+
+
+
+
 })
+
+

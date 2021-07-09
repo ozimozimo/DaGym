@@ -12,6 +12,14 @@
     <!--            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="-->
     <!--            crossorigin="anonymous"></script>-->
     <link rel="stylesheet" th:href="@{/css/trainerView.css}"/>
+    <style>
+        .pt_basic_info {
+            text-decoration:line-through;
+        }
+        .pt_discount, .pt_addCount{
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <div layout:fragment="content">
@@ -74,7 +82,7 @@
                                 <option value="ngc" th:selected="${pageRequestDto.type == 'ngc'}">이름+헬스장이름+운동목적</option>
                             </select>
                         </div>
-                        <input class="form-control" name="keyword" th:value="${pageRequestDto.keyword}">
+                        <input class="form-control" name="keyword" th:value="${pageRequestDto.keyword}" />
                         <div class="input-group-append" id="button-addon4">
                             <button class="search_btn" type="button">검색</button>
                             <button class="clear_btn" type="button">Clear</button>
