@@ -29,6 +29,8 @@ public class TrainerService {
                 .trainer_gymName(trainerInfoDto.getTrainer_gymName())
                 .trainer_workTime(trainerInfoDto.getTrainer_workTime())
                 .trainer_pt_total(trainerInfoDto.getTrainer_pt_total())
+                .trainer_pt_discount(trainerInfoDto.getTrainer_pt_discount())
+                .trainer_pt_AddCount(trainerInfoDto.getTrainer_pt_AddCount())
                 .trainer_address_normal(trainerInfoDto.getTrainer_address_normal())
                 .trainer_address_detail(trainerInfoDto.getTrainer_address_detail())
                 .trainer_instagram(trainerInfoDto.getTrainer_instagram())

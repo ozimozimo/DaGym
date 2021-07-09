@@ -1,69 +1,185 @@
 <!DOCTYPE html>
-<html
-        lang="ko"
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        data-layout-decorate="~{layout/newPage}"
->
-<head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layout/newPage}">
 
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #F2F2F2;
+        }
+        .header {
+            top: 0;
+            height: 75px;
+            background: white;
+            margin-bottom: 20px;
+            object-fit: fill;
+            border-bottom: 1px solid #999999;
+        }
+        .header-left {
+            width: 190px;
+            height: inherit;
+            float: left;
+            overflow: hidden;
+        }
+        .header-right {
+            font-size: 22px;
+            margin-top: 22px;
+            height: 30px;
+            font-weight: bold;
+            line-height: initial;
+            display: inline-block;
+            border-left: 2px solid #d3d3d3;
+            padding-left: 10px;
+        }
+        .logo {
+            transform: translateY(-3px);
+            margin-left: 18px;
+            object-fit: fill;
+        }
+        .review-box {
+            width: 80%;
+            margin-left: 10%;
+            text-align: left;
+        }
+        .review-item {
+            background: white;
+            margin-top: 3px;
+            margin-bottom: 3px;
+            width: 100%;
+            box-shadow: gray 1px 1px 1px 1px;
+            margin-bottom: 5px;
+        }
+        .review-1 {
+            padding-top: 14px;
+            padding-left: 30px;
+            padding-bottom: 10px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .useritem {
+            height: 40px;
+        }
+        .username {
+            display: inline-block;
+            margin-left: 4px;
+        }
+        .review-2 {
+            padding-left: 34px;
+            padding-bottom: 10px;
+            font-weight: bold;
+        }
+        .red {
+            color: red;
+            margin-right: 5px;
+        }
+        .review-3 {
+            padding-left: 34px;
+            padding-bottom: 10px;
+            font-size: 13px;
+            color: gray;
+            transform: translateY(-8px);
+        }
+        .review-5 {
+            padding-left: 34px;
+            padding-bottom: 25px;
+            font-size: 15px;
+        }
+
+        .del_Btn {
+            background: none;
+            border: 0px;
+            color: gray;
+            border-bottom: 1px solid gray;
+            cursor: pointer;
+            float: right;
+            margin-top: 10px;
+            margin-right: 50px;
+        }
+    </style>
 </head>
 <div layout:fragment="content">
-<!--    <h1>트레이너 상세 보기 페이지 다</h1>-->
+    <!--    <h1>트레이너 상세 보기 페이지 다</h1>-->
 
-<!--    <table class="table table-striped">-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--            <th>트레이너 번호</th>-->
-<!--            <th>프로필 이미지</th>-->
-<!--            <th>이름</th>-->
-<!--            <th>휴대폰 번호</th>-->
-<!--            <th>헬스장 이름</th>-->
-<!--            <th>헬스장 위치</th>-->
-<!--            <th>PT 가격</th>-->
-<!--            <th>카카오톡 아이디</th>-->
-<!--            <th>인스타그램 아이디</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr>-->
-<!--            <td th:text="${trainerInfo.id}"></td>-->
-<!--            <td><img class="trainer_image" width="200px" height="200px"-->
-<!--                     th:src="@{/display(fileName=${trainerInfo.imgName})}"></td>-->
-<!--            <td th:text="${trainerInfo.member.user_name}">이름</td>-->
-<!--            <td th:text="${trainerInfo.member.user_pn}">폰번호</td>-->
-<!--            <td th:text="${trainerInfo.trainer_gymName}">헬스장이름</td>-->
-<!--            <td th:text="${trainerInfo.trainer_address_normal}">헬스장위치</td>-->
-<!--            <th th:text="${trainerInfo.trainer_pt_total}">PT 가격</th>-->
-<!--            <td th:text="${trainerInfo.trainer_kakao}">카카오톡</td>-->
-<!--            <td th:text="${trainerInfo.trainer_instagram}">Instagram</td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
-
-    <h1>트레이너 PT리뷰 리스트</h1>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>작성자</th>
-            <th>평점</th>
-            <th>내용</th>
-            <th>작성일</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="review : ${reviewList}">
-            <td th:text="${review.member_id.user_name}"></td>
-            <td th:text="${review.score}"></td>
-            <td th:text="${review.content}"></td>
-            <td th:text="${#temporals.format(review.regDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
-        </tr>
-        </tbody>
-    </table>
-
-
+    <!--    <table class="table table-striped">-->
+    <!--        <thead>-->
+    <!--        <tr>-->
+    <!--            <th>트레이너 번호</th>-->
+    <!--            <th>프로필 이미지</th>-->
+    <!--            <th>이름</th>-->
+    <!--            <th>휴대폰 번호</th>-->
+    <!--            <th>헬스장 이름</th>-->
+    <!--            <th>헬스장 위치</th>-->
+    <!--            <th>PT 가격</th>-->
+    <!--            <th>카카오톡 아이디</th>-->
+    <!--            <th>인스타그램 아이디</th>-->
+    <!--        </tr>-->
+    <!--        </thead>-->
+    <!--        <tbody>-->
+    <!--        <tr>-->
+    <!--            <td th:text="${trainerInfo.id}"></td>-->
+    <!--            <td><img class="trainer_image" width="200px" height="200px"-->
+    <!--                     th:src="@{/display(fileName=${trainerInfo.imgName})}"></td>-->
+    <!--            <td th:text="${trainerInfo.member.user_name}">이름</td>-->
+    <!--            <td th:text="${trainerInfo.member.user_pn}">폰번호</td>-->
+    <!--            <td th:text="${trainerInfo.trainer_gymName}">헬스장이름</td>-->
+    <!--            <td th:text="${trainerInfo.trainer_address_normal}">헬스장위치</td>-->
+    <!--            <th th:text="${trainerInfo.trainer_pt_total}">PT 가격</th>-->
+    <!--            <td th:text="${trainerInfo.trainer_kakao}">카카오톡</td>-->
+    <!--            <td th:text="${trainerInfo.trainer_instagram}">Instagram</td>-->
+    <!--        </tr>-->
+    <!--        </tbody>-->
+    <!--    </table>-->
+    <div class="header">
+        <div class="header-left">
+            <img th:src="@{~/image/dagym.png}" height="70px" class="logo">
+        </div>
+        <div class="header-right">
+            트레이너 PT리뷰 리스트
+        </div>
+    </div>
+    <div class="review-box">
+        <div th:each="review : ${reviewList}" class="review-item">
+            <div class="review-1">
+                <span>
+                    <img th:src="@{~/image/usericon.jpg}" class="useritem">
+                </span>
+                <span th:text="${review.member_id.user_name}" class="username">정성헌</span>
+<!--                <span>-->
+<!--                    <button class="del_Btn">-->
+<!--                        삭제-->
+<!--                    </button>-->
+<!--                </span>-->
+            </div>
+            <div class="review-2">
+                <!-- if문 써서 5점이면 ★★★★★, 4점이면 ★★★★☆ 이런식으로 -->
+                <span th:if="${review.score == 5}" class="red">
+                    ★★★★★
+                </span>
+                <span th:if="${review.score == 4}" class="red">
+                    ★★★★☆
+                </span>
+                <span th:if="${review.score == 3}" class="red">
+                    ★★★☆☆
+                </span>
+                <span th:if="${review.score == 2}" class="red">
+                    ★★☆☆☆
+                </span>
+                <span th:if="${review.score == 1}" class="red">
+                    ★☆☆☆☆
+                </span>
+                <span th:text="${review.score}">5</span>
+            </div>
+            <div th:text="${#temporals.format(review.regDate, 'yyyy/MM/dd HH:mm:ss')}" class="review-3">2020/07/21
+                03:30:21</div>
+            <div th:text="${review.content}" class="review-5"> 아주아주 좋았어요.</div>
+        </div>
+    </div>
     <a th:href="@{/ptUser/view(page=${pageRequestDto.page},
                                         type=${pageRequestDto.type},
                                         keyword=${pageRequestDto.keyword})}" style="display: none">이전</a>
 </div>
+
 </html>

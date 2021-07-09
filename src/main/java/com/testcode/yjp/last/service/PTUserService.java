@@ -250,6 +250,8 @@ public class PTUserService {
                 .trainer_gymName(entity.getTrainer_gymName())
                 .trainer_address_normal(entity.getTrainer_address_normal())
                 .trainer_pt_total(entity.getTrainer_pt_total())
+                .trainer_pt_discount(entity.getTrainer_pt_discount())
+                .trainer_pt_AddCount(entity.getTrainer_pt_AddCount())
                 .user_name(entity.getMember().getUser_name())
                 .trainer_content(entity.getTrainer_content())
                 .member(entity.getMember())

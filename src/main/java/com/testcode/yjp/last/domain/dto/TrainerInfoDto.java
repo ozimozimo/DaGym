@@ -53,6 +53,12 @@ public class TrainerInfoDto {
     // 트레이너 PT 횟수/가격
     private String trainer_pt_total;
 
+    // PT 할인 가격
+    private String trainer_pt_discount;
+
+    // PT 횟수 추가(회)
+    private String trainer_pt_AddCount;
+
     private Member member;
 
 
@@ -70,6 +76,8 @@ public class TrainerInfoDto {
         this.trainer_kakao = entity.getTrainer_kakao();
         this.trainer_content = entity.getTrainer_content();
         this.trainer_pt_total = entity.getTrainer_pt_total();
+        this.trainer_pt_discount = entity.getTrainer_pt_discount();
+        this.trainer_pt_AddCount = entity.getTrainer_pt_AddCount();
         this.member = entity.getMember();
     }
 

@@ -125,44 +125,66 @@
                         </div>
                         <div class="item-name">
                             <span th:text="${trainer.user_name}">
+                                정성헌
                             </span>
                             <span class="trainer-text">
                                 트레이너
                             </span>
                             <span th:text="${trainer.member.user_gender}" class="user_gender" id="user_gender"></span>
-                            <span th:text="${trainer.member.user_rrn}" class="user_rrn" id="user_rrn"></span>
+                            <span th:text="${trainer.member.user_rrn}" class="user_rrn" id="user_rrn">25</span>
                         </div>
                         <!-- <div th:text="${trainer.user_id}" class="item-id">아이디</div> -->
                         <div class="item-gymname">
                             <span>
                                 <img th:src="@{~/image/gymicon.png}" width="12px" height="12px">
+
                             </span>
-                            <span th:text="${trainer.trainer_gymName}"></span>
+                            <span th:text="${trainer.trainer_gymName}">MyFit</span>
+                        </div>
+                        <div>
+                            <span th:text="${trainer.trainer_address_normal}" class="address_normal">(대구 칠곡 중앙대로 598)</span>
                         </div>
                         <div class="item-phone">
                             <span>
                                 <img th:src="@{~/image/phoneicon.png}" width="12px" height="12px">
                             </span>
-                            <span th:text="${trainer.user_pn}"></span>
+                            <span th:text="${trainer.user_pn}">010-5674-6881</span>
                         </div>
                         <div class="sns-box">
                             <div class="item-kakao">
                                 <span>
                                     <img th:src="@{~/image/kakaoicon.png}" width="12px" height="12px">
                                 </span>
-                                <span th:text="${trainer.trainer_kakao}">
+                                <span th:text="${trainer.trainer_kakao}">wpwkfl1029
                                 </span>
                             </div>
                             <div class="item-insta">
                                 <span>
                                     <img th:src="@{~/image/instaicon.png}" width="12px" height="12px">
                                 </span>
-                                <span th:text="${trainer.trainer_instagram}"></span>
+                                <span th:text="${trainer.trainer_instagram}">js_heon</span>
                             </div>
                             <div>
-                                <span th:text="${trainer.trainer_workTime}"></span>
-                                <span th:text="${trainer.trainer_pt_total}"></span>
-                                <span th:text="${trainer.trainer_address_normal}" class="address_normal"></span>
+                                <span>
+                                    <img th:src="@{~/image/timeicon.png}" width="12px" height="12px">
+                                </span>
+                                <span th:text="${trainer.trainer_workTime}">11:30~21:30</span>
+                            </div>
+                            <div>
+                                <span>
+                                    <img th:src="@{~/image/priceicon.png}" width="12px" height="12px">
+                                </span>
+                                <span th:text="${trainer.trainer_pt_total}" class="pt_total">12회 / 400000</span>
+
+                            </div>
+                            <div>
+                                <span th:text="${trainer.trainer_pt_discount}" class="pt_discount"></span>
+                            </div>
+                            <div>
+                                <span th:text="${trainer.trainer_pt_AddCount}" class="pt_addCount"></span>
+                            </div>
+                            <div>
+                                <span class="pt_basic_info"></span>
                             </div>
                         </div>
                         <div class="btn-box">
@@ -170,7 +192,7 @@
                                 <button type="button" th:text="PT신청" class="checkBtn">PT신청</button>
                             </span>
                             <span>
-                                <button type="button" class="detailBtn">상세보기</button>
+                                <button type="button" class="detailBtn">리뷰보기</button>
                                 <input type="hidden" id="pageValue" th:value="${pageRequestDto.page}">
                                 <input type="hidden" id="typeValue" th:value="${pageRequestDto.type}">
                                 <input type="hidden" id="keywordValue" th:value="${pageRequestDto.keyword}">
@@ -210,7 +232,36 @@
                 gender();
                 age();
                 addr();
+                basicInfo();
+                discount();
             });
+
+            function discount() {
+                let dis = $('.pt_discount');
+                dis.each(function (i, el) {
+                    let disInfo = $(this).text();
+                    console.log("할인 % =" + disInfo);
+                    let di = parseInt(disInfo);
+                    console.log(typeof di);
+
+                });
+            }
+
+            function basicInfo() {
+                var total = $('.pt_total');
+                total.each(function (i, el) {
+                    let count = $(this).text().substring(0, 3);
+                    let price = $(this).text().substring(5);
+
+                    let addCount = $('.pt_addCount').val();
+
+                    console.log("가격은 =" + price);
+                    console.log("PT횟수는 =" + count);
+                    console.log("추가횟수는  =" + addCount);
+
+
+                });
+            }
 
             function addr() {
                 var addr = $('.address_normal');

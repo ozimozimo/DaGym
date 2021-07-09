@@ -380,31 +380,31 @@
                                                 <label for="discount_price">할인 가격(%)</label>
 
                                                 <select
-                                                        name="discount_price"
+                                                        name="trainer_pt_discount"
                                                         class="form-control"
                                                         id="discount_price"
                                                 >
-                                                    <option value="0">0</option>
-                                                    <option value="5">5%</option>
-                                                    <option value="10">10%</option>
-                                                    <option value="15">15%</option>
-                                                    <option value="20">20%</option>
+                                                    <option th:selected="${trainerInfo.trainer_pt_discount}=='0'" value="0">0</option>
+                                                    <option th:selected="${trainerInfo.trainer_pt_discount}=='5'" value="5">5%</option>
+                                                    <option th:selected="${trainerInfo.trainer_pt_discount}=='10'" value="10">10%</option>
+                                                    <option th:selected="${trainerInfo.trainer_pt_discount}=='15'" value="15">15%</option>
+                                                    <option th:selected="${trainerInfo.trainer_pt_discount}=='20'" value="20">20%</option>
                                                 </select>
                                             </div>
                                             <div class="col-12 col-sm-3">
                                                 <label for="discount_pt_count">횟수추가(회)</label>
 
                                                 <select
-                                                        name="discount_pt_count"
+                                                        name="trainer_pt_AddCount"
                                                         class="form-control"
                                                         id="discount_pt_count"
                                                 >
-                                                    <option value="0">0</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
+                                                    <option th:selected="${trainerInfo.trainer_pt_AddCount}=='0'" value="0">0</option>
+                                                    <option th:selected="${trainerInfo.trainer_pt_AddCount}=='1'" value="1">1</option>
+                                                    <option th:selected="${trainerInfo.trainer_pt_AddCount}=='2'" value="2">2</option>
+                                                    <option th:selected="${trainerInfo.trainer_pt_AddCount}=='3'" value="3">3</option>
+                                                    <option th:selected="${trainerInfo.trainer_pt_AddCount}=='4'" value="4">4</option>
+                                                    <option th:selected="${trainerInfo.trainer_pt_AddCount}=='5'" value="5">5</option>
                                                 </select>
                                             </div>
 

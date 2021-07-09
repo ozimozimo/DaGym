@@ -194,13 +194,16 @@ function trainerJoin() {
         fileName: $('#fileName').val(),
         trainer_gymName: $('#trainer_gymName').val(),
         trainer_pt_total: $('#trainer_pt_total').val(),
+        trainer_pt_discount : $('#discount_price').val(),
+        trainer_pt_AddCount : $('#discount_pt_count').val(),
         trainer_address_normal,
         trainer_address_detail: $('#trainer_address_detail').val(),
         trainer_instagram: $('#trainer_instagram').val(),
         trainer_kakao: $('#trainer_kakao').val(),
         trainer_content: $('#trainer_content').val()
     }
-
+    console.log(data.trainer_pt_discount);
+    console.log(data.trainer_pt_AddCount);
 
     console.log(id);
     console.log(data.trainer_type);

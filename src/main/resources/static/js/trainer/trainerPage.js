@@ -9,6 +9,7 @@ $(function () {
 
     findPostCode();
     findTimeCode();
+    basicPrice();
     addBtn();
     delBtn();
     $('#fileNameLabel').text($('#fileName').val());
@@ -22,6 +23,33 @@ $(function () {
     init();
     category_input();
 });
+
+function basicPrice() {
+    let dis = $('#discount_price').val();
+    let add = $('#discount_pt_count').val();
+    let fp = $('#final_price').val();
+
+    let count = fp.parseInt;
+    let price = fp.parseInt;
+
+    count = fp.substring(0, 4);
+    price = fp.substring(6);
+
+    dis = parseInt(dis);
+    add = parseInt(add);
+    count = parseInt(count);
+    price = parseInt(price);
+
+    console.log("할인 정보=" +dis);
+    console.log("추가 횟수" + add);
+    console.log("최종 횟수" + count);
+    console.log("최종 가격" + price);
+
+    let basic = price * 100 / (100-dis);
+    console.log("원래 가격=" + basic);
+    $('#pt_price').val(basic);
+
+}
 
 function trainerUpdate() {
     var id = $('#id').val();
@@ -40,6 +68,8 @@ function trainerUpdate() {
         imgName: $('#imgName').val(),
         fileName: $('#fileName').val(),
         trainer_pt_total :$('#trainer_pt_total').val(),
+        trainer_pt_discount : $('#discount_price').val(),
+        trainer_pt_AddCount : $('#discount_pt_count').val(),
         trainer_address_normal : trainer_address_normal,
         trainer_gymName : $('#trainer_gymName').val(),
         trainer_address_detail: $('#trainer_address_detail').val(),
@@ -49,6 +79,8 @@ function trainerUpdate() {
     }
 
     console.log("data는" + data)
+    console.log("data는" + data.trainer_pt_discount)
+    console.log("data는" + data.trainer_pt_AddCount)
 
     $.ajax({
         url: '/trainer/trUpdate/' + id,
@@ -70,8 +102,8 @@ function trainerUpdate() {
 
 function priceCode() {
     let fp = $('#final_price').val();
-    let count = fp.substring(0, 1);
-    let price = fp.substring()
+    // let count = fp.substring(0, 1);
+    // let price = fp.substring()
 }
 
 function findTimeCode() {
