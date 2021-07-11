@@ -339,7 +339,8 @@ body {
     animation-name: slideFromLeft;
     margin-left: 25px;
     max-width: 300px;
-    /*overflow: hidden;*/
+    overflow:hidden;
+    word-wrap:break-word;
 }
 .container .right .bubble.you:before {
     left: -3px;
@@ -354,6 +355,8 @@ body {
     animation-name: slideFromRight;
     margin-right: 25px;
     max-width: 300px;
+    overflow:hidden;
+    word-wrap:break-word;
 
 }
 .container .right .bubble.me:before {
@@ -430,10 +433,25 @@ body {
 ul{
     list-style:none;
 }
+
+.divChat{
+    height: 100%;
+}
+
 #chating {
-    height: 470px;
+    height: 550px;
     overflow-x: hidden;
-
     overflow-y: auto;
+}
 
+.chatDate{
+    vertical-align: bottom;
+}
+.youChat{
+    float:left;
+
+
+}
+.meChat{
+    float: right;
 }
