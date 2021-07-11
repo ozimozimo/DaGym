@@ -25,6 +25,9 @@ public interface BuyerPTRepository extends JpaRepository<BuyerPt, Long>, Queryds
     @Query("update BuyerPt b set b.bt_cancel=1 where b.member.id=:member_id and b.trainerInfo.id=:trainer_id")
     void updateInfo(Long member_id, Long trainer_id);
 
-    @Query("select b from BuyerPt b where b.trainerInfo.member.id=:member_id")
+    @Query("select b from BuyerPt b where b.member.id=:member_id")
     List<BuyerPt> findBuyers(Long member_id);
+
+    @Query("select b from BuyerPt b where b.trainerInfo.member.id=:member_id")
+    List<BuyerPt> findMemBuyers(Long member_id);
 }

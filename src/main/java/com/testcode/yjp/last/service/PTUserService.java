@@ -399,4 +399,10 @@ public class PTUserService {
                 .map(BuyerPTDto::new)
                 .collect(Collectors.toList());
     }
+
+    public List<BuyerPTDto> getBuyMemInfo(Long member_id) {
+        return buyerPTRepository.findMemBuyers(member_id).stream()
+                .map(BuyerPTDto::new)
+                .collect(Collectors.toList());
+    }
 }

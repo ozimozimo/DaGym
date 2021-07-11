@@ -35,7 +35,8 @@ public class PTController {
 
     @GetMapping("/ptBuyInfo")
     public String ptBuyInfo(Long member_id, Model model) {
-        model.addAttribute("buyerInfo", ptUserService.getBuyInfo(member_id));
+        model.addAttribute("MembuyerInfo", ptUserService.getBuyInfo(member_id));
+        model.addAttribute("TrbuyerInfo", ptUserService.getBuyMemInfo(member_id));
         return "ptUser/ptBuyInfo";
     }
 
