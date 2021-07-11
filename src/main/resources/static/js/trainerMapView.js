@@ -2,7 +2,8 @@ var AllMemberArr = [];
 
 var userNormalAddr = $('#userNormalAddr').val();
 var userDetailAddr = $('#userDetailAddr').val();
-var userAddr = userNormalAddr.substring(5, userNormalAddr.length) + " " + userDetailAddr;
+// var userAddr = userNormalAddr.substring(5, userNormalAddr.length) + " " + userDetailAddr;
+var userAddr = userNormalAddr.substring(5, userNormalAddr.length);
 
 let mapContainer = document.getElementById("map"), // 지도를 표시할 div
     mapOption = {
@@ -180,7 +181,11 @@ function drawMarker(x, y) {
                         var content = "";
 
                         content += `<tr>`
-                        content += `<td><img className="trainer_image" width="200px" height="200px" src="@{/display(fileName=${item.imgName})}"></td>`
+                        if(item.imgName == null){
+                            content += `<td><img class="trainer_image" width="200px" height="200px" src="../../image/noImg.png"></td>`
+                        } else {
+                            content += `<td><img class="trainer_image" width="200px" height="200px" src="/display(fileName=${item.imgName})"></td>`
+                        }
                         content += `<td>${item.trainer_id}</td>`
                         content += `<td>${item.trainer_name}</td>`
                         content += `<td>${item.trainer_pn}</td>`

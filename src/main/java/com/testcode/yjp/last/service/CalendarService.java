@@ -29,15 +29,16 @@ public class CalendarService {
 
 
     @Transactional
-    public void delete(String calendar_start, String calendar_end) {
-        calendarRepository.deleteCalendar(calendar_start,calendar_end);
+    public void delete(String calendar_start, String calendar_end, Long member_id, Long trainer_id) {
+        calendarRepository.deleteCalendar(calendar_start,calendar_end,member_id,trainer_id);
+
     }
 
     public void update(Long id, CalendarListDto calendarListDto) {
         Calendar calendar = calendarRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다다. id=" + id));;
         calendar.update(calendarListDto.getTitle(), calendarListDto.getStart(), calendarListDto.getEnd(),
                 calendarListDto.getDescription(), calendarListDto.getType(), calendarListDto.getBackgroundColor(),
-                calendarListDto.getTextColor(), calendarListDto.isAllDay());
+                calendarListDto.getTextColor());
         calendarRepository.save(calendar);
 
     }

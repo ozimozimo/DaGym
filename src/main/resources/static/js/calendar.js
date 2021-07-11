@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         events: [],
         // 날짜 클릭했을 때
         dateClick: function (info) {
+            console.log('떠라 제발');
             var url = window.location.pathname;
 
             var id = $('.loginId').text();
@@ -60,18 +61,21 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             // 운동 기록 부분
             else if (url.includes("ExRecord")) {
-                url = "/ExRecord/clickDate";
+                console.log('운동이다 ');
+                // url = "/ExRecord/clickDate";
+                url = "/ExRecord/exDate";
                 $.ajax({
                     type: 'get',
                     url: url,
                     data: ex_data,
                     contentType: 'application/json; charset=utf-8',
                 }).done(function (result) {
+                    console.log(result);
                     if (result.length == 0) {
                         alert('기록된 데이터가 없습니다');
-                        $('.resultEx').empty()
-                    } else if (ex_data.ex_date == click) {
-                        $('.resultEx').empty()
+                        $('.anotherEx').empty()
+                    } else {
+                        $('.anotherEx').empty()
                         mkExr(result);
                     }
 

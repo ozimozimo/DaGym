@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{~/js/main/jquery.min.js}"></script>
+    <script th:src="@{~/js/main/bootstrap.min.js}"></script>
+    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
+    <script th:src="@{~/js/admin/admin.js}"></script>
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            position: relative;
+        }
+
+        .customBtn {
+            display: inline-block;
+            background-color: #ffffff;
+            padding: 10px 18px;
+            border: 1px solid #dddddd;
+            border-radius: 2px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .table-input {
+            height: 40px;
+            padding: 0 20px;
+            font-size: 16px;
+            background-color: #ffffff;
+            border: 1px solid #dddddd;
+            border-radius: 2px;
+        }
+
+        textarea.table-input {
+            line-height: 40px;
+        }
+
+        .tableForm-group {
+            margin-bottom: 20px;
+        }
+
+        .tableInput-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .tableInput-group label {
+            flex: 0 0 150px;
+            font-size: 16px;
+        }
+
+        .tableInput-group input,
+        .tableInput-group select,
+        .tableInput-group textarea {
+            flex: 1 0 auto;
+        }
+
+        .post_control_btn_area {
+            text-align: right;
+        }
+
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content" class="content">
+    <div class="container">
+        <div class="post_header">
+            <input type="hidden" th:value="${ooo.id}" id="ooo_num" name="ooo_num">
+            <div class="post_info">
+                <div class="tableForm-group left">
+                    <div class="tableInput-group">
+                        <label for="user_id">질문자</label>
+                        <input type="text" class="table-input" th:value="${ooo.user_id}" value="질문자" id="user_id"
+                               readonly>
+                    </div>
+                </div>
+                <div class="tableForm-group right">
+                    <div class="tableInput-group updated_at">
+                        <label for="updated_at">수정날짜</label>
+                        <input type="text" class="table-input"
+                               th:value="${#temporals.format(ooo.modDate, 'yyyy/MM/dd HH:mm:ss')}" value=""
+                               id="updated_at" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ooo_title tableForm-group">
+            <div class="tableInput-group">
+                <label for="question">질문</label>
+                <input type="text" class="table-input" th:value="${ooo.title}" id="question" readonly>
+            </div>
+        </div>
+        <div class="tableForm-group">
+            <div class="tableInput-group">
+                <label for="ooo_content"></label>
+                <textarea id="ooo_content" class="table-input" placeholder="내용을 입력하세요"
+                          th:text="${ooo.content}" readonly></textarea>
+            </div>
+        </div>
+        <div class="tableForm-group">
+            <div class="tableInput-group">
+                <label for="ooo_content">답변</label>
+                <textarea id="ooo_answer" class="table-input" placeholder="내용을 입력하세요"
+                          th:text="${ooo.answer}" readonly></textarea>
+            </div>
+        </div>
+
+        <div class="post_control_btn_area">
+            <a class="customBtn" th:href="@{/faq/oooManagement(
+                                        page=${PageRequestDto.page},
+                                        type=${PageRequestDto.type},
+                                        keyword=${PageRequestDto.keyword})}">이전
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

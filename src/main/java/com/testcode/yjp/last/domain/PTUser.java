@@ -24,6 +24,7 @@ public class PTUser extends BaseEntity{
     // 몸무게
     private String member_weight;
 
+
     // pt 받는 횟수
     private int pt_times;
 

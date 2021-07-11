@@ -70,12 +70,14 @@ public class MemberController {
     @PostMapping("/signIn")
     public String signIn(String user_id, String user_pw,
                          HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Member member = memberRepository.findMember(user_id, user_pw);
-        log.info("로그인 들어왔음");
-        log.info("방금 로그인 한 pk는=" + member.getId());
-
-        Long id = member.getId();
-
+        Member member = null;
+        Long id = null;
+        try {
+            member = memberRepository.findMember(user_id, user_pw);
+            id = member.getId();
+        } catch (Exception e) {
+            return "redirect:/member/login";
+        }
         // id
         if (member.getUser_role().equals("user")) {
             PTUser myTrainer = ptUserRepository.loginCheckState(id);
@@ -104,7 +106,6 @@ public class MemberController {
             System.out.println(n);
             return "redirect:/member/login";
         }
-
         return "redirect:/";
     }
 

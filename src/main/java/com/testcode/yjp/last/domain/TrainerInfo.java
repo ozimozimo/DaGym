@@ -46,6 +46,12 @@ public class TrainerInfo {
     // 트레이너 PT 횟수/가격
     private String trainer_pt_total;
 
+    // PT 할인 가격
+    private String trainer_pt_discount;
+
+    // PT 횟수 추가(회)
+    private String trainer_pt_AddCount;
+
     @OneToOne
     @JoinColumn(name = "member_id")
     private Member member;
@@ -64,5 +70,7 @@ public class TrainerInfo {
         this.trainer_kakao = trainerInfoDto.getTrainer_kakao();
         this.trainer_content = trainerInfoDto.getTrainer_content();
         this.trainer_pt_total = trainerInfoDto.getTrainer_pt_total();
+        this.trainer_pt_discount = trainerInfoDto.getTrainer_pt_discount();
+        this.trainer_pt_AddCount = trainerInfoDto.getTrainer_pt_AddCount();
     }
 }

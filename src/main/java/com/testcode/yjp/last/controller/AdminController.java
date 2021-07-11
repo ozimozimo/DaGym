@@ -1,16 +1,9 @@
 package com.testcode.yjp.last.controller;
 
-import com.testcode.yjp.last.domain.Board;
-import com.testcode.yjp.last.domain.Member;
-import com.testcode.yjp.last.domain.Notice;
+import com.testcode.yjp.last.domain.*;
 import com.testcode.yjp.last.domain.dto.*;
-import com.testcode.yjp.last.repository.BoardRepository;
-import com.testcode.yjp.last.repository.MemberRepository;
-import com.testcode.yjp.last.repository.NoticeRepository;
-import com.testcode.yjp.last.service.AdminService;
-import com.testcode.yjp.last.service.BoardService;
-import com.testcode.yjp.last.service.CommentsService;
-import com.testcode.yjp.last.service.ReCommentsService;
+import com.testcode.yjp.last.repository.*;
+import com.testcode.yjp.last.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -34,13 +27,18 @@ public class AdminController {
     private final ReCommentsService reCommentsService;
     private final NoticeRepository noticeRepository;
     private final MemberRepository memberRepository;
+    private final OooRepository oooRepository;
+    private final PTUserRepository ptUserRepository;
+    private final PTUserService ptUserService;
 
     //메인
-    @GetMapping("/adminMain")
+    @GetMapping(value = {"/adminMain", "/", ""})
     public String adminPage(Model model) {
         int userSize = memberRepository.selectUser().size();
         int trainerSize = memberRepository.selectTrainer().size();
         int boardSize = boardRepository.findAll().size();
+        List<OneOnOne> byAnswerIsNull = oooRepository.findByAnswerIsNull();
+        List<OneOnOne> oneOnOnes = new ArrayList<>();
         List<Member> userList = memberRepository.selectUser();
         List<Member> trainerList = memberRepository.selectTrainer();
         List<Member> users = new ArrayList<>();
@@ -55,6 +53,10 @@ public class AdminController {
                 trainers.add(trainerList.get(i));
             } catch (Exception e) {
             }
+            try {
+                oneOnOnes.add(byAnswerIsNull.get(i));
+            } catch (Exception e) {
+            }
         }
 //        }
 //        else {
@@ -67,6 +69,7 @@ public class AdminController {
         model.addAttribute("user", userSize);
         model.addAttribute("trainer", trainerSize);
         model.addAttribute("board", boardSize);
+        model.addAttribute("ooos", oneOnOnes);
         return "admin/adminMain";
     }
 
@@ -125,7 +128,7 @@ public class AdminController {
     // 공지사항 관리
     @GetMapping("/noticeManagement")
     public String noticeManagement(Model model, PageRequestDto pageRequestDto) {
-        PageResultDto<NoticeDto, Notice> list = adminService.getBetweenList(pageRequestDto,0,1);
+        PageResultDto<NoticeDto, Notice> list = adminService.getBetweenList(pageRequestDto, 0, 1);
         model.addAttribute("notice", list);
         model.addAttribute("PageRequestDto", pageRequestDto);
 
@@ -187,10 +190,11 @@ public class AdminController {
         return "admin/FAQ/faqUpdate";
     }
 
+
     @GetMapping("/1on1Management")
-    public String oneOnOneManagement(Model model, PageRequestDto pageRequestDto) {
-        PageResultDto<NoticeDto, Notice> list = adminService.getList(pageRequestDto, 3);
-        model.addAttribute("oneOnOne", list);
+    public String oneOnOneManagement(Model model, PageRequestDto pageRequestDto, String category) {
+        PageResultDto<OooDto, OneOnOne> oooList = adminService.getOooList(pageRequestDto, category);
+        model.addAttribute("ooo", oooList);
         model.addAttribute("PageRequestDto", pageRequestDto);
         return "admin/oneOnOne/oneOnOneManagement";
     }
@@ -198,8 +202,26 @@ public class AdminController {
     @GetMapping("/1on1Detail")
     public String oneOnOneDetail(Model model, Long id, @ModelAttribute("PageRequestDto") PageRequestDto pageRequestDto) {
         log.info("oneOnOneDetail in");
-        Notice notice = noticeRepository.findById(id).get();
-        model.addAttribute("ooo", notice);
+        OneOnOne oneOnOne = oooRepository.findById(id).get();
+        model.addAttribute("ooo", oneOnOne);
         return "admin/oneOnOne/oneOnOneDetail";
+    }
+
+    @GetMapping("/ptManagement")
+    public String ptManagement(Model model, PageRequestDto pageRequestDto) {
+        PageResultDto<PTMemberInfoDto, PTUser> list = ptUserService.getPTList(pageRequestDto);
+        model.addAttribute("PTList",list);
+        model.addAttribute("PageRequestDto", pageRequestDto);
+
+        return "admin/PT/ptManagement";
+    }
+
+    @GetMapping("/payManagement")
+    public String payManagement(Model model, PageRequestDto pageRequestDto) {
+        log.info("payManagement");
+        PageResultDto<BuyerPTDto, BuyerPt> payList = adminService.getPayList(pageRequestDto);
+        model.addAttribute("payLists", payList);
+        model.addAttribute("PageRequestDto", pageRequestDto);
+        return "admin/payment/payManagement";
     }
 }

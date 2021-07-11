@@ -5,6 +5,8 @@
 <head>
     <title>상세보기</title>
     <link rel="stylesheet" th:href="@{~/css/board/board.css}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+          integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
     <script th:src="@{~/js/board/board.js}"></script>
     <script th:src="@{~/js/board/comments.js}"></script>
 </head>
@@ -44,7 +46,9 @@
         </ul>
     </div>
 
-    <div class="post_content" th:text="${boards.content}"></div>
+    <div class="post_content">
+        <pre th:text="${boards.content}"></pre>
+    </div>
     <!--    // 추천 기능-->
     <div style="text-align: center">
         <input type="hidden" th:value="${session.loginId}" id="recommendId">
@@ -167,7 +171,8 @@
                                 <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
                                 <div class="comment_control_btn_area"
                                      th:if="${session.loginId == recomment.re_user_id}">
-                                    <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
+                                    <input type="hidden" th:value="${comment.id}" class="re_parentCoNum">
+                                    <button type="button"  class="RCDelete">삭제</button>
                                 </div>
                             </div>
                         </div>
@@ -251,7 +256,8 @@
                                 <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
                                 <div class="comment_control_btn_area"
                                      th:if="${session.loginId == recomment.re_user_id}">
-                                    <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
+                                    <input type="hidden" th:value="${comment.id}" class="re_parentCoNum">
+                                    <button type="button" class="RCDelete">삭제</button>
                                 </div>
                             </div>
                         </div>
@@ -337,7 +343,8 @@
                                 <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
                                 <div class="comment_control_btn_area"
                                      th:if="${session.loginId == recomment.re_user_id}">
-                                    <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
+                                    <input type="hidden" th:value="${comment.id}" class="re_parentCoNum">
+                                    <button type="button" class="RCDelete">삭제</button>
                                 </div>
                             </div>
                         </div>
@@ -424,7 +431,8 @@
                                 <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
                                 <div class="comment_control_btn_area"
                                      th:if="${session.loginId == recomment.re_user_id}">
-                                    <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
+                                    <input type="hidden" th:value="${comment.id}" class="re_parentCoNum">
+                                    <button type="button" class="RCDelete">삭제</button>
                                 </div>
                             </div>
                         </div>
@@ -508,7 +516,8 @@
                                 <div class="comment_content" th:text="${recomment.re_comments}">댓글내용</div>
                                 <div class="comment_control_btn_area"
                                      th:if="${session.loginId == recomment.re_user_id}">
-                                    <button type="button" id="RCDelete" onclick="RCDelete()">삭제</button>
+                                    <input type="hidden" th:value="${comment.id}" class="re_parentCoNum">
+                                    <button type="button" class="RCDelete">삭제</button>
                                 </div>
                             </div>
                         </div>

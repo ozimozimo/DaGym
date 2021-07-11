@@ -19,6 +19,10 @@
     <form th:action="@{/board}" method="get" id="searchForm" class="board_info">
         <div>
             <h2>트레이너 게시판</h2>
+            <div>
+                <a th:href="@{/board}">트레이너 게시판</a>
+                <a th:href="@{/boastboard/bb}">자랑 게시판</a>
+            </div>
             <input type="hidden" name="page" value="1">
             <div class="board_search">
                 <select name="type">
@@ -47,6 +51,16 @@
         </tr>
         </thead>
         <tbody id="tbody">
+        <tr th:each="notices : ${notice.dtoList}">
+            <td th:text="${notices.id}"></td>
+            <td ><span>공지) </span><a th:text="${notices.title}" th:href="@{/board/noticeDetail/(id = ${notices.id},
+                                                       page=${PageRequestDto.page},
+                                                       type=${PageRequestDto.type},
+                                                       keyword=${PageRequestDto.keyword})}"></a></td>
+            <td th:text="${notices.user_id}"></td>
+            <td th:text="${notices.hit}"></td>
+            <td th:text="${#temporals.format(notices.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
+        </tr>
         <tr th:each="board : ${result.dtoList}">
             <td th:text="${board.id}"></td>
             <!--            <td th:text="${board.title}"><a th:href="@{/board/trainerBoard/update/{id}(id = ${session.loginUser})}" th:if="${session.loginUser == null}" ></a></td>-->

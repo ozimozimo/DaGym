@@ -32,7 +32,7 @@ public class ExcerciseRecordApiController {
 
     // 오늘 데이터 보여주기
     @GetMapping("/exDate")
-    public List<ExerciseRecordDto> exDate(Long id, String ex_date) {
+    public List<ExerciseRecordDto> exDate(String id, String ex_date) {
         log.info(id + " = id , " +ex_date + " = ex_date");
         List<ExRecord> byIdWithExDate = exerciseRecordRepository.findByIdWithExDate(id, ex_date);
         List<ExerciseRecordDto> exerciseRecordDtos = new ArrayList<>();
@@ -57,26 +57,22 @@ public class ExcerciseRecordApiController {
         return exerciseRecordDtos;
     }
 //
-//    // 클릭한 날짜 데이터 보여주기
-//    @GetMapping("/clickDate")
-//    public List<ExerciseRecordDto> clickDate(String id, String ex_date) {
-//        log.info("Clicked Ex Date Data");
-//        System.out.println("id = " + id);
-//        System.out.println("ex_date = " + ex_date);
-//        List<ExerciseRecordDto> byIdWithExDate = exerciseRecordService.findByIdWithExDate(id, ex_date);
-//        System.out.println("dietService.findByIdWithExDate(id, ex_date) = " + byIdWithExDate);
-//        log.info("Clicked Date Exr Data HOLY MOLY");
-//        return byIdWithExDate;
-//    }
+    // 클릭한 날짜 데이터 보여주기
+    @GetMapping("/clickDate")
+    public List<ExerciseRecordDto> clickDate(String id, String ex_date) {
+        log.info("Clicked Ex Date Data");
+        System.out.println("id = " + id);
+        System.out.println("ex_date = " + ex_date);
+        List<ExerciseRecordDto> byIdWithExDate = exerciseRecordService.findByIdWithExDate(id, ex_date);
+        System.out.println("dietService.findByIdWithExDate(id, ex_date) = " + byIdWithExDate);
+        log.info("Clicked Date Exr Data HOLY MOLY");
+        return byIdWithExDate;
+    }
 
 
     // 데이터 추가
     @PostMapping("/save/{id}")
     public void save(@PathVariable Long id, @RequestBody ExerciseRecordDto exerciseRecordDto) {
-        log.info("ExRecord Controller Save Api Post");
-
-        log.info("ExRecord Controller Post id=" + id);
-        log.info("ExRecord Controller Post kcal= " + exerciseRecordDto.getKcal());
         Member member = memberRepository.findById(id).get();
 
         Long exercise_id = exerciseRecordDto.getExercise_id();
@@ -125,8 +121,7 @@ public class ExcerciseRecordApiController {
                     .exercise(exercise)
                     .member(member)
                     .build();
-        }
-        else if (exerciseRecordDto.getEx_category().equals("지속 시간")) {
+        } else if (exerciseRecordDto.getEx_category().equals("지속 시간")) {
             log.info("지속 시간");
             exRecord = ExRecord.builder()
                     .ex_date(exerciseRecordDto.getEx_date())
@@ -153,7 +148,6 @@ public class ExcerciseRecordApiController {
         log.info(exRecord.getEx_name());
 
         exerciseRecordRepository.save(exRecord);
-//        return exRecord;
     }
 
     // 데이터 삭제
@@ -217,7 +211,8 @@ public class ExcerciseRecordApiController {
 
     @PostMapping("/random")
     public ExCategoryDto findRandom(@RequestBody ExCategoryDto exCategoryDto) {
-        Exercise rand = exerciseRepository.findRand(exCategoryDto.getEx_category(), exCategoryDto.getEx_parts());
+        List<Exercise> rands = exerciseRepository.findRand(exCategoryDto.getEx_category(), exCategoryDto.getEx_parts());
+        Exercise rand = rands.get(0);
         log.info("id = "+rand.getEx_id());
         ExCategoryDto e = ExCategoryDto.builder()
                 .ex_id(rand.getEx_id())

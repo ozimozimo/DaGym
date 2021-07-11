@@ -26,7 +26,7 @@ public class ExRecord extends BaseEntity{
     private String ex_meter; // KM
     private String ex_parts;
     private String ex_name;
-    private int kcal;
+    private String kcal;
 
     @ManyToOne
     @JoinColumn(name = "member_id")

@@ -86,6 +86,7 @@ function applyInfo(data) {
     content += "<td><button type='button' onclick='cancelPay()' class='btn-primary Deny'>신청취소</button></td></tr>"
 
     console.log(content);
+    $('.box2').show();
     $('.applyInfoList').append(content);
 }
 
@@ -154,24 +155,26 @@ function acceptList() {
 }
 
 // 수락, 거절 눌러서 accept_condition 바꾸기
-function updateAccept(a) {
+function updateAccept() {
     // PTUserApplyConDto에 넘겨줄 apply_if값
     let apply_if = 0;
     // 내가 누른 버튼의 id값
     // let id = a.parentNode.parentNode.firstChild.innerText;
 
-    let id = $('#member_id').val();
+    // let id = $('#member_id').val();
 
-    let pt_user_id = $('#pt_user_id').val();
+    // let pt_user_id = $('#pt_user_id').val();
+    let pt_user_id = $(this).parent().siblings('.pt_user_id2').val();
 
+    let member_id = $(this).parent().siblings('.member_id2').val();
 
     console.log("pt_user_id=" + pt_user_id)
 
-    console.log("매개변수 a는" + a);
-    console.log("id=" + id);
+    let trainer_id = $('#member_id').val();
+
 
     // 내가 누른 버튼의 텍스트값
-    let con = a.innerText;
+    let con = $(this).text();
 
     console.log("수락버튼" + con);
     // 수락이면 apply_if에 1 저장하고 아니면 2 저장
@@ -183,6 +186,8 @@ function updateAccept(a) {
     let data = {
         // PTUserApplyConDto에 넘겨줄 id랑 apply_if값
         apply_if: apply_if,
+        trainer_id: trainer_id,
+        member_id: member_id
     }
     $.ajax({
         type: 'post',
@@ -245,6 +250,7 @@ function mkApply(data) {
         var k = data[i].member.user_gender;
         var l = data[i].id;
         var m = data[i].member.user_id;
+        var member_id = data[i].member.id;
 
 
         // 삭제할려면 필요한 정보가 회원 pk와 트레이너 pk 트레이너 페이지에선 뒤에꺼는 적용된다
@@ -269,11 +275,17 @@ function mkApply(data) {
         content += "<td class='ptUserGender'>" + k + "</td>"
         content += "<td class='ptUserHeight'>" + a + "</td>"
         content += "<td class='ptUserWeight'>" + b + "</td>"
-        content += `<input type="hidden" value="${p}" id="pt_user_id" name="pt_user_id"> `
+        content += `<input type="hidden" value="${p}" class= "pt_user_id2" id="pt_user_id" name="pt_user_id"> `
+        content += `<input type="hidden" value="${member_id}" class= "member_id2" id="member_id2" name="member_id2"> `
         content += `<td><a href='/ptUser/view/detail/${l}'>상세보기</a></td>`
-        content += "<td><button type='button' class='btn-primary Accept' onclick='updateAccept(this)'>수락</button></td>"
-        content += "<td><button type='button' class='btn-primary Deny' onclick='updateAccept(this)'>거절</button></td></tr>"
+        content += "<td><button type='button' class='btn-primary Accept'>수락</button></td>"
+        content += "<td><button type='button' class='btn-primary Deny'>거절</button></td></tr>"
         $('.applyListDetail').append(content);
+
+        $('.Accept').on("click", updateAccept);
+        $('.Deny').on("click", updateAccept);
+
+
     }
 }
 
@@ -353,4 +365,29 @@ $(function () {
         memberCheck();
     }
 
+    $('.pt_basic_info').each(function (i, el){
+        let total_string = $(this).closest('.card').find('.pt_total');
+
+        let total = total_string.text();
+        total = total.replace(/(\s*)/g,"");
+        // total = total.replace('/','');
+
+        let totalArr =  total.split('/');
+        let sale_price = totalArr[1];
+        let pt_discount = $(this).closest('.card').find('.pt_discount').text();
+        let pt_addCount = $(this).closest('.card').find('.pt_addCount').text();
+        console.log(sale_price);
+        console.log(pt_discount);
+
+        let origin_price = sale_price / ((100-parseInt(pt_discount))/100);
+        let text = "10회 / " + origin_price;
+        let pt_basic_info =  $(this).closest('.card').find('.pt_basic_info');
+        pt_basic_info.text(text);
+    })
+
+
+
+
 })
+
+

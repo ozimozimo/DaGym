@@ -153,14 +153,14 @@ function Back() {
     history.back();
 }
 
-function OooSave() {
-    if ($('#ooo_content').val().length == 0) {
+function AnswerSave() {
+    if ($('#ooo_answer').val().length == 0) {
         alert('답변 내용을 입력하세요');
         return false;
     }
 
     var data = {
-        content: $('#ooo_content').val()
+        answer: $('#ooo_answer').val()
     }
     var id = $('#ooo_num').val();
 
@@ -170,7 +170,7 @@ function OooSave() {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(data)
     }).done(function () {
-        alert('FAQ글이 수정되었습니다.');
+        alert('1:1 답변 완료.');
         window.location.href='/admin/1on1Management';
     }).fail(function (error) {
         alert(JSON.stringify(error));
@@ -184,5 +184,5 @@ $(function () {
     $("#FAQ-delete").on('click', FAQDelete);
     $("#FAQ-update").on('click', FAQUpdate);
     $("#listBtn").on('click', Back);
-    $(".ooo_save").on('click', OooSave)
+    $(".ooo_save").on('click', AnswerSave)
 });

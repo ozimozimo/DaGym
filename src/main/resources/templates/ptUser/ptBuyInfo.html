@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        data-layout-decorate="~{layout/default}"
+>
+<head>
+
+</head>
+<div layout:fragment="content">
+    <h1>PT 결제 내역</h1>
+    <div th:if="${session.loginRole == 'trainer'}">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>회원이름</th>
+                <th>전화번호</th>
+                <th>가격</th>
+                <th>결제방법</th>
+                <th>결제상태</th>
+                <th>결제일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="buyers : ${TrbuyerInfo}">
+                <td th:text="${buyers.member.user_name}">회원이름</td>
+                <td th:text="${buyers.member.user_pn}">전화번호</td>
+                <td th:text="${buyers.pt_amount}">가격</td>
+                <td th:text="${buyers.pay_method}">결제방법</td>
+                <td th:text="${buyers.bt_cancel}" class="bt_cancel">결제상태</td>
+                <td th:text="${#temporals.format(buyers.regDate, 'yyyy/MM/dd HH:mm:ss')}">결제일</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${session.loginRole == 'user'}">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>트레이너이름</th>
+                <th>트레이너전화번호</th>
+                <th>가격</th>
+                <th>결제방법</th>
+                <th>결제상태</th>
+                <th>결제일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="buyers : ${MembuyerInfo}">
+                <td th:text="${buyers.trainerInfo.member.user_name}">트레이너이름</td>
+                <td th:text="${buyers.trainerInfo.member.user_pn}">트레이너전화번호</td>
+                <td th:text="${buyers.pt_amount}">가격</td>
+                <td th:text="${buyers.pay_method}">결제방법</td>
+                <td th:text="${buyers.bt_cancel}" class="bt_cancel">결제상태</td>
+                <td th:text="${#temporals.format(buyers.regDate, 'yyyy/MM/dd HH:mm:ss')}">결제일</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        $(function () {
+            let a = $('.bt_cancel');
+            a.each(function (i, el) {
+                let state = $(this).text();
+                if (state == 0) {
+                    $(this).text("결제승인");
+                } else {
+                    $(this).text("결제거부");
+                }
+            });
+
+        });
+
+    </script>
+</div>
+</html>

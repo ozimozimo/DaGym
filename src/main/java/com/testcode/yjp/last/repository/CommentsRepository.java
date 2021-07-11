@@ -74,6 +74,10 @@ public interface CommentsRepository extends JpaRepository<Comment, Long> , Query
     @Query("update Comment c set c.reComments_count = c.reComments_count + 1 where c.id = :re_parentCoNum")
     void update(Long re_parentCoNum);
 
+    @Transactional
+    @Modifying
+    @Query("update Comment c set c.reComments_count = c.reComments_count - 1 where c.id= :re_parentCoNum")
+    void reCount(Long re_parentCoNum);
 
 
 //    @Modifying

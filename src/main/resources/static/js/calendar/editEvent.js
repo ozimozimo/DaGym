@@ -8,11 +8,11 @@ var editEvent = function (event, element, view) {
     $('.popover.fade.top').remove();
     $(element).popover("hide");
 
-    if (event.allDay === true) {
-        editAllDay.prop('checked', true);
-    } else {
-        editAllDay.prop('checked', false);
-    }
+    // if (event.allDay === true) {
+    //     editAllDay.prop('checked', true);
+    // } else {
+    //     editAllDay.prop('checked', false);
+    // }
 
     if (event.end === null) {
         event.end = event.start;
@@ -95,8 +95,8 @@ var editEvent = function (event, element, view) {
             type: event.type,
             backgroundColor : event.backgroundColor,
             description : event.description,
-            textColor : '#ffffff',
-            allDay : event.allDay
+            textColor : '#ffffff'
+            // allDay : event.allDay
         };
         console.log(event);
         //일정 업데이트
@@ -127,8 +127,14 @@ $('#deleteEvent').on('click', function () {
     var start = $("#edit-start").val();
     var end = $("#edit-end").val();
 
+
     console.log(start);
     console.log(end);
+
+    let member_id = $('#member_id').val();
+    let trainer_id = $('#trainer_id').val();
+    console.log(member_id);
+    console.log(trainer_id);
 
     //삭제시
     $.ajax({
@@ -136,11 +142,14 @@ $('#deleteEvent').on('click', function () {
         url: "/calendar/delete",
         data : {
             calendar_start : start,
-            calendar_end : end
+            calendar_end : end,
+            member_id : member_id,
+            trainer_id : trainer_id
         },
         success: function (data) {
             console.log(data);
             alert('삭제되었습니다.');
+            location.reload();
         },
         error:function () {
             alert("에러입니다");

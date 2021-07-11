@@ -92,23 +92,27 @@
         <div class="ooo_title tableForm-group">
             <div class="tableInput-group">
                 <label for="question">질문</label>
-                <input type="text" class="table-input" th:text="${ooo.title}" id="question" value="test" readonly>
+                <input type="text" class="table-input" th:value="${ooo.title}" id="question" readonly>
             </div>
         </div>
         <div class="tableForm-group">
             <div class="tableInput-group">
-                <label for="ooo_content">답변</label>
+                <label for="ooo_content"></label>
                 <textarea id="ooo_content" class="table-input" placeholder="내용을 입력하세요"
-                          th:text="${ooo.content}"></textarea>
+                          th:text="${ooo.content}" readonly></textarea>
+            </div>
+        </div>
+        <div class="tableForm-group">
+            <div class="tableInput-group">
+                <label for="ooo_answer">답변</label>
+                <textarea id="ooo_answer" class="table-input" placeholder="내용을 입력하세요"
+                          th:text="${ooo.answer}"></textarea>
             </div>
         </div>
 
         <div class="post_control_btn_area">
-            <button class="customBtn ooo_save">답변하기</button>
-            <a class="customBtn" th:href="@{/admin/1on1Management(
-                                        page=${PageRequestDto.page},
-                                        type=${PageRequestDto.type},
-                                        keyword=${PageRequestDto.keyword})}">이전
+            <button class="customBtn ooo_save" th:if="${session.loginId == 'admin'}">답변하기</button>
+            <button class="customBtn" onclick="history.back()">이전</button>
             </a>
         </div>
     </div>

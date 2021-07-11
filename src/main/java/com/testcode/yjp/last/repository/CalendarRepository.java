@@ -15,14 +15,20 @@ public interface CalendarRepository extends JpaRepository<Calendar, Long> {
     List<Calendar> findAll(Long id);
 
     @Modifying
-    @Query("delete from Calendar c where c.start=:calendar_start and c.end=:calendar_end")
-    void deleteCalendar(String calendar_start, String calendar_end);
+    @Query("delete from Calendar c where c.start=:calendar_start and c.end=:calendar_end and c.member.id=:member_id and c.trainerInfo.id=:trainer_id")
+    void deleteCalendar(String calendar_start, String calendar_end,Long member_id, Long trainer_id);
+
+    @Query("select c from Calendar c where c.start=:calendar_start and c.end=:calendar_end")
+    Calendar findCalendar(String calendar_start, String calendar_end);
 
     @Query("select c from Calendar c where c.member.id=:member_id and c.trainerInfo.id=:trainer_id")
     List<Calendar> findAllDesc(Long member_id, Long trainer_id);
 
     @Query("select c from Calendar c where c.member.id=:member_id and c.trainerInfo.id=:trainer_id")
     List<Calendar> findPT(Long member_id, Long trainer_id);
+
+    @Query("select c from Calendar c where c.trainerInfo.id=:id")
+    List<Calendar> findPTAll(Long id);
 
 
 //    @Query("select c from calendar c where c.member.id=:id ")

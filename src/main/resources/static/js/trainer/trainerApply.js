@@ -22,6 +22,7 @@ $(function () {
     $('#a2').text(count * 2 + "회 / " + price * 2);
     $('#a3').text(count * 3 + "회 / " + price * 3);
 
+    $('#count').val(b);
     $('#price').val(price);
 });
 
@@ -99,7 +100,7 @@ function gender() {
     }
 }
 
-//페이지 추가 될때마다 false 값 뒤에 추가 하면됨
+//페이지 추가 될때마다 false값 뒤에 추가 하면됨
 let page = [true, false, false, false, false, false, false, false];
 // 퍼센트 시작점
 let percentValue = 0;
@@ -107,7 +108,11 @@ let percentValue = 0;
 let updatePercentValue = 15;
 
 function nextBtn() {
+
     percentValue += updatePercentValue;
+    if(percentValue > 100){
+        percentValue = 100;
+    }
     $(".percent").text(percentValue + "%");
     changBarPercent(percentValue);
     let showPage;
@@ -138,6 +143,7 @@ function nextBtn() {
     });
     var sub = $('#final_data').val();
     var count = sub.substring(0, 2);
+
     var price = sub.substring(6, 15);
     var a = parseInt(price);
     var b = parseInt(count);
@@ -149,7 +155,7 @@ function nextBtn() {
     $('#a3').text(count * 3 + "회 / " + price * 3);
 
 
-    $('#count').val(count);
+    $('#count').val(b);
     $('#final_price').val(price);
     $('#final_pt_purpose').val(pt_purpose);
     $('#final_height').val(member_height);
@@ -197,6 +203,9 @@ function nextBtn() {
 
 function preBtn() {
     percentValue -= updatePercentValue;
+    if(percentValue < 0){
+        percentValue = 0;
+    }
     $(".percent").text(percentValue + "%");
     changBarPercent(percentValue);
     let showPage;
@@ -228,27 +237,6 @@ function preBtn() {
 
 function changBarPercent(percent) {
     $(".progress-bar").css({width: percent + "%"});
-    // const meters = document.querySelectorAll("svg[data-value] .meter");
-
-    // meters.forEach((path) => {
-    //     // Get the length of the path
-    //     let length = path.getTotalLength();
-
-    //     // console.log(length) and hardcode the value for both stroke-dasharray & stroke-dashoffest styles
-    //     // If unable to hardcode, set dynamically...
-    //     // path.style.strokeDashoffset = length;
-    //     // path.style.strokeDasharray = length;
-
-    //     // Get the value of the meter
-    //     // let value = parseInt(path.parentNode.getAttribute("data-value"));
-    //     let value = percent || parseInt(path.parentNode.getAttribute("data-value"));
-    //     // Calculate the percentage of the total length
-    //     let to = length * ((100 - value) / 100);
-
-    //     path.getBoundingClientRect();
-    //     // Set the Offset
-    //     path.style.strokeDashoffset = Math.max(0, to);
-    // });
 }
 
 function trainerApplySumbit() {
@@ -284,7 +272,7 @@ function trainerApplySumbit() {
     let name = $('#user_name').val();
     let pn = $('#user_pn').val();
 
-
+    console.log("ptTimes 타입="+typeof pt_times);
 
     console.log("pt횟수는 =" + pt_times);
     console.log("최종 가격은 =" + final_price);
@@ -345,14 +333,14 @@ function trainerApplySumbit() {
                         alert("PT 신청에 실패하였습니다");
                         console.log(error);
                     })
-                }).error(function (error) {
+                }).fail(function (error) {
+                    // alert(error);
                     alert("실패하였습니다");
                 });
             } else {
                 var msg = '결제에 실패하였습니다.';
                 msg += '에러내용 : ' + rsp.error_msg;
             }
-            alert(msg);
         });
 
 

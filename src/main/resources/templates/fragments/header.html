@@ -17,9 +17,9 @@
                                                              style="text-decoration:none">회원 관리</a></li>
             <!--            트레이너이면 수락한 회원목록, 회원이면 트레이너 검색창으로 이동-->
             <li><a th:href="@{/ptUser/view}" style="text-decoration:none">PT 신청</a></li>
-            <li th:if="${session.loginRole == 'trainer'}"><a th:href="@{/calendar/TrMemo(id=${session.loginUser})}" style="text-decoration:none">PT 일정</a></li>
+            <li th:if="${session.loginRole == 'trainer'}"><a th:href="@{/calendar/trMemo(id=${session.loginUser})}" style="text-decoration:none">PT 일정</a></li>
             <li><a th:href="@{/room}" style="text-decoration:none">채팅</a></li>
-            <li><a th:href="@{/board}" style="text-decoration:none">트레이너 게시판</a></li>
+            <li><a th:href="@{/board}" style="text-decoration:none">게시판</a></li>
         </ul>
 
     </nav>
@@ -44,9 +44,11 @@
                 <ul class="dropdown-menu dropdown-menu-right " role="menu">
                     <li th:if="${session.loginRole == 'trainer'}"><a class="dropdown-item" th:href="@{/trainer/trainerPage/{id}(id=${session.loginUser})}">트레이너 프로필</a></li>
                     <li><a class="dropdown-item" th:href="@{/member/mypage(member_id = ${session.loginUser})}">마이페이지</a></li>
+                    <li><a class="dropdown-item" th:href="@{/ptUser/ptBuyInfo(member_id = ${session.loginUser})}">PT결제정보</a></li>
                     <li><a class="dropdown-item" th:href="@{/diet/list(id=${session.loginId})}">식단</a></li>
                     <li><a class="dropdown-item" th:href="@{/ExRecord/exercise(id=${session.loginId})}">운동기록</a></li>
                     <li><a class="dropdown-item" th:href="@{/inBody/register}">인바디</a></li>
+                    <li><a class="dropdown-item" th:href="@{/faq/faqManagement}">자주 묻는 질문</a></li>
                     <li class="divider"><a class="dropdown-item"></a></li>
                     <li><a class="dropdown-item" th:href="@{/member/logout}">로그아웃</a></li>
                 </ul>

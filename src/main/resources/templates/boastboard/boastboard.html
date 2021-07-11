@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        data-layout-decorate="~{layout/default}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,11 +12,15 @@
 <body>
 <div layout:fragment="content" class="">
 
-    <form th:action="@{/boastboard/bb}" method="get" id="searchForm" class="">
+    <form th:action="@{/boastboard/bb}" method="get" id="searchForm" class="board_info">
         <div>
-            <h2>게시판 관리</h2>
+            <h2>자랑 게시판</h2>
+            <div>
+                <a th:href="@{/board}">트레이너 게시판</a>
+                <a th:href="@{/boastboard/bb}">자랑 게시판</a>
+            </div>
             <input type="hidden" name="page" value="1">
-            <div class="">
+            <div class="board_search">
                 <select name="type">
                     <option value="t" th:selected="${PageRequestDto.type == 't'}">제목</option>
                     <option value="c" th:selected="${PageRequestDto.type == 'c'}">내용</option>
@@ -22,15 +28,15 @@
                     <option value="tc" th:selected="${PageRequestDto.type == 'tc'}">제목+내용</option>
                 </select>
                 <input name="keyword" th:value="${PageRequestDto.keyword}" placeholder="검색어">
-                <button type="button" class="" onclick="search()">검색</button>
-                <button type="button" class="" onclick="Sclear()">초기화</button>
+                <button type="button" class="custom_btn" onclick="search()">검색</button>
+                <button type="button" class="custom_btn" onclick="Sclear()">초기화</button>
             </div>
         </div>
 
     </form>
 
-    <table class="">
-        <thead class="">
+    <table class="table table-striped">
+        <thead class="thead-strong">
         <tr>
             <td width="10%">글번호</td>
             <td width="50%">글 제목</td>
@@ -57,27 +63,27 @@
         </tbody>
     </table>
 
-    <div class="pagination_area">
-        <ul>
+    <div class="text-center">
+        <ul class="pagination">
             <li th:if="${result.prev}">
-                <a class="" th:href="@{/boastboard/bb(page = ${result.start -1},
+                <a class="custom_btn" th:href="@{/boastboard/bb(page = ${result.start -1},
                                         type=${PageRequestDto.type},
                                         keyword=${PageRequestDto.keyword})}">이전</a>
             </li>
             <li th:each="page: ${result.pageList}">
-                <a class="" th:href="@{/boastboard/bb(page= ${page},
+                <a class="custom_btn" th:href="@{/boastboard/bb(page= ${page},
                                         type=${PageRequestDto.type},
                                         keyword=${PageRequestDto.keyword})}" th:text="${page}">1</a>
             </li>
             <li th:if="${result.next}">
-                <a class="" th:href="@{/boastboard/bb(page = ${result.end +1},
+                <a class="custom_btn" th:href="@{/boastboard/bb(page = ${result.end +1},
                                         type=${PageRequestDto.type},
                                         keyword=${PageRequestDto.keyword})}">다음</a>
             </li>
         </ul>
     </div>
 
-    <a th:if="${session.loginRole == 'trainer'}" th:href="@{/boastboard/bbInsert}">등록</a>
+    <a class="btn btn-default pull-right" th:if="${session.loginRole == 'trainer'}" th:href="@{/boastboard/bbInsert}">등록</a>
 
     <script th:inline="javascript">
 

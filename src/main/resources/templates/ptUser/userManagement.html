@@ -53,7 +53,7 @@
                 <!--            th:href="@{~/ptUser/detail(id=${trainer.id},-->
 
 
-                <td><a class="btn btn-primary" href="#">채팅</a></td>
+                <td><a class="btn btn-primary" th:href="@{~/ptChat}">채팅</a></td>
                 <td><a class="btn btn-primary" th:href="@{~/ptUser/view/detail/{id}(id=${acceptLists.id})}">상세보기</a>
                 </td>
                 <td><a class="btn btn-primary" th:href="@{~/calendar/memo(member_id=${acceptLists.member.id},

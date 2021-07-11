@@ -108,12 +108,12 @@
     <div class="post_content" th:text="${notices.content}"></div>
 
     <div class="post_control_btn_area">
-        <a th:href="@{/admin/noticeUpdateView(id = ${notices.id},
+        <a th:if="${session.loginId == 'admin'}" th:href="@{/admin/noticeUpdateView(id = ${notices.id},
                                         page=${PageRequestDto.page},
                                         type=${PageRequestDto.type},
                                         keyword=${PageRequestDto.keyword})}"
            class="custom_btn post_update">글수정</a>
-        <a th:href="@{/admin/noticeManagement(page=${PageRequestDto.page},
+        <a th:if="${session.loginId == 'admin'}" th:href="@{/admin/noticeManagement(page=${PageRequestDto.page},
                                         page=${PageRequestDto.page},
                                         type=${PageRequestDto.type},
                                         keyword=${PageRequestDto.keyword})}" class="custom_btn post_delete">이전

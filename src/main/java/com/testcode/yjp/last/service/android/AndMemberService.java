@@ -67,12 +67,17 @@ public class AndMemberService {
         }
     }
 
-    public Member mypageUpdate(Long id, AndMemberMypageDto andMemberMypageDto) {
-        Member byId = memberRepository.findById(id).orElse(null);
-        byId.update(andMemberMypageDto.getUser_pw(), andMemberMypageDto.getUser_name(), andMemberMypageDto.getUser_email(), andMemberMypageDto.getAddress_normal(), andMemberMypageDto.getAddress_detail(), andMemberMypageDto.getUser_role(), andMemberMypageDto.getUser_rrn());
-        Member save = memberRepository.save(byId);
+    public Member mypageUpdate(Long id, AndMemberMypageDto a) {
+        Member member = memberRepository.findById(id).orElse(null);
+        member.setUser_pw(a.getUser_pw());
+        member.setAddress_detail(a.getAddress_detail());
+        member.setAddress_normal(a.getAddress_normal());
+        member.setUser_pn(a.getUser_pn());
+        member.setUser_rrn(a.getUser_rrn());
+        member.setUser_gender(a.getUser_gender());
+        member.setUser_role(a.getUser_role());
 
-        return save;
+        return memberRepository.save(member);
     }
 
     @Transactional

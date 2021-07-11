@@ -16,9 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -205,6 +203,16 @@ public class PTUserService {
 
         ptUser.update(ptUserApplyConDto.getApply_if());
         System.out.println("신청상태 : " + ptUserApplyConDto.getApply_if());
+
+        Long member_id = ptUserApplyConDto.getMember_id();
+        Long trainer_id = ptUserApplyConDto.getTrainer_id();
+
+        System.out.println("member_id pk =" + member_id);
+        System.out.println("trainer_id pk =" + trainer_id);
+
+        if (ptUserApplyConDto.getApply_if().equals("2")) {
+            buyerPTRepository.updateInfo(member_id, trainer_id);
+        }
         ptUserRepository.save(ptUser);
         return ptUser.getId();
     }
@@ -248,8 +256,13 @@ public class PTUserService {
                 .trainer_kakao(entity.getTrainer_kakao())
                 .trainer_instagram(entity.getTrainer_instagram())
                 .trainer_gymName(entity.getTrainer_gymName())
+                .trainer_address_normal(entity.getTrainer_address_normal())
+                .trainer_pt_total(entity.getTrainer_pt_total())
+                .trainer_pt_discount(entity.getTrainer_pt_discount())
+                .trainer_pt_AddCount(entity.getTrainer_pt_AddCount())
                 .user_name(entity.getMember().getUser_name())
                 .trainer_content(entity.getTrainer_content())
+                .member(entity.getMember())
                 .build();
         return dto;
     }
@@ -329,6 +342,7 @@ public class PTUserService {
                 .pay_method(buyerPTDto.getPay_method())
                 .pt_amount(buyerPTDto.getPt_amount())
                 .apply_num(buyerPTDto.getApply_num())
+                .bt_cancel(buyerPTDto.getBt_cancel())
                 .member(member.get())
                 .trainerInfo(trainer.get())
                 .build();
@@ -348,7 +362,7 @@ public class PTUserService {
     }
 
     public void refundDel(Long member_id, Long trainer_id) {
-        buyerPTRepository.deleteInfo(member_id, trainer_id);
+        buyerPTRepository.updateInfo(member_id, trainer_id);
         ptUserRepository.deleteByInfo(member_id, trainer_id);
     }
 
@@ -362,4 +376,33 @@ public class PTUserService {
         ptUserRepository.deleteByInfo(member_id, trainer_id);
     }
 
+    public PageResultDto<PTMemberInfoDto, PTUser> getPTList(PageRequestDto pageRequestDto) {
+        Pageable pageable = pageRequestDto.getPageable(Sort.by("id").descending());
+        Page<PTUser> result = ptUserRepository.findAll(pageable);
+        Function<PTUser, PTMemberInfoDto> fn = (entity -> entityPTDto(entity));
+        return new PageResultDto<>(result, fn);
+    }
+
+    private PTMemberInfoDto entityPTDto(PTUser entity) {
+        PTMemberInfoDto dto = PTMemberInfoDto.builder()
+                .id(entity.getId())
+                .member(entity.getMember_id())
+                .trainer(entity.getTrainer_id())
+                .pt_times(entity.getPt_times())
+                .regDate(entity.getRegDate())
+                .build();
+        return dto;
+    }
+
+    public List<BuyerPTDto> getBuyInfo(Long member_id) {
+        return buyerPTRepository.findBuyers(member_id).stream()
+                .map(BuyerPTDto::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<BuyerPTDto> getBuyMemInfo(Long member_id) {
+        return buyerPTRepository.findMemBuyers(member_id).stream()
+                .map(BuyerPTDto::new)
+                .collect(Collectors.toList());
+    }
 }

@@ -1,19 +1,55 @@
 $(function () {
     let zip = $('#zip');
 
-    let updateLoadBtn = document.getElementById('updateLoadBtn');
+    let updateLoadBtn = $('#updateLoadBtn');
     let updateResult = document.getElementById('updateResult');
 
-    updateLoadBtn.addEventListener("click", UpdateUpload);
+    updateLoadBtn.on("click", UpdateUpload);
     zip.on("click", GymPostCode);
 
     findPostCode();
     findTimeCode();
-    category_input();
+    basicPrice();
     addBtn();
     delBtn();
     $('#fileNameLabel').text($('#fileName').val());
+    cal();
+    $(".time").flatpickr({
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+    });
+
+    init();
+    category_input();
 });
+
+function basicPrice() {
+    let dis = $('#discount_price').val();
+    let add = $('#discount_pt_count').val();
+    let fp = $('#final_price').val();
+
+    let count = fp.parseInt;
+    let price = fp.parseInt;
+
+    count = fp.substring(0, 4);
+    price = fp.substring(6);
+
+    dis = parseInt(dis);
+    add = parseInt(add);
+    count = parseInt(count);
+    price = parseInt(price);
+
+    console.log("할인 정보=" +dis);
+    console.log("추가 횟수" + add);
+    console.log("최종 횟수" + count);
+    console.log("최종 가격" + price);
+
+    let basic = price * 100 / (100-dis);
+    console.log("원래 가격=" + basic);
+    $('#pt_price').val(basic);
+
+}
 
 function trainerUpdate() {
     var id = $('#id').val();
@@ -32,6 +68,8 @@ function trainerUpdate() {
         imgName: $('#imgName').val(),
         fileName: $('#fileName').val(),
         trainer_pt_total :$('#trainer_pt_total').val(),
+        trainer_pt_discount : $('#discount_price').val(),
+        trainer_pt_AddCount : $('#discount_pt_count').val(),
         trainer_address_normal : trainer_address_normal,
         trainer_gymName : $('#trainer_gymName').val(),
         trainer_address_detail: $('#trainer_address_detail').val(),
@@ -41,6 +79,8 @@ function trainerUpdate() {
     }
 
     console.log("data는" + data)
+    console.log("data는" + data.trainer_pt_discount)
+    console.log("data는" + data.trainer_pt_AddCount)
 
     $.ajax({
         url: '/trainer/trUpdate/' + id,
@@ -62,8 +102,8 @@ function trainerUpdate() {
 
 function priceCode() {
     let fp = $('#final_price').val();
-    let count = fp.substring(0, 1);
-    let price = fp.substring()
+    // let count = fp.substring(0, 1);
+    // let price = fp.substring()
 }
 
 function findTimeCode() {
@@ -74,8 +114,8 @@ function findTimeCode() {
     console.log(time1);
     console.log(time2);
     // zip 코드 삽입
-    $('#trainer_time1').attr('value', time1);
-    $('#trainer_time2').attr('value', time2);
+    $('#trainer_time1').val(time1);
+    $('#trainer_time2').val(time2);
 }
 
 // 주소 나누기
@@ -97,20 +137,22 @@ function showUploadedImages(arr) {
     var divArea = $(".updateResult2");
 
     var str = "";
-
+    var removeBtn = '';
     for (var i = 0; i < arr.length; i++) {
         var uuid = arr[i].thumbnailURL;
         var imgName = arr[i].imageURL;
         var fileName = arr[i].fileName;
         str += "<div>";
-        str += "<img src='/display?fileName=" + arr[i].thumbnailURL + "'/>";
-        str += "<button class='removeBtn' data-name='" + arr[i].imageURL + "'>삭제</button>";
+        str += `<img src='/display?fileName=${arr[i].thumbnailURL}' width="200px" height="200px">`;
         str += "<input type='hidden' id='uuid' name='uuid' value='" + uuid + "'>"
         str += "<input type='hidden' id='imgName' name='imgName' value='" + imgName + "'>"
         str += "<input type='hidden' id='fileName' name='fileName' value='" + fileName + "'>"
         str += "</div>"
+        removeBtn += "<button class='removeBtn btn btn-primary' data-name='" + arr[i].imageURL + "'>삭제</button>";
+
     }
     divArea.append(str);
+    $('.btns').append(removeBtn);
 }
 
 $('.updateResult2').on("click", ".removeBtn", function () {
@@ -204,8 +246,12 @@ function GymPostCode() {
 }
 
 function category_input() {
-    if ($("#trainer_category option:selected").val() == '기타') {
+    // if ($("#trainer_category option:selected").val() == '기타') {
+    if ($(".real_category").val() != 'PT' && $(".real_category").val() != '재활' &&
+        $(".real_category").val() != '대회') {
+        $('.category').attr('id', ''); //id 초기화
         $('.input_category').show();
+        $('.input_category').attr('id', 'trainer_category');
     }
     $('.category').change(function () {
         $(".category option:selected").each(function () {
@@ -232,7 +278,7 @@ function addBtn() {
         content.forEach((value, index) => {
             if (value != '') {
                 let contents = value;
-                let htmlContents = `<div class="con"><span>${contents}</span><button type="button" class="delBtn">삭제</button></div>`
+                let htmlContents = `<div class="con col-sm-12 mt-3"><i class="fas fa-check"></i><span> ${contents}</span><button type="button" class="delBtn btn btn-secondary btn-sm float-md-right">삭제</button></div>`
                 $('.showContent').append(htmlContents);
                 // delBtn();
             }
@@ -246,7 +292,7 @@ function addBtn() {
             return false;
         } else {
             let contents = $('#trainer_contents').val();
-            let htmlContents = `<div class="con">${contents}<button type="button" class="delBtn">삭제</button></div>`
+            let htmlContents = `<div class="con col-sm-12 mt-3"><i class="fas fa-check"></i><span> ${contents}</span><button type="button" class="delBtn btn btn-secondary btn-sm float-md-right">삭제</button></div>`
 
             $('.showContent').append(htmlContents);
 
@@ -272,4 +318,217 @@ function delBtn(){
         $(this).parent().remove();
 
     })
+}
+
+function cal(){
+    let count = 10;
+
+    let pt_price = $('#pt_price').val();
+    let pt_discount = $('#discount_price').val();
+    let pt_count = $('#discount_pt_count').val();
+    let final_price = $('#final_price').val();
+
+    pt_price = parseInt(pt_price);
+    pt_discount = parseInt(pt_discount);
+    pt_count = parseInt(pt_count);
+    final_price = parseInt(final_price);
+
+    $("#discount").click(function () {
+        let pt_price = $('#pt_price').val();
+        let pt_discount = $('#discount_price').val();
+        let pt_count = $('#discount_pt_count').val();
+
+
+        // 형변환
+        pt_price = parseInt(pt_price);
+        pt_discount = parseInt(pt_discount);
+        pt_count = parseInt(pt_count);
+
+        // 할인금액
+        let dis = pt_price - pt_discount * 0.01 * pt_price;
+        // 추가 카운트
+        let final_count = pt_count + count;
+
+        // 최종값
+        $('#final_price').val(final_count + "회 / " + dis);
+        var trainer_pt_total = $('#final_price').val();
+
+        $('#trainer_pt_total').val(trainer_pt_total);
+
+    })
+
+}
+
+function init(){
+    //DOM elements
+    const DOMstrings = {
+        stepsBtnClass: "multisteps-form__progress-btn",
+        stepsBtns: document.querySelectorAll(`.multisteps-form__progress-btn`),
+        stepsBar: document.querySelector(".multisteps-form__progress"),
+        stepsForm: document.querySelector(".multisteps-form__form"),
+        stepsFormTextareas: document.querySelectorAll(".multisteps-form__textarea"),
+        stepFormPanelClass: "multisteps-form__panel",
+        stepFormPanels: document.querySelectorAll(".multisteps-form__panel"),
+        stepPrevBtnClass: "js-btn-prev",
+        stepNextBtnClass: "js-btn-next",
+    };
+
+//remove class from a set of items
+    const removeClasses = (elemSet, className) => {
+        elemSet.forEach((elem) => {
+            elem.classList.remove(className);
+        });
+    };
+
+//return exect parent node of the element
+    const findParent = (elem, parentClass) => {
+        let currentNode = elem;
+
+        while (!currentNode.classList.contains(parentClass)) {
+            currentNode = currentNode.parentNode;
+        }
+
+        return currentNode;
+    };
+
+//get active button step number
+    const getActiveStep = (elem) => {
+        return Array.from(DOMstrings.stepsBtns).indexOf(elem);
+    };
+
+//set all steps before clicked (and clicked too) to active
+    const setActiveStep = (activeStepNum) => {
+        //remove active state from all the state
+        removeClasses(DOMstrings.stepsBtns, "js-active");
+
+        //set picked items to active
+        DOMstrings.stepsBtns.forEach((elem, index) => {
+            if (index <= activeStepNum) {
+                elem.classList.add("js-active");
+            }
+        });
+    };
+
+//get active panel
+    const getActivePanel = () => {
+        let activePanel;
+
+        DOMstrings.stepFormPanels.forEach((elem) => {
+            if (elem.classList.contains("js-active")) {
+                activePanel = elem;
+            }
+        });
+
+        return activePanel;
+    };
+
+//open active panel (and close unactive panels)
+    const setActivePanel = (activePanelNum) => {
+        //remove active class from all the panels
+        removeClasses(DOMstrings.stepFormPanels, "js-active");
+
+        //show active panel
+        DOMstrings.stepFormPanels.forEach((elem, index) => {
+            if (index === activePanelNum) {
+                elem.classList.add("js-active");
+
+                setFormHeight(elem);
+            }
+        });
+    };
+
+//set form height equal to current panel height
+    const formHeight = (activePanel) => {
+        const activePanelHeight = activePanel.offsetHeight;
+
+        DOMstrings.stepsForm.style.height = `${activePanelHeight}px`;
+    };
+
+    const setFormHeight = () => {
+        const activePanel = getActivePanel();
+
+        formHeight(activePanel);
+    };
+
+//STEPS BAR CLICK FUNCTION
+    DOMstrings.stepsBar.addEventListener("click", (e) => {
+        //check if click target is a step button
+        const eventTarget = e.target;
+
+        if (!eventTarget.classList.contains(`${DOMstrings.stepsBtnClass}`)) {
+            return;
+        }
+
+        //get active button step number
+        const activeStep = getActiveStep(eventTarget);
+
+        //set all steps before clicked (and clicked too) to active
+        setActiveStep(activeStep);
+
+        //open active panel
+        setActivePanel(activeStep);
+    });
+
+//PREV/NEXT BTNS CLICK
+    DOMstrings.stepsForm.addEventListener("click", (e) => {
+        const eventTarget = e.target;
+
+        //check if we clicked on `PREV` or NEXT` buttons
+        if (
+            !(
+                eventTarget.classList.contains(`${DOMstrings.stepPrevBtnClass}`) ||
+                eventTarget.classList.contains(`${DOMstrings.stepNextBtnClass}`)
+            )
+        ) {
+            return;
+        }
+
+        //find active panel
+        const activePanel = findParent(
+            eventTarget,
+            `${DOMstrings.stepFormPanelClass}`
+        );
+
+        let activePanelNum = Array.from(DOMstrings.stepFormPanels).indexOf(
+            activePanel
+        );
+
+        //set active step and active panel onclick
+        if (eventTarget.classList.contains(`${DOMstrings.stepPrevBtnClass}`)) {
+            activePanelNum--;
+        } else {
+            activePanelNum++;
+        }
+
+        setActiveStep(activePanelNum);
+        setActivePanel(activePanelNum);
+    });
+
+//SETTING PROPER FORM HEIGHT ONLOAD
+    window.addEventListener("load", setFormHeight, false);
+
+//SETTING PROPER FORM HEIGHT ONRESIZE
+    window.addEventListener("resize", setFormHeight, false);
+
+//changing animation via animation select !!!YOU DON'T NEED THIS CODE (if you want to change animation type, just change form panels data-attr)
+
+// const setAnimationType = (newType) => {
+//   DOMstrings.stepFormPanels.forEach((elem) => {
+//     elem.dataset.animation = newType;
+//   });
+// };
+
+// //selector onchange - changing animation
+// const animationSelect = document.querySelector(".pick-animation__select");
+
+// animationSelect.addEventListener("change", () => {
+//   const newAnimationType = animationSelect.value;
+
+//   setAnimationType(newAnimationType);
+// });
+
+    DOMstrings.stepFormPanels.forEach((elem) => {
+        elem.dataset.animation = "slideHorz";
+    });
+
 }

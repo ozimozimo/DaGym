@@ -146,4 +146,16 @@ public class AndroidMemberController {
         return byId;
     }
 
+    @PostMapping("/findUserId")
+    public Member findUserId(@RequestBody String user_id) {
+        log.info("AndroidController findUserId 1st Line");
+        user_id = user_id.replaceAll("\\\"", "");
+
+        log.info("user_id = " + user_id);
+
+
+        Member byUser_id = androidMemberRepository.findByUser_id(user_id);
+
+        return byUser_id;
+    }
 }

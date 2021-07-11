@@ -17,6 +17,9 @@ public class BoastboardResponseDto {
     private String content;
     private int hit;
     private LocalDateTime modifiedDate;
+    private String uuid;
+    private String imgName;
+    private String fileName;
 
     public BoastboardResponseDto(Boastboard entity){
         this.id = entity.getId();
@@ -25,5 +28,8 @@ public class BoastboardResponseDto {
         this.user_id = entity.getUser_id();
         this.hit = entity.getHit();
         this.modifiedDate = entity.getModDate();
+        this.uuid = entity.getUuid();
+        this.imgName = entity.getImgName();
+        this.fileName = entity.getFileName();
     }
 }

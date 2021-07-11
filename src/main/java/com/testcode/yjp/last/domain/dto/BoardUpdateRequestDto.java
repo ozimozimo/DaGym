@@ -12,11 +12,17 @@ public class BoardUpdateRequestDto {
 
     private String title;
     private String content;
+    private String uuid;
+    private String imgName;
+    private String fileName;
 
     @Builder
-    public BoardUpdateRequestDto(String title, String content){
+    public BoardUpdateRequestDto(String title, String content,String uuid, String imgName, String fileName){
         this.title = title;
         this.content = content;
+        this.uuid = uuid;
+        this.imgName = imgName;
+        this.fileName = fileName;
     }
 
     public BoardUpdateRequestDto(Board board) {

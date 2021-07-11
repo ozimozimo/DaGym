@@ -32,8 +32,8 @@ public class Calendar {
     private String backgroundColor;
     @Column(name = "calendar_textColor")
     private String textColor;
-    @Column(name = "calendar_allDay")
-    private boolean allDay;
+//    @Column(name = "calendar_allDay")
+//    private boolean allDay;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -55,7 +55,7 @@ public class Calendar {
 
     public void update(String title, String start, String end,
                        String description, String type, String backgroundColor,
-                       String textColor,boolean allDay) {
+                       String textColor) {
         this.title =title;
         this.start =start;
         this.end = end;
@@ -63,6 +63,5 @@ public class Calendar {
         this.type =type;
         this.backgroundColor=backgroundColor;
         this.textColor = textColor;
-        this.allDay = allDay;
     }
 }

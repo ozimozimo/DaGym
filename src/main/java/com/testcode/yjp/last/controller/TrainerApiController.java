@@ -205,6 +205,8 @@ public class TrainerApiController {
         log.info("trUpdate Controller postMapping");
         log.info(id);
         log.info(trainerInfoDto);
+        log.info(trainerInfoDto.getTrainer_pt_discount());
+        log.info(trainerInfoDto.getTrainer_pt_AddCount());
 
         return trainerService.update(id, trainerInfoDto);
     }

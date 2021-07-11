@@ -30,7 +30,7 @@
     <div class="post_content"><span>A : </span><span th:text="${faq.content}"></span></div>
 
     <div class="post_control_btn_area">
-        <a th:href="@{/admin/faqUpdateView(id = ${faq.id},
+        <a th:if="${session.loginId == 'admin'}" th:href="@{/admin/faqUpdateView(id = ${faq.id},
                                         page=${PageRequestDto.page},
                                         type=${PageRequestDto.type},
                                         keyword=${PageRequestDto.keyword})}"

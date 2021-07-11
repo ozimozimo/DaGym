@@ -28,17 +28,19 @@
             margin-bottom: 20px;
         }
 
-        .chating{
+        .chating {
             background-color: #000;
             width: 500px;
             height: 500px;
             overflow: auto;
         }
-        .chating .me{
+
+        .chating .me {
             color: #F6F6F6;
             text-align: right;
         }
-        .chating .others{
+
+        .chating .others {
             color: #FFE400;
             text-align: left;
         }
@@ -62,25 +64,28 @@
         <input type="hidden" id="roomNumber" th:value="${roomNumber}">
         <input type="hidden" id="userName" name="userName" th:value="${session.loginName}">
 
-<!--        // 내용 저장되는곳-->
+
+        <!--        // 내용 저장되는곳-->
         <div id="chating" class="chating">
         </div>
 
-<!--        <div id="yourName">-->
-<!--            <table class="inputTable">-->
-<!--                <tr>-->
-<!--                    <th>사용자명</th>-->
-<!--                    <th><input type="text" th:value="${session.loginName}" name="userName" id="userName"></th>-->
-<!--                    <th><button onclick="chatName()" id="startBtn">이름 등록</button></th>-->
-<!--                </tr>-->
-<!--            </table>-->
-<!--        </div>-->
+        <!--        <div id="yourName">-->
+        <!--            <table class="inputTable">-->
+        <!--                <tr>-->
+        <!--                    <th>사용자명</th>-->
+        <!--                    <th><input type="text" th:value="${session.loginName}" name="userName" id="userName"></th>-->
+        <!--                    <th><button onclick="chatName()" id="startBtn">이름 등록</button></th>-->
+        <!--                </tr>-->
+        <!--            </table>-->
+        <!--        </div>-->
         <div id="yourMsg">
             <table class="inputTable">
                 <tr>
                     <th>메시지</th>
                     <th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
-                    <th><button onclick="send()" id="sendBtn">보내기</button></th>
+                    <th>
+                        <button onclick="send()" id="sendBtn">보내기</button>
+                    </th>
                 </tr>
             </table>
         </div>

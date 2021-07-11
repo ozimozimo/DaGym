@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{~/js/main/jquery.min.js}"></script>
+    <script th:src="@{~/js/main/bootstrap.min.js}"></script>
+    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
+    <script th:src="@{~/js/admin/admin.js}"></script>
+
+</head>
+<body>
+<div layout:fragment="content" class="content">
+    <div class="post_header">
+        <input type="hidden" th:value="${faq.id}" id="hb_num" name="hb_num">
+        <div class="post_info">
+            <div class="left">
+                <div th:text="${faq.user_id}" class="post_author"></div>
+            </div>
+            <div class="right">
+                <div class="updated_at">
+                    <span>수정날짜:</span>
+                    <span th:text="${#temporals.format(faq.modDate, 'yyyy/MM/dd HH:mm:ss')}">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post_title"><span>Q : </span><span th:text="${faq.title}"></span></div>
+    <div class="post_content"><span>A : </span><span th:text="${faq.content}"></span></div>
+
+    <div class="post_control_btn_area">
+        <a th:if="${session.loginId == 'admin'}" th:href="@{/admin/faqUpdateView(id = ${faq.id},
+                                        page=${PageRequestDto.page},
+                                        type=${PageRequestDto.type},
+                                        keyword=${PageRequestDto.keyword})}"
+           class="custom_btn post_update">글수정</a>
+        <a th:href="@{/faq/faqManagement(page=${PageRequestDto.page},
+                                        page=${PageRequestDto.page},
+                                        type=${PageRequestDto.type},
+                                        keyword=${PageRequestDto.keyword})}" class="custom_btn post_delete">이전
+        </a>
+    </div>
+</div>
+</body>
+</html>

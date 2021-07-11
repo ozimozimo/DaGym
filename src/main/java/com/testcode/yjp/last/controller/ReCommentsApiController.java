@@ -51,10 +51,16 @@ public class ReCommentsApiController {
 //        return commentsService.update(id, commentsUpdateRequestDto);
 //    }
 
-//    삭제기능 url: '/recomments/delete/'+id ,
-    @PostMapping("/delete/{id}")
-    public Long delete(@PathVariable Long id){
+    //    삭제기능 url: '/recomments/delete/'+id ,
+    @PostMapping("/delete/{id}/{re_parentCoNum}")
+    public Long delete(@PathVariable Long id, @PathVariable Long re_parentCoNum) {
+
+        log.info("댓글 pk =" + re_parentCoNum);
+
+        log.info("리댓 pk =" + id);
         reCommentsService.delete(id);
+        commentsRepository.reCount(re_parentCoNum);
+
         return id;
     }
 

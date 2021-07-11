@@ -106,6 +106,7 @@ public class PTApiController {
     @PostMapping("/apply/update/{pt_user_id}")
     public PTUserApplyConDto update(@PathVariable Long pt_user_id, @RequestBody PTUserApplyConDto ptUserApplyConDto) {
         System.out.println("ptUserApply.getApply_if() = " + ptUserApplyConDto.getApply_if());
+        System.out.println("trainer member pK=" + ptUserApplyConDto.getTrainer_id());
         String data = ptUserApplyConDto.getApply_if();
         System.out.println("data = " + data);
         if (data.equals("1") || data.equals("2")) {
@@ -135,6 +136,7 @@ public class PTApiController {
     @PostMapping("/payment/{member_id}/{trainer_id}")
     public BuyerPTDto payResult(@PathVariable Long member_id, @PathVariable Long trainer_id, @RequestBody BuyerPTDto buyerPTDto) {
         log.info("결제 PK 아이디는 = " + member_id);
+        buyerPTDto.setBt_cancel(0);
         ptUserService.payment(member_id, trainer_id, buyerPTDto);
         return buyerPTDto;
     }

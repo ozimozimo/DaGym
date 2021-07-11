@@ -10,9 +10,13 @@ function Save() {
     var data = {
         title: $('#title').val(),
         user_id: $('#user_id').val(),
-        content: $('#bb_content').val()
+        content: $('#bb_content').val(),
+        uuid: $('#uuid').val(),
+        imgName: $('#imgName').val(),
+        fileName: $('#fileName').val()
     };
-    console.log("session login id=" + data.id)
+    console.log("session login id=" + data.id);
+    console.log("Data =" + data);
     var id = $('#member_id').val();
 
     $.ajax({
@@ -48,8 +52,12 @@ function Update() {
         Update: function () {
             var data = {
                 title: $('#title').val(),
-                content: $('#bb_content').val()
+                content: $('#bb_content').val(),
+                uuid: $('#uuid').val(),
+                imgName: $('#imgName').val(),
+                fileName: $('#fileName').val(),
             };
+            console.log(data);
             var id = $('#bb_num').val();
             var page = $('#page').val();
             $.ajax({
@@ -126,28 +134,9 @@ function EmoInsert(emo) {
     console.log("reload");
 }
 
-function EmoSelect() {
-    let bb_num = $('#bb_num').val();
-    $.ajax({
-        type: 'GET',
-        url: '/boastboard/emotion/select/' + bb_num,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-    }).done(function(result) {
-        $('#l_num').text(result.l);
-        $('#m_num').text(result.m);
-        $('#s_num').text(result.s);
-        $('#a_num').text(result.a);
-        $('#w_num').text(result.w);
-    }).fail(function(fail) {
-
-    })
-}
-
 $(function (){
     $("#btn-save").on('click',Save);
     $("#btn-update").on('click',Update);
     $("#btn-delete").on('click',Delete);
-    EmoSelect();
 })
 

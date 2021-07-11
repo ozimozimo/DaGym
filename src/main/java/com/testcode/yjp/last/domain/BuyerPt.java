@@ -28,6 +28,9 @@ public class BuyerPt extends BaseEntity {
     // 카드 승인번호
     private String apply_num;
 
+    // 결제 취소  default 0 결제완료 , 1 결제거절,   2 승인대기
+    private int bt_cancel;
+
 
     // member에서 구매자 이메일, 전화번호, 주소, postcode가 들어간다
     @ManyToOne

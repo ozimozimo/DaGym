@@ -27,6 +27,8 @@
     <link rel="stylesheet" th:href="@{/css/main/fullcalendar.min.css}"/>
     <link rel="stylesheet" th:href="@{~/css/main/bootstrap-datetimepicker.min.css}"/>
 
+    <script th:src="@{~/js/calendar/moment.min.js}"></script>
+
     <script th:src="@{/js/chart.js}"></script>
     <script th:src="@{~/js/main/jquery.min.js}"></script>
     <script th:src="@{~/js/main/bootstrap.min.js}"></script>
@@ -48,8 +50,10 @@
     <!-- 메인 css -->
     <link th:href="@{~/css/header.css}" rel="stylesheet" type="text/css">
 
+<!--    <script th:src="@{~/js/loginuser.js}"></script>-->
 </head>
 <body>
+<!--<input type="text" th:value="${session.loginId}" id="login_user_Id">-->
 
 <!-- body 태그 내부의 header 를 담당하는 부분이다. -->
 <header th:replace="fragments/header :: headerFragment"></header>

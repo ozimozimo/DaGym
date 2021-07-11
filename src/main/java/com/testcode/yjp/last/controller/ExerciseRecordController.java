@@ -26,6 +26,7 @@ public class ExerciseRecordController {
     public String exercise(String id, Model model) {
         log.info("ExRecord Controller Get");
         model.addAttribute("exercise", exerciseRecordService.findAll(id));
+
         return "ExRecord/exercise";
     }
 
