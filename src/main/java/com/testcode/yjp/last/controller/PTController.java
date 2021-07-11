@@ -33,6 +33,12 @@ public class PTController {
     private final PTUserRepository ptUserRepository;
     private final PTReviewService ptReviewService;
 
+    @GetMapping("/ptBuyInfo")
+    public String ptBuyInfo(Long member_id, Model model) {
+        model.addAttribute("buyerInfo", ptUserService.getBuyInfo(member_id));
+        return "ptUser/ptBuyInfo";
+    }
+
     // 트레이너 조회, 검색 페이지 뷰
     @GetMapping("/view")
     public String trainerView(Model model,PageRequestDto pageRequestDto) {

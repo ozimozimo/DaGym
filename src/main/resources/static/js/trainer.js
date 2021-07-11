@@ -166,7 +166,11 @@ function updateAccept() {
     // let pt_user_id = $('#pt_user_id').val();
     let pt_user_id = $(this).parent().siblings('.pt_user_id2').val();
 
+    let member_id = $(this).parent().siblings('.member_id2').val();
+
     console.log("pt_user_id=" + pt_user_id)
+
+    let trainer_id = $('#member_id').val();
 
 
     // 내가 누른 버튼의 텍스트값
@@ -182,6 +186,8 @@ function updateAccept() {
     let data = {
         // PTUserApplyConDto에 넘겨줄 id랑 apply_if값
         apply_if: apply_if,
+        trainer_id: trainer_id,
+        member_id: member_id
     }
     $.ajax({
         type: 'post',
@@ -244,6 +250,7 @@ function mkApply(data) {
         var k = data[i].member.user_gender;
         var l = data[i].id;
         var m = data[i].member.user_id;
+        var member_id = data[i].member.id;
 
 
         // 삭제할려면 필요한 정보가 회원 pk와 트레이너 pk 트레이너 페이지에선 뒤에꺼는 적용된다
@@ -269,6 +276,7 @@ function mkApply(data) {
         content += "<td class='ptUserHeight'>" + a + "</td>"
         content += "<td class='ptUserWeight'>" + b + "</td>"
         content += `<input type="hidden" value="${p}" class= "pt_user_id2" id="pt_user_id" name="pt_user_id"> `
+        content += `<input type="hidden" value="${member_id}" class= "member_id2" id="member_id2" name="member_id2"> `
         content += `<td><a href='/ptUser/view/detail/${l}'>상세보기</a></td>`
         content += "<td><button type='button' class='btn-primary Accept'>수락</button></td>"
         content += "<td><button type='button' class='btn-primary Deny'>거절</button></td></tr>"

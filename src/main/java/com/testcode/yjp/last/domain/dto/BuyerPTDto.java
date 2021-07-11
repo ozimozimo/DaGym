@@ -29,6 +29,8 @@ public class BuyerPTDto {
     private String apply_num;
     private LocalDateTime regDate;
 
+    private int bt_cancel;
+
     private Member member;
     private TrainerInfo trainerInfo;
 
@@ -40,5 +42,8 @@ public class BuyerPTDto {
         this.pt_amount = entity.getPt_amount();
         this.apply_num = entity.getApply_num();
         this.member = entity.getMember();
+        this.trainerInfo = entity.getTrainerInfo();
+        this.bt_cancel = entity.getBt_cancel();
+        this.regDate = entity.getRegDate();
     }
 }

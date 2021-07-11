@@ -44,6 +44,7 @@
                 <ul class="dropdown-menu dropdown-menu-right " role="menu">
                     <li th:if="${session.loginRole == 'trainer'}"><a class="dropdown-item" th:href="@{/trainer/trainerPage/{id}(id=${session.loginUser})}">트레이너 프로필</a></li>
                     <li><a class="dropdown-item" th:href="@{/member/mypage(member_id = ${session.loginUser})}">마이페이지</a></li>
+                    <li><a class="dropdown-item" th:href="@{/ptUser/ptBuyInfo(member_id = ${session.loginUser})}">PT결제정보</a></li>
                     <li><a class="dropdown-item" th:href="@{/diet/list(id=${session.loginId})}">식단</a></li>
                     <li><a class="dropdown-item" th:href="@{/ExRecord/exercise(id=${session.loginId})}">운동기록</a></li>
                     <li><a class="dropdown-item" th:href="@{/inBody/register}">인바디</a></li>
