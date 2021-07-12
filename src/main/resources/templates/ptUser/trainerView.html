@@ -179,20 +179,21 @@
                                 <span th:text="${trainer.trainer_workTime}">11:30~21:30</span>
                             </div>
                             <div>
-                                <span>
-                                    <img th:src="@{~/image/priceicon.png}" width="12px" height="12px">
-                                </span>
+<!--                                <span>-->
+<!--                                    <img th:src="@{~/image/priceicon.png}" width="12px" height="12px">-->
+<!--                                </span>-->
+                                <span class="pt_basic_info"></span>
+                            </div>
+                            <div>
                                 <span th:text="${trainer.trainer_pt_total}" class="pt_total">12회 / 400000</span>
-
+                                <span style="color: #c53140; font-size: 12px" th:text="'(+' + ${trainer.trainer_pt_AddCount}+' / '" id="addCount"></span>
+                                <span style="color: #c53140; font-size: 12px" th:text="'-'+${trainer.trainer_pt_discount}+'%)'" id="pdiscount"></span>
                             </div>
                             <div>
                                 <span th:text="${trainer.trainer_pt_discount}" class="pt_discount"></span>
                             </div>
                             <div>
                                 <span th:text="${trainer.trainer_pt_AddCount}" class="pt_addCount"></span>
-                            </div>
-                            <div>
-                                <span class="pt_basic_info"></span>
                             </div>
                         </div>
                         <div class="btn-box">
