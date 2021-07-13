@@ -7,6 +7,7 @@
 <head>
     <title>PT회원 목록</title>
     <link rel="stylesheet" th:href="@{/css/userView.css}"/>
+    <script th:src="@{/js/userManagement.js}"></script>
 </head>
 <body>
 <div layout:fragment="content">
@@ -20,17 +21,14 @@
             <th>아이디</th>
             <th>이름</th>
             <th>연락처</th>
-            <th>키</th>
-            <th>몸무게</th>
+            <th>키(cm)</th>
+            <th>몸무게(kg)</th>
             <th>PT 목적</th>
             <th>PT 원하는 시작일</th>
             <th>PT 원하는 요일</th>
             <th>PT 원하는 시간대</th>
-            <th>회원</th>
-            <th>회원</th>
-            <th>회원</th>
-            <th>회원</th>
-            <th>회원</th>
+            <th></th>
+
             </thead>
             <tbody>
             <tr th:each="acceptLists: ${acceptList}">
@@ -44,56 +42,26 @@
                 <td><span th:text="${acceptLists.pt_count}"></span></td>
                 <td><span th:text="${acceptLists.pt_positiveDate}"></span></td>
                 <td><span th:text="${acceptLists.pt_wantTime}"></span></td>
-                <td><a class="btn btn-primary" th:href="@{/diet/list(id=${acceptLists.member.user_id})}">식단</a></td>
-                <td><a class="btn btn-primary"
-                       th:href="@{/ExRecord/exercise(id=${acceptLists.member.user_id})}">운동기록</a></td>
-                <td><a class="btn btn-primary"
-                       th:href="@{/inBody/inBodyResult(id=${acceptLists.member.user_id})}">인바디</a></td>
+                <td><a class="btn btn-primary" th:href="@{/diet/list(id=${acceptLists.member.user_id})}">식단</a>
+                    <a class="btn btn-primary"
+                       th:href="@{/ExRecord/exercise(id=${acceptLists.member.user_id})}">운동기록</a>
+                    <a class="btn btn-primary"
+                       th:href="@{/inBody/inBodyResult(id=${acceptLists.member.user_id})}">인바디</a>
 
-                <!--            th:href="@{~/ptUser/detail(id=${trainer.id},-->
+                    <!--            th:href="@{~/ptUser/detail(id=${trainer.id},-->
+                    <a class="btn btn-primary" th:href="@{~/ptChat}">채팅</a>
+                    <a class="btn btn-primary" th:href="@{~/ptUser/view/detail/{id}(id=${acceptLists.id})}">상세보기</a>
 
+                    <a class="btn btn-primary" th:href="@{~/calendar/memo(member_id=${acceptLists.member.id},
+                                                            trainer_id=${session.loginUser})}">PT일정</a>
 
-                <td><a class="btn btn-primary" th:href="@{~/ptChat}">채팅</a></td>
-                <td><a class="btn btn-primary" th:href="@{~/ptUser/view/detail/{id}(id=${acceptLists.id})}">상세보기</a>
-                </td>
-                <td><a class="btn btn-primary" th:href="@{~/calendar/memo(member_id=${acceptLists.member.id},
-                                                            trainer_id=${session.loginUser})}">PT일정</a></td>
-                <td>
                     <button type="button" class="btn btn-primary checkBtn">PT 종료</button>
                 </td>
                 <input type="hidden" th:value="${acceptLists.pt_times}" class="pt_times" name="pt_times" id="pt_times">
             </tr>
             </tbody>
         </table>
-        <script>
-            $(document).ready(function () {
-                $('.checkBtn').on("click", function () {
-                    let pt_id = $(this).parent().parent().children('.pt_id').val();
-                    let pt_times = $(this).parent().parent().children('.pt_times').val();
-                    PTFinish(pt_id, pt_times);
-                });
-            });
-            function PTFinish(pt_id, pt_times) {
 
-                console.log(pt_id);
-                console.log(pt_times);
-                let count = parseInt(pt_times);
-                if (count > 0) {
-                    alert("PT 잔여 횟수가 " + count + "회 남았습니다");
-                } else {
-                    $.ajax({
-                        type: 'post',
-                        url: '/ptUser/ptEnd/' + pt_id,
-                        contentType: 'application/json; charset=utf-8',
-                    }).done(function () {
-                        alert('PT가 종료되었습니다.');
-                        location.reload();
-                    }).fail(function () {
-                        alert('PT 잔여 횟수가 아직 남았습니다');
-                    });
-                }
-            }
-        </script>
     </div>
 </div>
 </body>

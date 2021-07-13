@@ -12,63 +12,75 @@
 <div layout:fragment="content">
 
     <div class="wrapper">
-        <div class="home">
-            <div class="container">
-<!--                <div class="person">-->
-<!--                    <span class="person-overlay"></span>-->
-<!--                    <img src="images/person.png" alt="" />-->
-<!--                </div>-->
-                <div class="home-text">
-                    <h6 class="student">우리는함께 운동한다.</h6>
-                    <h1 class="name">DAGYM</h1>
-<!--                    <p class="small-intro">-->
-<!--                        DAGYM은 트레이너들과 회원들의 PT관리를 편리하고 간편하게-->
-<!--                        관리를할수있도록 제공하는 서비스입니다.-->
-<!--                    </p>-->
-                </div>
+        <div class="bg">
+            <video muted autoplay loop>
+                <source th:src="@{~/video/bgVideo.mp4}" type="video/mp4">
+            </video>
+            <div class="text">
+                <p>우리는 함께 운동한다.</p>
+            </div>
+            <div class="dagymText">
+                <p>DAGYM</p>
             </div>
         </div>
 
-        <div class="introduction">
-            <div class="container">
-                <div class="card">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <div class="content">
-                        <h2>01</h2>
-                        <h3>식단</h3>
-                        <p>식단관리 서비스를 제공합니다</p>
-                        <a th:href="@{/diet/list(id=${session.loginId})}"> Read More</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <div class="content">
-                        <h2>02</h2>
-                        <h3>인바디</h3>
-                        <p>인바디관리 서비스를 제공합니다.</p>
-                        <a th:href="@{/inBody/register}"> Read More</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <div class="content">
-                        <h2>03</h2>
-                        <h3>운동기록</h3>
-                        <p>운동기록 서비스를 제공합니다</p>
-                        <a th:href="@{/ExRecord/exercise(id=${session.loginId})}"> Read More</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--        <div class="home">-->
+<!--            <div class="container">-->
+<!--&lt;!&ndash;                <div class="person">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <span class="person-overlay"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <img src="images/person.png" alt="" />&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--                <div class="home-text">-->
+<!--                    <h6 class="student">우리는 함께 운동한다.</h6>-->
+<!--                    <h1 class="name">DAGYM</h1>-->
+<!--&lt;!&ndash;                    <p class="small-intro">&ndash;&gt;-->
+<!--&lt;!&ndash;                        DAGYM은 트레이너들과 회원들의 PT관리를 편리하고 간편하게&ndash;&gt;-->
+<!--&lt;!&ndash;                        관리를할수있도록 제공하는 서비스입니다.&ndash;&gt;-->
+<!--&lt;!&ndash;                    </p>&ndash;&gt;-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="introduction">-->
+<!--            <div class="container">-->
+<!--                <div class="card">-->
+<!--                    <span></span>-->
+<!--                    <span></span>-->
+<!--                    <span></span>-->
+<!--                    <span></span>-->
+<!--                    <div class="content">-->
+<!--                        <h2>01</h2>-->
+<!--                        <h3>식단</h3>-->
+<!--                        <p>식단관리 서비스를 제공합니다</p>-->
+<!--                        <a th:href="@{/diet/list(id=${session.loginId})}"> Read More</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="card">-->
+<!--                    <span></span>-->
+<!--                    <span></span>-->
+<!--                    <span></span>-->
+<!--                    <span></span>-->
+<!--                    <div class="content">-->
+<!--                        <h2>02</h2>-->
+<!--                        <h3>인바디</h3>-->
+<!--                        <p>인바디관리 서비스를 제공합니다.</p>-->
+<!--                        <a th:href="@{/inBody/register}"> Read More</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="card">-->
+<!--                    <span></span>-->
+<!--                    <span></span>-->
+<!--                    <span></span>-->
+<!--                    <span></span>-->
+<!--                    <div class="content">-->
+<!--                        <h2>03</h2>-->
+<!--                        <h3>운동기록</h3>-->
+<!--                        <p>운동기록 서비스를 제공합니다</p>-->
+<!--                        <a th:href="@{/ExRecord/exercise(id=${session.loginId})}"> Read More</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
         <div class="map_area">
             <h2>당신의 건강을 책임지는 다짐입니다.</h2>
