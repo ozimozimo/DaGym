@@ -154,3 +154,9 @@ svg path {
 input[type="checkbox"] {
     margin-right: 10px;
 }
+textarea {
+    border: none;
+    resize: none;
+    font-size: 15px;
+    font-weight: 400;
+}

@@ -2,60 +2,71 @@
         lang="ko"
         xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        data-layout-decorate="~{layout/default}"
+        data-layout-decorate="~{layout/boot4}"
 >
 <head>
     <title>PT회원 목록</title>
-    <link rel="stylesheet" th:href="@{/css/userView.css}"/>
+    <link rel="stylesheet" th:href="@{/css/userManagement.css}"/>
     <script th:src="@{/js/userManagement.js}"></script>
 </head>
 <body>
 <div layout:fragment="content">
 
 
-    <div th:if="${session.loginRole == 'trainer'}">
+    <div class="trainerArea" th:if="${session.loginRole == 'trainer'}">
         <input type="hidden" th:value="${session.loginUser}" id="member_id">
-        <h3>회원 목록</h3>
-        <table class="table table-hover">
+        <h3 class="title">회원 목록</h3>
+        <table class="table table-hover text-center">
             <thead>
             <th>아이디</th>
             <th>이름</th>
             <th>연락처</th>
-            <th>키(cm)</th>
-            <th>몸무게(kg)</th>
-            <th>PT 목적</th>
-            <th>PT 원하는 시작일</th>
-            <th>PT 원하는 요일</th>
-            <th>PT 원하는 시간대</th>
+            <!--            <th>키(cm)</th>-->
+            <!--            <th>몸무게(kg)</th>-->
+            <!--            <th>PT 목적</th>-->
+            <!--            <th>PT 원하는 시작일</th>-->
+            <!--            <th>PT 원하는 요일</th>-->
+            <!--            <th>PT 원하는 시간대</th>-->
             <th></th>
 
             </thead>
             <tbody>
             <tr th:each="acceptLists: ${acceptList}">
                 <input type="hidden" th:value="${acceptLists.id}" class="pt_id" id="pt_id" name="pt_id">
-                <td><span th:text="${acceptLists.member.user_id}"></span></td>
+                <td class="align-self-center"><span th:text="${acceptLists.member.user_id}"></span></td>
                 <td><span th:text="${acceptLists.member.user_name}"></span></td>
-                <td><span th:text="${acceptLists.member.user_pn}"></span></td>
-                <td><span th:text="${acceptLists.member_height}"></span></td>
-                <td><span th:text="${acceptLists.member_weight}"></span></td>
-                <td><span th:text="${acceptLists.pt_purpose}"></span></td>
-                <td><span th:text="${acceptLists.pt_count}"></span></td>
-                <td><span th:text="${acceptLists.pt_positiveDate}"></span></td>
-                <td><span th:text="${acceptLists.pt_wantTime}"></span></td>
-                <td><a class="btn btn-primary" th:href="@{/diet/list(id=${acceptLists.member.user_id})}">식단</a>
-                    <a class="btn btn-primary"
-                       th:href="@{/ExRecord/exercise(id=${acceptLists.member.user_id})}">운동기록</a>
-                    <a class="btn btn-primary"
-                       th:href="@{/inBody/inBodyResult(id=${acceptLists.member.user_id})}">인바디</a>
-
-                    <!--            th:href="@{~/ptUser/detail(id=${trainer.id},-->
-                    <a class="btn btn-primary" th:href="@{~/ptChat}">채팅</a>
-                    <a class="btn btn-primary" th:href="@{~/ptUser/view/detail/{id}(id=${acceptLists.id})}">상세보기</a>
-
-                    <a class="btn btn-primary" th:href="@{~/calendar/memo(member_id=${acceptLists.member.id},
+                <td><span th:text="${acceptLists.member.user_pn}" class="user_pn"></span></td>
+                <!--                <td><span th:text="${acceptLists.member_height}"></span></td>-->
+                <!--                <td><span th:text="${acceptLists.member_weight}"></span></td>-->
+                <!--                <td><span th:text="${acceptLists.pt_purpose}"></span></td>-->
+                <!--                <td><span th:text="${acceptLists.pt_count}"></span></td>-->
+                <!--                <td><span th:text="${acceptLists.pt_positiveDate}"></span></td>-->
+                <!--                <td><span th:text="${acceptLists.pt_wantTime}"></span></td>-->
+                <td>
+                    <a class="viewMoreBtn btn btn-outline-secondary">더보기</a>
+                    <div class="viewItem">
+                        <div class="one item">
+                            <a class="btn  btn-success"
+                               th:href="@{/diet/list(id=${acceptLists.member.user_id})}">식단</a>
+                        </div>
+                        <div class="two item"><a class="btn  btn-success"
+                                th:href="@{/ExRecord/exercise(id=${acceptLists.member.user_id})}">운동기록</a>
+                        </div>
+                        <div class="three item">
+                            <a class="btn  btn-success"
+                               th:href="@{/inBody/inBodyResult(id=${acceptLists.member.user_id})}">인바디</a>
+                        </div>
+                        <!--            th:href="@{~/ptUser/detail(id=${trainer.id},-->
+                        <div class="four item">
+                            <a class="btn  btn-success" th:href="@{~/ptChat}">채팅</a>
+                        </div>
+                    </div>
+                    <a class="btn btn-outline-info"
+                       th:href="@{~/ptUser/view/detail/{id}(id=${acceptLists.id})}">상세보기</a>
+                    <a class="btn btn-outline-primary" th:href="@{~/calendar/memo(member_id=${acceptLists.member.id},
                                                             trainer_id=${session.loginUser})}">PT일정</a>
 
-                    <button type="button" class="btn btn-primary checkBtn">PT 종료</button>
+                    <button type="button" class="btn btn-outline-danger checkBtn">PT 종료</button>
                 </td>
                 <input type="hidden" th:value="${acceptLists.pt_times}" class="pt_times" name="pt_times" id="pt_times">
             </tr>

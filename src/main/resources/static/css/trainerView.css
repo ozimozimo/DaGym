@@ -1,3 +1,10 @@
+/*@font-face {*/
+/*    font-family: 'twayair';*/
+/*    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_tway@1.0/twayair.woff') format('woff');*/
+/*    font-weight: normal;*/
+/*    font-style: normal;*/
+/*}*/
+
 .total {
     margin-left: 10%;
     width: 80%;
@@ -266,4 +273,23 @@
 .user_rrn {
     font-size: 12px;
     font-weight: normal;
+}
+
+/*adasdasdasdasdad*/
+
+.title {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-family: 'EliceDigitalBaeum_Bold';
+
+}
+.total {
+    font-family: 'EliceDigitalBaeum_Regular';
+
+}
+.total .table td {
+    font-weight:300;
+}
+.detailView:hover {
+    text-decoration: none;
 }

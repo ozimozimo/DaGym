@@ -8,6 +8,7 @@
             <img th:src="@{~/image/dagym.png}" height="70px"/>
         </a>
     </div>
+
     <nav class="stroke">
         <ul>
             <li th:if="${session.loginRole== 'user' && session.PTState == '1'}">
