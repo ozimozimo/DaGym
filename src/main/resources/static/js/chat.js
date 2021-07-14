@@ -76,11 +76,11 @@ function send() {
         msg: $("#chatting").val(),
         chatTime : time,
     }
-    console.log("option 타입=" + option.type);
-    console.log("option 방번호=" + option.roomNumber);
-    console.log("option 세션아이디=" + option.sessionId);
-    console.log("option 이름=" + option.userName);
-    console.log("option 메시지=" + option.msg);
+    // console.log("option 타입=" + option.type);
+    // console.log("option 방번호=" + option.roomNumber);
+    // console.log("option 세션아이디=" + option.sessionId);
+    // console.log("option 이름=" + option.userName);
+    // console.log("option 메시지=" + option.msg);
     ws.send(JSON.stringify(option));
     $('#chatting').val("");
 }
@@ -89,3 +89,4 @@ $(function () {
     let today = moment().locale("ko").format('ll');
     $('.today').text(today);
 })
+
