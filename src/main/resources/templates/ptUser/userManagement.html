@@ -43,24 +43,25 @@
                 <!--                <td><span th:text="${acceptLists.pt_positiveDate}"></span></td>-->
                 <!--                <td><span th:text="${acceptLists.pt_wantTime}"></span></td>-->
                 <td>
-                    <a class="viewMoreBtn btn btn-outline-secondary">더보기</a>
-                    <div class="viewItem">
-                        <div class="one item">
-                            <a class="btn  btn-success"
+<!--                    <a class="viewMoreBtn btn btn-outline-secondary">더보기</a>-->
+<!--                    <div class="viewItem">-->
+<!--                        <div class="one item">-->
+                            <a class="btn  btn-outline-success"
                                th:href="@{/diet/list(id=${acceptLists.member.user_id})}">식단</a>
-                        </div>
-                        <div class="two item"><a class="btn  btn-success"
+<!--                        </div>-->
+<!--                        <div class="two item">-->
+                            <a class="btn  btn-outline-success"
                                 th:href="@{/ExRecord/exercise(id=${acceptLists.member.user_id})}">운동기록</a>
-                        </div>
-                        <div class="three item">
-                            <a class="btn  btn-success"
+<!--                        </div>-->
+<!--                        <div class="three item">-->
+                            <a class="btn  btn-outline-success"
                                th:href="@{/inBody/inBodyResult(id=${acceptLists.member.user_id})}">인바디</a>
-                        </div>
+<!--                        </div>-->
                         <!--            th:href="@{~/ptUser/detail(id=${trainer.id},-->
-                        <div class="four item">
-                            <a class="btn  btn-success" th:href="@{~/ptChat}">채팅</a>
-                        </div>
-                    </div>
+<!--                        <div class="four item">-->
+                            <a class="btn  btn-outline-success" th:href="@{~/ptChat}">채팅</a>
+<!--                        </div>-->
+<!--                    </div>-->
                     <a class="btn btn-outline-info"
                        th:href="@{~/ptUser/view/detail/{id}(id=${acceptLists.id})}">상세보기</a>
                     <a class="btn btn-outline-primary" th:href="@{~/calendar/memo(member_id=${acceptLists.member.id},

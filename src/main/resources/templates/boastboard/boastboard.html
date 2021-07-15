@@ -1,26 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        data-layout-decorate="~{layout/default}">
+      data-layout-decorate="~{layout/boot4}"
+>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script th:src="@{~/js/main/jquery.min.js}"></script>
-    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
-
+    <title>자랑게시판</title>
+    <link rel="stylesheet" th:href="@{~/css/board/board.css}">
 </head>
 <body>
-<div layout:fragment="content" class="">
+<div layout:fragment="content" class="content">
 
     <form th:action="@{/boastboard/bb}" method="get" id="searchForm" class="board_info">
         <div>
-            <h2>자랑 게시판</h2>
-            <div>
-                <a th:href="@{/board}">트레이너 게시판</a>
-                <a th:href="@{/boastboard/bb}">자랑 게시판</a>
-            </div>
+            <!--            <h2>자랑 게시판</h2>-->
+
             <input type="hidden" name="page" value="1">
+
             <div class="board_search">
+                <div class="btnArea">
+                    <a type="button" class="btn btn-outline-primary" th:href="@{/board}">게시판</a>
+                    <a type="button" class="btn btn-primary" th:href="@{/boastboard/bb}">자랑 게시판</a>
+                </div>
+
                 <select name="type">
                     <option value="t" th:selected="${PageRequestDto.type == 't'}">제목</option>
                     <option value="c" th:selected="${PageRequestDto.type == 'c'}">내용</option>
@@ -35,7 +38,7 @@
 
     </form>
 
-    <table class="table table-striped">
+    <table class="board">
         <thead class="thead-strong">
         <tr>
             <td width="10%">글번호</td>
@@ -63,8 +66,8 @@
         </tbody>
     </table>
 
-    <div class="text-center">
-        <ul class="pagination">
+    <div class="pagination_area">
+        <ul>
             <li th:if="${result.prev}">
                 <a class="custom_btn" th:href="@{/boastboard/bb(page = ${result.start -1},
                                         type=${PageRequestDto.type},
@@ -83,7 +86,10 @@
         </ul>
     </div>
 
-    <a class="btn btn-default pull-right" th:if="${session.loginRole == 'trainer'}" th:href="@{/boastboard/bbInsert}">등록</a>
+    <div th:if="${session.loginRole == 'trainer'}" class="post_write_btn_area">
+        <a class="custom_btn"
+           th:href="@{/boastboard/bbInsert}">등록</a>
+    </div>
 
     <script th:inline="javascript">
 

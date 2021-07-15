@@ -2,29 +2,26 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      data-layout-decorate="~{layout/default}"
+      data-layout-decorate="~{layout/boot4}"
 >
 <head>
-    <title>boardSelect</title>
+    <title>게시판</title>
     <link rel="stylesheet" th:href="@{~/css/board/board.css}">
-    <script th:src="@{~/js/board/board.js}" ></script>
-
-    <style>
-
-    </style>
-
+    <script th:src="@{~/js/board/board.js}"></script>
 </head>
 <div layout:fragment="content" class="content">
 
     <form th:action="@{/board}" method="get" id="searchForm" class="board_info">
         <div>
-            <h2>트레이너 게시판</h2>
-            <div>
-                <a th:href="@{/board}">트레이너 게시판</a>
-                <a th:href="@{/boastboard/bb}">자랑 게시판</a>
-            </div>
+            <!--            <h2>트레이너 게시판</h2>-->
+
             <input type="hidden" name="page" value="1">
             <div class="board_search">
+                <div class="btnArea">
+                    <a type="button" class="btn btn-primary" th:href="@{/board}">게시판</a>
+                    <a type="button" class="btn btn-outline-primary" th:href="@{/boastboard/bb}">자랑 게시판</a>
+                </div>
+
                 <select name="type">
                     <!--                <option th:selected="${PageRequestDto.type == null}"></option>-->
                     <option value="t" th:selected="${PageRequestDto.type == 't'}">제목</option>
@@ -53,7 +50,7 @@
         <tbody id="tbody">
         <tr th:each="notices : ${notice.dtoList}">
             <td th:text="${notices.id}"></td>
-            <td ><span>공지) </span><a th:text="${notices.title}" th:href="@{/board/noticeDetail/(id = ${notices.id},
+            <td><span>공지) </span><a th:text="${notices.title}" th:href="@{/board/noticeDetail/(id = ${notices.id},
                                                        page=${PageRequestDto.page},
                                                        type=${PageRequestDto.type},
                                                        keyword=${PageRequestDto.keyword})}"></a></td>
@@ -100,7 +97,8 @@
     </div>
 
     <div class="post_write_btn_area">
-        <a th:href="@{/board/trainerBoard/save(member_id = ${session.loginUser})}" th:if="${session.loginUser != null}" class="custom_btn">글쓰기</a>
+        <a th:href="@{/board/trainerBoard/save(member_id = ${session.loginUser})}" th:if="${session.loginUser != null}"
+           class="custom_btn">글쓰기</a>
     </div>
 
 

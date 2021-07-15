@@ -32,12 +32,12 @@
 
 .viewItem {
     display: none;
-    position: absolute;
+    /*position: absolute;*/
     /*background-color: blue;*/
-    width: 200px;
+    /*width: 200px;*/
 }
 .item{
-    margin-top: 5px;
+    /*margin-top: 5px;*/
 }
 
 .active {

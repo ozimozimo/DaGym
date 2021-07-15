@@ -35,7 +35,7 @@ function createChatingRoom(res){
             tag += "<tr>"+
                 "<td class='num'>"+(idx+1)+"</td>"+
                 "<td class='room'>"+ rn +"</td>"+
-                "<td class='go'><button type='button' onclick='goRoom(\""+roomNumber+"\", \""+rn+"\")'>참여</button></td>" +
+                "<td class='go'><button type='button' class='btn btn-outline-secondary' onclick='goRoom(\""+roomNumber+"\", \""+rn+"\")'>참여</button></td>" +
                 "</tr>";
         });
         $("#roomList").empty().append(tag);
