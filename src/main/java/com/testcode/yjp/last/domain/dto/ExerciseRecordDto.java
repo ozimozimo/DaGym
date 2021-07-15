@@ -17,11 +17,13 @@ public class ExerciseRecordDto {
     private String ex_weight; // KG
     private String ex_count; // 렙
     private String ex_date; // 운동한 날짜
+
     private String ex_time; // 운동한 시간
     private String ex_meter; // KM
     private Long ex_record_member_id;
     private Long exercise_id;
     private String ex_name;
+
     private String ex_category;
     private String ex_parts;
     private String kcal;
@@ -32,6 +34,16 @@ public class ExerciseRecordDto {
         this.ex_weight = exRecord.getEx_weight();
         this.ex_count = exRecord.getEx_count();
         this.ex_date = exRecord.getEx_date();
+
+        this.ex_time = exRecord.getEx_time();
+        this.ex_meter = exRecord.getEx_meter();
+        this.ex_record_member_id = exRecord.getMember().getId();
+        this.exercise_id = exRecord.getExercise().getEx_id();
+        this.ex_name = exRecord.getEx_name();
+
+        this.ex_category = exRecord.getEx_count();
+        this.ex_parts = exRecord.getEx_parts();
+        this.kcal = exRecord.getKcal();
     }
 
     public ExRecord toEntity() {

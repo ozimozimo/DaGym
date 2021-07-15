@@ -16,6 +16,9 @@ public interface ExerciseRecordRepository extends JpaRepository<ExRecord, Long> 
     @Query("select e from ExRecord e where e.member.user_id = :id")
     List<ExRecord> findAllDesc(String id);
 
+    @Query("select e from ExRecord e where e.member.id = :id and e.ex_date = :ex_date")
+    List<ExRecord> findAllDesc(Long id, String ex_date);
+
     // 날짜에 맞는 데이터 가져오기
     @Query(value = "select e from ExRecord e where e.member.user_id = :id and e.ex_date = :ex_date")
     List<ExRecord> findByIdWithExDate(String id, String ex_date);
