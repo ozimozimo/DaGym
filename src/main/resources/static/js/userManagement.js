@@ -11,7 +11,7 @@ $(function () {
         $(this).text(phone);
     })
 
-    btnShow();
+    // btnShow();
     $( window ).resize(function() {
         $('.active').removeClass('active');
     });
@@ -38,52 +38,52 @@ function PTFinish(pt_id, pt_times) {
         });
     }
 }
-
-function btnShow() {
-    $('.viewMoreBtn').on("click", function () {
-        let viewItem = $(this).next();
-
-        if(viewItem.hasClass('active')){
-            viewItem.removeClass('active');
-            return false;
-        }
-        $('.active').removeClass('active');
-        console.log($(this).offset().top);
-        console.log($(this).offset().left);
-        let top = $(this).offset().top;
-        let left = $(this).offset().left;
-
-
-        // let one = viewItem.find('one');
-        // let two = viewItem.find('two');
-        // let three = viewItem.find('three');
-        // let four = viewItem.find('four');
-        //
-        // console.log(one);
-        // console.log(two);
-        // console.log(three);
-        // console.log(four);
-
-
-        // let topValue = 250;
-        // let leftValue = 250;
-        //
-        // one.css('top', top + topValue);
-        // one.css('left', left - leftValue);
-        //
-        // two.css('top', top - topValue);
-        // two.css('left', left);
-        //
-        // three.css('top', top);
-        // three.css('left', left + leftValue);
-        //
-        // four.css('top', top + topValue);
-        // four.css('left', left);
-
-        viewItem.css('top', top-50);
-        viewItem.css('left', left-120);
-
-        viewItem.toggleClass('active');
-
-    })
-}
+//
+// function btnShow() {
+//     $('.viewMoreBtn').on("click", function () {
+//         let viewItem = $(this).next();
+//
+//         if(viewItem.hasClass('active')){
+//             viewItem.removeClass('active');
+//             return false;
+//         }
+//         $('.active').removeClass('active');
+//         console.log($(this).offset().top);
+//         console.log($(this).offset().left);
+//         let top = $(this).offset().top;
+//         let left = $(this).offset().left;
+//
+//
+//         // let one = viewItem.find('one');
+//         // let two = viewItem.find('two');
+//         // let three = viewItem.find('three');
+//         // let four = viewItem.find('four');
+//         //
+//         // console.log(one);
+//         // console.log(two);
+//         // console.log(three);
+//         // console.log(four);
+//
+//
+//         // let topValue = 250;
+//         // let leftValue = 250;
+//         //
+//         // one.css('top', top + topValue);
+//         // one.css('left', left - leftValue);
+//         //
+//         // two.css('top', top - topValue);
+//         // two.css('left', left);
+//         //
+//         // three.css('top', top);
+//         // three.css('left', left + leftValue);
+//         //
+//         // four.css('top', top + topValue);
+//         // four.css('left', left);
+//
+//         viewItem.css('top', top-50);
+//         viewItem.css('left', left-120);
+//
+//         viewItem.toggleClass('active');
+//
+//     })
+// }

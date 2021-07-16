@@ -5,32 +5,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script th:src="@{~/js/main/jquery.min.js}"></script>
-    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
+
+    <link rel="stylesheet" th:href="@{~/css/board/board.css}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+          integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+
+
     <script th:src="@{~/js/boastboard/boastboard.js}"></script>
     <script th:src="@{~/js/boastboard/boastboardDetail.js}"></script>
-
+<style>
+    .post_content{
+        margin-top:0px;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 120px;
+    }
+    .recommendArea{
+        display: flex;
+        justify-content: center;
+        padding-top: 50px;
+    }
+    th {
+        border: none;
+    }
+    .recommendBtn {
+        border: none;
+        background: #F9F9F9;
+    }
+</style>
 
 </head>
 <body>
 <div layout:fragment="content" class="content">
 
-    <div class="">
+    <div class="post_header">
         <input type="hidden" th:value="${bb.id}" id="bb_num" name="bb_num">
         <input type="hidden" th:value="${session.loginUser}" id="member_id" name="member_id">
-        <div th:text="${bb.title}" class=""></div>
-        <div class="">
-            <div class="">
-                <div th:text="${bb.user_id}" class=""></div>
+        <div th:text="${bb.title}" class="post_title"></div>
+        <div class="post_info">
+            <div class="left">
+                <div th:text="${bb.user_id}" class="post_author"></div>
             </div>
-            <div class="">
-                <div class="">
+            <div class="right">
+                <div class="updated_at">
                     <span>수정날짜:</span>
                     <span th:text="${#temporals.format(bb.modifiedDate, 'yyyy/MM/dd HH:mm:ss')}">
 
                     </span>
                 </div>
-                <div class="">
+                <div class="hits">
                     <span>조회수:</span>
                     <span th:text="${bb.hit}" class=""></span>
                 </div>
@@ -48,49 +70,37 @@
         <img th:if="${bb.imgName == null}"/>
     </div>
 
-    <div class="" th:text="${bb.content}"></div>
-
-    <div class="">
-        <a th:href="@{/boastboard/bbUpdate(bb_num = ${bb.id},
-                                        page=${PageRequestDto.page},
-                                        type=${PageRequestDto.type},
-                                        keyword=${PageRequestDto.keyword})}"
-           th:if="${session.loginId == bb.user_id}"
-           class="">글수정</a>
-        <a th:href="@{/boastboard/bb(page=${PageRequestDto.page},
-                                        page=${PageRequestDto.page},
-                                        type=${PageRequestDto.type},
-                                        keyword=${PageRequestDto.keyword})}" class="">이전
-        </a>
+    <div class="post_content">
+        <div th:text="${bb.content}"></div>
     </div>
 
     <!-- 추천 -->
-    <div>
+    <div class="recommendArea">
         <table style="text-align: center">
             <thead>
             <tr>
                 <th>
-                    <button id="l" onclick="EmoInsert('l')" style="border: none"><img th:src="@{~/image/like.png}"
+                    <button id="l" onclick="EmoInsert('l')" class="recommendBtn" ><img th:src="@{~/image/like.png}"
                                                                                       width="25" height="25">
                         <p style="margin-top: 0px; margin-bottom: 0px" class="like">좋아요</p></button>
                 </th>
                 <th>
-                    <button id="m" onclick="EmoInsert('m')" style="border: none"><img th:src="@{~/image/mlike.png}"
+                    <button id="m" onclick="EmoInsert('m')" class="recommendBtn"><img th:src="@{~/image/mlike.png}"
                                                                                       width="25" height="25">
                         <p style="margin-top: 0px; margin-bottom: 0px">훈훈해요</p></button>
                 </th>
                 <th>
-                    <button id="s" onclick="EmoInsert('s')" style="border: none"><img th:src="@{~/image/sad.png}"
+                    <button id="s" onclick="EmoInsert('s')" class="recommendBtn"><img th:src="@{~/image/sad.png}"
                                                                                       width="25" height="25">
                         <p style="margin-top: 0px; margin-bottom: 0px">슬퍼요</p></button>
                 </th>
                 <th>
-                    <button id="a" onclick="EmoInsert('a')" style="border: none"><img th:src="@{~/image/angry.png}"
+                    <button id="a" onclick="EmoInsert('a')" class="recommendBtn"><img th:src="@{~/image/angry.png}"
                                                                                       width="25" height="25">
                         <p style="margin-top: 0px; margin-bottom: 0px">화나요</p></button>
                 </th>
                 <th>
-                    <button id="w" onclick="EmoInsert('w')" style="border: none"><img th:src="@{~/image/want.png}"
+                    <button id="w" onclick="EmoInsert('w')" class="recommendBtn"><img th:src="@{~/image/want.png}"
                                                                                       width="25" height="25">
                         <p style="margin-top: 0px; margin-bottom: 0px">추가 후기 원해요</p></button>
                 </th>
@@ -106,6 +116,20 @@
             </tr>
             </tbody>
         </table>
+    </div>
+
+    <div class="post_control_btn_area">
+        <a th:href="@{/boastboard/bbUpdate(bb_num = ${bb.id},
+                                        page=${PageRequestDto.page},
+                                        type=${PageRequestDto.type},
+                                        keyword=${PageRequestDto.keyword})}"
+           th:if="${session.loginId == bb.user_id}"
+           class="custom_btn">글수정</a>
+        <a th:href="@{/boastboard/bb(page=${PageRequestDto.page},
+                                        page=${PageRequestDto.page},
+                                        type=${PageRequestDto.type},
+                                        keyword=${PageRequestDto.keyword})}" class="custom_btn">이전
+        </a>
     </div>
 
 </div>

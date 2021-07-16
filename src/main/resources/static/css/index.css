@@ -18,30 +18,23 @@
 /* CONTAINER */
 .bg {
     font-family: 'ROKABold';
-    width: 100%;
-    height: 1000px;
+    width: 1980px;
+    height:1200px;
     overflow: hidden;
-    margin : 0 auto;
+
     position: relative;
 }
 video {
     width: 100%;
-    height:1000px;
+
 }
-.text {
+.textArea {
     position: absolute;
-    width: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+    top:55%;
+    right:10%;
+    opacity: 0.9;
 }
-.dagymText {
-    position: absolute;
-    width: 100%;
-    top: 70%;
-    left:20%;
-    transform: translate(-50%,-50%);
-}
+
 .dagymText p{
     text-align: right;
     font-size: 32px;
@@ -54,8 +47,38 @@ video {
     color: #ffffff;
 }
 
+.map_area {
+    font-family: 'ROKABold';
+    width: 1980px;
+    height:700px;
+    text-align: center;
 
+}
+.mapArea{
 
+}
+
+#map {
+    margin: 0 auto;
+}
+
+/*.map_img {*/
+/*    width: 1140px;*/
+/*    height: 450px;*/
+/*    margin: 0 auto;*/
+/*}*/
+
+.map_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.mapH2{
+    font-family: 'EliceDigitalBaeum_Bold';
+}
+.mapP{
+    font-family: 'EliceDigitalBaeum_Regular';
+}
 
 /*.home {*/
 /*    font-family: 'RixYeoljeongdo_Regular';*/
@@ -335,20 +358,3 @@ video {
 /*    background-size: cover;*/
 
 /*}*/
-.map_area {
-    padding: 30px 0px;
-    text-align: center;
-    height:700px;
-}
-
-/*.map_img {*/
-/*    width: 1140px;*/
-/*    height: 450px;*/
-/*    margin: 0 auto;*/
-/*}*/
-
-.map_img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}

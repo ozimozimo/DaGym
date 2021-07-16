@@ -309,8 +309,9 @@ select.filter {
 
 }
 
-.title {
+.title{
     font-family: 'EliceDigitalBaeum_Bold';
+    font-size: 28px;
 }
 
 @media screen and (min-width: 1200px) {

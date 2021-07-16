@@ -58,38 +58,50 @@
 
 
         <!-- 로그인한 유저롤이 유저일 때-->
-        <div th:if="${session.loginRole == 'user'} ">
+        <div th:if="${session.loginRole == 'user'} " class="user">
+            <div class="underline1">
+                <h2 class="sub-title title">트레이너 찾기</h2>
+                <!--                    <hr class="hr-style1">-->
+            </div>
+
             <div class="box1">
-                <div class="underline1">
-                    <h2 class="sub-title">트레이너 찾기</h2>
-                    <!--                    <hr class="hr-style1">-->
-                </div>
                 <!--        <a th:href="@{/ptUser/view}">검색으로 찾기</a>-->
-                <a th:href="@{/ptUser/view/map}" class="a_map">맵으로 찾기</a>
+
                 <h1 th:text="${session.loginId}" class="loginId" style="display: none"></h1>
                 <input type="hidden" th:value="${session.loginUser}" name="member_id"/>
                 <!--트레이너 검색-->
-                <form th:action="@{/ptUser/view}" method="get" id="searchForm">
-                    <div class="input-group">
-                        <input type="hidden" name="page" value="1">
-                        <div class="input-group-prepend">
-                            <select class="custom-select" name="type">
-                                <option th:selected="${pageRequestDto.type == null}"></option>
-                                <option value="n" th:selected="${pageRequestDto.type == 'n'}">이름</option>
-                                <option value="g" th:selected="${pageRequestDto.type == 'g'}">헬스장이름</option>
-                                <option value="c" th:selected="${pageRequestDto.type == 'c'}">운동목적</option>
-                                <option value="ki" th:selected="${pageRequestDto.type == 'ki'}">SNS</option>
-                                <option value="p" th:selected="${pageRequestDto.type == 'p'}">경력사항</option>
-                                <option value="ngc" th:selected="${pageRequestDto.type == 'ngc'}">이름+헬스장이름+운동목적</option>
-                            </select>
+                <div class="searchArea">
+                    <form th:action="@{/ptUser/view}" method="get" id="searchForm">
+                        <div class="input-group">
+                            <input type="hidden" name="page" value="1">
+                            <div class="input-group-prepend">
+                                <!--                            <select class="custom-select" name="type">-->
+                                <select class="form-control" name="type">
+
+                                    <!--                                <option th:selected="${pageRequestDto.type == null}"></option>-->
+                                    <option value="n" th:selected="${pageRequestDto.type == 'n'}" selected>이름</option>
+                                    <option value="g" th:selected="${pageRequestDto.type == 'g'}">헬스장이름</option>
+                                    <option value="c" th:selected="${pageRequestDto.type == 'c'}">운동목적</option>
+                                    <option value="ki" th:selected="${pageRequestDto.type == 'ki'}">SNS</option>
+                                    <option value="p" th:selected="${pageRequestDto.type == 'p'}">경력사항</option>
+                                    <option value="ngc" th:selected="${pageRequestDto.type == 'ngc'}">이름+헬스장이름+운동목적
+                                    </option>
+                                </select>
+                            </div>
                         </div>
-                        <input class="form-control" name="keyword" th:value="${pageRequestDto.keyword}"/>
-                        <div class="input-group-append" id="button-addon4">
-                            <button class="search_btn" type="button">검색</button>
-                            <button class="clear_btn" type="button">Clear</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="keywordControl">
+                    <input class="form-control keyword" name="keyword" th:value="${pageRequestDto.keyword}"/>
+                </div>
+                <div class="" id="button-addon4">
+                    <button class="search_btn" type="button">검색</button>
+                    <button class="clear_btn" type="button">Clear</button>
+                    <button class="map_btn">
+                        <a th:href="@{/ptUser/view/map}" class="a_map">맵으로 찾기</a>
+                    </button>
+                </div>
+
             </div>
 
             <div class="box2" style="display: none">
@@ -119,7 +131,7 @@
 
             <div class="user_view">
                 <div class="underline3">
-                    <h5 class="sub-title">트레이너 검색 결과</h5>
+                    <h5 class="sub-title title">트레이너 검색 결과</h5>
                     <!--                    <hr class="hr-style1">-->
                 </div>
                 <div th:each="trainer : ${result.dtoList}" class="card-box">
