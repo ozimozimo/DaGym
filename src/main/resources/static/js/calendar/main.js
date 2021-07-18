@@ -17,7 +17,7 @@ var calendar = $('#calendar').fullCalendar({
     selectable: true,
     weekNumberCalculation: "ISO",
     eventLimit: true,
-    eventLimitClick: 'week', //popover
+    eventLimitClick: 'popover', //popover
     navLinks: true,
     defaultDate: moment().format('YYYY-MM'), //실제 사용시 현재 날짜로 수정
     timeFormat: 'HH:mm',

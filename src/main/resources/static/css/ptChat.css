@@ -305,7 +305,7 @@ body {
     float: left;
     width: 20px;
     height: 42px;
-    margin-left: 50px;
+    margin-left: 75px;
     content: "";
     background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/send.png");
     background-repeat: no-repeat;
@@ -454,4 +454,8 @@ ul{
 }
 .meChat{
     float: right;
+}
+
+.container{
+    font-family: 'EliceDigitalBaeum_Regular';
 }

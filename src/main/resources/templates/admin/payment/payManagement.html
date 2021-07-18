@@ -86,6 +86,7 @@
             <th class="text-center">트레이너이름(트레이너아이디)</th>
             <th class="text-center">결제금액</th>
             <th class="text-center">결제방식</th>
+            <th class="text-center">결제상태</th>
             <th class="text-center">결제일</th>
         </tr>
         </thead>
@@ -96,6 +97,7 @@
             <td><span th:text="${payList.trainerInfo.member.user_name}"></span>(<span th:text="${payList.trainerInfo.member.user_id}"></span>)</td>
             <td><span th:text="${payList.pt_amount}"></span></td>
             <td><span th:text="${payList.pay_method}"></span></td>
+            <td><span th:text="${payList.bt_cancel}" class="bt_cancel"></span></td>
             <td th:text="${#temporals.format(payList.regDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
         </tr>
         </tbody>
@@ -132,6 +134,19 @@
             searchForm.empty().submit();
 
         }
+        $(function () {
+            let a = $('.bt_cancel');
+            a.each(function (i, el) {
+                let state = $(this).text();
+                if (state == 0) {
+                    $(this).text("결제승인");
+                } else {
+                    $(this).text("결제환불");
+                }
+            });
+
+        });
+
 
 
     </script>

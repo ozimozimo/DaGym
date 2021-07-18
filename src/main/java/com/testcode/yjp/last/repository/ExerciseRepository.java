@@ -14,4 +14,13 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
 
     @Query("select e from Exercise e where e.ex_category =:ex_category")
     Exercise findByEx_category(String ex_category);
+
+    @Query("select e from Exercise e where e.ex_parts = :ex_parts")
+    List<Exercise> findByEx_parts(String ex_parts);
+
+    @Query("select e from Exercise e where e.ex_category =:ex_category")
+    List<Exercise> findByEx_categorys(String ex_category);
+
+    @Query("select e from Exercise e where e.ex_category =:ex_category and e.ex_parts = :ex_parts")
+    List<Exercise> findByEx_categorysAndEx_parts(String ex_category, String ex_parts);
 }

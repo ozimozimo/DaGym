@@ -1,5 +1,6 @@
 package com.testcode.yjp.last.domain;
 
+import com.testcode.yjp.last.domain.dto.ExerciseRecordDto;
 import com.testcode.yjp.last.domain.dto.android.AndExerciseRecordDto;
 import lombok.*;
 
@@ -36,4 +37,15 @@ public class ExRecord extends BaseEntity{
     @JoinColumn(name = "ex_id")
     private Exercise exercise;
 
+    public ExRecord(ExerciseRecordDto e) {
+        this.ex_set = e.getEx_set();
+        this.ex_weight = e.getEx_weight();
+        this.ex_count = e.getEx_count();
+        this.ex_date = e.getEx_date();
+        this.ex_time = e.getEx_time();
+        this.ex_meter = e.getEx_meter();
+        this.ex_parts = e.getEx_parts();
+        this.ex_name = e.getEx_name();
+        this.kcal = e.getKcal();
+    }
 }

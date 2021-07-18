@@ -264,6 +264,11 @@ function mkApply(data) {
         var p = data[i].id;
         console.log("ptUser pk는" + p);
 
+        console.log(j);
+        j = j + k;
+        console.log(j);
+        k = changeGender(k);
+        j = getAge(j);
 
         let content = "<tr>"
         // content += `<input type="hidden" value="${mem_Id}" id="mem_Id" name="mem_Id"> `
@@ -277,16 +282,57 @@ function mkApply(data) {
         content += "<td class='ptUserWeight'>" + b + "</td>"
         content += `<input type="hidden" value="${p}" class= "pt_user_id2" id="pt_user_id" name="pt_user_id"> `
         content += `<input type="hidden" value="${member_id}" class= "member_id2" id="member_id2" name="member_id2"> `
-        content += `<td><a href='/ptUser/view/detail/${l}'>상세보기</a></td>`
-        content += "<td><button type='button' class='btn-primary Accept'>수락</button></td>"
-        content += "<td><button type='button' class='btn-primary Deny'>거절</button></td></tr>"
+        content += `<td><a href='/ptUser/view/detail/${l}' class="detailView">상세보기</a></td>`
+        content += "<td><button type='button' class='btn btn-outline-primary btn-sm Accept' style='margin-right:20px'>수락</button>"
+        content += "<button type='button' class='btn btn-outline-danger btn-sm Deny'>거절</button></td></tr>"
         $('.applyListDetail').append(content);
 
         $('.Accept').on("click", updateAccept);
         $('.Deny').on("click", updateAccept);
 
+        $('.ptUserPn').each(function () {
+            let str = $(this).text();
+            let phone = str.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/, "$1-$2-$3");
+            $(this).text(phone);
+        })
 
     }
+}
+
+function changeGender(string){
+    let gender = "";
+    if(string == 1 || string == 3) gender = "남";
+    else gender = "여";
+    return gender;
+}
+function getAge(ssnNo) {
+
+    var curDateObj = new Date(); // 날짜 Object 생성
+    var tmpSSN = ssnNo; // 주민번호
+    var curDate = ''; // 현재일자
+    var tmpAge = 0; // 임시나이
+    var y = curDateObj.getFullYear(); // 현재년도
+    var m = curDateObj.getMonth() + 1; // 현재월
+    if(m < 10) m = '0' + m; // 현재 월이 10보다 작을경우 '0' 문자 합한다
+    var d = curDateObj.getDate(); // 현재일
+    if(d < 10) d = '0' + d; // 현재 일이 10보다 작을경우 '0' 문자 합한다
+    curDate = y + m + d;
+
+    var genType = tmpSSN.substring(6, 7); // 주민번호 성별구분 문자 추출
+
+    if(genType <= 2) {
+        tmpAge = y - (1900 + parseInt(tmpSSN.substring(0, 2))); // 1, 2 일경우
+    } else {
+        tmpAge = y - (2000 + parseInt(tmpSSN.substring(0, 2))); // 그 외의 경우
+    }
+
+    var tmpBirthday = tmpSSN.substring(2, 6); // 주민번호 4자리 생일문자 추출
+
+    if(curDate < (y + tmpBirthday)) {
+        tmpAge += 1;
+    }
+
+    return tmpAge;
 }
 
 

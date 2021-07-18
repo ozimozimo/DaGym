@@ -1,3 +1,10 @@
+/*@font-face {*/
+/*    font-family: 'twayair';*/
+/*    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_tway@1.0/twayair.woff') format('woff');*/
+/*    font-weight: normal;*/
+/*    font-style: normal;*/
+/*}*/
+
 .total {
     margin-left: 10%;
     width: 80%;
@@ -111,6 +118,7 @@
 .pagination_area ul li:last-child {
     margin-right: 0px;
 }
+
 .card-box {
     text-align: center;
     padding: 30px;
@@ -129,12 +137,14 @@
     text-align: left;
     margin: 15px 20px 10px 15px;
 }
+
 .item-name {
     margin-bottom: 5px;
     margin-left: 8px;
     padding: 3px 0 2px 0;
     font-weight: bold;
 }
+
 .trainer-text {
     font-weight: normal;
     font-size: 13px;
@@ -145,6 +155,7 @@
     text-align: center;
     overflow: hidden;
 }
+
 .img-img {
     object-fit: fill;
 }
@@ -166,9 +177,11 @@
     margin-left: 10px;
     padding: 1px 0 4px 0;
 }
+
 .item-kakao {
     margin-bottom: 2px;
 }
+
 .item-insta {
     margin-bottom: 2px;
 }
@@ -202,68 +215,148 @@
     font-size: 22px;
     font-weight: bold;
 }
+
 .underline1 {
     width: 150px;
 }
+
 .underline2 {
     width: 220px;
 }
+
 .underline3 {
     width: 200px;
 }
+
 .hr-style1 {
     width: 20px;
     height: 7px;
     background-color: black;
 }
+
 .box1 {
-    margin-bottom: 60px;
+    /*margin-bottom: 60px;*/
+    /*text-align: left;*/
+    display: flex;
+    justify-content: flex-start;
+    min-width: 800px;
+    border-bottom: 2px solid #777777;
+    width: 100%;
+    padding-bottom: 30px;
 }
+
 .box2 {
     margin-bottom: 120px;
     border-top: 2px solid #777777;
     padding-top: 30px;
+    padding-bottom: 30px;
 }
+
 .user_view {
-    border-top: 2px solid #777777;
+    /*border-top: 2px solid #777777;*/
     padding-top: 30px;
+    min-width: 800px;
 }
+
 .custom-select {
     width: 250px;
-    height: 30px;
+    height: 40px;
 }
+
 .form-control {
     width: 250px;
 }
+
 .search_btn {
     width: 100px;
-    height: 40px;
+    height: 38px;
     background-color: #FFD400;
     border: 0px;
-    margin-left: 20px;
-    margin-top: 10px;
+
 }
+
 .clear_btn {
     width: 100px;
-    height: 40px;
+    height: 38px;
     background-color: #FFD400;
     border: 0px;
 }
+
 .a_map {
-    display: block;
-    margin-left: 170px;
-    margin-bottom: 3px;
-    text-decoration: underline;
+    /*display: block;*/
+    /*margin-left: 170px;*/
+    /*margin-bottom: 3px;*/
+    /*text-decoration: underline;*/
+    text-decoration: none;
+    color:#FFFFFF;
 }
+.a_map:hover{
+    text-decoration: none;
+    color:#FFFFFF;
+}
+
 .address_normal {
     font-size: 11px;
     margin-left: 10px;
 }
+
 .user_gender {
     font-size: 11px;
     font-weight: normal;
 }
+
 .user_rrn {
     font-size: 12px;
     font-weight: normal;
+}
+
+/*adasdasdasdasdad*/
+
+.title {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-family: 'EliceDigitalBaeum_Bold';
+
+}
+
+.total {
+    font-family: 'EliceDigitalBaeum_Regular';
+
+}
+
+.total .table td {
+    font-weight: 300;
+}
+
+.detailView:hover {
+    text-decoration: none;
+}
+
+.keywordControl {
+    width: 300px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.keywordControl input {
+    width: 100%;
+}
+
+.search_btn{
+    margin-right: 15px;
+}
+
+#button-addon4{
+    width: 350px;
+}
+
+.map_btn {
+    margin-left: 15px;
+    width: 100px;
+    height: 38px;
+    background-color: #08ad01;
+    border: 0px;
+}
+.map_btn:hover{
+    background-color: #24a321;
 }

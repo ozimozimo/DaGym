@@ -1,0 +1,74 @@
+/*.content {*/
+/*    padding: 50px 100px 0 150px;*/
+/*}*/
+/*.search-form {*/
+/*    display: flex;*/
+/*}*/
+
+/*.search-type {*/
+/*    width: 150px;*/
+/*    margin-right: 5px;*/
+/*}*/
+
+/*.search-input {*/
+/*    width: 250px;*/
+/*    margin-right: 5px;*/
+/*}*/
+
+.trainerArea {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.title {
+    font-family: 'EliceDigitalBaeum_Bold';
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.table {
+    font-family: 'EliceDigitalBaeum_Regular';
+}
+
+.viewItem {
+    display: none;
+    /*position: absolute;*/
+    /*background-color: blue;*/
+    /*width: 200px;*/
+}
+.item{
+    /*margin-top: 5px;*/
+}
+
+.active {
+    display: block;
+}
+/*.one{*/
+/*    position: absolute;*/
+/*    margin-left: -60px;*/
+/*    margin-top: 0px;*/
+/*    !*left: 0%;*!*/
+/*    !*top: 10%;*!*/
+/*}*/
+/*.two{*/
+/*    position: absolute;*/
+/*    margin-left: -7px;*/
+/*    margin-top: -40px;*/
+/*    !*left: 50%;*!*/
+/*    !*top: 0%;*!*/
+/*}*/
+/*.three{*/
+/*    position: absolute;*/
+/*    margin-left: 75px;*/
+/*    margin-top: 0px;*/
+/*    !*left: -50%;*!*/
+/*    !*top: 50%;*!*/
+/*}*/
+/*.four{*/
+/*    position: absolute;*/
+/*    margin-left: 8px;*/
+/*    margin-top: 40px;*/
+/*    !*left: 0%;*!*/
+/*    !*top: -50%;*!*/
+/*}*/
+

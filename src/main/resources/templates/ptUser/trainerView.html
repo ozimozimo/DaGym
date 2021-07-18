@@ -3,7 +3,7 @@
         lang="ko"
         xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        data-layout-decorate="~{layout/default}"
+        data-layout-decorate="~{layout/boot4}"
 >
 <head>
     <script th:src="@{/js/trainer.js?ver=1.0}"></script>
@@ -14,9 +14,10 @@
     <link rel="stylesheet" th:href="@{/css/trainerView.css}"/>
     <style>
         .pt_basic_info {
-            text-decoration:line-through;
+            text-decoration: line-through;
         }
-        .pt_discount, .pt_addCount{
+
+        .pt_discount, .pt_addCount {
             display: none;
         }
     </style>
@@ -30,65 +31,77 @@
         <div th:if="${session.loginRole == 'trainer'}">
             <input type="hidden" th:value="${session.loginUser}" id="member_id">
             <div>
-                <div>
-                    <h1>받은 신청</h1>
-                    <div>
-                        <table class="table table-striped applyList">
-                            <thead>
-                            <tr>
-                                <th>회원아이디</th>
-                                <th>회원이름</th>
-                                <th>연락처</th>
-                                <th>나이</th>
-                                <th>성별</th>
-                                <th>키</th>
-                                <th>몸무게</th>
-                                <th>상세보기</th>
-                            </tr>
-                            </thead>
-                            <tbody class="applyListDetail">
+                <div class="title"><h3>받은 신청</h3></div>
 
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <table class="table table-hover applyList text-center">
+                    <thead>
+                    <tr>
+                        <th>회원아이디</th>
+                        <th>회원이름</th>
+                        <th>연락처</th>
+                        <th>(만)나이</th>
+                        <th>성별</th>
+                        <th>키(cm)</th>
+                        <th>몸무게(kg)</th>
+                        <th></th>
+                        <th></th>
+
+                    </tr>
+                    </thead>
+                    <tbody class="applyListDetail">
+
+                    </tbody>
+                </table>
+
             </div>
         </div>
 
 
         <!-- 로그인한 유저롤이 유저일 때-->
-        <div th:if="${session.loginRole == 'user'} ">
+        <div th:if="${session.loginRole == 'user'} " class="user">
+            <div class="underline1">
+                <h2 class="sub-title title">트레이너 찾기</h2>
+                <!--                    <hr class="hr-style1">-->
+            </div>
+
             <div class="box1">
-                <div class="underline1">
-                    <h2 class="sub-title">트레이너 찾기</h2>
-                    <!--                    <hr class="hr-style1">-->
-                </div>
                 <!--        <a th:href="@{/ptUser/view}">검색으로 찾기</a>-->
-                <a th:href="@{/ptUser/view/map}" class="a_map">맵으로 찾기</a>
+
                 <h1 th:text="${session.loginId}" class="loginId" style="display: none"></h1>
                 <input type="hidden" th:value="${session.loginUser}" name="member_id"/>
                 <!--트레이너 검색-->
-                <form th:action="@{/ptUser/view}" method="get" id="searchForm">
-                    <div class="input-group">
-                        <input type="hidden" name="page" value="1">
-                        <div class="input-group-prepend">
-                            <select class="custom-select" name="type">
-                                <option th:selected="${pageRequestDto.type == null}"></option>
-                                <option value="n" th:selected="${pageRequestDto.type == 'n'}">이름</option>
-                                <option value="g" th:selected="${pageRequestDto.type == 'g'}">헬스장이름</option>
-                                <option value="c" th:selected="${pageRequestDto.type == 'c'}">운동목적</option>
-                                <option value="ki" th:selected="${pageRequestDto.type == 'ki'}">SNS</option>
-                                <option value="p" th:selected="${pageRequestDto.type == 'p'}">경력사항</option>
-                                <option value="ngc" th:selected="${pageRequestDto.type == 'ngc'}">이름+헬스장이름+운동목적</option>
-                            </select>
+                <div class="searchArea">
+                    <form th:action="@{/ptUser/view}" method="get" id="searchForm">
+                        <div class="input-group">
+                            <input type="hidden" name="page" value="1">
+                            <div class="input-group-prepend">
+                                <!--                            <select class="custom-select" name="type">-->
+                                <select class="form-control" name="type">
+
+                                    <!--                                <option th:selected="${pageRequestDto.type == null}"></option>-->
+                                    <option value="n" th:selected="${pageRequestDto.type == 'n'}" selected>이름</option>
+                                    <option value="g" th:selected="${pageRequestDto.type == 'g'}">헬스장이름</option>
+                                    <option value="c" th:selected="${pageRequestDto.type == 'c'}">운동목적</option>
+                                    <option value="ki" th:selected="${pageRequestDto.type == 'ki'}">SNS</option>
+                                    <option value="p" th:selected="${pageRequestDto.type == 'p'}">경력사항</option>
+                                    <option value="ngc" th:selected="${pageRequestDto.type == 'ngc'}">이름+헬스장이름+운동목적
+                                    </option>
+                                </select>
+                            </div>
                         </div>
-                        <input class="form-control" name="keyword" th:value="${pageRequestDto.keyword}" />
-                        <div class="input-group-append" id="button-addon4">
-                            <button class="search_btn" type="button">검색</button>
-                            <button class="clear_btn" type="button">Clear</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="keywordControl">
+                    <input class="form-control keyword" name="keyword" th:value="${pageRequestDto.keyword}"/>
+                </div>
+                <div class="" id="button-addon4">
+                    <button class="search_btn" type="button">검색</button>
+                    <button class="clear_btn" type="button">Clear</button>
+                    <button class="map_btn">
+                        <a th:href="@{/ptUser/view/map}" class="a_map">맵으로 찾기</a>
+                    </button>
+                </div>
+
             </div>
 
             <div class="box2" style="display: none">
@@ -118,7 +131,7 @@
 
             <div class="user_view">
                 <div class="underline3">
-                    <h5 class="sub-title">트레이너 검색 결과</h5>
+                    <h5 class="sub-title title">트레이너 검색 결과</h5>
                     <!--                    <hr class="hr-style1">-->
                 </div>
                 <div th:each="trainer : ${result.dtoList}" class="card-box">
@@ -150,7 +163,8 @@
                             <span th:text="${trainer.trainer_gymName}">MyFit</span>
                         </div>
                         <div>
-                            <span th:text="${trainer.trainer_address_normal}" class="address_normal">(대구 칠곡 중앙대로 598)</span>
+                            <span th:text="${trainer.trainer_address_normal}"
+                                  class="address_normal">(대구 칠곡 중앙대로 598)</span>
                         </div>
                         <div class="item-phone">
                             <span>
@@ -179,20 +193,23 @@
                                 <span th:text="${trainer.trainer_workTime}">11:30~21:30</span>
                             </div>
                             <div>
-                                <span>
-                                    <img th:src="@{~/image/priceicon.png}" width="12px" height="12px">
-                                </span>
+                                <!--                                <span>-->
+                                <!--                                    <img th:src="@{~/image/priceicon.png}" width="12px" height="12px">-->
+                                <!--                                </span>-->
+                                <span class="pt_basic_info"></span>
+                            </div>
+                            <div>
                                 <span th:text="${trainer.trainer_pt_total}" class="pt_total">12회 / 400000</span>
-
+                                <span style="color: #c53140; font-size: 12px"
+                                      th:text="'(+' + ${trainer.trainer_pt_AddCount}+' / '" id="addCount"></span>
+                                <span style="color: #c53140; font-size: 12px"
+                                      th:text="'-'+${trainer.trainer_pt_discount}+'%)'" id="pdiscount"></span>
                             </div>
                             <div>
                                 <span th:text="${trainer.trainer_pt_discount}" class="pt_discount"></span>
                             </div>
                             <div>
                                 <span th:text="${trainer.trainer_pt_AddCount}" class="pt_addCount"></span>
-                            </div>
-                            <div>
-                                <span class="pt_basic_info"></span>
                             </div>
                         </div>
                         <div class="btn-box">
@@ -213,20 +230,22 @@
 
             </div>
         </div>
-        <div class="pagination_area">
-            <ul>
-                <li th:if="${result.prev}">
-                    <a class="custom_btn" th:href="@{/ptUser/view(page = ${result.start -1},
+
+
+        <div class="Page navigation ">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:if="${result.prev}">
+                    <a class="page-link" th:href="@{/ptUser/view(page = ${result.start -1},
                                         type=${pageRequestDto.type},
                                         keyword=${pageRequestDto.keyword})}">이전</a>
                 </li>
-                <li th:each="page: ${result.pageList}">
-                    <a class="custom_btn" th:href="@{/ptUser/view(page= ${page},
+                <li class="page-item" th:each="page: ${result.pageList}">
+                    <a class="page-link" th:href="@{/ptUser/view(page= ${page},
                                         type=${pageRequestDto.type},
                                         keyword=${pageRequestDto.keyword})}" th:text="${page}">1</a>
                 </li>
-                <li th:if="${result.next}">
-                    <a class="custom_btn" th:href="@{/ptUser/view(page = ${result.end +1},
+                <li class="page-item" th:if="${result.next}">
+                    <a class="page-link" th:href="@{/ptUser/view(page = ${result.end +1},
                                         type=${pageRequestDto.type},
                                         keyword=${pageRequestDto.keyword})}">다음</a>
                 </li>

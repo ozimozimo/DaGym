@@ -6,12 +6,23 @@
 >
 <head>
     <title>boardUpdate</title>
-    <script th:src="@{~/js/main/jquery.min.js}"></script>
-    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
+    <link rel="stylesheet" th:href="@{~/css/board/boardControl.css}">
     <script th:src="@{~/js/boastboard/boastboard.js}"></script>
+    <style>
+        .fileArea{
+            display: flex;
+        }
+        #updateLoadBtn {
+            height: 30px;
+            line-height: 8px;
+        }
+        .btnArea{
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <div layout:fragment="content" class="">
-    <div class="">
+    <div class="col-md-12">
         <h3>글 수정</h3>
 
         <form id="actionForm">
@@ -19,9 +30,25 @@
             <input type="hidden" name="type" id="type" th:value="${PageRequestDto.type}">
             <input type="hidden" name="keyword" id="keyword" th:value="${PageRequestDto.keyword}">
 
-            <div class="">
+            <div class="custom_form_control1">
                 <label for="bb_num">글 번호</label>
-                <input type="text" class="" id="bb_num" th:value="${bb.id}" readonly>
+                <input type="text" class="form-control1" id="bb_num" th:value="${bb.id}" readonly>
+            </div>
+
+            <div class="custom_form_control">
+                <label for="title">제목</label>
+                <input type="text" class="" id="title" th:value="${bb.title}">
+            </div>
+            <div class="custom_form_control">
+                <label for="user_id">작성자</label>
+                <input type="text" class="" id="user_id" th:value="${bb.user_id}" readonly>
+            </div>
+
+
+            <div class="custom_form_control2">
+                <label for="bb_content">내용</label>
+                <textarea style="resize: none" cols="25" rows="15" class="form-control2" id="bb_content"
+                          th:text="${bb.content}"></textarea>
             </div>
 
             <div class="updateResult">
@@ -37,37 +64,28 @@
                 />
             </div>
             <div class="updateResult2"></div>
-            <input
-                    name="uploadBoardFiles"
-                    th:value="${bb.fileName}"
-                    type="file"
-                    multiple
-            />
-            <button
-                    type="button"
-                    id="updateLoadBtn"
-            >
-                업로드
-            </button>
+            <div class="fileArea">
+                <input
+                        name="uploadBoardFiles"
+                        th:value="${bb.fileName}"
+                        type="file"
+                        multiple
+                />
+                <button
+                        type="button"
+                        id="updateLoadBtn"
+                        class="custom_btn"
+                >
+                    업로드
+                </button>
+            </div>
 
-            <div class="">
-                <label for="title">제목</label>
-                <input type="text" class="" id="title" th:value="${bb.title}">
-            </div>
-            <div class="">
-                <label for="user_id">작성자</label>
-                <input type="text" class="" id="user_id" th:value="${bb.user_id}" readonly>
-            </div>
-            <div class="">
-                <label for="bb_content">내용</label>
-                <textarea style="resize: none" cols="25" rows="15" class="" id="bb_content"
-                          th:text="${bb.content}"></textarea>
-            </div>
         </form>
-        <button type="button" class="">이전</button>
-        <button type="button" class="" id="btn-update">수정</button>
-        <button type="button" class="" id="btn-delete">삭제</button>
-
+        <div class="btnArea">
+        <button type="button" class="custom_btn">이전</button>
+        <button type="button" class="custom_btn" id="btn-update">수정</button>
+        <button type="button" class="custom_btn" id="btn-delete">삭제</button>
+        </div>
     </div>
     <script>
         $(function () {

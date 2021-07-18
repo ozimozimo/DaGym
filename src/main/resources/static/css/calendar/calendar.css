@@ -1,5 +1,5 @@
 .container {
-    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    /*font-family: 'Open Sans', Arial, Helvetica, sans-serif;*/
     padding: 80px;
 }
 
@@ -186,7 +186,7 @@
 .fc-unthemed .fc-event .fc-content,
 .fc-unthemed .fc-event-dot .fc-content {
     padding: 5px 10px 5px 10px;
-    font-family: 'Roboto', sans-serif;
+    /*font-family: 'Roboto', sans-serif;*/
     margin-left: -1px;
     height: 100%;
 }
@@ -298,4 +298,24 @@ select.filter {
 #add-color,
 #edit-color {
     color: #d25565;
+}
+
+.container {
+    margin-top: -60px;
+}
+
+#wrapper {
+    font-family: 'EliceDigitalBaeum_Regular';
+
+}
+
+.title{
+    font-family: 'EliceDigitalBaeum_Bold';
+    font-size: 28px;
+}
+
+@media screen and (min-width: 1200px) {
+    .title {
+        margin-left: 60px;
+    }
 }

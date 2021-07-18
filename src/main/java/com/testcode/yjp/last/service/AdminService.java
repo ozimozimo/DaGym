@@ -241,6 +241,7 @@ public class AdminService {
                 .trainerInfo(entity.getTrainerInfo())
                 .pt_amount(entity.getPt_amount())
                 .pay_method(entity.getPay_method())
+                .bt_cancel(entity.getBt_cancel())
                 .regDate(entity.getRegDate())
                 .build();
 

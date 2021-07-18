@@ -354,5 +354,13 @@ i.far.fa-thumbs-down {
 }
 
 .load {
-    margin-top:20px;
+    margin-top: 20px;
+}
+
+.btnArea {
+    padding-right: 480px;
+}
+
+.content {
+    margin-top: 40px;
 }

@@ -1,0 +1,95 @@
+.container{
+    width: 700px;
+    font-family: 'EliceDigitalBaeum_Regular';
+}
+.title{
+    font-family: 'EliceDigitalBaeum_Bold';
+    color: #212529;
+    padding-bottom: 15px;
+}
+.roomContainer{
+    /*background-color: #F6F6F6;*/
+    width: 500px;
+    height: 500px;
+    overflow: auto;
+    margin : 0 auto;
+}
+.roomList{
+    border: none;
+}
+.roomList th{
+    border: 1px solid #212529;
+    /*background-color: #fff;*/
+    color: #212529;
+}
+.roomList td{
+    border: 1px solid #212529;
+    /*background-color: #fff;*/
+    text-align: left;
+    color: #212529;
+}
+.roomList .num{
+    width: 75px;
+    text-align: center;
+}
+.roomList .room{
+    width: 350px;
+}
+.roomList .go{
+    width: 70px;
+    text-align: center;
+}
+/*button{*/
+/*    background-color: #212529;*/
+/*    font-size: 14px;*/
+/*    color: #000;*/
+/*    border: 1px solid #000;*/
+/*    border-radius: 5px;*/
+/*    padding: 3px;*/
+/*    margin: 3px;*/
+/*}*/
+
+/*.inputTable input{*/
+/*    !*width: 330px;*!*/
+/*    height: 25px;*/
+/*}*/
+
+/*.createRoom {*/
+/*    width: 60px;*/
+/*}*/
+.container{
+    margin-top: 35px;
+}
+.inputArea{
+    margin: 0 auto;
+}
+#roomName {
+    width: 300px;
+}
+.inputArea {
+    display: flex;
+    width: 500px;
+    margin-top: 10px;
+}
+.title{
+    width: 500px;
+    margin : 0 auto;
+}
+
+.roomInputTitle{
+    margin-right: 10px;
+    width: 80px;
+    margin-top: 3px;
+    line-height: 25px;
+}
+#createRoom{
+    margin-left: 6px;
+}
+.room {
+    padding: 10px;
+}
+.go {
+    border-left:none;
+    /*background-color:#5c91fe;*/
+    padding: 10px;
+}

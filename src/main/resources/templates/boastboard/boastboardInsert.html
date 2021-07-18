@@ -6,39 +6,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script th:src="@{~/js/main/jquery.min.js}"></script>
-    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/board/board.css}"/>
+    <link rel="stylesheet" th:href="@{/css/board/boardControl.css}">
+
     <script th:src="@{~/js/boastboard/boastboard.js}"></script>
+    <style>
+        .fileArea {
+            display: flex;
+        }
+        .uploadBtn {
+            height: 30px;
+            line-height: 8px;
+        }
+    </style>
+
 </head>
 <body>
 <div layout:fragment="content" class="content">
-
+    <h3>글 작성</h3>
+    <p class="post_warning">※ 광고홍보성 게시물 및 타트레이너 비방게시물은 삭제될 수 있으며, 게시글 작성이 차단될 수 있습니다.</p>
     <form>
         <input type="hidden" th:value="${session.loginUser}" id="member_id" name="member_id"/>
-        <div>
+        <div class="custom_form_control">
             <label class="title">제목</label>
             <input type="text" class="" id="title" placeholder="제목을 입력하세요."/>
         </div>
-        <div class="">
+        <div class="custom_form_control">
             <label for="user_id">작성자</label>
-            <input class="" id="user_id" th:value="${session.loginId}" readonly/>
+            <input class="form-control" id="user_id" th:value="${session.loginId}" readonly/>
         </div>
-        <div>
+        <div class="fileArea">
             <input name="uploadBoardFiles" type="file" multiple>
-            <button type="button" class="uploadBtn">업로드</button>
-
-            <div class="uploadResult">
-
-            </div>
+            <button type="button" class="uploadBtn custom_btn">업로드</button>
         </div>
-        <div class="">
+        <div class="uploadResult">
+        </div>
+        <div class="custom_form_control">
             <label for="bb_content">내용</label>
-            <textarea class="" id="bb_content" placeholder="내용을 입력하세요." style="resize: none" cols="50"
+            <textarea class="form-control" id="bb_content" placeholder="내용을 입력하세요." style="resize: none" cols="50"
                       rows="50"></textarea>
         </div>
     </form>
-    <a th:href="@{/boastboard/bb}" role="button" class="">이전</a>
-    <button type="button" class="" id="btn-save">등록</button>
+    <a th:href="@{/boastboard/bb}" role="button" class="custom_btn">이전</a>
+    <button type="button" class="custom_btn success" id="btn-save">등록</button>
     <script>
 
         // 사진 삭제

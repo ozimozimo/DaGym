@@ -1,12 +1,14 @@
 package com.testcode.yjp.last.controller.android;
 
 import com.testcode.yjp.last.domain.Member;
+import com.testcode.yjp.last.domain.MemberOut;
 import com.testcode.yjp.last.domain.dto.MemberJoinDto;
 import com.testcode.yjp.last.domain.dto.MemberSoDto;
 import com.testcode.yjp.last.domain.dto.android.AndMemberFindIdDto;
 import com.testcode.yjp.last.domain.dto.android.AndMemberFindPwDto;
 import com.testcode.yjp.last.domain.dto.android.AndMemberLoginDto;
 import com.testcode.yjp.last.domain.dto.android.AndMemberMypageDto;
+import com.testcode.yjp.last.repository.MemberOutRepository;
 import com.testcode.yjp.last.repository.android.AndroidMemberRepository;
 import com.testcode.yjp.last.service.android.AndMemberService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,7 @@ public class AndroidMemberController {
 
     private final AndroidMemberRepository androidMemberRepository;
     private final AndMemberService andMemberService;
+    private final MemberOutRepository memberOutRepository;
 
     // 조회
     @GetMapping("/select")
@@ -157,5 +160,17 @@ public class AndroidMemberController {
         Member byUser_id = androidMemberRepository.findByUser_id(user_id);
 
         return byUser_id;
+    }
+
+    @PostMapping("/memberOut/{id}")
+    public void memberOut(@PathVariable("id") Long id, @RequestBody String content) {
+        Member member = androidMemberRepository.findById(id).get();
+        content = content.replaceAll("\\\"", "");
+
+        MemberOut memberOut = new MemberOut();
+        memberOut.setOut_id(member.getId());
+        memberOut.setOut_comments(content);
+        memberOutRepository.save(memberOut);
+        androidMemberRepository.delete(member);
     }
 }

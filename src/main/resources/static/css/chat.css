@@ -24,7 +24,6 @@
     display: inline-block;
     border-radius: 10px;
     max-width: 60%;
-
 }
 
 
@@ -44,4 +43,8 @@
 
 .text-display-block {
     display: inline-block;
+}
+
+.container{
+    font-family: 'EliceDigitalBaeum_Regular';
 }
