@@ -17,7 +17,7 @@ $(function () {
         $('.addBtn').hide();
         // $('.diet_Delete').hide();
     }
-
+    clickList()
 
 })
 
@@ -33,23 +33,23 @@ function changeId() {
 }
 
 // 오늘 날짜 가져오기 (2021-04-30 형태)
-var date = new Date();
+let date = new Date();
 date = getFormatDate(date);
 let myChart;
 
 // 날짜 포맷 변경
 function getFormatDate(date) {
-    var year = date.getFullYear();
-    var month = (1 + date.getMonth());
+    let year = date.getFullYear();
+    let month = (1 + date.getMonth());
     month = month >= 10 ? month : '0' + month;
-    var day = date.getDate();
+    let day = date.getDate();
     day = day >= 10 ? day : '0' + day;
     return year + '-' + month + '-' + day;
 }
 
 // 식단 검색
 function dietSearch() {
-    var diet = $('#diet').val();
+    let diet = $('#diet').val();
     console.log(diet);
     if (diet.length == 0) {
         alert("음식 이름을 입력하세요");
@@ -75,7 +75,7 @@ function dietSearch() {
 function dietResult(result) {
     $('.dietList').empty();
     for (let i = 0; i < result.I2790.row.length; i++) {
-        var str = result.I2790.row[i];
+        let str = result.I2790.row[i];
         // 결과값 시작
         let content = "<tr>"
         content += "<td class='diet_id 'style='display: none'>" + str + "</td>"
@@ -114,18 +114,18 @@ function dietResult(result) {
 function dietAdd() {
     $('.dietAdd').on('click', function (e) {
         console.log($('.date').val());
-        var id = $('.diet_member_id').val();
+        let id = $('.diet_member_id').val();
         console.log("id : " + id);
         // 내가 먹은 양
-        var eat_rate = $(this).parent().siblings().children('.eat_rate').val();
+        let eat_rate = $(this).parent().siblings().children('.eat_rate').val();
         // 기존 제공량
-        var default_eat_rate = $(this).parent().siblings('.diet_serve').text();
-        var divide_eat_rate = default_eat_rate / eat_rate;
-        var eat_kcal = $(this).parent().siblings("td.diet_kcal").text() / divide_eat_rate;
-        var eat_carbo = $(this).parent().siblings("td.diet_carbo").text() / divide_eat_rate;
-        var eat_protein = $(this).parent().siblings("td.diet_protein").text() / divide_eat_rate;
-        var eat_fat = $(this).parent().siblings("td.diet_fat").text() / divide_eat_rate;
-        var data = {
+        let default_eat_rate = $(this).parent().siblings('.diet_serve').text();
+        let divide_eat_rate = Math.round(default_eat_rate / eat_rate);
+        let eat_kcal = Math.round($(this).parent().siblings("td.diet_kcal").text() / divide_eat_rate);
+        let eat_carbo = Math.round($(this).parent().siblings("td.diet_carbo").text() / divide_eat_rate);
+        let eat_protein = Math.round($(this).parent().siblings("td.diet_protein").text() / divide_eat_rate);
+        let eat_fat = Math.round($(this).parent().siblings("td.diet_fat").text() / divide_eat_rate);
+        let data = {
             diet_member_id: id,
             diet_name: $(this).parent().siblings("td.diet_name").text(),
             eat_rate: eat_rate || default_eat_rate,
@@ -155,13 +155,13 @@ function dietAdd() {
 
 // 검색창
 function dietWindow() {
-    var popupX = (window.screen.width / 2) - (800 / 2);
-    var popupY = (window.screen.height / 2) - (700 / 2);
-    var date = $('.date').val();
-    var option = 'status=no, height=700, width=1560, left=' + popupX + ', top=' + popupY + ', screenX=' + popupX + ', screenY= ' + popupY;
-    // var url = "http://localhost:8090"
-    // var url = "http://140.238.25.78:8090";
-    var url = "/diet/search" + "?" + date;
+    let popupX = (window.screen.width / 2) - (800 / 2);
+    let popupY = (window.screen.height / 2) - (700 / 2);
+    let date = $('.date').val();
+    let option = 'status=no, height=700, width=1560, left=' + popupX + ', top=' + popupY + ', screenX=' + popupX + ', screenY= ' + popupY;
+    // let url = "http://localhost:8090"
+    // let url = "http://140.238.25.78:8090";
+    let url = "/diet/search" + "?" + date;
     window.open(url, 'dietWindow', option);
     console.log($('.date').val());
 }
@@ -287,7 +287,7 @@ function input(obj) {
     content += "<td class='diet_fat'>" + obj.e + "</td>"
     content += "<td class='diet_date' style='display: none'>" + obj.j + "</td>"
     if (obj.h == id)
-        content += "<td><button type='button' class='diet_Delete' onclick='dietDelete(this)'>삭제</button>" + "</td>"
+        content += "<td><button type='button' class='diet_Delete btn btn-inline-secondary' onclick='dietDelete(this)'>삭제</button>" + "</td>"
     // else {
     //     content += "<td></td>"
     // }
@@ -297,9 +297,9 @@ function input(obj) {
 
 // 오늘 날짜 데이터
 function todayData() {
-    var today = date;
-    var id = $('.diet_member_id').val();
-    var data = {
+    let today = date;
+    let id = $('.diet_member_id').val();
+    let data = {
         id: id,
         diet_date: today
     }
@@ -319,17 +319,17 @@ function todayData() {
 
 function splitDate() {
     // 캘린더 Input JS
-    var link = document.location.href.split("?");
+    let link = document.location.href.split("?");
     let date = link[1];
     $(".date").val(date);
 }
 
 function showDayAllResult() {
-    var e = [".breakfast_eat_rate", ".lunch_eat_rate", ".dinner_eat_rate", ".extra_eat_rate"];
-    var k = [".breakfast_kcal", ".lunch_kcal", ".dinner_kcal", ".extra_kcal"];
-    var c = [".breakfast_carbo", ".lunch_carbo", ".dinner_carbo", ".extra_carbo"];
-    var p = [".breakfast_protein", ".lunch_protein", ".dinner_protein", ".extra_protein"];
-    var f = [".breakfast_fat", ".lunch_fat", ".dinner_fat", ".extra_fat"];
+    let e = [".breakfast_eat_rate", ".lunch_eat_rate", ".dinner_eat_rate", ".extra_eat_rate"];
+    let k = [".breakfast_kcal", ".lunch_kcal", ".dinner_kcal", ".extra_kcal"];
+    let c = [".breakfast_carbo", ".lunch_carbo", ".dinner_carbo", ".extra_carbo"];
+    let p = [".breakfast_protein", ".lunch_protein", ".dinner_protein", ".extra_protein"];
+    let f = [".breakfast_fat", ".lunch_fat", ".dinner_fat", ".extra_fat"];
 
     nutr(e, '.dailyEatRate');
     nutr(k, '.dailyKcal');
@@ -384,9 +384,14 @@ function chartCreate() {
     let b = parseInt($('.dailyProtein').text());
     let c = parseInt($('.dailyFat').text());
 
-    let dailyCarbo = (a / (a + b + c) * 100).toFixed(2);
-    let dailyProtein = (b / (a + b + c) * 100).toFixed(2);
-    let dailyFat = (c / (a + b + c) * 100).toFixed(2);
+    // let dailyCarbo = (a / (a + b + c) * 100).toFixed(2);
+    // let dailyProtein = (b / (a + b + c) * 100).toFixed(2);
+    // let dailyFat = (c / (a + b + c) * 100).toFixed(2);
+    let dailyCarbo = Math.round(a / (a + b + c) * 100);
+    let dailyProtein = Math.round(b / (a + b + c) * 100);
+    let dailyFat = Math.round(c / (a + b + c) * 100);
+
+
     if (myChart) {
         myChart.destroy();
     }
@@ -417,7 +422,7 @@ function chartCreate() {
                 responsive: false,
                 title: {
                     display: true,
-                    text: '하루 섭취량',
+                    text: '하루 섭취량(%)',
                 }
             }
         }
@@ -430,4 +435,19 @@ function zeroData() {
     $('.dailyProtein').text('0');
     $('.dailyFat').text('0');
 
+}
+
+function clickList(){
+    $('.minus').on("click",function (){
+        $(this).closest('table').find('tbody').toggle();
+
+        if($(this).hasClass('plus')){
+            $(this).removeClass("plus");
+            $(this).html('<i class="fas fa-minus"></i>')
+        }
+        else{
+            $(this).addClass("plus");
+            $(this).html('<i class="fas fa-plus"></i>')
+        }
+    })
 }

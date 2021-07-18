@@ -2,58 +2,100 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      data-layout-decorate="~{layout/default}">
+      data-layout-decorate="~{layout/boot4}">
 <head>
     <title>dietList</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.css"/>
-
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/locales/ko.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-    <link rel="stylesheet" th:href="@{/css/list.css}">
-    <link rel="stylesheet" th:href="@{/css/diet.css}"/>
+    <!--    <link rel="stylesheet" th:href="@{/css/diet/list.css}">-->
     <link rel="stylesheet" th:href="@{/css/calendar/calendar.css}"/>
+    <link rel="stylesheet" th:href="@{/css/diet/diet.css}"/>
+
     <script th:src="@{/js/calendar.js?ver=1.0}"></script>
-    <script th:src="@{/js/diet.js?ver=1.0}"></script>
+    <script th:src="@{/js/diet/diet.js?ver=1.0}"></script>
     <script th:src="@{/js/advice.js?ver=1.0}"></script>
+    <style>
+        .fc-day-today {
+            background: #FFDC28;
+        }
+    </style>
 </head>
 <body>
 <!-- 달력, 식단검색-->
 <div layout:fragment="content">
     <!--    th:if 부분 추가-->
-<!--    <input type="text" th:value="${session.loginUser}" class="member" />-->
-<!--    로그인 아이디-->
-    <input type="hidden" th:value="${session.loginId}" class="login_id" />
-<!--    식단을 보여줄 기준 아이디-->
-    <input type="hidden" th:value="${session.loginId}" class="diet_member_id" />
-<!--    날짜 -->
+    <!--    <input type="text" th:value="${session.loginUser}" class="member" />-->
+    <!--    로그인 아이디-->
+    <input type="hidden" th:value="${session.loginId}" class="login_id"/>
+    <!--    식단을 보여줄 기준 아이디-->
+    <input type="hidden" th:value="${session.loginId}" class="diet_member_id"/>
+    <!--    날짜 -->
     <input type="hidden" class="date" value=""/>
 
-    <div style="display: flex; align-items: center; justify-content: center; padding-left:150px">
-        <div id="calendar" style="min-width: 600px; "></div>
-        <div style="margin: 0 auto;">
-            <canvas id="myChart" width="600px" style=""></canvas>
+    <!--    <h2>식단</h2>-->
+
+    <div class="etc">
+
+        <div id="calendar" style="width: 500px "></div>
+            <div class="daySumArea">
+            <!--            <h3>하루 섭취량</h3>-->
+            <h3 class="calendar_date"></h3>
+            <div>
+                <canvas id="myChart" width="600px"></canvas>
+            </div>
+            <div class="dailyNutr">
+                <!--            <div><h1>하루 섭취량</h1></div>-->
+                <table class="listTable dailyResult table text-center  table-hover">
+                    <thead class="dayResult thead-light">
+                    <tr>
+                        <td>섭취량(g)</td>
+                        <td>칼로리(g)</td>
+                        <td>탄수화물(g)</td>
+                        <td>단백질(g)</td>
+                        <td>지방(g)</td>
+                    </tr>
+                    </thead>
+                    <tbody class="dietList">
+                    <tr class="dailyEat">
+                        <td class="dailyEatRate"></td>
+                        <td class="dailyKcal"></td>
+                        <td id="dailyCarbo" class="dailyCarbo"></td>
+                        <td id="dailyProtein" class="dailyProtein"></td>
+                        <td id="dailyFat" class="dailyFat"></td>
+                    </tr>
+                    <tr class='noData' style="display:none;">
+                        <td colspan=7>데이터가 없습니다</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <button type="button" class="dietWindow addBtn btn btn-outline-primary">추가하기</button>
+            </div>
         </div>
     </div>
-    <button type="button" class="dietWindow addBtn">추가하기</button>
 
     <div class="container-fluid">
         <div class="dietRow">
             <!--        아침 식사 부분-->
             <div class="diet">
-                <div><h1>아침 식사</h1></div>
-                <table class="listTable breakfast">
-                    <thead class="dayResult">
-                    <tr>
-                        <td>음식이름</td>
+                <div><h3>아침 식사</h3></div>
+                <table class="listTable breakfast table table-hover">
+                    <thead class="dayResult thead-light ">
+                    <tr class="table-secondary">
+                        <td class="diet_name">음식이름</td>
                         <td>섭취량</td>
                         <td>칼로리</td>
                         <td>탄수화물</td>
                         <td>단백질</td>
                         <td>지방</td>
-                        <td></td>
+                        <td class="minus"><i class="fas fa-minus"></i></td>
                     </tr>
                     </thead>
                     <tbody class="dietList">
@@ -64,6 +106,7 @@
                         <td class="breakfast_carbo">0</td>
                         <td class="breakfast_protein">0</td>
                         <td class="breakfast_fat">0</td>
+                        <td></td>
                     </tr>
                     <tr class='noData' style="display:none;">
                         <td colspan=7>데이터가 없습니다</td>
@@ -73,17 +116,17 @@
             </div>
             <!--        점심 식사 부분-->
             <div class="diet">
-                <div><h1>점심 식사</h1></div>
-                <table class="listTable lunch">
-                    <thead class="dayResult">
-                    <tr>
-                        <td>음식이름</td>
+                <div><h3>점심 식사</h3></div>
+                <table class="listTable lunch table table-hover ">
+                    <thead class="dayResult thead-light ">
+                    <tr class="table-secondary">
+                        <td class="diet_name">음식이름</td>
                         <td>섭취량</td>
                         <td>칼로리</td>
                         <td>탄수화물</td>
                         <td>단백질</td>
                         <td>지방</td>
-                        <td></td>
+                        <td class="minus"><i class="fas fa-minus"></i></td>
                     </tr>
                     </thead>
                     <tbody class="dietList">
@@ -94,6 +137,7 @@
                         <td class="lunch_carbo"></td>
                         <td class="lunch_protein"></td>
                         <td class="lunch_fat"></td>
+                        <td></td>
                     </tr>
                     <tr class='noData' style="display:none;">
                         <td colspan=7>데이터가 없습니다</td>
@@ -106,17 +150,17 @@
         <div class="dietRow">
             <!--        저녁 식사 부분-->
             <div class="diet">
-                <div><h1>저녁 식사</h1></div>
-                <table class="listTable dinner">
-                    <thead class="dayResult">
-                    <tr>
-                        <td>음식이름</td>
+                <div><h3>저녁 식사</h3></div>
+                <table class="listTable dinner table table-hover">
+                    <thead class="dayResult thead-light ">
+                    <tr class="table-secondary">
+                        <td class="diet_name">음식이름</td>
                         <td>섭취량</td>
                         <td>칼로리</td>
                         <td>탄수화물</td>
                         <td>단백질</td>
                         <td>지방</td>
-                        <td></td>
+                        <td class="minus"><i class="fas fa-minus"></i></td>
                     </tr>
                     </thead>
                     <tbody class="dietList">
@@ -127,6 +171,7 @@
                         <td class="dinner_carbo"></td>
                         <td class="dinner_protein"></td>
                         <td class="dinner_fat"></td>
+                        <td></td>
                     </tr>
                     <tr class='noData' style="display:none;">
                         <td colspan=7>데이터가 없습니다</td>
@@ -135,18 +180,18 @@
                 </table>
             </div>
             <!--        간식-->
-            <div class="diet">
-                <div><h1>간식</h1></div>
-                <table class="listTable extra">
-                    <thead class="dayResult">
-                    <tr>
-                        <td>음식이름</td>
+            <div class="diet extraArea">
+                <div><h3>간식</h3></div>
+                <table class="listTable extra table  table-hover ">
+                    <thead class="dayResult thead-light ">
+                    <tr class="table-secondary">
+                        <td class="diet_name">음식이름</td>
                         <td>섭취량</td>
                         <td>칼로리</td>
                         <td>탄수화물</td>
                         <td>단백질</td>
                         <td>지방</td>
-                        <td></td>
+                        <td class="minus"><i class="fas fa-minus"></i></td>
                     </tr>
                     </thead>
                     <tbody class="dietList">
@@ -157,6 +202,7 @@
                         <td class="extra_carbo"></td>
                         <td class="extra_protein"></td>
                         <td class="extra_fat"></td>
+                        <td></td>
                     </tr>
 
                     <tr class='noData' style="display:none;">
@@ -167,48 +213,23 @@
             </div>
         </div>
     </div>
-    <div class="dailyNutr">
-        <div><h1>하루 섭취량</h1></div>
-        <table class="listTable dailyResult">
-            <thead class="dayResult">
-            <tr>
-                <td>섭취량 합계</td>
-                <td>칼로리 합계</td>
-                <td>탄수화물 합계</td>
-                <td>단백질 합계</td>
-                <td>지방 합계</td>
-            </tr>
-            </thead>
-            <tbody class="dietList">
-            <tr class="dailyEat">
-                <td class="dailyEatRate"></td>
-                <td class="dailyKcal"></td>
-                <td id="dailyCarbo" class="dailyCarbo"></td>
-                <td id="dailyProtein" class="dailyProtein"></td>
-                <td id="dailyFat" class="dailyFat"></td>
-            </tr>
-            <tr class='noData' style="display:none;">
-                <td colspan=7>데이터가 없습니다</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
 
-<!--    <div class="trainerAdvice">-->
-<!--        <h1>트레이너 코멘트</h1>-->
-<!--        <form action="#" type="post">-->
-<!--            <textarea class="adviceWrite" cols="50" rows="5" style="resize: none"-->
-<!--                      placeholder="피드백할 내용을 입력하세요"></textarea>-->
-<!--            <div>-->
-<!--                <button type="button" class="adviceAdd">피드백</button>-->
-<!--                <input type="reset">-->
-<!--            </div>-->
-<!--            <div class="adviceList"></div>-->
-<!--            <div>-->
-<!--                <button type="button" class="adviceUpdate">수정하기</button>-->
-<!--            </div>-->
-<!--        </form>-->
-<!--    </div>-->
+
+    <!--    <div class="trainerAdvice">-->
+    <!--        <h1>트레이너 코멘트</h1>-->
+    <!--        <form action="#" type="post">-->
+    <!--            <textarea class="adviceWrite" cols="50" rows="5" style="resize: none"-->
+    <!--                      placeholder="피드백할 내용을 입력하세요"></textarea>-->
+    <!--            <div>-->
+    <!--                <button type="button" class="adviceAdd">피드백</button>-->
+    <!--                <input type="reset">-->
+    <!--            </div>-->
+    <!--            <div class="adviceList"></div>-->
+    <!--            <div>-->
+    <!--                <button type="button" class="adviceUpdate">수정하기</button>-->
+    <!--            </div>-->
+    <!--        </form>-->
+    <!--    </div>-->
 </div>
 </body>
 </html>

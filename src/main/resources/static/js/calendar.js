@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         //한글버전
+
         locale: "ko",
         initialView: "dayGridMonth",
         headerToolbar: {
@@ -12,17 +13,19 @@ document.addEventListener("DOMContentLoaded", function () {
             // end: "dayGridMonth,timeGridWeek,timeGridDay",
             end: "",
         },
-        contentHeight: 400,
+        contentHeight : "auto",
+        themeSystem: 'bootstrap',
         events: [],
         // 날짜 클릭했을 때
         dateClick: function (info) {
-            console.log('떠라 제발');
             var url = window.location.pathname;
 
             var id = $('.loginId').text();
             var diet_id = $('.diet_member_id').val();
             var click = info.dateStr;
             $('.date').val(click);
+            $('.calendar_date').text(click);
+            date_color_change();
             var ex_data = {
                 id: id,
                 ex_date: click
@@ -42,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }).done(function (result) {
                     console.log(result);
                     if (result.length == 0) {
-                        alert('기록된 데이터가 없습니다');
+                        // alert('기록된 데이터가 없습니다');
                         zeroData();
                         hideEat();
                         chartCreate();
@@ -72,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }).done(function (result) {
                     console.log(result);
                     if (result.length == 0) {
-                        alert('기록된 데이터가 없습니다');
+                        // alert('기록된 데이터가 없습니다');
                         $('.anotherEx').empty()
                     } else {
                         $('.anotherEx').empty()
@@ -91,6 +94,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
             alert(info.event.title);
         },
+
+        // dayRender: function (date, cell) {
+        //     if($('.date').val() === date.getDate()){
+        //         cell.css("background-color", "yellow");
+        //     }
+        // },
+
+
         dayMaxEventRows: true, // for all non-TimeGrid views
         views:
             {
@@ -107,5 +118,30 @@ document.addEventListener("DOMContentLoaded", function () {
 $(function (){
     var date = new Date();
     date = getFormatDate(date);
+
     $('.date').val(date);
+    $('.calendar_date').text(date);
+
 })
+
+let changeDate;
+
+
+function date_color_change(){
+    let todayDate = getFormatDate(new Date());
+
+    if(changeDate){
+        changeDate.css("background","none");
+    }
+    $('.fc-day').each(function (){
+        let date = $(this).attr("data-date");
+        if(date == todayDate){
+            $(this).css("background","#ffffa1");
+
+        }
+        if($(".date").val() == date){
+            $(this).css("background","#FFDC28");
+            changeDate = $(this);
+        }
+    })
+}
