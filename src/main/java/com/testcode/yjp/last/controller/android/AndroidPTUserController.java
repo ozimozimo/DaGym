@@ -1,28 +1,27 @@
-//package com.testcode.yjp.last.controller.android;
-//
-//import com.testcode.yjp.last.domain.Member;
-//import com.testcode.yjp.last.domain.PTUser;
-//import com.testcode.yjp.last.domain.dto.android.*;
-//import com.testcode.yjp.last.repository.android.*;
-//import com.testcode.yjp.last.service.android.AndPTUserService;
-//import lombok.RequiredArgsConstructor;
-//import lombok.extern.slf4j.Slf4j;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.ArrayList;
-//
-//@RequiredArgsConstructor
-//@RestController
-//@Slf4j
-//@RequestMapping("/android/ptUser")
-//public class AndroidPTUserController {
+package com.testcode.yjp.last.controller.android;
+
+import com.testcode.yjp.last.domain.Member;
+import com.testcode.yjp.last.domain.PTUser;
+import com.testcode.yjp.last.domain.dto.android.*;
+import com.testcode.yjp.last.repository.android.*;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+
+
+@RequiredArgsConstructor
+@RestController
+@Slf4j
+@RequestMapping("/android/ptUser")
+public class AndroidPTUserController {
 //    private final AndroidPTUserRepository androidPTUserRepository;
-//    private final AndroidMemberRepository androidMemberRepository;
+    private final AndroidMemberRepository androidMemberRepository;
 //    private final AndPTUserService andPTUserService;
-//    private final AndroidCalendarRepository androidCalendarRepository;
-//    private final AndroidInBodyRepository androidInBodyRepository;
-//    private final AndroidExcerciseRecordRepository androidExcerciseRecordRepository;
-//
+    private final AndroidCalendarRepository androidCalendarRepository;
+    private final AndroidInBodyRepository androidInBodyRepository;
+    private final AndroidExcerciseRecordRepository androidExcerciseRecordRepository;
+
+
 //    // 트레이너 검색
 //    @PostMapping("/search")
 //    public ArrayList<AndPTUserSearchDto> search(@RequestBody AndTrainerSearchDto trainerSearchDto) {
@@ -139,4 +138,4 @@
 ////        return result;
 ////    }
 //
-//}
+}

@@ -144,6 +144,10 @@ public class TrainerApiController {
             log.error(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        System.out.println(result.getBody());
+        System.out.println(result.toString());
+        System.out.println(result.getHeaders());
+        System.out.println(result);
         return result;
     }
 
