@@ -70,6 +70,17 @@ public class AndroidTrainerController {
         return trainerInfoDto;
     }
 
+    @PostMapping("/findTrainers")
+    public List<TrainerInfoDto> findTrainers() {
+        List<TrainerInfo> all = trainerRepository.findAll();
+        List<TrainerInfoDto> trainerInfoDtos = new ArrayList<>();
+        for (TrainerInfo t : all) {
+            TrainerInfoDto trainerInfoDto = new TrainerInfoDto(t);
+            trainerInfoDtos.add(trainerInfoDto);
+        }
+
+        return trainerInfoDtos;
+    }
 
     @PostMapping("/findTrainerStr/{id}")
     public String findTrainerStr(@PathVariable("id") Long id) {
