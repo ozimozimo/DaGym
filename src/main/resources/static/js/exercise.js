@@ -172,18 +172,18 @@ function mkExr(result) {
         let content = "";
         let arrLength = exSet.length;
         let name =
-            exCategory+exName+exParts;
-        name = name.replace(/(\s*)/g,"");
-        name = name.replace('/','');
+            exCategory + exName + exParts;
+        name = name.replace(/(\s*)/g, "");
+        name = name.replace('/', '');
         //공백 제거
-        
+
         if (exCategory == '렙만') {
             $(".onlyCount").css("display", "");
             if (exSet.length > 1) {
                 for (let j in exSet) {
                     if (!(exSet[j] == "")) {
                         // if(j == 0)
-                            content += `<tr class="${name}">`
+                        content += `<tr class="${name}">`
                         // else content += "<tr class='menus'>"
 
 
@@ -192,8 +192,7 @@ function mkExr(result) {
 
                             content += "<td class='res_ex_category'>" + exCategory + "</td>"
                             content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
-                        }
-                        else {
+                        } else {
                             content += "<td class='res_ex_category'></td>"
                             content += "<td class='res_ex_name'></td>"
                         }
@@ -203,8 +202,8 @@ function mkExr(result) {
                         content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
 
                         if (id == member_id && j == 0)
-                            content += `<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button><button type='button' class='open'>닫기</button></td>`
-                        else if( j != 0) content += "<td></td>"
+                            content += `<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button><button type='button' class='open btn btn-secondary'>닫기</button></td>`
+                        else if (j != 0) content += "<td></td>"
 
                         content += "</tr>"
                     }
@@ -225,8 +224,7 @@ function mkExr(result) {
             }
             $('.onlyCountEx').append(content);
 
-        }
-        else if (exCategory == '유산소' || exCategory == '기타(유산소)') {
+        } else if (exCategory == '유산소' || exCategory == '기타(유산소)') {
             $(".cardio").css("display", "");
             if (exCategory == '기타(유산소)') exName = exName.replaceAll(',', '');
             if (exTime.length > 1) {
@@ -248,8 +246,8 @@ function mkExr(result) {
                         allKcal += parseInt(exKcal[j]);
 
                         if (id == member_id && j == 0)
-                            content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button><button type='button' class='open'>닫기</button></td>"
-                        else if( j != 0) content += "<td></td>"
+                            content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button><button type='button' class='open btn btn-secondary'>닫기</button></td>"
+                        else if (j != 0) content += "<td></td>"
 
                         content += "</tr>"
                     }
@@ -269,8 +267,7 @@ function mkExr(result) {
                 content += "</tr>"
             }
             $('.cardioEx').append(content);
-        }
-        else if (exCategory == '지속 시간') {
+        } else if (exCategory == '지속 시간') {
             $(".time").css("display", "");
 
             if (exSet.length > 1) {
@@ -291,8 +288,8 @@ function mkExr(result) {
                         content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>";
 
                         if (id == member_id && j == 0)
-                            content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button><button type='button' class='open'>닫기</button></td>";
-                        else if( j != 0) content += "<td></td>"
+                            content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button><button type='button' class='open btn btn-secondary' >닫기</button></td>";
+                        else if (j != 0) content += "<td></td>"
 
                         content += "</tr>";
                     }
@@ -313,8 +310,7 @@ function mkExr(result) {
             }
 
             $('.timeEx').append(content);
-        }
-        else {
+        } else {
             $(".another").css("display", "");
             if (exSet.length > 1) {
                 for (let j in exSet) {
@@ -322,11 +318,10 @@ function mkExr(result) {
 
                         content += `<tr class="${name}">`
                         content += "<td class='res_ex_record_id' style='display: none'>" + a + "</td>"
-                        if(j==0){
+                        if (j == 0) {
                             content += "<td class='res_ex_category'>" + exCategory + "</td>"
                             content += "<td class='res_ex_name'>" + exName + '(' + exParts + ')' + "</td>"
-                        }
-                         else {
+                        } else {
                             content += "<td class='res_ex_category'></td>"
                             content += "<td class='res_ex_name'></td>"
                         }
@@ -336,8 +331,8 @@ function mkExr(result) {
                         content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
 
                         if (id == member_id && j == 0)
-                            content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button><button type='button' class='open'>닫기</button></td>";
-                        else if( j != 0) content += "<td></td>"
+                            content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button><button type='button' class='open btn btn-secondary'>닫기</button></td>";
+                        else if (j != 0) content += "<td></td>"
                         content += "</tr>";
                     }
                 }
@@ -360,20 +355,28 @@ function mkExr(result) {
 
             $('.anotherEx').append(content);
         }
+
+        if ($(`.${name}`).length == 1) {
+            $(`.${name}`).find('.open').hide();
+        }
     }
-    $( '.open' ).on("click", function() {
+    $('.open').on("click", function () {
         let tr = $(this).parent().parent();
         let names = tr.attr('class');
-        console.log(names);
+        let length = $(`.${names}`).length;
         let text = $(this).text();
-        if(text == "열기") $(this).text('닫기')
-        else $(this).text('열기');
-        $(`.${names}`).each(function (i,el){
-            if(i != 0) $(this).toggle();
+        if (text != "닫기") $(this).text('닫기')
+        else $(this).text(`열기(${length})`);
+        $(`.${names}`).each(function (i, el) {
+            if (i != 0) $(this).toggle();
         })
+
     });
 
+
     $('.allKcal').text("오늘의 소모 칼로리는 " + allKcal + "Kcal 입니다.");
+
+
 }
 
 // 오늘 날짜 데이터
@@ -530,7 +533,7 @@ function findRandom(result) {
         if (result.ex_category == "지속시간" || result.ex_category == "렙만") num = 6;
         else num = 7;
         // let content = `<tr class="recommendEx"><td colspan="${num}"><span>${result.ex_parts}부위${result.ex_category}운동인</span><a class="nameClick" onclick="nameClick()">${result.ex_name}</a><span>을 해보는건 어떠신가요?</span></td></tr>`;
-        let content = `<div class="recommendEx" style="text-align: left"><div><span>${result.ex_parts}부위${result.ex_category}운동인</span><a class="nameClick" onclick="nameClick()">${result.ex_name}</a><span>을 해보는건 어떠신가요?</span></div></div>`;
+        let content = `<div class="recommendEx" style="text-align: left"><div><span>${result.ex_parts}부위${result.ex_category}운동 </span><a class="nameClick" onclick="nameClick()" style="color: cornflowerblue;">${result.ex_name}</a><span>을 해보는건 어떠신가요?</span></div></div>`;
 
 
         $(".recommendArea").append(content);

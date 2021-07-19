@@ -2,7 +2,7 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      data-layout-decorate="~{layout/default}">
+      data-layout-decorate="~{layout/boot4}">
 <head>
     <title>운동 기록</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.css"/>
@@ -129,7 +129,7 @@
             <!-- 운동 기록 영역 -->
             <div class="record_area">
                 <h3>운동 기록</h3> <span class="allKcal"></span>
-                <input type="hidden" class="date" value="">
+                <input type="hidden" class="date" value=""/>
                 <div id="record_table">
                     <table class="table table-hover">
                         <thead>
@@ -156,46 +156,44 @@
                         <tbody class="onlyCountEx">
                         </tbody>
 
-
+                        <thead>
+                        <tr class="cardio" style='display: none'>
+                            <th>카테고리</th>
+                            <th>운동 명</th>
+                            <th>운동한 시간</th>
+                            <th>운동 거리(KM)</th>
+                            <th>Kcal</th>
+                            <th class="ex_delete"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="cardioEx">
+                        </tbody>
+                        <thead>
+                        <tr class="time" style='display: none'>
+                            <th>카테고리</th>
+                            <th>운동 명</th>
+                            <th>세트</th>
+                            <th>운동한 시간</th>
+                            <th class=""></th>
+                            <th class="ex_delete"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="timeEx">
+                        </tbody>
+                    </table>
                 </div>
-                <thead>
-                <tr class="cardio" style='display: none'>
-                    <th>카테고리</th>
-                    <th>운동 명</th>
-                    <th>운동한 시간</th>
-                    <th>운동 거리(KM)</th>
-                    <th>Kcal</th>
-                    <th class="ex_delete"></th>
-                </tr>
-                </thead>
-                <tbody class="cardioEx">
-                </tbody>
-                <thead>
-                <tr class="time" style='display: none'>
-                    <th>카테고리</th>
-                    <th>운동 명</th>
-                    <th>세트</th>
-                    <th>운동한 시간</th>
-                    <th class=""></th>
-                    <th class="ex_delete"></th>
-                </tr>
-                </thead>
-                <tbody class="timeEx">
-                </tbody>
-                </table>
             </div>
-        </div>
-        <!-- 피드백 영역 -->
-        <!--    <div class="feedback_area">-->
-        <!--        <h3>피드백</h3>-->
+            <!-- 피드백 영역 -->
+            <!--    <div class="feedback_area">-->
+            <!--        <h3>피드백</h3>-->
 
-        <!--        <form name="feedbackForm" class="feedbackForm">-->
-        <!--            <input name="ex_feedback"/>-->
-        <!--            <button type="submit">전송</button>-->
-        <!--        </form>-->
-        <!--    </div>-->
+            <!--        <form name="feedbackForm" class="feedbackForm">-->
+            <!--            <input name="ex_feedback"/>-->
+            <!--            <button type="submit">전송</button>-->
+            <!--        </form>-->
+            <!--    </div>-->
+        </div>
     </div>
-</div>
 </div>
 </body>
 </html>
