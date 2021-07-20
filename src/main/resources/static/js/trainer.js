@@ -305,6 +305,7 @@ function changeGender(string){
     else gender = "여";
     return gender;
 }
+
 function getAge(ssnNo) {
 
     var curDateObj = new Date(); // 날짜 Object 생성

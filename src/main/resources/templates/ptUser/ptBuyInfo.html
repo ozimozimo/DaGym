@@ -3,17 +3,17 @@
         lang="ko"
         xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        data-layout-decorate="~{layout/default}"
+        data-layout-decorate="~{layout/boot4}"
 >
 <head>
-
+    <link rel="stylesheet" th:href="@{/css/ptBuyInfo.css}"/>
 </head>
 <div layout:fragment="content">
-    <h1>PT 결제 내역</h1>
+    <h3>PT 결제 내역</h3>
     <div th:if="${session.loginRole == 'trainer'}">
-        <table class="table table-striped">
+        <table class="table table-hover">
             <thead>
-            <tr>
+            <tr class="table-secondary">
                 <th>회원이름</th>
                 <th>전화번호</th>
                 <th>가격</th>
@@ -35,9 +35,9 @@
         </table>
     </div>
     <div th:if="${session.loginRole == 'user'}">
-        <table class="table table-striped">
+        <table class="table table-hover">
             <thead>
-            <tr>
+            <tr class="table-secondary">
                 <th>트레이너이름</th>
                 <th>트레이너전화번호</th>
                 <th>가격</th>

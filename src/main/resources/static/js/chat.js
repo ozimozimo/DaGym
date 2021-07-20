@@ -90,3 +90,10 @@ $(function () {
     $('.today').text(today);
 })
 
+
+$('.chatDate').each(function (){
+    let width = $(this).prev().width();
+    console.log(width);
+    $(this).css("margin-top", "1px");
+
+})

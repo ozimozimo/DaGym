@@ -1,11 +1,25 @@
+body {
+    background-color: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-weight: 400;
+    background-image: url("../image/chatbg.jpg");
+    /*background-size: cover;*/
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
 .container{
-    width: 700px;
+    width: 525px;
     font-family: 'EliceDigitalBaeum_Regular';
+    background-color: #F9F9F9;
+    border-radius: 10px;
 }
 .title{
     font-family: 'EliceDigitalBaeum_Bold';
     color: #212529;
-    padding-bottom: 15px;
+    padding-top: 20px;
 }
 .roomContainer{
     /*background-color: #F6F6F6;*/
@@ -69,7 +83,8 @@
 .inputArea {
     display: flex;
     width: 500px;
-    margin-top: 10px;
+    padding-bottom: 20px;
+    padding-top: 10px;
 }
 .title{
     width: 500px;
@@ -78,9 +93,16 @@
 
 .roomInputTitle{
     margin-right: 10px;
-    width: 80px;
-    margin-top: 3px;
-    line-height: 25px;
+    width: 100px;
+    margin-top: 1px;
+    line-height: 23px;
+    font-weight: 500;
+    border: 1px solid;
+    padding: 5px;
+    text-align: center;
+    height: 35px;
+    border-radius: 5px;
+
 }
 #createRoom{
     margin-left: 6px;

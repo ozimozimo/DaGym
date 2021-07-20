@@ -101,20 +101,26 @@ function addExBtnClick() {
     });
 }
 
-function delExBtnClick(a) {
-    let id = a.parentNode.parentNode.firstChild.innerText;
-    console.log(id);
-    $.ajax({
-        type: 'post',
-        url: '/ExRecord/delete/' + id,
-        contentType: 'application/json; charset=utf-8',
-    }).done(function () {
-        alert('기록이 삭제되었습니다');
-        location.reload();
-    }).fail(function (error) {
-        alert(error);
-        console.log(JSON.stringify(error));
+function delExBtnClick() {
+    let className = $(this).closest('tr').attr('class');
+    $(`.${className}`).each(function () {
+        let id = $(this).find('.res_ex_record_id').text();
+        x(id);
     })
+
+    function x(id) {
+        $.ajax({
+            type: 'post',
+            url: '/ExRecord/delete/' + id,
+            contentType: 'application/json; charset=utf-8',
+        }).done(function () {
+            // alert('기록이 삭제되었습니다');
+            location.reload();
+        }).fail(function (error) {
+            console.log(error);
+            console.log(JSON.stringify(error));
+        })
+    }
 }
 
 function mkExr(result) {
@@ -175,6 +181,12 @@ function mkExr(result) {
             exCategory + exName + exParts;
         name = name.replace(/(\s*)/g, "");
         name = name.replace('/', '');
+        name = name.replace('(', '');
+        name = name.replace(')', '');
+        name = name.replace(',', '');
+
+
+
         //공백 제거
 
         if (exCategory == '렙만') {
@@ -202,7 +214,7 @@ function mkExr(result) {
                         content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
 
                         if (id == member_id && j == 0)
-                            content += `<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button><button type='button' class='open btn btn-secondary'>닫기</button></td>`
+                            content += `<td><button type='button' class='delEx_btn btn btn-primary'>삭제</button><button type='button' class='open btn btn-secondary'>닫기</button></td>`
                         else if (j != 0) content += "<td></td>"
 
                         content += "</tr>"
@@ -219,7 +231,7 @@ function mkExr(result) {
                 content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
 
                 if (id == member_id)
-                    content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button></td>"
+                    content += "<td><button type='button' class='delEx_btn btn btn-primary'>삭제</button></td>"
                 content += "</tr>"
             }
             $('.onlyCountEx').append(content);
@@ -246,7 +258,7 @@ function mkExr(result) {
                         allKcal += parseInt(exKcal[j]);
 
                         if (id == member_id && j == 0)
-                            content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button><button type='button' class='open btn btn-secondary'>닫기</button></td>"
+                            content += "<td><button type='button' class='delEx_btn btn btn-primary'>삭제</button><button type='button' class='open btn btn-secondary'>닫기</button></td>"
                         else if (j != 0) content += "<td></td>"
 
                         content += "</tr>"
@@ -263,7 +275,7 @@ function mkExr(result) {
                 content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
                 allKcal += parseInt(exKcal);
                 if (id == member_id)
-                    content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button></td>"
+                    content += "<td><button type='button' class='delEx_btn btn btn-primary'>삭제</button></td>"
                 content += "</tr>"
             }
             $('.cardioEx').append(content);
@@ -288,7 +300,7 @@ function mkExr(result) {
                         content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>";
 
                         if (id == member_id && j == 0)
-                            content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button><button type='button' class='open btn btn-secondary' >닫기</button></td>";
+                            content += "<td><button type='button' class='delEx_btn btn btn-primary'>삭제</button><button type='button' class='open btn btn-secondary' >닫기</button></td>";
                         else if (j != 0) content += "<td></td>"
 
                         content += "</tr>";
@@ -305,7 +317,7 @@ function mkExr(result) {
                 content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>";
 
                 if (id == member_id)
-                    content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button></td>";
+                    content += "<td><button type='button' class='delEx_btn btn btn-primary'>삭제</button></td>";
                 content += "</tr>";
             }
 
@@ -331,7 +343,7 @@ function mkExr(result) {
                         content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
 
                         if (id == member_id && j == 0)
-                            content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button><button type='button' class='open btn btn-secondary'>닫기</button></td>";
+                            content += "<td><button type='button' class='delEx_btn btn btn-primary'>삭제</button><button type='button' class='open btn btn-secondary'>닫기</button></td>";
                         else if (j != 0) content += "<td></td>"
                         content += "</tr>";
                     }
@@ -347,7 +359,7 @@ function mkExr(result) {
                 content += "<td class='res_ex_date' style='display: none'>" + exDate + "</td>"
 
                 if (id == member_id)
-                    content += "<td><button type='button' class='delEx_btn btn btn-primary' onclick='delExBtnClick(this)'>삭제</button></td>";
+                    content += "<td><button type='button' class='delEx_btn btn btn-primary'>삭제</button></td>";
                 else content += "<td></td>"
 
                 content += "</tr>";
@@ -357,8 +369,22 @@ function mkExr(result) {
         }
 
         if ($(`.${name}`).length == 1) {
-            $(`.${name}`).find('.open').hide();
+            $(`.${name}`).eq(0).find('.open').css("visibility", 'hidden');
+        } else {
+            $(`.${name}`).eq(0).find('.open').css("visibility", 'visible');
         }
+
+        $('.delEx_btn').off().on("click", delExBtnClick);
+
+        $(`.${name}`).each(function (i, el) {
+            if (i > 0) {
+                $(this).find('.res_ex_category').text('');
+                $(this).find('.res_ex_name').text('');
+                $(this).find('.delEx_btn').css("visibility", 'hidden');
+                $(this).find('.open').css("visibility", 'hidden');
+
+            }
+        })
     }
     $('.open').on("click", function () {
         let tr = $(this).parent().parent();

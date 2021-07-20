@@ -101,7 +101,7 @@ function trainerUpdate() {
 }
 
 function priceCode() {
-    let fp = $('#final_price').val();
+    // let fp = $('#final_price').val();
     // let count = fp.substring(0, 1);
     // let price = fp.substring()
 }
