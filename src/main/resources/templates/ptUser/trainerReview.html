@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        data-layout-decorate="~{layout/newPage}"
+>
 
 <head>
     <style>
@@ -204,7 +209,7 @@
 <body>
 <div class="header">
     <div class="header-left">
-        <img th:src="@{~/image/dagym.png}" height="100px" class="logo">
+        <img th:src="@{~/image/DAGYMLogo.png}" height="100px" class="logo">
     </div>
     <div class="header-right">
         트레이너 리뷰 등록

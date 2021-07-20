@@ -14,9 +14,10 @@
 }
 
 .title {
+  font-family: 'EliceDigitalBaeum_Bold';
   display: flex;
   justify-content: center;
-  margin: 50px auto;
+  margin: 30px 0;
 }
 button {
   border: none;

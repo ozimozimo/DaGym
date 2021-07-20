@@ -32,11 +32,11 @@
     <!--                &lt;!&ndash;            <td th:text="${myTrainer.id}"></td>&ndash;&gt;-->
     <!--                <td><img class="trainer_image" width="200px" height="200px"-->
     <!--                         th:src="@{/display(fileName=${myTrainer.trainer_id.imgName})}"></td>-->
-    <!--                <input type="hidden" th:value="${myTrainer.pt_end}" id="pt_end" name="pt_end">-->
-    <!--                <input type="hidden" th:value="${myTrainer.id}" id="pt_id" name="pt_id">-->
-    <!--                <input type="hidden" th:value="${myTrainer.trainer_id.id}" id="trainer_id">-->
-    <!--                <input type="hidden" th:value="${myTrainer.member_id.id}" id="member_id">-->
-    <!--                <input type="hidden" th:value="${myTrainer.trainer_id.member.user_name}" id="trainer_name">-->
+                    <input type="hidden" th:value="${myTrainer.pt_end}" id="pt_end" name="pt_end">
+                    <input type="hidden" th:value="${myTrainer.id}" id="pt_id" name="pt_id">
+                    <input type="hidden" th:value="${myTrainer.trainer_id.id}" id="trainer_id">
+                    <input type="hidden" th:value="${myTrainer.member_id.id}" id="member_id">
+                    <input type="hidden" th:value="${myTrainer.trainer_id.member.user_name}" id="trainer_name">
     <!--                <td th:text="${myTrainer.trainer_id.member.user_name}">이름</td>-->
     <!--                <td th:text="${myTrainer.trainer_id.member.user_pn}">폰번호</td>-->
     <!--                <td th:text="${myTrainer.trainer_id.trainer_gymName}">헬스장이름</td>-->
@@ -72,14 +72,16 @@
           <svg class="icon"><use xlink:href="#icon-location"></use></svg>
         </span>
                     <span class="profile-card-loc__txt">
+                        <a class="text-black search" href="#">
           <span th:text="${myTrainer.trainer_id.trainer_gymName}"></span>
-          (<span th:text="${myTrainer.trainer_id.trainer_address_normal}"></span>)
-        </span>
+          (<span class="addr" th:text="${myTrainer.trainer_id.trainer_address_normal}"></span>)
+        </a>
+                    </span>
 
                 </div>
 
                 <div class="profile-card-inf">
-                    <a  class="profile-card-social__item kakao"
+                    <a class="profile-card-social__item kakao"
                        target="_blank">
           <span class="icon-font kakao-font">
               <svg class="icon"><use xlink:href="#icon-kakao"></use></svg>
@@ -87,11 +89,11 @@
                     </a>
                     <div class="profile-card-inf__item">
                         <div class="profile-card-inf__title" th:text="${myTrainer.trainer_id.trainer_kakao}"></div>
-<!--                        <div class="profile-card-inf__txt">KakaoTalk</div>-->
+                        <!--                        <div class="profile-card-inf__txt">KakaoTalk</div>-->
                     </div>
 
 
-                    <a  class="profile-card-social__item instagram"
+                    <a class="profile-card-social__item instagram"
                        target="_blank">
           <span class="icon-font" style="padding-bottom: 5px;">
               <svg class="icon"><use xlink:href="#icon-instagram"></use></svg>
@@ -99,19 +101,23 @@
                     </a>
                     <div class="profile-card-inf__item">
                         <div class="profile-card-inf__title" th:text="${myTrainer.trainer_id.trainer_instagram}"></div>
-<!--                        <div class="profile-card-inf__txt">Instagram</div>-->
+                        <!--                        <div class="profile-card-inf__txt">Instagram</div>-->
                     </div>
                 </div>
 
 
                 <div class="profile-card-ctr">
-                    <button type="button" class="profile-card__button button--blue js-message-btn"><a
-                            th:href="@{~/ptChat}" class="aTag">채팅</a></button>
-                    <button type="button" class="profile-card__button button--orange" onclick="myTrainerDetailView()">
-                        <a class="aTag">상세 보기</a>
+                    <!--                    <button type="button" class="">-->
+                    <a th:href="@{~/ptChat}" class="profile-card__button button--blue js-message-btn aTag">채팅</a>
+                    <!--                    </button>-->
+                    <button type="button" class="aTag profile-card__button button--blueRed"
+                            onclick="myTrainerDetailView()">
+                        리뷰 보기
                     </button>
-                    <button type="button" class="profile-card__button button--orange"><a class="aTag" th:href="@{~/calendar/memo(member_id=${session.loginUser},
-                                                            trainer_id=${myTrainer.trainer_id.id})}">PT일정</a></button>
+                    <!--                    <button type="button" class="profile-card__button button&#45;&#45;orange">-->
+                    <a class="aTag profile-card__button button&#45;&#45;orange"
+                       th:href="@{~/calendar/memo(member_id=${session.loginUser},trainer_id=${myTrainer.trainer_id.id})}">PT일정</a>
+                    <!--                    </button>-->
                 </div>
             </div>
 

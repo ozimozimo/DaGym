@@ -559,7 +559,7 @@ function findRandom(result) {
         if (result.ex_category == "지속시간" || result.ex_category == "렙만") num = 6;
         else num = 7;
         // let content = `<tr class="recommendEx"><td colspan="${num}"><span>${result.ex_parts}부위${result.ex_category}운동인</span><a class="nameClick" onclick="nameClick()">${result.ex_name}</a><span>을 해보는건 어떠신가요?</span></td></tr>`;
-        let content = `<div class="recommendEx" style="text-align: left"><div><span>${result.ex_parts}부위${result.ex_category}운동 </span><a class="nameClick" onclick="nameClick()" style="color: cornflowerblue;">${result.ex_name}</a><span>을 해보는건 어떠신가요?</span></div></div>`;
+        let content = `<div class="recommendEx" style="text-align: left"><div class="recommend"><span>${result.ex_parts}부위${result.ex_category}운동 </span><a class="nameClick" onclick="nameClick()" style="color: cornflowerblue;">${result.ex_name}</a><span>을 해보는건 어떠신가요?</span></div></div>`;
 
 
         $(".recommendArea").append(content);

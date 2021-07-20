@@ -83,6 +83,7 @@
 /*}*/
 .content{
     padding: 40px;
+    min-width: 1385px;
 }
 .all {
     display: flex;
@@ -102,4 +103,9 @@
 }
 .record_area {
     margin-top:20px;
+}
+
+.recommend{
+    margin-top: -10px;
+    margin-bottom: 15px;
 }

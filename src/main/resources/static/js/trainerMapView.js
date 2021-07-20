@@ -8,7 +8,7 @@ var userAddr = userNormalAddr.substring(5, userNormalAddr.length);
 let mapContainer = document.getElementById("map"), // 지도를 표시할 div
     mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 5, // 지도의 확대 레벨
+        level: 6, // 지도의 확대 레벨
     };
 // 지도를 생성합니다
 let map = new kakao.maps.Map(mapContainer, mapOption);
@@ -26,8 +26,9 @@ var markers = [];
 var infowindows = [];
 var nowMarkers;
 
-userToLocation();
 onLoad();
+userToLocation();
+
 
 //유저 주소를 좌표로 변환 후 마커 생성
 function userToLocation() {
@@ -90,9 +91,9 @@ function onLoad() {
         method: "get",
         contentType: 'application/json; charset=utf-8',
     }).done(function (data) {
-        // console.log(data);
+        console.log(data);
         data.forEach(function (item, index) {
-            var addr = item.member.address_normal;
+            var addr = item.trainer_address_normal || "41527대구광역시 북구 복현2동 복현로 35";
             addr = addr.substring(5, addr.length);
             AllMemberArr.push({
                 id: item.member.id,
@@ -132,8 +133,9 @@ function onLoad() {
     // }
 }
 
-function drawMarker(x, y) {
+function drawMarker(x, y, inputKM) {
     AllMemberArr.forEach(function (item, index) {
+
         // 주소로 좌표를 검색합니다
         geocoder.addressSearch(
             AllMemberArr[index].address,
@@ -144,8 +146,7 @@ function drawMarker(x, y) {
                     // console.log("gg", coords.Ma, coords.La);
                     let length = calDistence(x, y, coords.Ma, coords.La);
                     // km
-                    let km = 2000;
-
+                    let km = parseInt($('.showkm').text());
 
                     if (length < km) {
                         // console.log(length + "km");
@@ -182,9 +183,9 @@ function drawMarker(x, y) {
 
                         content += `<tr>`
                         if(item.imgName == null){
-                            content += `<td><img class="trainer_image" width="200px" height="200px" src="../../image/noImg.png"></td>`
+                            content += `<td><img class="trainer_image" width="100px" height="100px" src="../../image/noImg.png"></td>`
                         } else {
-                            content += `<td><img class="trainer_image" width="200px" height="200px" src="/display(fileName=${item.imgName})"></td>`
+                            content += `<td><img class="trainer_image" width="100px" height="100px" src="/display(fileName=${item.imgName})"></td>`
                         }
                         content += `<td>${item.trainer_id}</td>`
                         content += `<td>${item.trainer_name}</td>`
@@ -197,12 +198,12 @@ function drawMarker(x, y) {
                         $('.tbody').append(content);
 
                     }
-                    $('.checkBtn').unbind('click');
-                    $('.checkBtn').on("click", function () {
 
+                    // $('.checkBtn').unbind('click');
+                    $('.checkBtn').off().on("click", function () {
                         check($(this).prev('.id').val());
                     });
-                    $('.detailBtn').on("click", function () {
+                    $('.detailBtn').off().on("click", function () {
                         detailView($(this).parent('td').prev('td').find('.id').val());
                     });
                     // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
@@ -334,3 +335,17 @@ function detailView(trainer_id) {
 
 }
 
+$(function (){
+    $('.changekm').on("click",function (){
+        let text = $(this).text();
+        text.replace('k','');
+        text.replace('m','');
+        $('.showkm').text(text);
+
+        $('.changekm').each(function (){
+            $(this).removeClass('active');
+        })
+        $(this).addClass('active');
+
+    })
+})
