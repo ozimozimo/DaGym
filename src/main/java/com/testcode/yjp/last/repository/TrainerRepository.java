@@ -17,4 +17,15 @@ public interface TrainerRepository extends JpaRepository<TrainerInfo, Long>, Que
 
     @Query("select t from TrainerInfo t where t.member.id=:member_id")
     TrainerInfo findTrainer_id(Long member_id);
+
+    @Query("select t from TrainerInfo t where t.member.user_name=:search")
+    List<TrainerInfo> findTrainerName(String search);
+
+    @Query("select t from TrainerInfo t where t.trainer_gymName=:search")
+    List<TrainerInfo> findGymName(String search);
+
+    @Query("select t from TrainerInfo t where t.trainer_kakao=:search or t.trainer_instagram=:search")
+    List<TrainerInfo> findSNS(String search);
+
+
 }
