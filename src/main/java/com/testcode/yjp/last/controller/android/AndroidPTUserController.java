@@ -139,4 +139,9 @@ public class AndroidPTUserController {
 
         return ptMemberInfoDto;
     }
+
+    @PutMapping("/buyer/update/{member_id}/{trainer_id}")
+    public void buyerUpdate(@PathVariable("member_id") Long mid, @PathVariable("trainer_id") Long tid, @RequestBody String merchant_uid) {
+
+    }
 }

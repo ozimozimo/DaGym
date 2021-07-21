@@ -11,14 +11,13 @@
 
 </head>
 <body>
-검증완료
+<span class="test" th:text="${merchant_uid}"></span>
 <script th:inline="javascript">
     $(function () {
-        window.Android.processDATA();
-
-        var merchant_uid = [[${merchant_uid}]];
+        // var merchant_uid = [[${merchant_uid}]].toString();
+        let merchant_uid = $('.test').text()
+        window.Android.processDATA(merchant_uid);
     });
 </script>
-<!--<button onclick="$(function (){window.close()})">완료</button>-->
 </body>
 </html>

@@ -40,6 +40,7 @@ public class AndroidIamportTest {
 
         buyerPTRepository.save(buyerPt);
         model.addAttribute("merchant_uid", merchant_uid);
+
         return "payEnd";
     }
 
