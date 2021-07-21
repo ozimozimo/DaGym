@@ -12,6 +12,13 @@
 </head>
 <body>
 검증완료
+<script th:inline="javascript">
+    $(function () {
+        window.Android.processDATA();
+
+        var merchant_uid = [[${merchant_uid}]];
+    });
+</script>
 <!--<button onclick="$(function (){window.close()})">완료</button>-->
 </body>
 </html>

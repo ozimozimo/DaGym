@@ -11,6 +11,7 @@ import com.testcode.yjp.last.repository.TrainerRepository;
 import com.testcode.yjp.last.service.PTUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class AndroidPTUserController {
     private final TrainerRepository trainerRepository;
     private final MemberRepository memberRepository;
 
+
     @PostMapping("/myMembers/select/{id}")
     public List<PTUserApplyMemberDto> myMembersSelect(@PathVariable("id") Long id) {
         log.info("myMembersSelect in, id = " + id);
@@ -35,10 +37,11 @@ public class AndroidPTUserController {
         TrainerInfo trainer_id = trainerRepository.findTrainer_id(id);
         Long tId = trainer_id.getId();
         log.info("myMembersSelect in, tId = " + tId);
-
-        return ptUserRepository.findByUser(tId).stream()
+        List<PTUserApplyMemberDto> ptUserApplyMemberDtos = ptUserRepository.findByUser(tId).stream()
                 .map(PTUserApplyMemberDto::new)
                 .collect(Collectors.toList());
+        log.info("myMembersSelect in, tId = " + ptUserApplyMemberDtos);
+        return ptUserApplyMemberDtos;
     }
 
     @PostMapping("/myTrainer/select/{id}")
