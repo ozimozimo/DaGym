@@ -18,15 +18,12 @@ public class AndroidIamportTest {
 
     @RequestMapping(value="/orderCompleteMobile", produces = "application/text; charset=utf8", method = RequestMethod.GET)
     public String orderCompleteMobile(
-            @RequestParam(required = false) String imp_uid
-            , @RequestParam(required = false) String merchant_uid
-            , Model model
-            , Locale locale
+             Model model
             , HttpSession session) {
 
-        log.info("orderCompleteMobile in" + imp_uid + merchant_uid);
 
-        return "payEnd";
+
+        return "payTest";
     }
 
 }
