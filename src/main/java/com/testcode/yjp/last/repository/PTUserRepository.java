@@ -31,7 +31,7 @@ public interface PTUserRepository extends JpaRepository<PTUser, Long> {
     List<Member> findMemberId(Long member_id);;
 
     // 트레이너한테 신청한 목록
-    @Query(value = "select p from PTUser p where p.trainer_id.id =:trainer_id and p.accept_condition = '0'")
+    @Query(value = "select p from PTUser p where p.trainer_id.member.id =:trainer_id and p.accept_condition = '0'")
     List<PTUser> findApply(Long trainer_id);
 
     // 트레이너가 수락한 회원 목록
@@ -62,6 +62,9 @@ public interface PTUserRepository extends JpaRepository<PTUser, Long> {
 
     @Query("select p from PTUser p where p.member_id.id=:member_id and p.accept_condition='1'" )
     PTUser findCheckApply(Long member_id);
+
+    @Query("select p from PTUser p where p.member_id.id=:member_id and p.accept_condition='1' or p.accept_condition='0'" )
+    PTUser findCheckApply0or1(Long member_id);
 
     @Query("select p from PTUser p where p.member_id.id=:id and p.accept_condition='1'")
     List<PTUser> findPTState(Long id);

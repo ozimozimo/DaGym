@@ -3,16 +3,17 @@ package com.testcode.yjp.last.controller.android;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.PTUser;
 import com.testcode.yjp.last.domain.TrainerInfo;
+import com.testcode.yjp.last.domain.dto.PTUserApplyConDto;
 import com.testcode.yjp.last.domain.dto.PTUserApplyMemberDto;
 import com.testcode.yjp.last.domain.dto.TrainerInfoDto;
 import com.testcode.yjp.last.domain.dto.TrainerSearchDto;
+import com.testcode.yjp.last.domain.dto.android.AndPTUserApplyMemberDto;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.PTUserRepository;
 import com.testcode.yjp.last.repository.TrainerRepository;
 import com.testcode.yjp.last.service.PTUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import oracle.ucp.proxy.annotation.Post;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -43,14 +44,11 @@ public class AndroidPTUserController {
     }
 
     @PostMapping("/myTrainer/select/{id}")
-    public TrainerInfoDto myTrainerSelect(@PathVariable("id") Long id) {
+    public PTUserApplyMemberDto myTrainerSelect(@PathVariable("id") Long id) {
         log.info("myTrainerSelect in, id = " + id);
-        PTUser checkApply = ptUserRepository.findCheckApply(id);
+        PTUser checkApply = ptUserRepository.findCheckApply0or1(id);
 
-        TrainerInfo trainer_id = checkApply.getTrainer_id();
-        TrainerInfoDto trainerInfoDto = new TrainerInfoDto(trainer_id);
-
-        return trainerInfoDto;
+        return new PTUserApplyMemberDto(checkApply);
     }
 
     @PostMapping("/trainer/search")
@@ -83,5 +81,37 @@ public class AndroidPTUserController {
             trainerInfoDtos.add(trainerInfoDto);
         }
         return trainerInfoDtos;
+    }
+
+    @PostMapping("/apply/member/{id}")
+    public ArrayList<PTUserApplyMemberDto> applyMember(@PathVariable("id") Long id) {
+        log.info("applyMember" + id.toString());
+        List<PTUser> apply = ptUserRepository.findApply(id);
+        try {
+            log.info(apply.get(0).getId().toString());
+        } catch (Exception e) {
+        }
+        ArrayList<PTUserApplyMemberDto> ptUserApplyMemberDtos = new ArrayList<>();
+
+        for (PTUser p : apply) {
+            PTUserApplyMemberDto ptUserApplyMemberDto = new PTUserApplyMemberDto(p);
+            ptUserApplyMemberDtos.add(ptUserApplyMemberDto);
+        }
+
+        return ptUserApplyMemberDtos;
+    }
+
+    // 수락, 거절 결정
+    @PostMapping("/apply/update/{pt_user_id}")
+    public PTUserApplyConDto update(@PathVariable Long pt_user_id, @RequestBody PTUserApplyConDto ptUserApplyConDto) {
+        System.out.println("ptUserApply.getApply_if() = " + ptUserApplyConDto.getApply_if());
+        System.out.println("trainer member pK=" + ptUserApplyConDto.getTrainer_id());
+        String data = ptUserApplyConDto.getApply_if();
+        System.out.println("data = " + data);
+        if (data.equals("1") || data.equals("2")) {
+            ptUserService.update(pt_user_id, ptUserApplyConDto);
+        }
+        System.out.println("ptuser_id =" + pt_user_id);
+        return ptUserApplyConDto;
     }
 }
