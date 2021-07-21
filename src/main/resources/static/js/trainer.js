@@ -209,7 +209,6 @@ function updateAccept() {
     })
 }
 
-
 // 신청온거 확인하기
 function showList() {
 

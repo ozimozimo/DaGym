@@ -12,17 +12,6 @@ function detailView(trainerId) {
     window.open(url, 'detailView', option);
 }
 
-
-function search() {
-    var searchForm = $('#searchForm');
-    searchForm.submit();
-}
-
-function Sclear() {
-    var searchForm = $('#searchForm');
-    searchForm.empty().submit();
-}
-
 function check(trainer_id) {
     var member_id = $('input[name=member_id]').val();
     console.log("member 값은"+member_id);
@@ -53,8 +42,69 @@ function check(trainer_id) {
     })
 }
 
-function ReviewList() {
+function discount() {
+    let dis = $('.pt_discount');
+    dis.each(function (i, el) {
+        let disInfo = $(this).text();
+        console.log("할인 % =" + disInfo);
+        let di = parseInt(disInfo);
+        console.log(typeof di);
 
+    });
+}
+
+function basicInfo() {
+    var total = $('.pt_total');
+    total.each(function (i, el) {
+        let count = $(this).text().substring(0, 3);
+        let price = $(this).text().substring(5);
+
+        let addCount = $('.pt_addCount').val();
+
+        console.log("가격은 =" + price);
+        console.log("PT횟수는 =" + count);
+        console.log("추가횟수는  =" + addCount);
+
+
+    });
+}
+
+function addr() {
+    var addr = $('.address_normal');
+    addr.each(function (i, el) {
+        let normal = $(this).text().substring(5);
+        console.log("주소는 =" + normal);
+        $(this).text(normal);
+    });
+}
+
+function age() {
+    let ss = $('.user_rrn')
+    ss.each(function (i, el) {
+        var today = new Date();
+        var year = String(today.getFullYear()).substring(2, 4);
+        let getUserYear = parseInt($(this).text().substring(0, 2));
+        // 00년대생 이상
+        if (year - getUserYear >= 0) {
+            let age = year - getUserYear + 1;
+            $(this).text(age);
+        } else {
+            let age = year - getUserYear + 101;
+            $(this).text(age);
+        }
+    });
+}
+
+function gender() {
+    let gender = $('.user_gender');
+    gender.each(function (i, el) {
+        let text = parseInt($(this).text());
+        if (text % 2 == 1) {
+            $(this).text("남");
+        } else {
+            $(this).text("여");
+        }
+    })
 }
 
 function TrReviewList(trainerId) {
@@ -71,15 +121,20 @@ function TrReviewList(trainerId) {
         alert("성공");
     }).fail(function () {
         alert("실패");
-
     })
-
 }
 
 
 $(function (){
+    gender();
+    age();
+    addr();
+    basicInfo();
+    discount();
+
     $('.search_btn').on("click",search);
-    $('.sclear_btn').on("click",Sclear);
+    $('.clear_btn').on("click",Sclear);
+
     $('.checkBtn').on("click",function (){
         let trainerId = $(this).parent().parent().parent().children('.trainerId').val();
         // console.log(trainerId);
@@ -96,3 +151,30 @@ $(function (){
     });
 })
 
+
+
+// var searchForm = $('#searchForm');
+
+// function search() {
+//     searchForm.submit();
+// }
+//
+// function Sclear() {
+//     searchForm.empty().submit();
+// }
+
+function search() {
+    let value = $('#b').val();
+    console.log(value);
+    $('#a').val(value);
+    console.log($('#a').val());
+
+    var searchForm = $('#searchForm');
+    searchForm.submit();
+
+}
+
+function Sclear() {
+    var searchForm = $('#searchForm');
+    searchForm.empty().submit();
+}

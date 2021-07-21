@@ -1,24 +1,29 @@
 .content {
-    padding: 50px;
+    padding: 20px;
 }
 
 .area {
     display: flex;
     justify-content: center;
     min-width: 1400px;
-
+    flex-wrap: wrap;
 }
 
 .map_area{
-    min-width: 800px;
-    min-height: 600px;
+    min-width: 500px;
+    min-height: 400px;
     margin:10px;
 }
-
+.btnArea{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-evenly;
+}
 
 #map {
-    min-width: 800px;
-    min-height: 600px;
+    min-width: 500px;
+    min-height: 400px;
 }
 
 .tableArea {

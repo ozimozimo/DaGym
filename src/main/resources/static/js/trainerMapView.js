@@ -189,14 +189,22 @@ function drawMarker(x, y, inputKM) {
                         }
                         content += `<td>${item.trainer_id}</td>`
                         content += `<td>${item.trainer_name}</td>`
-                        content += `<td>${item.trainer_pn}</td>`
+                        content += `<td class="user_pn">${item.trainer_pn}</td>`
                         content += `<td>${item.trainer_gymName}</td>`
                         content += `<td>${item.trainer_kakao}</td>`
                         content += `<td>${item.trainer_instagram}</td>`
-                        content += `<td class="checkArea"><input type="hidden" class="id" value="${item.id}"><button type="button" class="checkBtn">PT신청</button></td>`
-                        content += `<td><button type="button" class="detailBtn">상세보기</button></td></tr>`
+                        content += `<td class="checkArea"><input type="hidden" class="id" value="${item.id}"><button type="button" class="checkBtn btn btn-outline-secondary">PT신청</button></td>`
+                        content += `<td><button type="button" class="detailBtn btn btn-outline-secondary">상세보기</button></td></tr>`
                         $('.tbody').append(content);
 
+                        function phone(){
+                            $('.user_pn').each(function (){
+                                let str = $(this).text();
+                                let phone = str.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/, "$1-$2-$3");
+                                $(this).text(phone);
+                            });
+                        }
+                        phone();
                     }
 
                     // $('.checkBtn').unbind('click');

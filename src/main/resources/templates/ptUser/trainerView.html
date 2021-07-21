@@ -77,8 +77,7 @@
                             <div class="input-group-prepend">
                                 <!--                            <select class="custom-select" name="type">-->
                                 <select class="form-control" name="type">
-
-                                    <!--                                <option th:selected="${pageRequestDto.type == null}"></option>-->
+                                    <option th:selected="${pageRequestDto.type == null}"></option>
                                     <option value="n" th:selected="${pageRequestDto.type == 'n'}" selected>이름</option>
                                     <option value="g" th:selected="${pageRequestDto.type == 'g'}">헬스장이름</option>
                                     <option value="c" th:selected="${pageRequestDto.type == 'c'}">운동목적</option>
@@ -87,12 +86,14 @@
                                     <option value="ngc" th:selected="${pageRequestDto.type == 'ngc'}">이름+헬스장이름+운동목적
                                     </option>
                                 </select>
+                                <input class="form-control keyword" id="a" name="keyword" th:value="${pageRequestDto.keyword}" style="display: none"/>
                             </div>
                         </div>
                     </form>
                 </div>
+
                 <div class="keywordControl">
-                    <input class="form-control keyword" name="keyword" th:value="${pageRequestDto.keyword}"/>
+                    <input class="form-control keyword" name="keyword" id="b" th:value="${pageRequestDto.keyword}"/>
                 </div>
                 <div class="" id="button-addon4">
                     <button class="search_btn" type="button">검색</button>
@@ -252,93 +253,6 @@
             </ul>
         </div>
 
-
-        <script th:inline="javascript">
-
-            $(function () {
-                gender();
-                age();
-                addr();
-                basicInfo();
-                discount();
-            });
-
-            function discount() {
-                let dis = $('.pt_discount');
-                dis.each(function (i, el) {
-                    let disInfo = $(this).text();
-                    console.log("할인 % =" + disInfo);
-                    let di = parseInt(disInfo);
-                    console.log(typeof di);
-
-                });
-            }
-
-            function basicInfo() {
-                var total = $('.pt_total');
-                total.each(function (i, el) {
-                    let count = $(this).text().substring(0, 3);
-                    let price = $(this).text().substring(5);
-
-                    let addCount = $('.pt_addCount').val();
-
-                    console.log("가격은 =" + price);
-                    console.log("PT횟수는 =" + count);
-                    console.log("추가횟수는  =" + addCount);
-
-
-                });
-            }
-
-            function addr() {
-                var addr = $('.address_normal');
-                addr.each(function (i, el) {
-                    let normal = $(this).text().substring(5);
-                    console.log("주소는 =" + normal);
-                    $(this).text(normal);
-                });
-            }
-
-            function age() {
-                let ss = $('.user_rrn')
-                ss.each(function (i, el) {
-                    var today = new Date();
-                    var year = String(today.getFullYear()).substring(2, 4);
-                    let getUserYear = parseInt($(this).text().substring(0, 2));
-                    // 00년대생 이상
-                    if (year - getUserYear >= 0) {
-                        let age = year - getUserYear + 1;
-                        $(this).text(age);
-                    } else {
-                        let age = year - getUserYear + 101;
-                        $(this).text(age);
-                    }
-                });
-            }
-
-
-            function gender() {
-                let gender = $('.user_gender');
-                gender.each(function (i, el) {
-                    let text = parseInt($(this).text());
-                    if (text % 2 == 1) {
-                        $(this).text("남");
-                    } else {
-                        $(this).text("여");
-                    }
-                })
-            }
-
-            var searchForm = $('#searchForm');
-
-            function search() {
-                searchForm.submit();
-            }
-
-            function Sclear() {
-                searchForm.empty().submit();
-            }
-        </script>
     </div>
 </div>
 </body>

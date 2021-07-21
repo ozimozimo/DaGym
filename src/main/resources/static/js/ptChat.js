@@ -37,6 +37,7 @@ function wsEvt() {
             } else {
                 console.warn("unknown type!")
             }
+            a();
         }
     }
 
@@ -81,3 +82,18 @@ $(function (){
     let today = moment().locale("ko").format('ll');
     $('.today').text(today);
 })
+
+function a() {
+    $('.chatDate').each(function () {
+        let height = $(this).prev().height();
+        console.log(height);
+        let num = height / 24;
+
+        $(this).css('marginTop', `${24*num}px`);
+        if(num == 0){
+            $(this).css('marginTop', `4px`);
+        }
+
+        console.log('12312');
+    })
+}

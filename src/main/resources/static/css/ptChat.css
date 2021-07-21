@@ -447,6 +447,7 @@ ul{
 .chatDate{
     vertical-align: bottom;
     font-size: 12px;
+    margin-top: 4px;
 }
 .youChat{
     float:left;
