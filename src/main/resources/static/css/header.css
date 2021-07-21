@@ -90,7 +90,7 @@ header a {
 
 .dagym {
   display: inline-block;
-  width: 150px;
+  width: 200px;
 }
 .dagym img {
   width: 100%;
@@ -185,4 +185,8 @@ nav.stroke ul li a:hover:after {
 
 .content{
   font-family: 'EliceDigitalBaeum_Regular';
+}
+
+h3 {
+  font-family: 'EliceDigitalBaeum_Bold';
 }

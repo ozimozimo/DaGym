@@ -23,12 +23,8 @@
         console.log("onReceivedPostMessage "+event);
 
     }
-    var IMP = window.IMP; // 생략가능
-    IMP.init('imp07054769'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-
-    /* 중략 */
-
-    //onclick, onload 등 원하는 이벤트에 호출합니다
+    var IMP = window.IMP;
+    IMP.init('imp07054769');
     IMP.request_pay({
         pg : 'inicis', // version 1.1.0부터 지원.
         pay_method : 'card',
@@ -39,15 +35,57 @@
         buyer_name : '구매자이름',
         buyer_tel : '010-1234-5678',
         buyer_addr : '서울특별시 강남구 삼성동',
-        buyer_postcode : '123-456',
-        app_schema : "iamporttest",
-        m_redirect_url : 'http://192.168.1.97:8090/orderCompleteMobile'
-
-
+        buyer_postcode : '123-456'
+        // m_redirect_url : 'http://192.168.1.30:8090/orderCompleteMobile'
     }, function (rsp) {
-        alert("rsp");
-    }).done(function() {
-        alert("done");
+        if (rsp.success) {
+            console.log(rsp);
+            let payment = {
+                imp_uid : rsp.imp_uid,
+                merchant_uid : rsp.merchant_uid,
+                pay_method : rsp.pay_method,
+                pt_amount : 100,
+                apply_num : rsp.apply_num,
+            };
+            $.ajax({
+                url: "/ptUser/payment/" + member_id + "/" + trainer_id,
+                method: "post",
+                data: JSON.stringify(payment),
+                contentType: 'application/json; charset=utf-8',
+            }).done(function (data) {
+                console.log(data);
+                alert("결제 완료에 성공하셨습니다");
+                let date = {
+                    member_height,
+                    member_weight,
+                    pt_purpose,
+                    pt_times,
+                    pt_count,
+                    pt_positiveDate,
+                    pt_wantTime
+                }
+                console.log(date);
+                $.ajax({
+                    type: 'post',
+                    url: '/ptUser/apply/success/' + member_id + "/" + trainer_id,
+                    data: JSON.stringify(date),
+                    contentType: 'application/json; charset=utf-8',
+                }).done(function (data) {
+                    alert("PT 신청 하셨습니다");
+                    location.href = "/ptUser/view";
+                    console.log(data);
+                }).fail(function (error) {
+                    alert("PT 신청에 실패하였습니다");
+                    console.log(error);
+                })
+            }).fail(function (error) {
+                // alert(error);
+                alert("실패하였습니다");
+            });
+        } else {
+            var msg = '결제에 실패하였습니다.';
+            msg += '에러내용 : ' + rsp.error_msg;
+        }
     });
 
 

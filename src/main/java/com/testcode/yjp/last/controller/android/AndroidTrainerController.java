@@ -66,6 +66,7 @@ public class AndroidTrainerController {
     public TrainerInfoDto findTrainer(@PathVariable("id") Long id) {
         TrainerInfo trainer_id = trainerRepository.findTrainer_id(id);
         TrainerInfoDto trainerInfoDto = new TrainerInfoDto(trainer_id);
+        System.out.println(trainerInfoDto);
 
         return trainerInfoDto;
     }
@@ -93,10 +94,10 @@ public class AndroidTrainerController {
     }
 
     @GetMapping("/display")
-    public ResponseEntity<byte[]> getFile(String fileName) {
+    public List<byte[]> getFile(String fileName) {
         log.info("fileName=" + fileName);
 
-        ResponseEntity<byte[]> result = null;
+        List<byte[]> result = null;
         try {
             String srcFileName = URLDecoder.decode(fileName, "UTF-8");
             log.info("fileName : " + srcFileName);
@@ -107,10 +108,10 @@ public class AndroidTrainerController {
             //MIME타입 처리
             header.add("Content-Type", Files.probeContentType(file.toPath()));
             //파일 데이터처리
-            result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+            result.add(FileCopyUtils.copyToByteArray(file));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return result;
         }
         return result;
     }

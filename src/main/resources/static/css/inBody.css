@@ -6,13 +6,15 @@
 
 .content {
     padding: 50px 100px 0 150px;
+    width: 1450px;
+    margin: 0 auto;
 }
 
 .head{
     font-size: 40px;
     color: #dc1a65;
     border-bottom: 3px solid #dc1a65;
-    background-color: #ffffff;
+    /*background-color: #ffffff;*/
     text-align: left;
     font-family: 'Krona One', sans-serif;
 }

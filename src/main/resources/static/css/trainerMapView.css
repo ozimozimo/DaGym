@@ -1,0 +1,32 @@
+.content {
+    padding: 50px;
+}
+
+.area {
+    display: flex;
+    justify-content: center;
+    min-width: 1400px;
+
+}
+
+.map_area{
+    min-width: 800px;
+    min-height: 600px;
+    margin:10px;
+}
+
+
+#map {
+    min-width: 800px;
+    min-height: 600px;
+}
+
+.tableArea {
+    min-width: 970px;
+    height: 650px;
+    overflow: auto;
+}
+
+.active {
+    background: #00aa00;
+}

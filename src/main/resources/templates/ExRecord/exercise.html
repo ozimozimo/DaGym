@@ -5,9 +5,13 @@
       data-layout-decorate="~{layout/boot4}">
 <head>
     <title>운동 기록</title>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.css"/>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/locales/ko.js"></script>
+
     <link rel="stylesheet" th:href="@{/css/exercise.css}"/>
     <link rel="stylesheet" th:href="@{/css/calendar/calendar.css}"/>
     <script th:src="@{/js/exercise.js?ver=1.0}"></script>
@@ -30,10 +34,10 @@
     </div>
     <div class="all">
         <!-- 캘린더 -->
-        <div class="calendar_area">
-            <div id="calendar" style="height: 150px;"></div>
+        <div class="calendar_area" >
+            <div id="calendar"></div>
         </div>
-        <div>
+        <div class="add_record_area">
             <!-- 운동 추가 영역 -->
             <div class="add_area">
                 <h3>운동 추가</h3>
@@ -41,15 +45,15 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th width="10%" class="ex_category">카테고리</th>
-                            <th width="10%" class="ex_parts">운동 부위</th>
-                            <th width="10%" class="ex_name">운동 명</th>
-                            <th width="5%" class="ex_set">세트</th>
-                            <th width="5%" class="ex_count">횟수</th>
-                            <th width="5%" class="ex_weight">무게(KG)</th>
-                            <th width="5%" class="ex_time">운동한 시간(분)</th>
-                            <th width="5%" class="ex_meter">운동 거리(KM)</th>
-                            <th width="5%" class="ex_kcal">소모 칼로리(Kcal)</th>
+                            <th width="20%" class="ex_category">카테고리</th>
+                            <th width="20%" class="ex_parts">운동 부위</th>
+                            <th width="20%" class="ex_name">운동 명</th>
+                            <th width="10%" class="ex_set">세트</th>
+                            <th width="10%" class="ex_count">횟수</th>
+                            <th width="10%" class="ex_weight">무게(KG)</th>
+                            <th width="15%" class="ex_time">운동한 시간(분)</th>
+                            <th width="15%" class="ex_meter">운동 거리(KM)</th>
+                            <th width="15%" class="ex_kcal">소모 칼로리(Kcal)</th>
                             <th width="20%" class="buttons"></th>
                         </tr>
                         </thead>
