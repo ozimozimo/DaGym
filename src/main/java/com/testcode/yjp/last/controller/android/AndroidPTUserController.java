@@ -3,10 +3,7 @@ package com.testcode.yjp.last.controller.android;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.PTUser;
 import com.testcode.yjp.last.domain.TrainerInfo;
-import com.testcode.yjp.last.domain.dto.PTUserApplyConDto;
-import com.testcode.yjp.last.domain.dto.PTUserApplyMemberDto;
-import com.testcode.yjp.last.domain.dto.TrainerInfoDto;
-import com.testcode.yjp.last.domain.dto.TrainerSearchDto;
+import com.testcode.yjp.last.domain.dto.*;
 import com.testcode.yjp.last.domain.dto.android.AndPTUserApplyMemberDto;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.PTUserRepository;
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -113,5 +111,29 @@ public class AndroidPTUserController {
         }
         System.out.println("ptuser_id =" + pt_user_id);
         return ptUserApplyConDto;
+    }
+
+    @PostMapping(value = {"/apply/success/{id}/{trainer_id}"})
+    public PTMemberInfoDto trainerApply(@PathVariable("id") Long member_id, @PathVariable("trainer_id") Long trainer_id, @RequestBody PTMemberInfoDto ptMemberInfoDto) {
+        log.info("pt 신청하는 member_id : " + member_id);
+        log.info("pt 신청받는 trainer_id : " + trainer_id);
+        log.info("postMapping post info 정보들 =" + ptMemberInfoDto);
+        // 멤버 정보
+        Optional<Member> memberId = memberRepository.findById(member_id);
+
+        // pt 받게될 트레이너 정보
+        Optional<TrainerInfo> trainerId = trainerRepository.findById(trainer_id);
+
+
+        log.info("succ = " + memberId.get().getId());
+        ptMemberInfoDto.setMember(memberId.get());
+        ptMemberInfoDto.setTrainer(trainerId.get());
+
+        ptMemberInfoDto.setAccept_condition("0"); // 신청 - 보류상태로 전환.
+        ptMemberInfoDto.setPt_end(0);
+
+        ptUserService.save(ptMemberInfoDto);
+
+        return ptMemberInfoDto;
     }
 }
