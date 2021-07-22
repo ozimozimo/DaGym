@@ -1,47 +1,52 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!doctype html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layout/boot4}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script th:src="@{~/js/main/jquery.min.js}"></script>
-    <script th:src="@{~/js/main/bootstrap.min.js}"></script>
-    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
+
     <script th:src="@{~/js/admin/admin.js}"></script>
     <script th:src="@{~/js/admin/notice.js}"></script>
 
 </head>
-<body>
-<div>
-    <h3>1:1 문의 작성</h3>
-    <form>
-        <input type="hidden" th:value="${session.loginUser}" id="member_id" name="member_id">
-        <input type="hidden" class="form-control" id="user_id" th:value="${session.loginId}" readonly="">
-        <div>
-            <label for="ooo-category"></label>
-            <select id="ooo-category">
-                <option>채팅</option>
-                <option>결제</option>
-                <option>게시판</option>
-                <option>인바디</option>
-                <option>식단</option>
-                <option>운동기록</option>
-                <option>회원</option>
-                <option>pt신청</option>
-            </select>
-        </div>
-        <div class="custom_form_control">
-            <label for="ooo-title">제목</label>
-            <textarea class="form-control" id="ooo-title" placeholder="제목을 입력하세요" style="resize: none" cols="50" rows="20"></textarea>
 
-        </div>
+<div layout:fragment="content" class="content">
+    <div>
+        <h3>1:1 문의 작성</h3>
+        <form>
+            <input type="hidden" th:value="${session.loginUser}" id="member_id" name="member_id">
+            <input type="hidden" class="form-control" id="user_id" th:value="${session.loginId}" readonly="">
+            <div>
+                <label for="ooo-category"></label>
+                <select id="ooo-category">
+                    <option>채팅</option>
+                    <option>결제</option>
+                    <option>게시판</option>
+                    <option>인바디</option>
+                    <option>식단</option>
+                    <option>운동기록</option>
+                    <option>회원</option>
+                    <option>pt신청</option>
+                </select>
+            </div>
+            <div class="custom_form_control">
+                <label for="ooo-title">제목</label>
+                <textarea class="form-control" id="ooo-title" placeholder="제목을 입력하세요" style="resize: none" cols="50"
+                          rows="20"></textarea>
 
-        <div class="custom_form_control">
-            <label for="ooo-content">내용</label>
-            <textarea class="form-control" id="ooo-content" placeholder="내용을 입력하세요" style="resize: none" cols="50" rows="20"></textarea>
-        </div>
-    </form>
-    <a th:href="@{/faq/oooManagement}" role="button">이전</a>
-    <button type="button" id="ooo-save">등록</button>
+            </div>
+
+            <div class="custom_form_control">
+                <label for="ooo-content">내용</label>
+                <textarea class="form-control" id="ooo-content" placeholder="내용을 입력하세요" style="resize: none" cols="50"
+                          rows="20"></textarea>
+            </div>
+        </form>
+        <a th:href="@{/faq/oooManagement}" role="button">이전</a>
+        <button type="button" id="ooo-save">등록</button>
+    </div>
 </div>
-</body>
+
 </html>

@@ -1,21 +1,21 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
+<!doctype html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layout/boot4}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script th:src="@{~/js/main/jquery.min.js}"></script>
-    <script th:src="@{~/js/main/bootstrap.min.js}"></script>
-    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
     <script th:src="@{~/js/admin/admin.js}"></script>
     <script th:src="@{~/js/admin/notice.js}"></script>
     <script th:src="@{~/js/FAQ.js}"></script>
     <style>
         .container {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 50px auto;
             padding: 0 15px;
             position: relative;
+
         }
 
         .panel {
@@ -29,6 +29,8 @@
             margin-bottom: 30px;
             padding-bottom: 30px;
             border-bottom: 1px solid #dddddd;
+            display: flex;
+            justify-content: space-between;
         }
 
         .panel-header h2 {
@@ -83,75 +85,108 @@
         .pagination_area ul li:last-child {
             margin-right: 0px;
         }
+        .menuArea{
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        .menuArea a {
+            margin-right: 20px;
+        }
+        .writeArea{
+            text-align: right;
+        }
     </style>
 </head>
-<body>
+<div layout:fragment="content" class="content">
+    <div class="container">
+        <div class="panel">
+            <div class="panel-header">
+                <h3>1 : 1 문의</h3>
+                <div>
+                    <a th:href="@{/faq/faqManagement}" class="btn btn-outline-success">자주 묻는 질문</a>
+                    <a th:href="@{/faq/oooManagement}" class="btn btn-outline-success active">1 : 1 문의</a>
+                </div>
+            </div>
 
-<div class="container">
-    <div class="panel">
-        <div class="panel-header">
-            <h2>1 : 1 문의</h2>
-        </div>
-        <div>
-            <a th:href="@{/faq/faqManagement}">자주 묻는 질문</a>
-            <a th:href="@{/faq/oooManagement}">1 : 1 문의</a>
-        </div>
-        <div>
-            <a th:href="@{/faq/oooManagement(category='전체보기')}">전체보기</a>
-            <a th:href="@{/faq/oooManagement(category='채팅')}">채팅</a>
-            <a th:href="@{/faq/oooManagement(category='결제')}">결제</a>
-            <a th:href="@{/faq/oooManagement(category='게시판')}">게시판</a>
-            <a th:href="@{/faq/oooManagement(category='인바디')}">인바디</a>
-            <a th:href="@{/faq/oooManagement(category='식단')}">식단</a>
-            <a th:href="@{/faq/oooManagement(category='운동기록')}">운동기록</a>
-            <a th:href="@{/faq/oooManagement(category='회원')}">회원</a>
-            <a th:href="@{/faq/oooManagement(category='pt신청')}">pt신청</a>
-        </div>
-        <div class="panel-body" id="ooo_div">
-            <!--문의 완료 글, 답변 해줘야 하는 글 버튼 눌러서 값 다르게 나오게하기.-->
-            <table class="table">
-                <thead>
-                <tr>
-                    <td>질문</td>
-                    <td></td>
-                </tr>
-                </thead>
-                <tbody id="ooo_tbody" th:each="ooos : ${ooo.dtoList}">
-                <tr onclick="btnQnA">
-                    <td><label>Q : </label><a th:text="${ooos.title}" th:href="@{/faq/oooDetail/(id = ${ooos.id},
+            <div class="menuArea">
+                <a class="btn btn-outline-info abc" th:href="@{/faq/oooManagement(category='전체보기')}">전체보기</a>
+                <a class="btn btn-outline-info abc" th:href="@{/faq/oooManagement(category='채팅')}">채팅</a>
+                <a class="btn btn-outline-info abc" th:href="@{/faq/oooManagement(category='결제')}">결제</a>
+                <a class="btn btn-outline-info abc" th:href="@{/faq/oooManagement(category='게시판')}">게시판</a>
+                <a class="btn btn-outline-info abc" th:href="@{/faq/oooManagement(category='인바디')}">인바디</a>
+                <a class="btn btn-outline-info abc" th:href="@{/faq/oooManagement(category='식단')}">식단</a>
+                <a class="btn btn-outline-info abc" th:href="@{/faq/oooManagement(category='운동기록')}">운동기록</a>
+                <a class="btn btn-outline-info abc" th:href="@{/faq/oooManagement(category='회원')}">회원</a>
+                <a class="btn btn-outline-info abc" th:href="@{/faq/oooManagement(category='pt신청')}">pt신청</a>
+            </div>
+            <div class="panel-body" id="ooo_div">
+                <!--문의 완료 글, 답변 해줘야 하는 글 버튼 눌러서 값 다르게 나오게하기.-->
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>질문</td>
+                        <td></td>
+                    </tr>
+                    </thead>
+                    <tbody id="ooo_tbody" th:each="ooos : ${ooo.dtoList}">
+                    <tr onclick="btnQnA">
+                        <td><label>Q : </label><a th:text="${ooos.title}" th:href="@{/faq/oooDetail/(id = ${ooos.id},
                                                        page=${PageRequestDto.page},
                                                        type=${PageRequestDto.type},
                                                        keyword=${PageRequestDto.keyword})}"></a></td>
-                    <td><span th:if="${ooos.answer!=null}">답변 완료</span><span th:if="${ooos.answer==null}">답변 미완료</span></td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="pagination_area">
-                <ul>
-                    <li th:if="${ooo.prev}">
-                        <a class="customBtn" th:href="@{/faq/oooManagement(page = ${ooo.start -1},
+                        <td><span th:if="${ooos.answer!=null}">답변 완료</span><span
+                                th:if="${ooos.answer==null}">답변 미완료</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pagination_area">
+                    <ul>
+                        <li th:if="${ooo.prev}">
+                            <a class="customBtn" th:href="@{/faq/oooManagement(page = ${ooo.start -1},
                                                 type=${PageRequestDto.type},
                                                 keyword=${PageRequestDto.keyword})}">이전</a>
-                    </li>
-                    <li th:each="page: ${ooo.pageList}">
-                        <a class="customBtn" th:href="@{/faq/oooManagement(page= ${page},
+                        </li>
+                        <li th:each="page: ${ooo.pageList}">
+                            <a class="customBtn" th:href="@{/faq/oooManagement(page= ${page},
                                                 type=${PageRequestDto.type},
                                                 keyword=${PageRequestDto.keyword})}" th:text="${page}">1</a>
-                    </li>
-                    <li th:if="${ooo.next}">
-                        <a class="customBtn" th:href="@{/faq/oooManagement(page = ${ooo.end +1},
+                        </li>
+                        <li th:if="${ooo.next}">
+                            <a class="customBtn" th:href="@{/faq/oooManagement(page = ${ooo.end +1},
                                                 type=${PageRequestDto.type},
                                                 keyword=${PageRequestDto.keyword})}">다음</a>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <a th:if="${session.loginId != null}" th:href="@{/faq/oooInsertView}">글쓰기</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="writeArea">
+                    <a th:if="${session.loginId != null}" th:href="@{/faq/oooInsertView}" class="btn btn-primary">글쓰기</a>
+                </div>
             </div>
         </div>
     </div>
+    <script>
+        $(function (){
+            $('.abc').on('click',function (){
+
+                $('.active').removeClass('active');
+                $(this).addClass('active');
+
+            });
+
+            let url = decodeURI(window.location.href);
+            let arr = url.split('=');
+
+            $('.abc').each(function (){
+                if($(this).text()==arr[1]){
+                    $(this).addClass('active');
+                }
+            })
+        })
+
+    </script>
 </div>
 
-</body>
 
 </html>

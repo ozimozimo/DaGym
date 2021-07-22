@@ -9,7 +9,7 @@
     <script th:src="@{~/js/admin/admin.js}"></script>
     <script th:src="@{~/js/admin/notice.js}"></script>
     <script th:src="@{~/js/FAQ.js}"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" th:href="@{/css/FAQ/faqManagement.css}">
 </head>
 
@@ -20,21 +20,26 @@
         <div class="panel">
             <div class="panel-header">
                 <h3>자주 묻는 질문</h3>
+                <div>
+                    <a class="btn btn-outline-success active" th:href="@{/faq/faqManagement}">자주 묻는 질문</a>
+                    <a class="btn btn-outline-success" th:href="@{/faq/oooManagement}">1 : 1 문의</a>
+                </div>
             </div>
-            <div>
-                <a class="btn btn-outline-success" th:href="@{/faq/faqManagement}">자주 묻는 질문</a>
-                <a class="btn btn-outline-success" th:href="@{/faq/oooManagement}">1 : 1 문의</a>
-            </div>
+
             <div class="panel-body" id="faq_div">
                 <!--문의 완료 글, 답변 해줘야 하는 글 버튼 눌러서 값 다르게 나오게하기.-->
                 <div class="board">
                     <div th:each="notices : ${notice.dtoList}" th:if="${notices.active == 2}">
-                        <div class="q"><label>Q. </label><a th:text="${' ' + notices.title}" th:href="@{/faq/faqDetail/(id = ${notices.id},
+                        <div class="q">
+                            <a th:text="${'Q. ' + notices.title}" th:href="@{/faq/faqDetail/(id = ${notices.id},
                                                        page=${PageRequestDto.page},
                                                        type=${PageRequestDto.type},
-                                                       keyword=${PageRequestDto.keyword})}"></a></div>
-                        <div class="a" style="display: none"><label>A. </label><span
-                                th:text="${' ' + notices.content}"></span>
+                                                       keyword=${PageRequestDto.keyword})}" th:if="${session.loginId == 'admin'}"></a>
+                            <a th:text="${'Q. ' + notices.title}" th:if="${session.loginId != 'admin'}"></a>
+                            <i class="fas fa-chevron-down arrow"></i>
+                        </div>
+                        <div class="a" style="display: none">
+                            <span th:text="${'A.  ' + notices.content}"></span>
                         </div>
                     </div>
                 </div>
@@ -60,7 +65,7 @@
                         </ul>
                     </div>
                     <div th:if="${session.loginId == 'admin'}" class="write">
-                        <a th:href="@{/admin/faqInsertView}">글쓰기</a>
+                        <a class="btn btn-primary" th:href="@{/admin/faqInsertView}">글쓰기</a>
                     </div>
                 </div>
             </div>
