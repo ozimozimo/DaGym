@@ -123,6 +123,14 @@ public class AndroidPTUserController {
         return refund;
     }
 
+    @GetMapping("/apply/memcheck")
+    @ResponseBody
+    public PTUser checkMemApply(@RequestParam Long member_id) {
+        log.info("회원이 신청한 트레이너 조회 ");
+        PTUser ptUser = ptUserService.getMemberApply(member_id);
+        return ptUser;
+    }
+
     @PostMapping("/payments/cancel")
     public Boolean payCancel(@RequestBody RefundDto refundDto) {
         log.info("cancle Controlelr post에 들어옴");
