@@ -1,5 +1,6 @@
 package com.testcode.yjp.last.controller.android;
 
+import com.testcode.yjp.last.config.PaymentCheck;
 import com.testcode.yjp.last.domain.BuyerPt;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.PTUser;
@@ -109,6 +110,40 @@ public class AndroidPTUserController {
 
         return ptUserApplyMemberDtos;
     }
+
+    // 거절 하면서 데이터 삭제
+    //    url: '/ptUser/apply/delete/' + pt_user_id,
+    @PostMapping("/apply/delete/{pt_user_id}")
+    public Long delete(@PathVariable Long pt_user_id) {
+        System.out.println("ptUser delete 삭제" + pt_user_id);
+        ptUserService.delete(pt_user_id);
+        return pt_user_id;
+    }
+
+    @PostMapping("/payRefund/{member_id}/{trainer_id}")
+    public BuyerPt payRefund(@PathVariable Long member_id, @PathVariable Long trainer_id) {
+        log.info("환불처리 POST 컨트롤러에 들어오셨습니다");
+        BuyerPt refund = ptUserService.refund(member_id, trainer_id);
+        return refund;
+    }
+
+    @PostMapping("/payments/cancel")
+    public Boolean payCancel(@RequestBody RefundDto refundDto) {
+        log.info("cancle Controlelr post에 들어옴");
+        log.info("refund info는" + refundDto);
+
+        PaymentCheck paymentCheck = new PaymentCheck();
+        String token = paymentCheck.getImportToken();
+        paymentCheck.cancelPayment(token, refundDto.getMerchant_uid());
+
+        Long member_id = refundDto.getMember_id();
+        Long trainer_id = refundDto.getTrainer_id();
+
+        ptUserService.refundDel(member_id, trainer_id);
+        return true;
+    }
+
+
 
     // 수락, 거절 결정
     @PostMapping("/apply/update/{pt_user_id}")
