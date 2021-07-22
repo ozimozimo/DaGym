@@ -195,13 +195,17 @@ public class AndroidPTUserController {
     @PutMapping("/buyer/update/{member_id}/{trainer_id}")
     public void buyerUpdate(@PathVariable("member_id") Long mid, @PathVariable("trainer_id") Long tid, @RequestBody String merchant_uid) {
         merchant_uid = merchant_uid.replaceAll("\\\"", "");
-        log.info(mid + tid + merchant_uid);
+        log.info(tid + merchant_uid);
+        log.info(mid + merchant_uid);
         BuyerPt byMerchantUid = buyerPTRepository.findByMerchantUid(merchant_uid);
-        Member member = memberRepository.findById(mid).get();
-        TrainerInfo trainerInfo = trainerRepository.findById(tid).get();
-        byMerchantUid.setMember(member);
-        byMerchantUid.setTrainerInfo(trainerInfo);
+        BuyerPt buyerPt = buyerPTRepository.findById(byMerchantUid.getId()).get();
+        Optional<Member> member = memberRepository.findById(mid);
+        Optional<TrainerInfo> trainerInfo = trainerRepository.findById(tid);
+        log.info("trainerInfo" + trainerInfo);
+        buyerPt.setMember(member.get());
+        buyerPt.setTrainerInfo(trainerInfo.get());
 
-        buyerPTRepository.save(byMerchantUid);
+
+        buyerPTRepository.save(buyerPt);
     }
 }
