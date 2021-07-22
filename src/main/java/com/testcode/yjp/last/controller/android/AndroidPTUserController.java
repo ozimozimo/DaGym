@@ -35,17 +35,21 @@ public class AndroidPTUserController {
 
 
     @PostMapping("/myMembers/select/{id}")
-    public List<PTUserApplyMemberDto> myMembersSelect(@PathVariable("id") Long id) {
+    public List<AndPTUserApplyMemberDto> myMembersSelect(@PathVariable("id") Long id) {
         log.info("myMembersSelect in, id = " + id);
 
         TrainerInfo trainer_id = trainerRepository.findTrainer_id(id);
         Long tId = trainer_id.getId();
         log.info("myMembersSelect in, tId = " + tId);
-        List<PTUserApplyMemberDto> ptUserApplyMemberDtos = ptUserRepository.findByUser(tId).stream()
-                .map(PTUserApplyMemberDto::new)
-                .collect(Collectors.toList());
-        log.info("myMembersSelect in, tId = " + ptUserApplyMemberDtos);
-        return ptUserApplyMemberDtos;
+
+        List<PTUser> byUser = ptUserRepository.findByUser(tId);
+        List<AndPTUserApplyMemberDto> memberDtos = new ArrayList<>();
+        for (PTUser p : byUser) {
+            Member member_id = p.getMember_id();
+            AndPTUserApplyMemberDto a = new AndPTUserApplyMemberDto(member_id);
+            memberDtos.add(a);
+        }
+        return memberDtos;
     }
 
     @PostMapping("/myTrainer/select/{id}")
@@ -101,6 +105,7 @@ public class AndroidPTUserController {
         for (PTUser p : apply) {
             Member member_id = p.getMember_id();
             AndPTUserApplyMemberDto a = new AndPTUserApplyMemberDto(member_id);
+            a.setPtUserId(p.getId());
             log.info("a.getUser_id = " + a.getUser_id());
             andPTUserApplyMemberDtos.add(a);
         }
