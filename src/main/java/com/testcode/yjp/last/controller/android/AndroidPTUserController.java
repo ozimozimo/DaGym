@@ -94,21 +94,17 @@ public class AndroidPTUserController {
     }
 
     @PostMapping("/apply/member/{id}")
-    public ArrayList<PTUserApplyMemberDto> applyMember(@PathVariable("id") Long id) {
+    public ArrayList<AndPTUserApplyMemberDto> applyMember(@PathVariable("id") Long id) {
         log.info("applyMember" + id.toString());
-        List<PTUser> apply = ptUserRepository.findApply(id);
-        try {
-            log.info(apply.get(0).getId().toString());
-        } catch (Exception e) {
-        }
-        ArrayList<PTUserApplyMemberDto> ptUserApplyMemberDtos = new ArrayList<>();
-
+        ArrayList<PTUser> apply = ptUserRepository.findApply(id);
+        ArrayList<AndPTUserApplyMemberDto> andPTUserApplyMemberDtos = new ArrayList<>();
         for (PTUser p : apply) {
-            PTUserApplyMemberDto ptUserApplyMemberDto = new PTUserApplyMemberDto(p);
-            ptUserApplyMemberDtos.add(ptUserApplyMemberDto);
+            Member member_id = p.getMember_id();
+            AndPTUserApplyMemberDto a = new AndPTUserApplyMemberDto(member_id);
+            log.info("a.getUser_id = " + a.getUser_id());
+            andPTUserApplyMemberDtos.add(a);
         }
-
-        return ptUserApplyMemberDtos;
+        return andPTUserApplyMemberDtos;
     }
 
     // 거절 하면서 데이터 삭제
