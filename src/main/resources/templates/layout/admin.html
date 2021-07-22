@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Dagym</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- VENDOR CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <!--CDN 링크 -->
+    <link rel="stylesheet" th:href="@{~/css/main/bootstrap.min.css}"/>
+    <link
+            rel="stylesheet"
+            th:href="@{~/vendor/font-awesome/css/font-awesome.min.css}"
+    />
+    <link rel="stylesheet" th:href="@{~/vendor/linearicons/style.css}"/>
+    <link
+            rel="stylesheet"
+            th:href="@{~/vendor/chartist/css/chartist-custom.css}"
+    />
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{~/css/admin/main.css}"/>
+    <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+    <link rel="stylesheet" th:href="@{~/css/admin/demo.css}"/>
+    <!-- GOOGLE FONTS -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700"
+            rel="stylesheet"
+    />
+    <!-- ICONS -->
+    <link
+            rel="apple-touch-icon"
+            sizes="76x76"
+            href="../../static/image/apple-icon.png"
+    />
+    <link
+            rel="icon"
+            type="image/png"
+            sizes="96x96"
+            href="../../static/image/favicon.png"
+    />
+    <script th:src="@{~/js/main/jquery.min.js}"></script>
+    <script th:src="@{~/js/main/bootstrap.min.js}"></script>
+    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
+    <script th:src="@{~/js/admin/admin.js}"></script>
+<script>
+    $(function() {
+        $('.nav').find('a[href="' + document.location.pathname + '"]').addClass('active');
+    });
+</script>
+    <style>
+        .Page{
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+<!-- WRAPPER -->
+<div id="wrapper">
+    <!-- body 태그 내부의 header 를 담당하는 부분이다. -->
+    <div th:replace="fragments/adminNav :: sidebarFragment"></div>
+
+    <!--            컨텐츠-->
+    <div layout:fragment="main"></div>
+    <!--            컨텐츠 끝 -->
+
+    <div class="clearfix"></div>
+    <footer>
+        <div class="container-fluid">
+            <p class="copyright">&copy; 2021 DAGYM. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</div>
+</body>
+</html>

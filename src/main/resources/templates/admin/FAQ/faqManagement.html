@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layout/admin}">
 
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script th:src="@{~/js/main/jquery.min.js}"></script>
-    <script th:src="@{~/js/main/bootstrap.min.js}"></script>
-    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
-    <script th:src="@{~/js/admin/admin.js}"></script>
     <script th:src="@{~/js/admin/notice.js}"></script>
     <script th:src="@{~/js/FAQ.js}"></script>
     <style>
@@ -86,49 +83,49 @@
     </style>
 </head>
 
-<body>
-
-<div class="container">
-    <div class="panel">
-        <div class="panel-header">
-            <h2>자주 묻는 질문</h2>
-        </div>
-        <div class="panel-body">
-            <!--문의 완료 글, 답변 해줘야 하는 글 버튼 눌러서 값 다르게 나오게하기.-->
-            <div th:each="notices : ${notice.dtoList}" th:if="${notices.active == 2}">
-                <div class="q"><label>Q : </label><a th:text="${notices.title}" th:href="@{/admin/faqDetail/(id = ${notices.id},
+<div layout:fragment="main">
+    <div class="main">
+        <div class="container">
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>자주 묻는 질문</h2>
+                </div>
+                <div class="panel-body">
+                    <!--문의 완료 글, 답변 해줘야 하는 글 버튼 눌러서 값 다르게 나오게하기.-->
+                    <div th:each="notices : ${notice.dtoList}" th:if="${notices.active == 2}">
+                        <div class="q"><label>Q : </label><a th:text="${notices.title}" th:href="@{/admin/faqDetail/(id = ${notices.id},
                                                        page=${PageRequestDto.page},
                                                        type=${PageRequestDto.type},
                                                        keyword=${PageRequestDto.keyword})}"></a></div>
-                <div class="a" style="display: none"><label>A : </label><span th:text="${notices.content}"></span></div>
-            </div>
+                        <div class="a" style="display: none"><label>A : </label><span
+                                th:text="${notices.content}"></span></div>
+                    </div>
 
-            <div class="pagination_area">
-                <ul>
-                    <li th:if="${notice.prev}">
-                        <a class="customBtn" th:href="@{/admin/faqManagement(page = ${notice.start -1},
+                    <div class="pagination_area">
+                        <ul>
+                            <li th:if="${notice.prev}">
+                                <a class="customBtn" th:href="@{/admin/faqManagement(page = ${notice.start -1},
                                                 type=${PageRequestDto.type},
                                                 keyword=${PageRequestDto.keyword})}">이전</a>
-                    </li>
-                    <li th:each="page: ${notice.pageList}">
-                        <a class="customBtn" th:href="@{/admin/faqManagement(page= ${page},
+                            </li>
+                            <li th:each="page: ${notice.pageList}">
+                                <a class="customBtn" th:href="@{/admin/faqManagement(page= ${page},
                                                 type=${PageRequestDto.type},
                                                 keyword=${PageRequestDto.keyword})}" th:text="${page}">1</a>
-                    </li>
-                    <li th:if="${notice.next}">
-                        <a class="customBtn" th:href="@{/admin/faqManagement(page = ${notice.end +1},
+                            </li>
+                            <li th:if="${notice.next}">
+                                <a class="customBtn" th:href="@{/admin/faqManagement(page = ${notice.end +1},
                                                 type=${PageRequestDto.type},
                                                 keyword=${PageRequestDto.keyword})}">다음</a>
-                    </li>
-                </ul>
-            </div>
-            <div th:if="${session.loginRole == 'admin'}">
-                <a th:href="@{/admin/faqInsertView}">글쓰기</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div th:if="${session.loginRole == 'admin'}">
+                        <a th:href="@{/admin/faqInsertView}">글쓰기</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-</body>
-
 </html>

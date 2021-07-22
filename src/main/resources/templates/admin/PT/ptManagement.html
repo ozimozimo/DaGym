@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layout/admin}">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" th:href="@{~/css/main/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{~/css/board/board.css}">
 
     <style>
@@ -45,53 +46,54 @@
         }
     </style>
 </head>
-<body>
-<div class="userListArea">
-    <h2 class="form-control title">PT신청 내역</h2>
-    <table class="table">
-        <thead>
-        <tr>
-            <th class="text-center">PT 번호</th>
-            <th class="text-center">트레이너 이름</th>
-            <th class="text-center">트레이너 전화번호</th>
-            <th class="text-center">회원 이름</th>
-            <th class="text-center">회원 전화번호</th>
-            <th class="text-center">PT 남은 횟수</th>
-            <th class="text-center">PT 시작일</th>
-        </tr>
-        </thead>
-        <tbody id="tbody">
-        <tr th:each="PTInfo : ${PTList.dtoList}" class="text-center">
-            <td th:text="${PTInfo.id}"></td>
-            <td th:text="${PTInfo.trainer.member.user_name}"></td>
-            <td th:text="${PTInfo.trainer.member.user_pn}"></td>
-            <td th:text="${PTInfo.member.user_name}"></td>
-            <td th:text="${PTInfo.member.user_pn}"></td>
-            <td th:text="${PTInfo.pt_times}"></td>
-            <td th:text="${#temporals.format(PTInfo.regDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="pagination_area">
-        <ul>
-            <li th:if="${PTList.prev}">
-                <a class="custom_btn" th:href="@{/admin/ptManagement(page = ${PTList.start -1},
+<div layout:fragment="main">
+    <div class="main">
+        <div class="userListArea">
+            <h2 class="form-control title">PT신청 내역</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="text-center">PT 번호</th>
+                    <th class="text-center">트레이너 이름</th>
+                    <th class="text-center">트레이너 전화번호</th>
+                    <th class="text-center">회원 이름</th>
+                    <th class="text-center">회원 전화번호</th>
+                    <th class="text-center">PT 남은 횟수</th>
+                    <th class="text-center">PT 시작일</th>
+                </tr>
+                </thead>
+                <tbody id="tbody">
+                <tr th:each="PTInfo : ${PTList.dtoList}" class="text-center">
+                    <td th:text="${PTInfo.id}"></td>
+                    <td th:text="${PTInfo.trainer.member.user_name}"></td>
+                    <td th:text="${PTInfo.trainer.member.user_pn}"></td>
+                    <td th:text="${PTInfo.member.user_name}"></td>
+                    <td th:text="${PTInfo.member.user_pn}"></td>
+                    <td th:text="${PTInfo.pt_times}"></td>
+                    <td th:text="${#temporals.format(PTInfo.regDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="Page navigation">
+                <ul class="pagination">
+                    <li th:if="${PTList.prev}" class="page-item">
+                        <a class="page-link" th:href="@{/admin/ptManagement(page = ${PTList.start -1},
                                         type=${PageRequestDto.type},
                                         keyword=${PageRequestDto.keyword})}">이전</a>
-            </li>
-            <li th:each="page: ${PTList.pageList}">
-                <a class="custom_btn" th:href="@{/admin/ptManagement(page= ${page},
+                    </li>
+                    <li th:each="page: ${PTList.pageList}" class="page-item">
+                        <a class="page-link" th:href="@{/admin/ptManagement(page= ${page},
                                         type=${PageRequestDto.type},
                                         keyword=${PageRequestDto.keyword})}" th:text="${page}">1</a>
-            </li>
-            <li th:if="${PTList.next}">
-                <a class="custom_btn" th:href="@{/admin/ptManagement(page = ${PTList.end +1},
+                    </li>
+                    <li th:if="${PTList.next}" class="page-item">
+                        <a class="page-link" th:href="@{/admin/ptManagement(page = ${PTList.end +1},
                                         type=${PageRequestDto.type},
                                         keyword=${PageRequestDto.keyword})}">다음</a>
-            </li>
-        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
-
-</body>
 </html>

@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layout/admin}">
 
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script th:src="@{~/js/main/jquery.min.js}"></script>
-    <script th:src="@{~/js/main/bootstrap.min.js}"></script>
-    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
-    <script th:src="@{~/js/admin/admin.js}"></script>
+
     <style>
         .container {
             max-width: 1200px;
@@ -66,8 +64,8 @@
     </style>
 </head>
 
-<body>
-<div layout:fragment="content" class="content">
+<div layout:fragment="main">
+    <div class="main">
     <div class="container">
         <div class="post_header">
             <input type="hidden" th:value="${ooo.id}" id="ooo_num" name="ooo_num">
@@ -117,6 +115,6 @@
         </div>
     </div>
 </div>
-</body>
+</div>
 
 </html>

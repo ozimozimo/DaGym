@@ -1,147 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layout/admin}">
 
 <head>
     <title>관리자페이지</title>
     <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-    />
-    <!-- VENDOR CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
-    <!--CDN 링크 -->
-    <link rel="stylesheet" th:href="@{~/css/main/bootstrap.min.css}"/>
-    <link
-            rel="stylesheet"
-            th:href="@{~/vendor/font-awesome/css/font-awesome.min.css}"
-    />
-    <link rel="stylesheet" th:href="@{~/vendor/linearicons/style.css}"/>
-    <link
-            rel="stylesheet"
-            th:href="@{~/vendor/chartist/css/chartist-custom.css}"
-    />
-    <!-- MAIN CSS -->
-    <link rel="stylesheet" th:href="@{~/css/admin/main.css}"/>
-    <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
-    <link rel="stylesheet" th:href="@{~/css/admin/demo.css}"/>
-    <!-- GOOGLE FONTS -->
-    <link
-            href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700"
-            rel="stylesheet"
-    />
-    <!-- ICONS -->
-    <link
-            rel="apple-touch-icon"
-            sizes="76x76"
-            href="../../static/image/apple-icon.png"
-    />
-    <link
-            rel="icon"
-            type="image/png"
-            sizes="96x96"
-            href="../../static/image/favicon.png"
-    />
-</head>
 
-<body>
-<!-- WRAPPER -->
-<div id="wrapper">
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="brand" style="width: 192px; height: 29px; margin-top: -30px;">
-            <a th:href="@{~/admin/adminMain}"
-            ><img
-                    style="object-fit: contain;"
-                    th:src="@{/image/DAGYMLogo.png}"
-                    class="img-responsive logo"
-            /></a>
-        </div>
-        <div class="container-fluid">
-            <div class="navbar-btn">
-                <button type="button" class="btn-toggle-fullwidth">
-                </button>
-            </div>
-            <div id="navbar-menu">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a
-                                href="#"
-                                class="dropdown-toggle icon-menu"
-                                data-toggle="dropdown">
-                        </a>
-                        <ul class="dropdown-menu notifications">
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- END NAVBAR -->
-    <!-- 왼쪽 SIDEBAR 시작부분 -->
-    <div id="sidebar-nav" class="sidebar">
-        <div class="sidebar-scroll">
-            <nav>
-                <ul class="nav">
-                    <li>
-                        <a th:href="@{/admin/adminMain}" class="active"
-                        ><i class="lnr lnr-home"></i> <span>홈</span></a>
-                    </li>
-                    <li>
-                        <a th:href="@{/admin/userManagement}" class=""
-                        ><i class="far fa-user"></i> <span>회원 관리</span></a
-                        >
-                    </li>
-                    <li>
-                        <a th:href="@{/admin/trainerManagement}" class=""
-                        ><i class="fas fa-running"></i>
-                            <span>트레이너 관리</span></a
-                        >
-                    </li>
-                    <li>
-                        <a th:href="@{/admin/boardManagement}" class=""
-                        ><i class="fas fa-clipboard-list"></i>
-                            <span>게시판 관리</span></a
-                        >
-                    </li>
-                    <li>
-                        <a th:href="@{/admin/faqManagement}" class=""
-                        ><i class="fas fa-question-circle"></i>
-                            <span>자주 묻는 질문</span></a
-                        >
-                    </li>
-                    <li>
-                        <a th:href="@{/admin/1on1Management}" class=""
-                        ><i class="lnr lnr-book"></i>
-                            <span>1:1 문의 관리</span></a
-                        >
-                    </li>
-                    <li>
-                        <a th:href="@{/admin/noticeManagement}" class=""
-                        ><i class="lnr lnr-chart-bars"></i>
-                            <span>공지사항 관리</span></a
-                        >
-                    </li>
-                    <li>
-                        <a th:href="@{/admin/payManagement}" class=""
-                        ><i class="lnr lnr-chart-bars"></i>
-                            <span>결제 내역 관리</span></a
-                        >
-                    </li>
-                    <li>
-                        <a th:href="@{/admin/ptManagement}" class=""
-                        ><i class="lnr lnr-apartment"></i>
-                            <span>PT 신청 관리</span></a
-                        >
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-    <!-- 왼쪽 사이드바 END부분 -->
-    <!-- MAIN -->
+</head>
+<div layout:fragment="main">
     <div class="main">
         <!-- MAIN CONTENT -->
         <div class="main-content">
@@ -149,9 +15,9 @@
                 <!-- 다짐 통계부분 -->
                 <div class="panel panel-headline">
                     <div class="panel-heading">
-                        <h3 class="panel-title">다짐 통계</h3> </br>
+                        <h3 class="panel-title">다짐 통계</h3>
+                        <br />
                         <p>관리자는 회원수,트레이너수 및 게시글수를 볼수있습니다.</p>
-
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -166,9 +32,7 @@
                             </div>
                             <div class="col-lg-4 col-sm-4">
                                 <div class="metric">
-                      <span class="icon"
-                      ><i class="fas fa-running"></i
-                      ></span>
+                                    <span class="icon"><i class="fas fa-running"></i></span>
                                     <p>
                                         <span class="number" th:text="${trainer}"></span>
                                         <span class="title">트레이너수</span>
@@ -177,7 +41,9 @@
                             </div>
                             <div class="col-lg-4 col-sm-4">
                                 <div class="metric">
-                                    <span class="icon"><i class="fas fa-clipboard-list"></i></span>
+                      <span class="icon"
+                      ><i class="fas fa-clipboard-list"></i
+                      ></span>
                                     <p>
                                         <span class="number" th:text="${board}"></span>
                                         <span class="title">게시글수</span>
@@ -192,52 +58,59 @@
                 <div class="panel">
                     <div class="panel-heading">
                         <h3 class="panel-title">미완료 1:1 문의</h3>
-                        <div class="right">
-                        </div>
+                        <div class="right"></div>
                     </div>
                     <div class="panel-body">
                         <ul class="list-unstyled todo-list">
                             <li th:each="ooo : ${ooos}">
                                 <p>
-                                    <a class="title" th:text="${ooo.title}" th:href="@{/admin/1on1Detail/(id = ${ooo.id})}"></a>
-                                    <span class="short-description" th:text="${ooo.content}"></span>
+                                    <a
+                                            class="title"
+                                            th:text="${ooo.title}"
+                                            th:href="@{/admin/1on1Detail/(id = ${ooo.id})}"
+                                    ></a>
+                                    <span
+                                            class="short-description"
+                                            th:text="${ooo.content}"
+                                    ></span>
                                     <span class="date" th:text="${ooo.regDate}"></span>
                                 </p>
                             </li>
                         </ul>
-                        <a th:href="@{/admin/1on1Management(category='미완료')}">더보기</a>
+                        <a th:href="@{/admin/1on1Management(category='미완료')}"
+                        >더보기</a
+                        >
                     </div>
                 </div>
                 <!-- END TODO LIST -->
 
                 <!-- 결제 시작부분 -->
-<!--                <div class="panel">-->
-<!--                    <div class="panel-heading">-->
-<!--                        <h3 class="panel-title">미완료 1:1 문의</h3>-->
-<!--                        <div class="right">-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="panel-body">-->
-<!--                        <ul class="list-unstyled todo-list">-->
-<!--                            <li th:each="ooo : ${ooos}">-->
-<!--                                <p>-->
-<!--                                    <a class="title" th:text="${ooo.title}" th:href="@{/admin/1on1Detail/(id = ${ooo.id})}"></a>-->
-<!--                                    <span class="short-description" th:text="${ooo.content}"></span>-->
-<!--                                    <span class="date" th:text="${ooo.regDate}"></span>-->
-<!--                                </p>-->
-<!--                            </li>-->
-<!--                        </ul>-->
-<!--                        <a th:href="@{/admin/1on1Management(category='미완료')}">더보기</a>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                <div class="panel">-->
+                <!--                    <div class="panel-heading">-->
+                <!--                        <h3 class="panel-title">미완료 1:1 문의</h3>-->
+                <!--                        <div class="right">-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                    <div class="panel-body">-->
+                <!--                        <ul class="list-unstyled todo-list">-->
+                <!--                            <li th:each="ooo : ${ooos}">-->
+                <!--                                <p>-->
+                <!--                                    <a class="title" th:text="${ooo.title}" th:href="@{/admin/1on1Detail/(id = ${ooo.id})}"></a>-->
+                <!--                                    <span class="short-description" th:text="${ooo.content}"></span>-->
+                <!--                                    <span class="date" th:text="${ooo.regDate}"></span>-->
+                <!--                                </p>-->
+                <!--                            </li>-->
+                <!--                        </ul>-->
+                <!--                        <a th:href="@{/admin/1on1Management(category='미완료')}">더보기</a>-->
+                <!--                    </div>-->
+                <!--                </div>-->
                 <!-- END TODO LIST -->
 
                 <!-- 회원목록 -->
                 <div class="panel">
                     <div class="panel-heading">
                         <h3 class="panel-title">회원목록</h3>
-                        <div class="right">
-                        </div>
+                        <div class="right"></div>
                     </div>
                     <div class="panel-body no-padding">
                         <table class="table table-striped">
@@ -267,7 +140,9 @@
                                 <span class="panel-note"></span>
                             </div>
                             <div class="col-md-6 text-right">
-                                <a th:href="@{/admin/userManagement}" class="btn btn-primary"
+                                <a
+                                        th:href="@{/admin/userManagement}"
+                                        class="btn btn-primary"
                                 >모든회원보기</a
                                 >
                             </div>
@@ -279,8 +154,7 @@
                 <div class="panel">
                     <div class="panel-heading">
                         <h3 class="panel-title">트레이너목록</h3>
-                        <div class="right">
-                        </div>
+                        <div class="right"></div>
                     </div>
                     <div class="panel-body no-padding">
                         <table class="table table-striped">
@@ -310,43 +184,19 @@
                                 <span class="panel-note"></span>
                             </div>
                             <div class="col-md-6 text-right">
-                                <a th:href="@{/admin/trainerManagement}" class="btn btn-primary"
-                                >모든트레이너보기</a>
+                                <a
+                                        th:href="@{/admin/trainerManagement}"
+                                        class="btn btn-primary"
+                                >모든트레이너보기</a
+                                >
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- END 트레이너목록 -->
             </div>
-            <div class="col-md-6">
-            </div>
         </div>
-        <div class="row">
-            <div class="col-md-7">
-
-            </div>
-            <div class="col-md-5">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-            </div>
-        </div>
+        <!-- END MAIN CONTENT -->
     </div>
 </div>
-</div>
-<!-- END MAIN CONTENT -->
-</div>
-<!-- END MAIN -->
-<div class="clearfix"></div>
-<footer>
-    <div class="container-fluid">
-        <p class="copyright">
-            &copy; 2021 DAGYM</a>. All Rights Reserved.
-        </p>
-    </div>
-</footer>
-</div>
-<!-- END WRAPPER -->
-</body>
 </html>

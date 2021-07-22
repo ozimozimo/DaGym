@@ -1,17 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layout/admin}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script th:src="@{~/js/main/jquery.min.js}"></script>
-    <script th:src="@{~/js/main/bootstrap.min.js}"></script>
-    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
-    <script th:src="@{~/js/admin/admin.js}"></script>
 
 </head>
-<body>
-<div>
-    <div>
+<div layout:fragment="main">
+    <div class="main">
         <h3>공지사항 수정</h3>
         <form id="actionForm">
             <input type="hidden" name="page" id="page" th:value="${PageRequestDto.page}">

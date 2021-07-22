@@ -1,16 +1,11 @@
 <!DOCTYPE html>
-<html
-        lang="en"
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layout/admin}">
+
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>공지사항 작성 페이지</title>
-    <script th:src="@{~/js/main/jquery.min.js}"></script>
-    <script th:src="@{~/js/main/bootstrap.min.js}"></script>
-    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
-    <script th:src="@{~/js/admin/admin.js}"></script>
+
     <style>
         /* .post_warning {
           color: #f55959;
@@ -20,6 +15,7 @@
             margin-bottom: 15px;
             padding: 5px 5px;
         }
+
         /* .custom_form_control1 {
           display: none;
         } */
@@ -28,12 +24,14 @@
             display: block;
             margin-bottom: 10px;
         }
+
         textarea {
             width: 100%;
             margin: 5px 0;
             padding: 3px;
             font-size: 15px;
         }
+
         .custom_form_control input {
             width: 100%;
             padding-left: 5px;
@@ -54,6 +52,7 @@
             text-decoration: none;
             font-size: 14px;
         }
+
         /* a.custom_btn {
           padding: 9px 8px;
         } */
@@ -76,6 +75,7 @@
         textarea.form-control {
             height: 300px;
         }
+
         .btn-btn {
             padding: 8px;
             border: 1px solid #ddd;
@@ -85,6 +85,7 @@
             text-decoration: none;
             font-size: 14px;
         }
+
         .btn-save {
             padding: 8px;
             border: 1px solid #ddd;
@@ -96,50 +97,52 @@
         }
     </style>
 </head>
-<body>
-<div class="content">
-    <h3>공지사항 작성</h3>
-    <form>
-        <input
-                type="hidden"
-                th:value="${session.loginUser}"
-                id="member_id"
-                name="member_id"
-        />
-        <div class="custom_form_control">
-            <label for="title">제목</label>
-            <input
-                    type="text"
-                    class="form-control"
-                    id="title"
-                    placeholder="제목을 입력하세요"
-            />
+<div layout:fragment="main">
+    <div class="main">
+        <div class="content">
+            <h3>공지사항 작성</h3>
+            <form>
+                <input
+                        type="hidden"
+                        th:value="${session.loginUser}"
+                        id="member_id"
+                        name="member_id"
+                />
+                <div class="custom_form_control">
+                    <label for="title">제목</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="title"
+                            placeholder="제목을 입력하세요"
+                    />
+                </div>
+                <div class="custom_form_control">
+                    <label for="user_id">작성자</label>
+                    <input
+                            class="form-control"
+                            id="user_id"
+                            th:value="${session.loginId}"
+                            readonly=""
+                    />
+                </div>
+                <div class="custom_form_control">
+                    <label for="board_content">내용</label>
+                    <textarea
+                            class="form-control"
+                            id="board_content"
+                            placeholder="내용을 입력하세요"
+                            style="resize: none"
+                            cols="50"
+                            rows="50"
+                    ></textarea>
+                </div>
+            </form>
+            <a th:href="@{/admin/noticeManagement}" class="btn-btn" role="button"
+            >이전</a
+            >
+            <button type="button" class="btn-save">등록</button>
         </div>
-        <div class="custom_form_control">
-            <label for="user_id">작성자</label>
-            <input
-                    class="form-control"
-                    id="user_id"
-                    th:value="${session.loginId}"
-                    readonly=""
-            />
-        </div>
-        <div class="custom_form_control">
-            <label for="board_content">내용</label>
-            <textarea
-                    class="form-control"
-                    id="board_content"
-                    placeholder="내용을 입력하세요"
-                    style="resize: none"
-                    cols="50"
-                    rows="50"
-            ></textarea>
-        </div>
-    </form>
-    <a th:href="@{/admin/noticeManagement}" class="btn-btn" role="button"
-    >이전</a
-    >
-    <button type="button" class="btn-save">등록</button>
+    </div>
 </div>
-</body>
 </html>

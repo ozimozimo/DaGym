@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layout/admin}">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script th:src="@{~/js/main/jquery.min.js}"></script>
-    <script th:src="@{~/js/main/bootstrap.min.js}"></script>
-    <script th:src="@{~/js/main/jquery.easing.min.js}"></script>
-    <script th:src="@{~/js/admin/admin.js}"></script>
+
     <style>
-        h2{
+        h2 {
             margin-left: 6%;
             color: red;
             font-size: 25px;
         }
+
         .content {
             width: 1150px;
             margin-top: auto;
@@ -20,36 +20,45 @@
             margin-right: auto;
             padding: 10px;
         }
+
         a.custom_btn {
             font-size: 14px;
         }
+
         .post_header {
             padding: 10px;
             /* border-bottom: 2px solid #eee; */
             background-color: #ffffff;
         }
+
         .post_title {
             font-size: 28px;
             font-weight: 400;
         }
+
         .post_info {
             margin-top: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+
         .post_info .left {
             display: flex;
         }
+
         .post_info .right {
             display: flex;
         }
+
         .post_info .right .updated_at {
             margin-right: 15px;
         }
+
         .hits {
             margin-right: 5px;
         }
+
         .post_content {
             margin-top: 20px;
             padding-top: 30px;
@@ -57,14 +66,17 @@
             padding-left: 15px;
             border-top: 2px solid #eee;
         }
+
         .post_control_btn_area {
             display: flex;
             justify-content: flex-end;
             align-items: center;
         }
+
         .post_control_btn_area .custom_btn:nth-child(1) {
             margin-right: 10px;
         }
+
         .post_control_btn_area .custom_btn {
             padding: 5px 8px;
             display: flex;
@@ -75,6 +87,7 @@
             cursor: pointer;
             background-color: transparent;
         }
+
         .comments_area {
             margin-top: 35px;
             /* border-top: 2px solid #ddd; */
@@ -83,42 +96,44 @@
 
 </head>
 <body>
-<h2>공지사항</h2>
-<div layout:fragment="content" class="content">
-    <div class="post_header">
-        <input type="hidden" th:value="${notices.id}" id="hb_num" name="hb_num">
-        <div th:text="${notices.title}" class="post_title"></div>
-        <div class="post_info">
-            <div class="left">
-                <div th:text="${notices.user_id}" class="post_author"></div>
-            </div>
-            <div class="right">
-                <div class="updated_at">
-                    <span>수정날짜:</span>
-                    <span th:text="${#temporals.format(notices.modDate, 'yyyy/MM/dd HH:mm:ss')}">
-                    </span>
+
+<div layout:fragment="main">
+    <h2>공지사항</h2>
+    <div class="main">
+        <div class="post_header">
+            <input type="hidden" th:value="${notices.id}" id="hb_num" name="hb_num">
+            <div th:text="${notices.title}" class="post_title"></div>
+            <div class="post_info">
+                <div class="left">
+                    <div th:text="${notices.user_id}" class="post_author"></div>
                 </div>
-                <div class="hits">
-                    <span>조회수:</span>
-                    <span th:text="${notices.hit}" class="hit"></span>
+                <div class="right">
+                    <div class="updated_at">
+                        <span>수정날짜:</span>
+                        <span th:text="${#temporals.format(notices.modDate, 'yyyy/MM/dd HH:mm:ss')}">
+                    </span>
+                    </div>
+                    <div class="hits">
+                        <span>조회수:</span>
+                        <span th:text="${notices.hit}" class="hit"></span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="post_content" th:text="${notices.content}"></div>
+        <div class="post_content" th:text="${notices.content}"></div>
 
-    <div class="post_control_btn_area">
-        <a th:if="${session.loginId == 'admin'}" th:href="@{/admin/noticeUpdateView(id = ${notices.id},
+        <div class="post_control_btn_area">
+            <a th:if="${session.loginId == 'admin'}" th:href="@{/admin/noticeUpdateView(id = ${notices.id},
                                         page=${PageRequestDto.page},
                                         type=${PageRequestDto.type},
                                         keyword=${PageRequestDto.keyword})}"
-           class="custom_btn post_update">글수정</a>
-        <a th:if="${session.loginId == 'admin'}" th:href="@{/admin/noticeManagement(page=${PageRequestDto.page},
+               class="custom_btn post_update">글수정</a>
+            <a th:if="${session.loginId == 'admin'}" th:href="@{/admin/noticeManagement(page=${PageRequestDto.page},
                                         page=${PageRequestDto.page},
                                         type=${PageRequestDto.type},
                                         keyword=${PageRequestDto.keyword})}" class="custom_btn post_delete">이전
-        </a>
+            </a>
+        </div>
     </div>
 </div>
-</body>
 </html>
