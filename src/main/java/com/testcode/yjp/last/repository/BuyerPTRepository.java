@@ -30,4 +30,7 @@ public interface BuyerPTRepository extends JpaRepository<BuyerPt, Long>, Queryds
 
     @Query("select b from BuyerPt b where b.trainerInfo.member.id=:member_id")
     List<BuyerPt> findMemBuyers(Long member_id);
+
+    @Query("select b from BuyerPt b where b.merchant_uid=:merchant_uid")
+    BuyerPt findByMerchantUid(String merchant_uid);
 }

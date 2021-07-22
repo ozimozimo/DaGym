@@ -1,10 +1,12 @@
 package com.testcode.yjp.last.controller.android;
 
+import com.testcode.yjp.last.domain.BuyerPt;
 import com.testcode.yjp.last.domain.Member;
 import com.testcode.yjp.last.domain.PTUser;
 import com.testcode.yjp.last.domain.TrainerInfo;
 import com.testcode.yjp.last.domain.dto.*;
 import com.testcode.yjp.last.domain.dto.android.AndPTUserApplyMemberDto;
+import com.testcode.yjp.last.repository.BuyerPTRepository;
 import com.testcode.yjp.last.repository.MemberRepository;
 import com.testcode.yjp.last.repository.PTUserRepository;
 import com.testcode.yjp.last.repository.TrainerRepository;
@@ -28,6 +30,7 @@ public class AndroidPTUserController {
     private final PTUserRepository ptUserRepository;
     private final TrainerRepository trainerRepository;
     private final MemberRepository memberRepository;
+    private final BuyerPTRepository buyerPTRepository;
 
 
     @PostMapping("/myMembers/select/{id}")
@@ -47,9 +50,14 @@ public class AndroidPTUserController {
     @PostMapping("/myTrainer/select/{id}")
     public PTUserApplyMemberDto myTrainerSelect(@PathVariable("id") Long id) {
         log.info("myTrainerSelect in, id = " + id);
-        PTUser checkApply = ptUserRepository.findCheckApply0or1(id);
+        Member member = memberRepository.findById(id).get();
+        PTUser checkApply = ptUserRepository.findCheckApply0or1(member);
 
-        return new PTUserApplyMemberDto(checkApply);
+        try {
+            return new PTUserApplyMemberDto(checkApply);
+        } catch (Exception e) {
+            return new PTUserApplyMemberDto();
+        }
     }
 
     @PostMapping("/trainer/search")
@@ -142,6 +150,14 @@ public class AndroidPTUserController {
 
     @PutMapping("/buyer/update/{member_id}/{trainer_id}")
     public void buyerUpdate(@PathVariable("member_id") Long mid, @PathVariable("trainer_id") Long tid, @RequestBody String merchant_uid) {
+        merchant_uid = merchant_uid.replaceAll("\\\"", "");
+        log.info(mid + tid + merchant_uid);
+        BuyerPt byMerchantUid = buyerPTRepository.findByMerchantUid(merchant_uid);
+        Member member = memberRepository.findById(mid).get();
+        TrainerInfo trainerInfo = trainerRepository.findById(tid).get();
+        byMerchantUid.setMember(member);
+        byMerchantUid.setTrainerInfo(trainerInfo);
 
+        buyerPTRepository.save(byMerchantUid);
     }
 }

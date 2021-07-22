@@ -63,8 +63,8 @@ public interface PTUserRepository extends JpaRepository<PTUser, Long> {
     @Query("select p from PTUser p where p.member_id.id=:member_id and p.accept_condition='1'" )
     PTUser findCheckApply(Long member_id);
 
-    @Query("select p from PTUser p where p.member_id.id=:member_id and p.accept_condition='1' or p.accept_condition='0'" )
-    PTUser findCheckApply0or1(Long member_id);
+    @Query("select p from PTUser p where p.member_id=:member and (p.accept_condition='1' or p.accept_condition='0')" )
+    PTUser findCheckApply0or1(Member member);
 
     @Query("select p from PTUser p where p.member_id.id=:id and p.accept_condition='1'")
     List<PTUser> findPTState(Long id);
